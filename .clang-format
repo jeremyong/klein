@@ -1,0 +1,77 @@
+AccessModifierOffset: -4
+AlignAfterOpenBracket: true
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: false
+AlignEscapedNewlinesLeft: true
+AlignTrailingComments: true
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: true
+AlwaysBreakTemplateDeclarations: true
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBraces: Custom
+BraceWrapping:
+        AfterClass: true
+        AfterControlStatement: true
+        AfterEnum: true
+        AfterFunction: true
+        AfterNamespace: true
+        AfterObjCDeclaration: true
+        AfterStruct: true
+        AfterUnion: true
+        AfterExternBlock: true
+        BeforeCatch: true
+        BeforeElse: true
+        IndentBraces: false
+        SplitEmptyFunction: false
+        SplitEmptyRecord: false
+        SplitEmptyNamespace: false
+BreakBeforeBinaryOperators: All
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeComma
+BreakStringLiterals: true
+ColumnLimit: 80
+CommentPragmas: ''
+CompactNamespaces: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
+Cpp11BracedListStyle: true
+DerivePointerBinding: false
+FixNamespaceComments: true
+IndentCaseLabels: false
+IndentPPDirectives: AfterHash
+IndentWidth: 4
+IndentWrappedFunctionNames: false
+KeepEmptyLinesAtTheStartOfBlocks: false
+Language: Cpp
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: Inner
+PenaltyBreakBeforeFirstCallParameter: 0
+PenaltyBreakComment: 0
+PenaltyBreakFirstLessLess: 0
+PenaltyBreakString: 1
+PenaltyExcessCharacter: 10
+PenaltyReturnTypeOnItsOwnLine: 20
+PointerAlignment: Left
+SortIncludes: true
+SortUsingDeclarations: true
+SpaceAfterTemplateKeyword: true
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesBeforeTrailingComments: 1
+SpacesInAngles: false
+SpacesInCStyleCastParentheses: false
+SpacesInContainerLiterals: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+Standard: C++11
+TabWidth: 4
+UseTab: Never
