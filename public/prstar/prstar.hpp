@@ -1,3 +1,9 @@
+// File: prstar.hpp
+// Include this header to gain access to all the primary library facilities:
+// 1. Representations of points, lines, planes, directions, rotors, translators,
+//    and motors as multivectors
+// 2. SSE-optimized operations between all the above
+
 #pragma once
 
 #include <cstdint>
@@ -89,6 +95,27 @@ struct entity
     constexpr auto operator-(entity<P> const& other) noexcept
     {
         return add_sub<false>(other);
+    }
+
+    // Reverse
+    constexpr entity operator~() const noexcept
+    {
+        entity out = *this;
+
+        if constexpr ((PMask & 0b10) > 0)
+        {
+            out.p1() = _mm_mul_ps(p1(), _mm_set_ps(-1.f, -1.f, -1.f, 1.f));
+        }
+        if constexpr ((PMask & 0b100) > 0)
+        {
+            out.p2() = _mm_mul_ps(p2(), _mm_set_ps(-1.f, -1.f, -1.f, 1.f));
+        }
+        if constexpr ((PMask & 0b1000) > 0)
+        {
+            out.p3() = _mm_mul_ps(p3(), _mm_set1_ps(-1.f));
+        }
+
+        return out;
     }
 
     // Geometric Product
@@ -509,13 +536,48 @@ struct entity
         }
     }
 
-protected:
-    __m128& p0() noexcept
+    __m128 const& p0() const noexcept
     {
         return parts[partition_offsets[0]].reg;
     }
 
-    __m128 const& p0() const noexcept
+    __m128 const& p1() const noexcept
+    {
+        return parts[partition_offsets[1]].reg;
+    }
+
+    __m128 const& p2() const noexcept
+    {
+        return parts[partition_offsets[2]].reg;
+    }
+
+    __m128 const& p3() const noexcept
+    {
+        return parts[partition_offsets[3]].reg;
+    }
+
+    float const* p0f() const noexcept
+    {
+        return parts[partition_offsets[0]].data;
+    }
+
+    float const* p1f() const noexcept
+    {
+        return parts[partition_offsets[1]].data;
+    }
+
+    float const* p2f() const noexcept
+    {
+        return parts[partition_offsets[2]].data;
+    }
+
+    float const* p3f() const noexcept
+    {
+        return parts[partition_offsets[3]].data;
+    }
+
+protected:
+    __m128& p0() noexcept
     {
         return parts[partition_offsets[0]].reg;
     }
@@ -525,17 +587,7 @@ protected:
         return parts[partition_offsets[1]].reg;
     }
 
-    __m128 const& p1() const noexcept
-    {
-        return parts[partition_offsets[1]].reg;
-    }
-
     __m128& p2() noexcept
-    {
-        return parts[partition_offsets[2]].reg;
-    }
-
-    __m128 const& p2() const noexcept
     {
         return parts[partition_offsets[2]].reg;
     }
@@ -545,10 +597,6 @@ protected:
         return parts[partition_offsets[3]].reg;
     }
 
-    __m128 const& p3() const noexcept
-    {
-        return parts[partition_offsets[3]].reg;
-    }
     partition parts[partition_count];
 
 private:

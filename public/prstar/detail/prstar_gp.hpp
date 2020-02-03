@@ -1,27 +1,24 @@
-#pragma once
-
-// SSE4.1 header
-#include <smmintrin.h>
-
 // File: prstar_gp.hpp
 // Purpose: Define functions of the form gpAB where A and B are partition
 // indices. Each function so-defined computes the geometric product using vector
 // intrinsics. The partition index determines which basis elements are present
 // in each XMM component of the operand.
 
-// Little-endian XMM register swizzle
-//
-// PRS_SWIZZLE(reg, 3, 2, 1, 0) is the identity.
-//
-// This is undef-ed at the bottom of prstar.hpp so as not to
-// pollute the macro namespace
-#define PRS_SWIZZLE(reg, x, y, z, w) \
-    _mm_shuffle_ps((reg), (reg), _MM_SHUFFLE(x, y, z, w))
+#pragma once
+
+#include "prstar_sse.hpp"
 
 namespace prs
 {
 inline namespace detail
 {
+    // Partition memory layouts
+    //     LSB --> MSB
+    // p0: (e3, e2, e1, e0)
+    // p1: (1, e12, e31, e23)
+    // p2: (e0123, e01, e02, e03)
+    // p3: (e123, e021, e013, e032)
+
     struct p1p2
     {
         __m128 p1;
@@ -67,8 +64,8 @@ inline namespace detail
         __m128 tmp2 = _mm_mul_ps(
             PRS_SWIZZLE(lhs, 0, 2, 1, 1), PRS_SWIZZLE(rhs, 1, 0, 2, 1));
         // Add a3*b3 to the lowest component and negate the lowest component
-        tmp2 = _mm_mul_ss(_mm_add_ss(tmp2, _mm_mul_ss(lhs, rhs)),
-                          _mm_set_ps(0.f, 0.f, 0.f, -1.f));
+        tmp2 = _mm_mul_ss(
+            _mm_add_ss(tmp2, _mm_mul_ss(lhs, rhs)), _mm_set_ss(-1.f));
 
         // Produces Euclidean bivector
         tmp = _mm_sub_ps(tmp, tmp2);
@@ -128,7 +125,7 @@ inline namespace detail
         // (a1*b2, a1*b1, a0*b3, a2*b2)
         __m128 tmp2 = _mm_mul_ps(
             PRS_SWIZZLE(lhs, 2, 0, 1, 1), PRS_SWIZZLE(rhs, 2, 3, 1, 2));
-        tmp2 = _mm_mul_ss(tmp2, _mm_set_ps(0.f, 0.f, 0.f, -1.f));
+        tmp2 = _mm_mul_ss(tmp2, _mm_set_ss(-1.f));
 
         // Produces (e123, e1, e2, e3)
         tmp = _mm_sub_ps(tmp, tmp2);
@@ -163,7 +160,7 @@ inline namespace detail
 
         __m128 tmp2 = _mm_mul_ps(
             PRS_SWIZZLE(lhs, 3, 1, 2, 2), PRS_SWIZZLE(rhs, 1, 2, 0, 1));
-        tmp2 = _mm_mul_ss(tmp2, _mm_set_ps(0.f, 0.f, 0.f, -1.f));
+        tmp2 = _mm_mul_ss(tmp2, _mm_set_ss(-1.f));
 
         // Produces (e123, e1, e2, e3)
         tmp = _mm_sub_ps(tmp, tmp2);
@@ -200,7 +197,7 @@ inline namespace detail
                                     PRS_SWIZZLE(rhs, 3, 1, 2, 2)));
 
         // Negate lowest component
-        tmp = _mm_mul_ss(tmp, _mm_set_ps(0.f, 0.f, 0.f, -1.f));
+        tmp = _mm_mul_ss(tmp, _mm_set_ss(-1.f));
 
         // Subtract (a0*b3, a1*b2, a2*b3, a0*b2)
         tmp = _mm_sub_ps(tmp,
@@ -233,7 +230,7 @@ inline namespace detail
         tmp = _mm_sub_ps(tmp,
                          _mm_mul_ss(_mm_mul_ps(PRS_SWIZZLE(rhs, 0, 2, 1, 0),
                                                PRS_SWIZZLE(lhs, 2, 3, 1, 3)),
-                                    _mm_set_ps(0.f, 0.f, 0.f, -1.f)));
+                                    _mm_set_ss(-1.f)));
 
         return {// Move e0 the last component and zero other components
                 PRS_SWIZZLE(_mm_mul_ps(tmp, _mm_set_ss(1.f)), 0, 1, 2, 3),
@@ -271,7 +268,7 @@ inline namespace detail
         // (-a0*b1, a1*b1, a0*b3, a2*b2)
         __m128 tmp2 = _mm_mul_ps(
             PRS_SWIZZLE(lhs, 2, 0, 1, 0), PRS_SWIZZLE(rhs, 2, 3, 1, 1));
-        tmp2 = _mm_mul_ss(tmp2, _mm_set_ps(0.f, 0.f, 0.f, -1.f));
+        tmp2 = _mm_mul_ss(tmp2, _mm_set_ss(-1.f));
 
         tmp = _mm_sub_ps(tmp, tmp2);
         // Still need to compute a1*b2 + a2*b3 to add to the lowest component of

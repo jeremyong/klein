@@ -9,16 +9,19 @@ cmake_minimum_required(VERSION 3.15)
 project(PRStar LANGUAGES C CXX)
 
 # Detect if we are a standalone projection or if we're included transitively
-# and set the various option defaults accordingly
+# and set the various option defaults accordingly. By default, tests and utilities
+# are not built unless PRStar is built as a standalone project
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     set(PRSTAR_STANDALONE ON)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
     option(PRSTAR_ENABLE_TESTS "Enable compilation of PRStar tests" ON)
     option(PRSTAR_VALIDATE "Enable runtime validations" ON)
+    option(PRSTAR_BUILD_SYM "Enable compilation of symbolic PRStar utility" ON)
 else()
     set(PRSTAR_STANDALONE OFF)
     option(PRSTAR_ENABLE_TESTS "Enable compilation of PRStar tests" OFF)
     option(PRSTAR_VALIDATE "Enable runtime validations" OFF)
+    option(PRSTAR_BUILD_SYM "Enable compilation of symbolic PRStar utility" OFF)
 endif()
 
 add_library(prstar INTERFACE)
@@ -39,6 +42,9 @@ else()
     target_compile_options(prstar INTERFACE -msse4.1 -mfma)
 endif()
 
+if(PRSTAR_BUILD_SYM)
+    add_subdirectory(sym)
+endif()
 
 if(PRSTAR_ENABLE_TESTS)
     add_subdirectory(test)

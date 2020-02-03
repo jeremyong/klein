@@ -8,6 +8,11 @@ dimensionality of the space. In exchange for this loss of generality, PRStar imp
 algebraic operations using the full weight of SSE (Streaming SIMD Extensions) for maximum
 throughput.
 
+## Requirements
+
+- Machine with a processor that supports SSE4.1 or later (has ~98% market penetration)
+- C++17 compliant compiler
+
 ## Motivation
 
 PGA fully streamlines traditionally used quaternions, and dual-quaternions in a single algebra.
@@ -22,4 +27,11 @@ a given PGA multivector has a natural decomposition into 4 blocks of 4 floating-
 For the even sub-algebra (isomorphic to the space of dual-quaternions) also known as the _motor
 algebra_, the geometric product can be densely packed and implemented efficiently using SSE.
 
-TODO
+## TODO
+
+- Conditionally support FMA (~75% market penetration)
+- Sandwich operator
+- Exterior product
+- Reversion
+- Norms
+- Matrix conversion
