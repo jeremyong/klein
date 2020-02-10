@@ -1,2 +1,41 @@
-add_executable(sym main.cpp)
-target_compile_features(sym PRIVATE cxx_std_17)
+find_package(fmt)
+
+if (NOT fmt_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(
+        fmt
+        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+        GIT_TAG 6.1.2
+    )
+    FetchContent_MakeAvailable(fmt)
+endif()
+
+add_library(symlib ga.cpp repl.cpp parser.cpp poly.cpp)
+target_compile_features(symlib PUBLIC cxx_std_17)
+
+if(NOT MSVC)
+    target_compile_options(symlib PUBLIC -msse4.2)
+endif()
+
+add_executable(sym_shell main.cpp)
+target_link_libraries(sym_shell PRIVATE symlib fmt)
+set_target_properties(sym_shell
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
+)
+
+if(PRSTAR_ENABLE_TESTS)
+    add_executable(sym_test test.cpp)
+    target_link_libraries(sym_test PRIVATE symlib doctest)
+    target_compile_definitions(sym_test PRIVATE
+        DOCTEST_CONFIG_SUPER_FAST_ASSERTS # uses a function call for asserts to speed up compilation
+        DOCTEST_CONFIG_USE_STD_HEADERS # prevent non-standard overloading of std declarations
+        DOCTEST_CONFIG_INCLUDE_TYPE_TRAITS # enable doctest::Approx() to take any argument explicitly convertible to a double
+        DOCTEST_CONFIG_NO_POSIX_SIGNALS
+        DOCTEST_CONFIG_NO_EXCEPTIONS
+    )
+    set_target_properties(sym_test
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
+    )
+endif()

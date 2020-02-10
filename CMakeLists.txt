@@ -21,7 +21,7 @@ else()
     set(PRSTAR_STANDALONE OFF)
     option(PRSTAR_ENABLE_TESTS "Enable compilation of PRStar tests" OFF)
     option(PRSTAR_VALIDATE "Enable runtime validations" OFF)
-    option(PRSTAR_BUILD_SYM "Enable compilation of symbolic PRStar utility" OFF)
+    option(PRSTAR_BUILD_SYM "Enable compilation of symbolic PRStar utility" ON)
 endif()
 
 add_library(prstar INTERFACE)
@@ -30,22 +30,21 @@ target_compile_features(prstar INTERFACE cxx_std_17)
 # SSE4.2 has > 96% market penetration according to the Steam hardware survey
 # queried as of December 2019 while AVX2 is around 70%. Thus, we can assume
 # FMA support is at least 70%, but perhaps not much more beyond that.
-# Because we do not need instructions present in SSE4.2 that are not in SSE4.1,
-# we opt for the later for maximum compatibility.
 # TODO: Optionally support FMA
 if(MSVC)
     # On MSVC, SSE2 enables code generation of SSE2 and later (does not include
-    # AVX extensions)
-    target_compile_options(prstar INTERFACE /arch:SSE2)
+    # AVX extensions). This is on by default.
 else()
     # Unlike MSVC, FMA instructions are enabled with a separate feature flag
-    target_compile_options(prstar INTERFACE -msse4.1 -mfma)
+    target_compile_options(prstar INTERFACE -msse4.2 -mfma)
+endif()
+
+if(PRSTAR_ENABLE_TESTS)
+    enable_testing()
+
+    add_subdirectory(test)
 endif()
 
 if(PRSTAR_BUILD_SYM)
     add_subdirectory(sym)
-endif()
-
-if(PRSTAR_ENABLE_TESTS)
-    add_subdirectory(test)
 endif()

@@ -1,5 +1,3 @@
-enable_testing()
-
 include(FetchContent)
 
 FetchContent_Declare(
