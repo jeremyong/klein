@@ -94,6 +94,11 @@ mv& mv::push(uint32_t e, poly const& p) noexcept
     else
     {
         it->second += p;
+
+        if (it->second.terms.empty())
+        {
+            terms.erase(it);
+        }
     }
 
     return *this;
@@ -113,10 +118,7 @@ mv& mv::operator-() && noexcept
 {
     for (auto& [e, p] : terms)
     {
-        if (algebra_->rev(e))
-        {
-            p = -p;
-        }
+        p = -p;
     }
     return *this;
 }
@@ -138,7 +140,10 @@ mv& mv::operator~() && noexcept
 {
     for (auto& [e, p] : terms)
     {
-        p = -p;
+        if (algebra_->rev(e))
+        {
+            p = -p;
+        }
     }
     return *this;
 }
@@ -191,6 +196,8 @@ mv operator*(mv const& lhs, mv const& rhs) noexcept
                 uint32_t e = std::abs(result) - 1;
                 auto it    = out.terms.find(e);
 
+                poly p12 = p1 * p2;
+
                 if (it == out.terms.end())
                 {
                     it = out.terms.emplace(e, poly{}).first;
@@ -198,11 +205,11 @@ mv operator*(mv const& lhs, mv const& rhs) noexcept
 
                 if (result < 0)
                 {
-                    it->second += -(p1 * p2);
+                    it->second += -p12;
                 }
                 else
                 {
-                    it->second += (p1 * p2);
+                    it->second += p12;
                 }
             }
         }
@@ -224,87 +231,8 @@ mv operator*(mv const& lhs, mv const& rhs) noexcept
     return out;
 }
 
-std::ostream&
-operator<<(std::ostream& os,
-           std::map<std::string, int>::const_iterator const& it) noexcept
-{
-    if (it->second == 0)
-    {
-        return os;
-    }
-
-    os << it->first;
-    if (it->second != 1)
-    {
-        os << '^' << it->second;
-    }
-    return os;
-}
-
-std::ostream&
-operator<<(std::ostream& os,
-           std::unordered_map<mon, float>::const_iterator const& it) noexcept
-{
-    if (it->second == -1.f)
-    {
-        os << '-';
-    }
-    else if (it->second != 1.f)
-    {
-        os << it->second;
-    }
-
-    if (it->first.factors.empty())
-    {
-        return os;
-    }
-
-    auto factor = it->first.factors.cbegin();
-    os << factor;
-    ++factor;
-
-    for (; factor != it->first.factors.cend(); ++factor)
-    {
-        os << ' ' << factor;
-    }
-
-    return os;
-}
-
-std::ostream& operator<<(std::ostream& os, poly const& p) noexcept
-{
-    if (p.terms.empty())
-    {
-        return os;
-    }
-
-    bool multi = p.terms.size() > 1;
-
-    if (multi)
-    {
-        os << '(';
-    }
-
-    auto it = p.terms.cbegin();
-    os << it;
-    ++it;
-
-    for (; it != p.terms.cend(); ++it)
-    {
-        os << " + " << it;
-    }
-
-    if (multi)
-    {
-        os << ')';
-    }
-
-    return os;
-}
-
-std::ostream&
-operator<<(std::ostream& os,
-           std::unordered_map<uint32_t, poly>::const_iterator const& it) noexcept
+std::ostream& operator<<(std::ostream& os,
+                         std::map<uint32_t, poly>::const_iterator const& it) noexcept
 {
     os << it->second;
 

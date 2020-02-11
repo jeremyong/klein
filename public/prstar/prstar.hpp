@@ -10,6 +10,7 @@
 #include <type_traits>
 
 #include "detail/prstar_gp.hpp"
+#include "detail/prstar_sw.hpp"
 
 namespace prs
 {

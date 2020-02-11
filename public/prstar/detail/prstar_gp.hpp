@@ -44,7 +44,7 @@ inline namespace detail
     // - 7 muls
     // - 3 adds
     // - 2 sets
-    inline p1p2 gp00(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p1p2 PRS_VEC_CALL gp00(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a3*e0 + a2*e1 + a1*e2 + a0*e3) * (b3*e0 + b2*e1 + b1*e2 + b0*e3) =
         //
@@ -96,7 +96,7 @@ inline namespace detail
     // - 6 muls
     // - 2 adds
     // - 2 sets
-    inline p0p3 gp01(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p0p3 PRS_VEC_CALL gp01(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a3*e0 + a2*e1 + a1*e2 + a0*e3) * (b0 + b1*e12 + b2*e31 + b3*e23) =
         //
@@ -139,7 +139,7 @@ inline namespace detail
                 _mm_blend_ps(tmp, tmp2, 0b1110)};
     }
 
-    inline p0p3 gp10(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p0p3 PRS_VEC_CALL gp10(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0 + a1*e12 + a2*e31 + a3*e23) * (b3*e0 + b2*e1 + b1*e2 + b0*e3) =
         //
@@ -177,7 +177,7 @@ inline namespace detail
     // p2: (e0123, e01, e02, e03)
     // Returns a p0 and p3
     // p3: (e123, e021, e013, e032)
-    inline p0p3 gp02(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p0p3 PRS_VEC_CALL gp02(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a3*e0 + a2*e1 + a1*e2 + a0*e3) *
         //   (b0*e0123 + b1*e01 + b2*e02 + b3*e03) =
@@ -210,7 +210,7 @@ inline namespace detail
                 _mm_mul_ss(tmp, _mm_set_ss(0.f))};
     }
 
-    inline p0p3 gp20(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p0p3 PRS_VEC_CALL gp20(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0*e0123 + a1*e01 + a2*e02 + a3*e03) =
         //   (b3*e0 + b2*e1 + b1*e2 + b0*e3) *
@@ -248,7 +248,7 @@ inline namespace detail
     // - 6 muls
     // - 3 adds
     // - 2 sets
-    inline p1p2 gp03(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p1p2 PRS_VEC_CALL gp03(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a3*e0 + a2*e1 + a1*e2 + a0*e3) *
         //   (b0*e123 + b1*e021 + b2*e013 + b3*e032) =
@@ -290,7 +290,7 @@ inline namespace detail
                 tmp};
     }
 
-    inline p1p2 gp30(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p1p2 PRS_VEC_CALL gp30(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0*e123 + a1*e021 + a2*e013 + a3*e032) =
         //   (b3*e0 + b2*e1 + b1*e2 + b0*e3) *
@@ -331,7 +331,7 @@ inline namespace detail
     // - 5 mul
     // - 3 add
     // - 1 set
-    inline __m128 gp11(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline __m128 PRS_VEC_CALL gp11(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0 + a1*e12 + a2*e31 + a3*e23) * (b0 + b1*e12 + b2*e31 + b3*e23) =
         //
@@ -378,7 +378,7 @@ inline namespace detail
     // - 5 mul
     // - 3 add
     // - 1 set
-    inline __m128 gp12(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline __m128 PRS_VEC_CALL gp12(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0 + a1*e12 + a2*e31 + a3*e23) *
         //   (b0*e0123 + b1*e01 + b2*e02 + b3*e03) =
@@ -418,7 +418,7 @@ inline namespace detail
         return _mm_sub_ps(tmp, tmp2);
     }
 
-    inline __m128 gp21(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline __m128 PRS_VEC_CALL gp21(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0*e0123 + a1*e01 + a2*e02 + a3*e03) *
         //   (b0 + b1*e12 + b2*e31 + b3*e23) =
@@ -451,7 +451,7 @@ inline namespace detail
     // Returns p0 and p3
     // p0: (e3, e2, e1, e0)
     // p3: (e123, e021, e013, e032)
-    inline p0p3 gp13(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p0p3 PRS_VEC_CALL gp13(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0 + a1*e12 + a2*e31 + a3*e23) *
         //   (b0*e123 + b1*e021 + b2*e013 + b3*e032) =
@@ -496,7 +496,7 @@ inline namespace detail
                 _mm_blend_ps(tmp, tmp2, 0b1)};
     }
 
-    inline p0p3 gp31(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p0p3 PRS_VEC_CALL gp31(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0*e123 + a1*e021 + a2*e013 + a3*e032) =
         //   (b0 + b1*e12 + b2*e31 + b3*e23) *
@@ -538,7 +538,7 @@ inline namespace detail
     // p0: (e3, e2, e1, e0)
     // Note that this specific product is somewhat awkward as e1, e2, and e3 are
     // unused
-    inline p0p3 gp23(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p0p3 PRS_VEC_CALL gp23(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0*e0123 + a1*e01 + a2*e02 + a3*e03) *
         //   (b0*e123 + b1*e021 + b2*e013 + b3*e032) =
@@ -559,7 +559,7 @@ inline namespace detail
                 _mm_mul_ss(tmp, _mm_setzero_ps())};
     }
 
-    inline p0p3 gp32(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p0p3 PRS_VEC_CALL gp32(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0*e123 + a1*e021 + a2*e013 + a3*e032) *
         //   (b0*e0123 + b1*e01 + b2*e02 + b3*e03) =
@@ -582,7 +582,7 @@ inline namespace detail
     // Returns p1 and p2
     // p1: (1, e12, e31, e23)
     // p2: (e0123, e01, e02, e03)
-    inline p1p2 gp33(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline p1p2 PRS_VEC_CALL gp33(__m128 const& lhs, __m128 const& rhs) noexcept
     {
         // (a0*e123 + a1*e021 + a2*e013 + a3*e032) =
         //   (b0*e123 + b1*e021 + b2*e013 + b3*e032) =

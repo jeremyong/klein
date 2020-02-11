@@ -1,7 +1,7 @@
 #pragma once
 
+#include <iostream>
 #include <map>
-#include <unordered_map>
 
 class mon
 {
@@ -14,6 +14,8 @@ public:
 
     // Multiply the monomial by a named variable with degree
     mon& push(std::string var, int deg = 1) noexcept;
+
+    int degree() const noexcept;
 };
 
 mon operator*(mon const& lhs, mon const& rhs) noexcept;
@@ -47,12 +49,13 @@ struct hash<mon>
 } // namespace std
 
 bool operator==(mon const& lhs, mon const& rhs) noexcept;
+bool operator<(mon const& lhs, mon const& rhs) noexcept;
 
 class poly
 {
 public:
     // Map from monomial to scalar coefficient
-    std::unordered_map<mon, float> terms;
+    std::map<mon, float> terms;
 
     poly& push(mon const& m, float f = 1.f) noexcept;
     poly& operator+=(poly const& other) noexcept;
@@ -63,3 +66,4 @@ public:
 
 poly operator+(poly const& lhs, poly const& rhs) noexcept;
 poly operator*(poly const& lhs, poly const& rhs) noexcept;
+std::ostream& operator<<(std::ostream& os, poly const& p) noexcept;

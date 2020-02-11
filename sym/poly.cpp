@@ -27,6 +27,16 @@ mon& mon::push(std::string var, int deg) noexcept
     return *this;
 }
 
+int mon::degree() const noexcept
+{
+    int out = 0;
+    for (auto&& [v, d] : factors)
+    {
+        out += d;
+    }
+    return out;
+}
+
 bool operator==(mon const& lhs, mon const& rhs) noexcept
 {
     if (lhs.factors.size() != rhs.factors.size())
@@ -52,6 +62,57 @@ bool operator==(mon const& lhs, mon const& rhs) noexcept
         ++rhs_it;
     }
     return true;
+}
+
+// Graded lexical comparison (grlex)
+bool operator<(mon const& lhs, mon const& rhs) noexcept
+{
+    int lhs_d = lhs.degree();
+    int rhs_d = rhs.degree();
+    if (lhs_d < rhs_d)
+    {
+        return true;
+    }
+    else if (lhs_d > rhs_d)
+    {
+        return false;
+    }
+
+    auto lhs_it = lhs.factors.begin();
+    auto rhs_it = rhs.factors.begin();
+
+    while (lhs_it != lhs.factors.end() || rhs_it != rhs.factors.end())
+    {
+        if (lhs_it == lhs.factors.end())
+        {
+            return true;
+        }
+        else if (rhs_it == rhs.factors.end())
+        {
+            return false;
+        }
+        else if (lhs_it->first < rhs_it->first)
+        {
+            return true;
+        }
+        else if (rhs_it->first < lhs_it->first)
+        {
+            return false;
+        }
+        else if (lhs_it->second < rhs_it->second)
+        {
+            return true;
+        }
+        else if (lhs_it->second > rhs_it->second)
+        {
+            return false;
+        }
+        ++lhs_it;
+        ++rhs_it;
+    }
+
+    // Unreachable
+    return false;
 }
 
 mon& mon::operator*=(mon const& other) noexcept
@@ -188,4 +249,81 @@ poly& poly::operator*=(poly const& other) noexcept
     poly temp = *this * other;
     std::swap(terms, temp.terms);
     return *this;
+}
+
+std::ostream&
+operator<<(std::ostream& os,
+           std::map<std::string, int>::const_iterator const& it) noexcept
+{
+    if (it->second == 0)
+    {
+        return os;
+    }
+
+    os << it->first;
+    if (it->second != 1)
+    {
+        os << '^' << it->second;
+    }
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os,
+                         std::map<mon, float>::const_iterator const& it) noexcept
+{
+    if (it->second == -1.f)
+    {
+        os << '-';
+    }
+    else if (it->second != 1.f)
+    {
+        os << it->second;
+    }
+
+    if (it->first.factors.empty())
+    {
+        return os;
+    }
+
+    auto factor = it->first.factors.cbegin();
+    os << factor;
+    ++factor;
+
+    for (; factor != it->first.factors.cend(); ++factor)
+    {
+        os << ' ' << factor;
+    }
+
+    return os;
+}
+
+std::ostream& operator<<(std::ostream& os, poly const& p) noexcept
+{
+    if (p.terms.empty())
+    {
+        return os;
+    }
+
+    bool multi = p.terms.size() > 1;
+
+    if (multi)
+    {
+        os << '(';
+    }
+
+    auto it = p.terms.cbegin();
+    os << it;
+    ++it;
+
+    for (; it != p.terms.cend(); ++it)
+    {
+        os << " + " << it;
+    }
+
+    if (multi)
+    {
+        os << ')';
+    }
+
+    return os;
 }

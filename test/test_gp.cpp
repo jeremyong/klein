@@ -271,3 +271,16 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(p1p2.e03(), -1.f);
     }
 }
+
+TEST_CASE("simd-sandwich")
+{
+    __m128 a = _mm_set_ps(4.f, 3.f, 2.f, 1.f);
+    __m128 b = _mm_set_ps(-1.f, -2.f, -3.f, -4.f);
+    float ab[4];
+    _mm_store_ps(ab, detail::sw02(a, b));
+
+    CHECK_EQ(ab[0], 1.f);
+    CHECK_EQ(ab[1], 2.f);
+    CHECK_EQ(ab[2], 3.f);
+    CHECK_EQ(ab[3], -24.f);
+}

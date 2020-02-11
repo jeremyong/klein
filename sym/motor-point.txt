@@ -1,0 +1,2 @@
+# Conjugate point with a motor
+(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03) * (a0 e123 + a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03)

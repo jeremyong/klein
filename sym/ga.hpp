@@ -31,6 +31,28 @@ private:
     uint32_t dim_;
 };
 
+struct elem_comp
+{
+    bool operator()(uint32_t lhs, uint32_t rhs) const noexcept
+    {
+        uint32_t lhs_pop = popcnt(lhs);
+        uint32_t rhs_pop = popcnt(rhs);
+
+        if (lhs_pop < rhs_pop)
+        {
+            return true;
+        }
+        else if (lhs_pop > rhs_pop)
+        {
+            return false;
+        }
+        else
+        {
+            return lhs < rhs;
+        }
+    }
+};
+
 class mv
 {
 public:
@@ -48,7 +70,7 @@ public:
     mv& push(uint32_t e, poly const& p) noexcept;
 
     // Map from basis blade to polynomial
-    std::unordered_map<uint32_t, poly> terms;
+    std::map<uint32_t, poly, elem_comp> terms;
 
 private:
     friend mv operator+(mv const& lhs, mv const& rhs) noexcept;

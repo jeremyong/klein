@@ -11,3 +11,13 @@
 #    define PRS_SWIZZLE(reg, x, y, z, w) \
         _mm_shuffle_ps((reg), (reg), _MM_SHUFFLE(x, y, z, w))
 #endif
+
+#ifndef PRS_VEC_CALL
+#    ifdef _MSC_VER
+// Microsoft Compiler
+#        define PRS_VEC_CALL __vectorcall
+#    else
+// GCC or Clang compiler (sse register passing is on by default)
+#        define PRS_VEC_CALL
+#    endif
+#endif

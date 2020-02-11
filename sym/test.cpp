@@ -147,6 +147,10 @@ TEST_CASE("parser")
     {
         mv mv1 = parse("1 + 3 * 2", pga);
         CHECK_EQ(mv1.terms[0].terms.begin()->second, 7.f);
+
+        mv1 = parse("(3e0 + 3e012) + (3e0 - 3e012)", pga);
+        CHECK_EQ(mv1.terms[0b111].terms.size(), 0);
+        CHECK_EQ(mv1.terms[0b1].terms.begin()->second, 6.f);
     }
 
     SUBCASE("sub")
@@ -160,15 +164,25 @@ TEST_CASE("parser")
         mv mv1 = parse("2e012 * 2", pga);
         CHECK_EQ(mv1.terms[0b111].terms.begin()->second, 4.f);
 
-        mv1 = parse("(e23 + 2e012) * (2 + ~3e01)", pga);
-        CHECK_EQ(mv1.terms[0b1100].terms.begin()->second, 2.f);
-        CHECK_EQ(mv1.terms[0b111].terms.begin()->second, 4.f);
-        CHECK_EQ(mv1.terms[0b1111].terms.begin()->second, -3.f);
+        mv mv2 = parse("(e23 + 2e012) * (2 - 3e01)", pga);
+        CHECK_EQ(mv2.terms[0b1100].terms.begin()->second, 2.f);
+        CHECK_EQ(mv2.terms[0b111].terms.begin()->second, 4.f);
+        CHECK_EQ(mv2.terms[0b1111].terms.begin()->second, -3.f);
     }
 
     SUBCASE("reverse")
     {
         mv mv1 = parse("~e02", pga);
         CHECK_EQ(mv1.terms[0b101].terms.begin()->second, -1.f);
+    }
+
+    SUBCASE("rotor")
+    {
+        mv mv1 = parse(
+            "(2 + 3e12 + 4e31) * (5e0 + 7e1 + 11e2) * (2 - 3e12 - 4e31)", pga);
+        CHECK_EQ(mv1.terms[1].terms.begin()->second, 145.f);
+        CHECK_EQ(mv1.terms[0b10].terms.begin()->second, -15.f);
+        CHECK_EQ(mv1.terms[0b100].terms.begin()->second, 37.f);
+        CHECK_EQ(mv1.terms[0b1000].terms.begin()->second, 376.f);
     }
 }
