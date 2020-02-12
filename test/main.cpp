@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest/doctest.h>
 
-#include <prstar/prstar.hpp>
+#include <klein/klein.hpp>
 
 // Cheat sheet
 // TEST_SUITE_BEGIN defines the start of a scope of tests grouped under a suite
@@ -40,7 +40,7 @@
 // -rs <seed> randomizes test order
 // -d time each test and print duration
 
-using namespace prs;
+using namespace kln;
 
 TEST_CASE("multivector-sum")
 {

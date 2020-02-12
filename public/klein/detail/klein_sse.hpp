@@ -3,21 +3,21 @@
 
 // Little-endian XMM register swizzle
 //
-// PRS_SWIZZLE(reg, 3, 2, 1, 0) is the identity.
+// KLN_SWIZZLE(reg, 3, 2, 1, 0) is the identity.
 //
-// This is undef-ed at the bottom of prstar.hpp so as not to
+// This is undef-ed at the bottom of klein.hpp so as not to
 // pollute the macro namespace
-#ifndef PRS_SWIZZLE
-#    define PRS_SWIZZLE(reg, x, y, z, w) \
+#ifndef KLN_SWIZZLE
+#    define KLN_SWIZZLE(reg, x, y, z, w) \
         _mm_shuffle_ps((reg), (reg), _MM_SHUFFLE(x, y, z, w))
 #endif
 
-#ifndef PRS_VEC_CALL
+#ifndef KLN_VEC_CALL
 #    ifdef _MSC_VER
 // Microsoft Compiler
-#        define PRS_VEC_CALL __vectorcall
+#        define KLN_VEC_CALL __vectorcall
 #    else
 // GCC or Clang compiler (sse register passing is on by default)
-#        define PRS_VEC_CALL
+#        define KLN_VEC_CALL
 #    endif
 #endif

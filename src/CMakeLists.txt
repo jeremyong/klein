@@ -17,14 +17,14 @@ if(NOT MSVC)
     target_compile_options(symlib PUBLIC -msse4.2)
 endif()
 
-add_executable(sym_shell main.cpp)
-target_link_libraries(sym_shell PRIVATE symlib fmt)
-set_target_properties(sym_shell
+add_executable(klein_shell main.cpp)
+target_link_libraries(klein_shell PRIVATE symlib fmt)
+set_target_properties(klein_shell
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
 )
 
-if(PRSTAR_ENABLE_TESTS)
+if(KLEIN_ENABLE_TESTS)
     add_executable(sym_test test.cpp)
     target_link_libraries(sym_test PRIVATE symlib doctest)
     target_compile_definitions(sym_test PRIVATE
