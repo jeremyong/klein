@@ -8,6 +8,8 @@
 
 #include "detail/klein_entity.hpp"
 
+#include <cmath>
+
 namespace kln
 {
 // In projective geometry, planes are the fundamental element through which all
@@ -215,14 +217,81 @@ struct direction final : public entity<0b1000>
     }
 };
 
+struct rotor final : public entity<0b10>
+{
+    rotor() = default;
+    // Convenience constructor. Computes transcendentals and normalizes rotation
+    // axis.
+    rotor(float ang_rad, float x, float y, float z)
+    {
+        float norm     = std::sqrt(x * x + y * y + z * z);
+        float inv_norm = -1.f / norm;
+
+        float half = 0.5f * ang_rad;
+        // Rely on compiler to coalesce these two assignments into a single
+        // sincos call at instruction selection time
+        float buf[4];
+        buf[0]        = std::cos(half);
+        float sin_ang = std::sin(half);
+        float scale   = sin_ang * inv_norm;
+        buf[1]        = z * scale;
+        buf[2]        = y * scale;
+        buf[3]        = x * scale;
+        parts[0].reg  = _mm_loadu_ps(buf);
+    }
+
+    plane KLN_VEC_CALL operator()(plane const& p) const noexcept
+    {
+        plane out;
+        sw012<false, false>(&p.p0(), parts[0].reg, nullptr, &out.p0());
+        return out;
+    }
+
+    point KLN_VEC_CALL operator()(point const& p) const noexcept
+    {
+        point out;
+        sw312<false, false>(&p.p3(), parts[0].reg, nullptr, &out.p3());
+        return out;
+    }
+};
+
+struct translator final : public entity<0b110>
+{
+    translator() = default;
+    translator(float delta, float x, float y, float z)
+    {
+        // This register is used somewhat awkardly to hold the scalar 1.
+        parts[0].reg = _mm_set_ps(0.f, 0.f, 0.f, 1.f);
+        float half_d = -0.5f * delta;
+        parts[1].reg = _mm_mul_ps(_mm_set1_ps(half_d), _mm_set_ps(z, y, x, 0.f));
+    }
+
+    plane KLN_VEC_CALL operator()(plane const& p) const noexcept
+    {
+        plane out;
+        out.p0() = sw02(p.p0(), parts[1].reg);
+        return out;
+    }
+
+    point KLN_VEC_CALL operator()(point const& p) const noexcept
+    {
+        point out;
+        out.p3() = sw32(p.p3(), parts[1].reg);
+        return out;
+    }
+};
+
 struct motor final : public entity<0b110>
 {
     motor() = default;
-    motor(float a, float b, float c, float d, float e, float f, float g) noexcept
+
+    // Direct initialization from components. A more common way of creating a
+    // motor is to take a product between a rotor and a translator.
+    motor(float a, float b, float c, float d, float e, float f, float g, float h) noexcept
     {
         // TODO: optimize initialization
         parts[0].reg = _mm_set_ps(d, c, b, a);
-        parts[1].reg = _mm_set_ps(g, f, e, 0.f);
+        parts[1].reg = _mm_set_ps(g, f, e, h);
     }
 
     motor(entity<0b110> const& e) noexcept

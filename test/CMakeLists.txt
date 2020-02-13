@@ -12,6 +12,7 @@ list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
 add_executable(klein_test
     main.cpp
     test_gp.cpp
+    test_sw.cpp
 )
 target_link_libraries(klein_test PRIVATE klein doctest)
 target_compile_definitions(klein_test PRIVATE

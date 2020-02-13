@@ -78,9 +78,9 @@ inline namespace detail
         //  2a0(b1 b3 - b0 b2) +
         //  a2 (b0^2 + b3^2 - b1^2 - b2^2)) e1 +
         //
-        // (2a2(b0 c1 + b2 c3 - b1 c2) +
-        //  2a1(b0 c2 + b1 c1 - b3 c3) +
-        //  2a0(b0 c3 + b3 c2 - b2 c1) +
+        // (2a0(b0 c3 + b3 c2 + b1 c0 - b2 c1) +
+        //  2a1(b0 c2 + b1 c1 + b2 c0 - b3 c3) +
+        //  2a2(b0 c1 + b2 c3 + b3 c0 - b1 c2) +
         //  a3 (b0^2 + b1^2 + b2^2 + b3^2)) e0
         //
         // MSB
@@ -143,27 +143,31 @@ inline namespace detail
         tmp3 = _mm_mul_ps(_mm_set_ps(0.f, 1.f, 1.f, 1.f), tmp3);
 
         // Compute
-        // 2a0(b0 c3 + b3 c2 - b2 c1) +
-        // 2a1(b0 c2 + b1 c1 - b3 c3) +
-        // 2a2(b0 c1 + b2 c3 - b1 c2) +
+        // 2a0(b0 c3 + b3 c2 + b1 c0 - b2 c1) +
+        // 2a1(b1 c1 + b0 c2 + b2 c0 - b3 c3) +
+        // 2a2(b2 c3 + b0 c1 + b3 c0 - b1 c2) +
         // 0 * (_)
         // by decomposing into four vectors, factoring out the a components
         //
-        // (b0 c3, b0 c2, b0 c1, b0 c0)
+        // (b0 c3, b1 c1, b2 c3, b3 c0)
         // Swizzle c here so that we don't have to swizzle tmp4 in the inner
         // loop later
-        __m128 tmp4 = Translate ? _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 0),
-                                             KLN_SWIZZLE(*c, 0, 1, 2, 3))
+        __m128 tmp4 = Translate ? _mm_mul_ps(b, KLN_SWIZZLE(*c, 0, 3, 1, 3))
                                 : _mm_set1_ps(0.f);
 
         if constexpr (Translate)
         {
-            // Add (b3 c2, b1 c1, b2 c3, b0 c0)
+            // Add (b3 c2, b0 c2, b0 c1, b0 c0)
             tmp4 = _mm_add_ps(tmp4,
-                              _mm_mul_ps(KLN_SWIZZLE(b, 0, 2, 1, 3),
-                                         KLN_SWIZZLE(*c, 0, 3, 1, 2)));
+                              _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 3),
+                                         KLN_SWIZZLE(*c, 0, 1, 2, 2)));
 
-            // Sub (b1 c2, b3 c3, b2 c1, b0 c0)
+            // Add (b1 c0, b2 c0, b3 c0, b0 c0)
+            tmp4 = _mm_add_ps(tmp4,
+                              _mm_mul_ps(KLN_SWIZZLE(b, 0, 3, 2, 1),
+                                         KLN_SWIZZLE(*c, 0, 0, 0, 0)));
+
+            // Sub (b2 c1, b3 c3, b1 c2, b0 c0)
             // NOTE: The high component of tmp4 is meaningless here
             tmp4 = _mm_sub_ps(tmp4,
                               _mm_mul_ps(KLN_SWIZZLE(b, 0, 1, 3, 2),
@@ -231,7 +235,7 @@ inline namespace detail
         tmp = _mm_mul_ps(_mm_set1_ps(-2.f), tmp);
         // Mask low component
         tmp = _mm_mul_ps(_mm_set_ps(1.f, 1.f, 1.f, 0.f), tmp);
-        tmp = _mm_sub_ps(a, tmp);
+        tmp = _mm_add_ps(a, tmp);
         return tmp;
     }
 
@@ -246,17 +250,17 @@ inline namespace detail
         // LSB
         // a0(b0^2 + b1^2 + b2^2 + b3^2) e123 +
         //
-        // (2a0(b3 c2 - b0 c3 - b2 c1) +
+        // (2a0(b3 c2 - b0 c3 - b2 c1 - b1 c0) +
         //  2a2(b1 b2 - b0 b3) +
         //  2a3(b0 b2 + b1 b3) +
         //  a1(b0^2 + b1^2 - b2^2 - b3^2)) e021 +
         //
-        // (2a0(b1 c1 - b0 c2 - b3 c3) +
+        // (2a0(b1 c1 - b0 c2 - b3 c3 - b2 c0) +
         //  2a3(b2 b3 - b0 b1) +
         //  2a1(b0 b3 + b1 b2) +
         //  a2(b0^2 + b2^2 - b1^2 - b3^2)) e013 +
         //
-        // (2a0(b2 c3 - b0 c1 - b1 c2) +
+        // (2a0(b2 c3 - b0 c1 - b1 c2 - b3 c0) +
         //  2a1(b1 b3 - b0 b2) +
         //  2a2(b0 b1 +  b2 b3) +
         //  a3(b0^2 + b3^2 - b1^2 - b2^2)) e032 +
@@ -316,6 +320,10 @@ inline namespace detail
             tmp4 = _mm_sub_ps(tmp4,
                               _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 2, 0),
                                          KLN_SWIZZLE(*c, 2, 3, 1, 0)));
+
+            // Sub (_, b1 c0, b2 c0, b3 c0)
+            tmp4 = _mm_sub_ps(tmp4, _mm_mul_ps(b, KLN_SWIZZLE(*c, 0, 0, 0, 0)));
+
             // Mask low component and scale other components by 2
             tmp4 = _mm_mul_ps(tmp4, two);
             // tmp4 needs to be scaled by (_, a0, a0, a0)
