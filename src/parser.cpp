@@ -3,7 +3,6 @@
 #include <cassert>
 #include <cctype>
 #include <cstdlib>
-#include <fmt/core.h>
 #include <stdexcept>
 #include <vector>
 

@@ -1,15 +1,3 @@
-find_package(fmt)
-
-if (NOT fmt_FOUND)
-    include(FetchContent)
-    FetchContent_Declare(
-        fmt
-        GIT_REPOSITORY https://github.com/fmtlib/fmt.git
-        GIT_TAG 6.1.2
-    )
-    FetchContent_MakeAvailable(fmt)
-endif()
-
 add_library(symlib ga.cpp repl.cpp parser.cpp poly.cpp)
 target_compile_features(symlib PUBLIC cxx_std_17)
 
@@ -18,7 +6,7 @@ if(NOT MSVC)
 endif()
 
 add_executable(klein_shell main.cpp)
-target_link_libraries(klein_shell PRIVATE symlib fmt)
+target_link_libraries(klein_shell PRIVATE symlib)
 set_target_properties(klein_shell
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
