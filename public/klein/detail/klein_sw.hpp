@@ -263,7 +263,7 @@ inline namespace detail
         // (2a0(b2 c3 - b0 c1 - b1 c2 - b3 c0) +
         //  2a1(b1 b3 - b0 b2) +
         //  2a2(b0 b1 +  b2 b3) +
-        //  a3(b0^2 + b3^2 - b1^2 - b2^2)) e032 +
+        //  a3(b0^2 + b3^2 - b1^2 - b2^2)) e032
         // MSB
         //
         // Sanity check: For c1 = c2 = c3 = 0, the computation becomes

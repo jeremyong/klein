@@ -7,11 +7,34 @@
 #pragma once
 
 #include "detail/klein_entity.hpp"
+#include "detail/klein_mat.hpp"
 
 #include <cmath>
 
 namespace kln
 {
+// 4x4 column-major matrix (used for converting rotors/motors to matrix form to
+// upload to shaders).
+struct mat4x4
+{
+    union
+    {
+        __m128 cols[4];
+        float data[16];
+    };
+
+    // Apply the linear transformation represented by this matrix to a point
+    // packed with the layout (x, y, z, 1.f)
+    __m128 KLN_VEC_CALL operator()(__m128 const& xyzw) const noexcept
+    {
+        __m128 out = _mm_mul_ps(cols[0], KLN_SWIZZLE(xyzw, 0, 0, 0, 0));
+        out = _mm_add_ps(out, _mm_mul_ps(cols[1], KLN_SWIZZLE(xyzw, 1, 1, 1, 1)));
+        out = _mm_add_ps(out, _mm_mul_ps(cols[2], KLN_SWIZZLE(xyzw, 2, 2, 2, 2)));
+        out = _mm_add_ps(out, _mm_mul_ps(cols[3], KLN_SWIZZLE(xyzw, 3, 3, 3, 3)));
+        return out;
+    }
+};
+
 // In projective geometry, planes are the fundamental element through which all
 // other entities are constructed. Lines are the meet of two planes, and points
 // are the meet of three planes (equivalently, a line and a plane).
@@ -253,6 +276,13 @@ struct rotor final : public entity<0b10>
         sw312<false, false>(&p.p3(), parts[0].reg, nullptr, &out.p3());
         return out;
     }
+
+    mat4x4 as_matrix() const noexcept
+    {
+        mat4x4 out;
+        mat4x4_12<false>(parts[0].reg, nullptr, out.cols);
+        return out;
+    }
 };
 
 struct translator final : public entity<0b110>
@@ -304,6 +334,13 @@ struct motor final : public entity<0b110>
     {
         parts[0].reg = _mm_loadu_ps(in);
         parts[1].reg = _mm_loadu_ps(in + 4);
+    }
+
+    mat4x4 as_matrix() const noexcept
+    {
+        mat4x4 out;
+        mat4x4_12<true>(parts[0].reg, &parts[1].reg, out.cols);
+        return out;
     }
 
     plane KLN_VEC_CALL operator()(plane const& p) const noexcept

@@ -71,3 +71,18 @@ TEST_CASE("motor-point")
     CHECK_EQ(p2.z(), -86.f);
     CHECK_EQ(p2.w(), 30.f);
 }
+
+TEST_CASE("motor-to-matrix")
+{
+    motor m{1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f};
+    __m128 p1 = _mm_set_ps(1.f, 2.f, 1.f, -1.f);
+    mat4x4 m_mat = m.as_matrix();
+    __m128 p2 = m_mat(p1);
+    float buf[4];
+    _mm_storeu_ps(buf, p2);
+
+    CHECK_EQ(buf[0], -12.f);
+    CHECK_EQ(buf[1], -86.f);
+    CHECK_EQ(buf[2], -86.f);
+    CHECK_EQ(buf[3], 30.f);
+}
