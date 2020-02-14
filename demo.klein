@@ -30,3 +30,9 @@
 
 # Example (motor * euclidean line * ~motor)
 (1 + 2 e12 + 3 e31 + 4 e23 + 5 e01 + 6 e02 + 7 e03 + 8 e0123) * (3e12 + 2e31 + e23)* (1 - 2 e12 - 3 e31 - 4 e23 - 5 e01 - 6 e02 - 7 e03 + 8 e0123)
+
+# Conjugate origin with motor
+(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * e123 * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
+
+# motor * ~motor
+(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)

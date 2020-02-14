@@ -359,5 +359,42 @@ inline namespace detail
             }
         }
     }
+
+    // Conjugate origin with motor. Unlike other operations the motor MUST be
+    // normalized prior to usage b is the rotor component (p1) c is the
+    // translator component (p2)
+    inline __m128 swo12(__m128 const& b, __m128 const& c)
+    {
+        // Rearranged to eliminate a b swizzle
+        //  (b1^2 + b0^2 + b2^2 + b3^2) e123 +
+        // 2(b3 c2 - b1 c0 - b0 c3 - b2 c1) e021 +
+        // 2(b1 c1 - b2 c0 - b0 c2 - b3 c3) e013 +
+        // 2(b2 c3 - b3 c0 - b0 c1 - b1 c2) e032
+        //
+        // To eliminate a lot of unnecessary swizzling, the motor is expected to
+        // be normalized such that (b0^2 + b1^2 + b2^2 + b3^2) = 1
+
+        // (_, b1 c0, b2 c0, b3 c0)
+        __m128 tmp = _mm_mul_ps(b, KLN_SWIZZLE(c, 0, 0, 0, 0));
+
+        // Add (_, b0 c3, b0 c2, b0 c1)
+        tmp = _mm_add_ps(
+            tmp,
+            _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 0), KLN_SWIZZLE(c, 1, 2, 3, 0)));
+
+        // Add (_, b2 c1, b3 c3, b1 c2)
+        tmp = _mm_add_ps(
+            tmp,
+            _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 2, 0), KLN_SWIZZLE(c, 1, 3, 2, 0)));
+
+        // Sub from (_, b3 c2, b1 c1, b2 c3)
+        tmp = _mm_sub_ps(
+            _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 3, 0), KLN_SWIZZLE(c, 3, 1, 2, 0)),
+            tmp);
+
+        // TODO SSE2 fallback
+        // Set the low component to unity
+        return _mm_blend_ps(tmp, _mm_set_ss(1.f), 1);
+    }
 } // namespace detail
 } // namespace kln

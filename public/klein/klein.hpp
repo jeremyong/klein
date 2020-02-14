@@ -194,6 +194,18 @@ struct point final : public entity<0b1000>
     }
 };
 
+// The origin is a convenience type that occupies no memory but is castable to a
+// point entity
+struct origin
+{
+    operator entity<0b1000>() const noexcept
+    {
+        entity<0b1000> out;
+        out.p3() = _mm_set_ss(1.f);
+        return out;
+    }
+};
+
 // Ideal points will have a 0 for the homogeneous coordinate
 // x*e_032 + y*e_013 + z*e_021
 struct direction final : public entity<0b1000>
@@ -354,6 +366,13 @@ struct motor final : public entity<0b110>
     {
         point out;
         sw312<false, true>(&p.p3(), parts[0].reg, &parts[1].reg, &out.p3());
+        return out;
+    }
+
+    point KLN_VEC_CALL operator()(origin) const noexcept
+    {
+        point out;
+        out.p3() = swo12(parts[0].reg, parts[1].reg);
         return out;
     }
 };
