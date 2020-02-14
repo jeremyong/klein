@@ -392,9 +392,11 @@ inline namespace detail
             _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 3, 0), KLN_SWIZZLE(c, 3, 1, 2, 0)),
             tmp);
 
+        tmp = _mm_mul_ps(tmp, _mm_set_ps(2.f, 2.f, 2.f, 0.f));
+
         // TODO SSE2 fallback
         // Set the low component to unity
-        return _mm_blend_ps(tmp, _mm_set_ss(1.f), 1);
+        return _mm_add_ps(tmp, _mm_set_ss(1.f));
     }
 } // namespace detail
 } // namespace kln

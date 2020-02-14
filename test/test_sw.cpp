@@ -72,12 +72,23 @@ TEST_CASE("motor-point")
     CHECK_EQ(p2.w(), 30.f);
 }
 
+TEST_CASE("motor-origin")
+{
+    rotor r{M_PI * 0.5f, 0, 0, 1.f};
+    translator t{1.f, 0.f, 0.f, 1.f};
+    motor m = r * t;
+    point p = m(origin{});
+    CHECK_EQ(p.x(), 0.f);
+    CHECK_EQ(p.y(), 0.f);
+    CHECK_EQ(p.z(), doctest::Approx(1.f));
+}
+
 TEST_CASE("motor-to-matrix")
 {
     motor m{1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f};
-    __m128 p1 = _mm_set_ps(1.f, 2.f, 1.f, -1.f);
+    __m128 p1    = _mm_set_ps(1.f, 2.f, 1.f, -1.f);
     mat4x4 m_mat = m.as_matrix();
-    __m128 p2 = m_mat(p1);
+    __m128 p2    = m_mat(p1);
     float buf[4];
     _mm_storeu_ps(buf, p2);
 
