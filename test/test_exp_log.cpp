@@ -43,3 +43,30 @@ TEST_CASE("motor-slerp")
     CHECK_EQ(m1.e03(), doctest::Approx(m2.e03()).epsilon(0.01));
     CHECK_EQ(m1.e0123(), doctest::Approx(m2.e0123()).epsilon(0.01));
 }
+
+TEST_CASE("motor-blend")
+{
+    rotor r1{M_PI * 0.5f, 0, 0, 1.f};
+    translator t1{1.f, 0.f, 0.f, 1.f};
+    motor m1 = r1 * t1;
+
+    rotor r2{M_PI * 0.5f, 0.3f, -3.f, 1.f};
+    translator t2{12.f, -2.f, 0.4f, 1.f};
+    motor m2 = r2 * t2;
+
+    motor motion     = m2 * ~m1;
+    line step        = motion.log() / 4.f;
+    motor motor_step = step.exp();
+
+    // Applying motor_step 0 times to m1 is m1.
+    // Applying motor_step 4 times to m1 is m2 * ~m1;
+    motor result = motor_step * motor_step * motor_step * motor_step * m1;
+    CHECK_EQ(result.scalar(), doctest::Approx(m2.scalar()).epsilon(0.01));
+    CHECK_EQ(result.e12(), doctest::Approx(m2.e12()).epsilon(0.01));
+    CHECK_EQ(result.e32(), doctest::Approx(m2.e32()).epsilon(0.01));
+    CHECK_EQ(result.e23(), doctest::Approx(m2.e23()).epsilon(0.01));
+    CHECK_EQ(result.e01(), doctest::Approx(m2.e01()).epsilon(0.01));
+    CHECK_EQ(result.e02(), doctest::Approx(m2.e02()).epsilon(0.01));
+    CHECK_EQ(result.e03(), doctest::Approx(m2.e03()).epsilon(0.01));
+    CHECK_EQ(result.e0123(), doctest::Approx(m2.e0123()).epsilon(0.01));
+}

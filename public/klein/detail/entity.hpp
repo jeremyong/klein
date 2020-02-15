@@ -95,9 +95,9 @@ struct entity : public base_entity
     }
 
     // Scale
-    entity& operator/=(float scale) noexcept
+    entity& operator*=(float scalar) noexcept
     {
-        __m128 s = _mm_set1_ps(1.f / scale);
+        __m128 s = _mm_set1_ps(scalar);
 
         if constexpr (PMask & 0b1)
         {
@@ -119,10 +119,10 @@ struct entity : public base_entity
         return *this;
     }
 
-    entity operator/(float scale) const noexcept
+    [[nodiscard]] entity operator*(float scalar) const noexcept
     {
         entity out;
-        __m128 s = _mm_set1_ps(1.f / scale);
+        __m128 s = _mm_set1_ps(scalar);
 
         if constexpr (PMask & 0b1)
         {
@@ -142,6 +142,16 @@ struct entity : public base_entity
         }
 
         return out;
+    }
+
+    entity& operator/=(float s) noexcept
+    {
+        return operator*=(1.f / s);
+    }
+
+    [[nodiscard]] entity operator/(float s) const noexcept
+    {
+        return operator*(1.f / s);
     }
 
     // Reverse
