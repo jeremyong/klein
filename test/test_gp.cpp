@@ -11,7 +11,7 @@ TEST_CASE("multivector-gp")
         // d*e_0 + a*e_1 + b*e_2 + c*e_3
         plane p1{1.f, 2.f, 3.f, 4.f};
         plane p2{2.f, 3.f, -1.f, -2.f};
-        bivector p12 = p1 * p2;
+        line p12 = p1 * p2;
         CHECK_EQ(p12[0], 5.f);
         CHECK_EQ(p12[1], -1.f);
         CHECK_EQ(p12[2], 7.f);
@@ -27,18 +27,18 @@ TEST_CASE("multivector-gp")
         // d*e_0 + a*e_1 + b*e_2 + c*e_3
         plane p1{1.f, 2.f, 3.f, 4.f};
 
-        // d*e12 + e*e31 + f*e23
-        line l1{-2.f, 1.f, 4.f};
+        // a*e01 + b*e01 + c*e02 + d*e12 + e*e31 + f*e23
+        line l1{0.f, 0.f, 1.f, -2.f, 1.f, 4.f};
 
         // Creates a vector/trivector union
         entity<0b1001> p1l1 = p1 * l1;
         CHECK_EQ(p1l1.e1(), 7.f);
         CHECK_EQ(p1l1.e2(), -14.f);
         CHECK_EQ(p1l1.e3(), 7.f);
-        CHECK_EQ(p1l1.e0(), 0.f);
+        CHECK_EQ(p1l1.e0(), -3.f);
         CHECK_EQ(p1l1.e021(), 8.f);
-        CHECK_EQ(p1l1.e013(), -4.f);
-        CHECK_EQ(p1l1.e032(), -16.f);
+        CHECK_EQ(p1l1.e013(), -5.f);
+        CHECK_EQ(p1l1.e032(), -14.f);
         CHECK_EQ(p1l1.e123(), 0.f);
     }
 
@@ -86,27 +86,27 @@ TEST_CASE("multivector-gp")
         plane p1{1.f, 2.f, 3.f, 4.f};
 
         // d*e12 + e*e31 + f*e23
-        line l1{-2.f, 1.f, 4.f};
+        line l1{0.f, 0.f, 1.f, -2.f, 1.f, 4.f};
 
         // Creates a vector/trivector union
         entity<0b1001> p1l1 = l1 * p1;
         CHECK_EQ(p1l1.e1(), -7.f);
         CHECK_EQ(p1l1.e2(), 14.f);
         CHECK_EQ(p1l1.e3(), -7.f);
-        CHECK_EQ(p1l1.e0(), 0.f);
+        CHECK_EQ(p1l1.e0(), 3.f);
         CHECK_EQ(p1l1.e021(), 8.f);
-        CHECK_EQ(p1l1.e013(), -4.f);
-        CHECK_EQ(p1l1.e032(), -16.f);
+        CHECK_EQ(p1l1.e013(), -5.f);
+        CHECK_EQ(p1l1.e032(), -14.f);
         CHECK_EQ(p1l1.e123(), 0.f);
     }
 
     SUBCASE("line*line")
     {
-        // d*e12 + e*e31 + f*e23
-        line l1{1.f, 2.f, 3.f};
-        line l2{-2.f, 1.f, 4.f};
+        // a*e01 + b*e01 + c*e02 + d*e12 + e*e31 + f*e23
+        line l1{1.f, 0.f, 0.f, 1.f, 2.f, 3.f};
+        line l2{0.f, 1.f, 0.f, -2.f, 1.f, 4.f};
 
-        entity<0b10> l1l2 = l1 * l2;
+        entity<0b110> l1l2 = l1 * l2;
         CHECK_EQ(l1l2.scalar(), -12.f);
         CHECK_EQ(l1l2.e12(), 5.f);
         CHECK_EQ(l1l2.e31(), -10.f);
@@ -115,8 +115,8 @@ TEST_CASE("multivector-gp")
 
     SUBCASE("line*ideal-line")
     {
-        // d*e12 + e*e31 + f*e23
-        line l1{1.f, 2.f, 3.f};
+        // a*e01 + b*e01 + c*e02 + d*e12 + e*e31 + f*e23
+        line l1{0.f, 0.f, 1.f, 1.f, 2.f, 3.f};
         // a*e01 + b*e02 + c*e03
         ideal_line l2{-2.f, 1.f, 4.f};
 
@@ -129,8 +129,8 @@ TEST_CASE("multivector-gp")
 
     SUBCASE("line*point")
     {
-        // d*e12 + e*e31 + f*e23
-        line l1{1.f, 2.f, 3.f};
+        // a*e01 + b*e02 + c*e03 + d*e12 + e*e31 + f*e23
+        line l1{0.f, 0.f, 1.f, 1.f, 2.f, 3.f};
         // x*e_032 + y*e_013 + z*e_021 + e_123
         point p2{-2.f, 1.f, 4.f};
 
@@ -139,7 +139,7 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(l1p2.e2(), -2.f);
         CHECK_EQ(l1p2.e3(), -1.f);
         CHECK_EQ(l1p2.e0(), 0.f);
-        CHECK_EQ(l1p2.e021(), -7.f);
+        CHECK_EQ(l1p2.e021(), -8.f);
         CHECK_EQ(l1p2.e013(), 14.f);
         CHECK_EQ(l1p2.e032(), -7.f);
         CHECK_EQ(l1p2.e123(), 0.f);
@@ -167,8 +167,8 @@ TEST_CASE("multivector-gp")
 
     SUBCASE("ideal-line*line")
     {
-        // d*e12 + e*e31 + f*e23
-        line l1{1.f, 2.f, 3.f};
+        // a*e01 + b*e02 + c*e03 + d*e12 + e*e31 + f*e23
+        line l1{0.f, 0.f, 1.f, 1.f, 2.f, 3.f};
         // a*e01 + b*e02 + c*e03
         ideal_line l2{-2.f, 1.f, 4.f};
 
@@ -224,8 +224,8 @@ TEST_CASE("multivector-gp")
 
     SUBCASE("point*line")
     {
-        // d*e12 + e*e31 + f*e23
-        line l1{1.f, 2.f, 3.f};
+        // a*e01 + b*e02 + c*e03 + d*e12 + e*e31 + f*e23
+        line l1{0.f, 0.f, 1.f, 1.f, 2.f, 3.f};
         // x*e_032 + y*e_013 + z*e_021 + e_123
         point p2{-2.f, 1.f, 4.f};
 
@@ -234,7 +234,7 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(l1p2.e2(), -2.f);
         CHECK_EQ(l1p2.e3(), -1.f);
         CHECK_EQ(l1p2.e0(), 0.f);
-        CHECK_EQ(l1p2.e021(), 7.f);
+        CHECK_EQ(l1p2.e021(), 8.f);
         CHECK_EQ(l1p2.e013(), -14.f);
         CHECK_EQ(l1p2.e032(), 7.f);
         CHECK_EQ(l1p2.e123(), 0.f);

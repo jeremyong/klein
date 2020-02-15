@@ -1,12 +1,14 @@
-// File: klein_gp.hpp
+// File: geometric_product.hpp
 // Purpose: Define functions of the form gpAB where A and B are partition
 // indices. Each function so-defined computes the geometric product using vector
 // intrinsics. The partition index determines which basis elements are present
 // in each XMM component of the operand.
+// A number of the computations in this file are performed symbolically in
+// scripts/validation.klein
 
 #pragma once
 
-#include "klein_sse.hpp"
+#include "sse.hpp"
 
 namespace kln
 {
@@ -378,68 +380,63 @@ inline namespace detail
     // - 5 mul
     // - 3 add
     // - 1 set
-    inline __m128 KLN_VEC_CALL gp12(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline __m128 KLN_VEC_CALL gp12(__m128 const& a, __m128 const& b) noexcept
     {
         // (a0 + a1*e12 + a2*e31 + a3*e23) *
         //   (b0*e0123 + b1*e01 + b2*e02 + b3*e03) =
         //
         //     (a0*b0 + a2*b2 + a1*b3 + a3*b1)*e0123
-        //   + (a0*b1 + a1*b2 - a3*b0 - a2*b3)*e01
+        //   + (a0*b1 + a1*b2 - a2*b3 - a3*b0)*e01
         //   + (a0*b2 + a3*b3 - a2*b0 - a1*b1)*e02
         //   + (a0*b3 + a2*b1 - a1*b0 - a3*b2)*e03
 
         // (a0*b0, a0*b1, a0*b2, a0*b3)
-        __m128 tmp = _mm_mul_ps(KLN_SWIZZLE(lhs, 0, 0, 0, 0), rhs);
+        __m128 tmp = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), b);
 
         // Add (a2*b2, a1*b2, a3*b3, a2*b1)
-        tmp = _mm_add_ps(tmp,
-                         _mm_mul_ps(KLN_SWIZZLE(lhs, 2, 3, 1, 2),
-                                    KLN_SWIZZLE(rhs, 1, 3, 2, 2)));
+        tmp = _mm_add_ps(
+            tmp,
+            _mm_mul_ps(KLN_SWIZZLE(a, 2, 3, 1, 2), KLN_SWIZZLE(b, 1, 3, 2, 2)));
 
         // Accumulate the 3rd and 4th columns separately to negate lowest
         // component once and subtract
 
-        // (a1*b3, a3*b0, a2*b0, a1*b0)
-        __m128 tmp2 = _mm_mul_ps(
-            KLN_SWIZZLE(lhs, 1, 2, 3, 1), KLN_SWIZZLE(rhs, 0, 0, 0, 3));
+        // (a1*b3, a2*b3, a2*b0, a1*b0)
+        __m128 tmp2
+            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 2, 2, 1), KLN_SWIZZLE(b, 0, 0, 3, 3));
 
-        // Add (a3*b1, a2*b3, a1*b1, a3*b2)
-        tmp2 = _mm_add_ps(tmp2,
-                          _mm_mul_ps(KLN_SWIZZLE(lhs, 3, 1, 2, 3),
-                                     KLN_SWIZZLE(rhs, 2, 1, 3, 1)));
+        // Add (a3*b1, a3*b0, a1*b1, a3*b2)
+        tmp2 = _mm_add_ps(
+            tmp2,
+            _mm_mul_ps(KLN_SWIZZLE(a, 3, 1, 3, 3), KLN_SWIZZLE(b, 2, 1, 0, 1)));
 
-        // TODO: Consider using an xor here which has a latency of a
-        // single cycle instead of 4 which may stall a later dependency
-        // chain
-        // mul CPI: .5, latency: 3-5
-        // xor CPI: 1, latency: 1
         tmp2 = _mm_mul_ss(tmp2, _mm_set_ss(-1.f));
 
         return _mm_sub_ps(tmp, tmp2);
     }
 
-    inline __m128 KLN_VEC_CALL gp21(__m128 const& lhs, __m128 const& rhs) noexcept
+    inline __m128 KLN_VEC_CALL gp21(__m128 const& a, __m128 const& b) noexcept
     {
         // (a0*e0123 + a1*e01 + a2*e02 + a3*e03) *
         //   (b0 + b1*e12 + b2*e31 + b3*e23) =
         //
-        //     (b0*a0 + b2*a2 + b1*a3 + b3*a1)*e0123
-        //   + (b0*a1 - b1*a2 - b3*a0 + b2*a3)*e01
-        //   + (b0*a2 - b3*a3 - b2*a0 + b1*a1)*e02
-        //   + (b0*a3 - b2*a1 - b1*a0 + b3*a2)*e03
+        //     (a0*b0 + a1*b3 + a2*b2 + a3*b1)*e0123
+        //   + (a1 b0 + a3 b2 - a0 b3 - a2 b1)*e01
+        //   + (a2 b0 + a1 b1 - a0 b2 - a3 b3)*e02
+        //   + (a3 b0 + a2 b3 - a0 b1 - a1 b2)*e03
 
-        __m128 tmp = _mm_mul_ps(KLN_SWIZZLE(rhs, 0, 0, 0, 0), lhs);
+        __m128 tmp = _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0));
 
-        tmp = _mm_add_ps(tmp,
-                         _mm_mul_ps(KLN_SWIZZLE(lhs, 2, 1, 3, 1),
-                                    KLN_SWIZZLE(rhs, 3, 1, 2, 3)));
+        tmp = _mm_add_ps(
+            tmp,
+            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 1), KLN_SWIZZLE(b, 3, 1, 2, 3)));
 
-        __m128 tmp2 = _mm_mul_ps(
-            KLN_SWIZZLE(rhs, 1, 2, 3, 1), KLN_SWIZZLE(lhs, 0, 0, 0, 3));
+        __m128 tmp2
+            = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 2), KLN_SWIZZLE(b, 1, 2, 3, 2));
 
-        tmp2 = _mm_add_ps(tmp2,
-                          _mm_mul_ps(KLN_SWIZZLE(lhs, 1, 3, 2, 2),
-                                     KLN_SWIZZLE(rhs, 2, 3, 1, 2)));
+        tmp2 = _mm_add_ps(
+            tmp2,
+            _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 3), KLN_SWIZZLE(b, 2, 3, 1, 1)));
 
         tmp2 = _mm_mul_ss(tmp2, _mm_set_ss(-1.f));
 

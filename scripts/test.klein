@@ -1,0 +1,10 @@
+# Verification of computations used in various tests
+
+# Line * ideal line
+(e02 + e12 + 2 e31 + 3 e23) * (-2 e01 + e02 + 4 e03)
+
+# Line * point
+(e03 + e12 + 2 e31 + 3 e23) * (-2 e032 + e013 + 4 e021 + e123)
+
+# Point * line
+(-2 e032 + e013 + 4 e021 + e123) * (e03 + e12 + 2 e31 + 3 e23)

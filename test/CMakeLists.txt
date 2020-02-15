@@ -11,6 +11,7 @@ list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
 
 add_executable(klein_test
     main.cpp
+    test_exp_log.cpp
     test_gp.cpp
     test_sw.cpp
 )

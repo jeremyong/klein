@@ -6,7 +6,7 @@
 
 cmake_minimum_required(VERSION 3.15)
 
-project(Klein LANGUAGES C CXX)
+project(klein LANGUAGES C CXX)
 
 # Detect if we are a standalone projection or if we're included transitively
 # and set the various option defaults accordingly. By default, tests and utilities
@@ -14,11 +14,13 @@ project(Klein LANGUAGES C CXX)
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     set(KLEIN_STANDALONE ON)
     set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+    option(KLEIN_ENABLE_BENCH "Enable compilation of Klein benchmarks" ON)
     option(KLEIN_ENABLE_TESTS "Enable compilation of Klein tests" ON)
     option(KLEIN_VALIDATE "Enable runtime validations" ON)
     option(KLEIN_BUILD_SYM "Enable compilation of symbolic Klein utility" ON)
 else()
     set(KLEIN_STANDALONE OFF)
+    option(KLEIN_ENABLE_BENCH "Enable compilation of Klein benchmarks" OFF)
     option(KLEIN_ENABLE_TESTS "Enable compilation of Klein tests" OFF)
     option(KLEIN_VALIDATE "Enable runtime validations" OFF)
     option(KLEIN_BUILD_SYM "Enable compilation of symbolic Klein utility" ON)
@@ -37,6 +39,10 @@ if(MSVC)
 else()
     # Unlike MSVC, FMA instructions are enabled with a separate feature flag
     target_compile_options(klein INTERFACE -msse4.2 -mfma)
+endif()
+
+if(KLEIN_ENABLE_BENCH)
+    add_subdirectory(bench)
 endif()
 
 if(KLEIN_ENABLE_TESTS)

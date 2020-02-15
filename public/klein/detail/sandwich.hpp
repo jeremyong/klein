@@ -1,4 +1,4 @@
-// File: klein_sw.hpp
+// File: sandwich.hpp
 // Purpose: Define functions of the form swAB where A and B are partition
 // indices. Each function so-defined computes the sandwich operator using vector
 // intrinsics. The partition index determines which basis elements are present
@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include "klein_sse.hpp"
+#include "sse.hpp"
 
 namespace kln
 {
@@ -394,7 +394,6 @@ inline namespace detail
 
         tmp = _mm_mul_ps(tmp, _mm_set_ps(2.f, 2.f, 2.f, 0.f));
 
-        // TODO SSE2 fallback
         // Set the low component to unity
         return _mm_add_ps(tmp, _mm_set_ss(1.f));
     }

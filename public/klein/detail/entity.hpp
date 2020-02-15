@@ -1,7 +1,7 @@
 #pragma once
 
-#include "klein_gp.hpp"
-#include "klein_sw.hpp"
+#include "geometric_product.hpp"
+#include "sandwich.hpp"
 #include <cstdint>
 #include <type_traits>
 
@@ -36,12 +36,15 @@ union alignas(16) partition
     __m128 reg;
 };
 
+struct base_entity
+{};
+
 // An entity's memory layout is specified based on which partitions are present.
 // The least significant bit in the mask corresponds to the presence of P0, and
 // the 4th least significant bit corresponds to the presence of P3.
 // This class is not intended to be used by the user directly.
 template <uint8_t PMask /* Partition Mask */>
-struct entity
+struct entity : public base_entity
 {
     template <uint8_t P>
     friend class entity;
@@ -89,6 +92,56 @@ struct entity
     constexpr auto operator-(entity<P> const& other) noexcept
     {
         return add_sub<false>(other);
+    }
+
+    // Scale
+    entity& operator/=(float scale) noexcept
+    {
+        __m128 s = _mm_set1_ps(1.f / scale);
+
+        if constexpr (PMask & 0b1)
+        {
+            p0() = _mm_mul_ps(p0(), s);
+        }
+        if constexpr (PMask & 0b10)
+        {
+            p1() = _mm_mul_ps(p1(), s);
+        }
+        if constexpr (PMask & 0b100)
+        {
+            p2() = _mm_mul_ps(p2(), s);
+        }
+        if constexpr (PMask & 0b1000)
+        {
+            p3() = _mm_mul_ps(p3(), s);
+        }
+
+        return *this;
+    }
+
+    entity operator/(float scale) const noexcept
+    {
+        entity out;
+        __m128 s = _mm_set1_ps(1.f / scale);
+
+        if constexpr (PMask & 0b1)
+        {
+            out.p0() = _mm_mul_ps(p0(), s);
+        }
+        if constexpr (PMask & 0b10)
+        {
+            out.p1() = _mm_mul_ps(p1(), s);
+        }
+        if constexpr (PMask & 0b100)
+        {
+            out.p2() = _mm_mul_ps(p2(), s);
+        }
+        if constexpr (PMask & 0b1000)
+        {
+            out.p3() = _mm_mul_ps(p3(), s);
+        }
+
+        return out;
     }
 
     // Reverse
@@ -685,4 +738,4 @@ private:
         }
     }
 };
-}
+} // namespace kln

@@ -1,3 +1,6 @@
+// File: sse.hpp
+// Purpose: Provide convenience macros and utilities for invoking SSE intrinsics
+
 // SSE4.1 header
 #include <smmintrin.h>
 
