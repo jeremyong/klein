@@ -21,7 +21,17 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://jeremyong.com/klein/benchmarks/</loc>
+     <lastmod>2020-02-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://jeremyong.com/klein/roadmap/</loc>
+     <lastmod>2020-02-16</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/references/</loc>
      <lastmod>2020-02-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
