@@ -33,6 +33,17 @@ struct rotor final : public entity<0b10>
         parts[0].reg  = _mm_loadu_ps(buf);
     }
 
+    rotor(entity<0b10> const& other)
+        : entity{other}
+    {}
+
+    void normalize() noexcept
+    {
+        // A rotor is normalized if r * ~r is unity.
+        __m128 inv_norm = _mm_rcp_ps(_mm_sqrt_ps(_mm_dp_ps(p1(), p1(), 0xff)));
+        p1()            = _mm_mul_ps(p1(), inv_norm);
+    }
+
     plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;

@@ -238,5 +238,5 @@ Burlington, MA: Morgan Kaufmann Publishers Inc.
 
 - Provide a fallback for SSE2 in case SSE4.1 isn't available
 - Sandwich operator for lines
-- Exterior product
-- Norms
+- Regressive product
+- Symmetric inner product

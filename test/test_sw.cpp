@@ -97,3 +97,24 @@ TEST_CASE("motor-to-matrix")
     CHECK_EQ(buf[2], -86.f);
     CHECK_EQ(buf[3], 30.f);
 }
+
+TEST_CASE("normalize-motor")
+{
+    motor m{1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f};
+    m.normalize();
+    motor norm = m * ~m;
+    CHECK_EQ(norm.scalar(), doctest::Approx(1.f).epsilon(0.001));
+    CHECK_EQ(norm.e0123(), doctest::Approx(0.f).epsilon(0.001));
+}
+
+TEST_CASE("normalize-rotor")
+{
+    rotor r;
+    r.p1() = _mm_set_ps(4.f, -3.f, 3.f, 28.f);
+    r.normalize();
+    rotor norm = r * ~r;
+    CHECK_EQ(norm.scalar(), doctest::Approx(1.f).epsilon(0.001));
+    CHECK_EQ(norm.e12(), doctest::Approx(0.f));
+    CHECK_EQ(norm.e31(), doctest::Approx(0.f));
+    CHECK_EQ(norm.e23(), doctest::Approx(0.f));
+}
