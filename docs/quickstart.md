@@ -38,8 +38,6 @@ translator t{1.f, 0.f, 1.f, 1.f};
 // translation above.
 motor m = r * t;
 
-// Because the two actions commute, m will be equal to t * r.
-
 // Construct a point at position (1, 0, 0)
 point p1{1, 0, 0};
 
@@ -52,10 +50,6 @@ point p2 = m(p1);
 // because the call operator eliminates some redundant or cancelled
 // computation.
 // point p2 = m * p1 * ~m;
-
-// Yet another way we could have produced p2 is by chaining the rotor
-// and translator action:
-// point p2 = r(t(p1));
 
 // We can access the coordinates of p2 with p2.x(), p2.y(), p2.z(),
 // and p2.w(), where p.2w() is the homogeneous coordinate (initialized

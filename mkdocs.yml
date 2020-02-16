@@ -23,7 +23,9 @@ nav:
   - 'Quick Start': 'quickstart.md'
   - 'Tutorial': 'tutorial.md'
   - 'Klein Shell': 'shell.md'
+  - 'Benchmarks': 'benchmarks.md'
   - 'Roadmap': 'roadmap.md'
+  - 'References': 'references.md'
 
 edit_uri: ''
 

@@ -26,3 +26,6 @@ Thumbs.db
 *.bak
 *.tmp
 ipch/
+
+# Statically generated documentation
+site/
