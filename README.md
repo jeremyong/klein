@@ -1,5 +1,8 @@
 # Klein
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/236777729.svg)](https://zenodo.org/badge/latestdoi/236777729)
+
 ## Description
 
 Klein is an implementation of `P(R*_{3, 0, 1})`, aka 3D Projective Geometric Algebra.
@@ -12,7 +15,7 @@ SIMD Extensions) for maximum throughput.
 ## Requirements
 
 - Machine with a processor that supports SSE4.2 or later (has ~97% market penetration)
-- C++17 compliant compiler
+- C++17 compliant compiler (tested with GCC 9.2.1, Clang 9.0.1, and Visual Studio 2019)
 
 ## Usage
 

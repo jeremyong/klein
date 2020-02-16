@@ -74,6 +74,31 @@ int32_t algebra::mul(uint32_t lhs, uint32_t rhs) const noexcept
     return factor * ((lhs ^ rhs) + 1);
 }
 
+int32_t algebra::ext(uint32_t lhs, uint32_t rhs) const noexcept
+{
+    if ((lhs & rhs) > 0)
+    {
+        return 0;
+    }
+
+    int factor = 1;
+
+    // The lhs and rhs need to be interleaved and swaps counted
+    for (uint32_t i = 0; i != dim_; ++i)
+    {
+        if ((rhs & (1 << i)) > 0)
+        {
+            int swaps = popcnt(lhs & ~((1 << (i + 1)) - 1));
+            if (swaps & 1)
+            {
+                factor = -factor;
+            }
+        }
+    }
+
+    return factor * ((lhs | rhs) + 1);
+}
+
 bool algebra::rev(uint32_t in) const noexcept
 {
     uint32_t bits = popcnt(in);
@@ -231,6 +256,62 @@ mv operator*(mv const& lhs, mv const& rhs) noexcept
     return out;
 }
 
+mv& mv::operator^=(mv const& other) noexcept
+{
+    mv result = *this ^ other;
+    std::swap(terms, result.terms);
+    return *this;
+}
+
+mv operator^(mv const& lhs, mv const& rhs) noexcept
+{
+    mv out{*lhs.algebra_};
+
+    for (auto&& [e1, p1] : lhs.terms)
+    {
+        for (auto&& [e2, p2] : rhs.terms)
+        {
+            int32_t result = lhs.algebra_->ext(e1, e2);
+            if (result != 0)
+            {
+                uint32_t e = std::abs(result) - 1;
+                auto it    = out.terms.find(e);
+
+                poly p12 = p1 * p2;
+
+                if (it == out.terms.end())
+                {
+                    it = out.terms.emplace(e, poly{}).first;
+                }
+
+                if (result < 0)
+                {
+                    it->second += -p12;
+                }
+                else
+                {
+                    it->second += p12;
+                }
+            }
+        }
+    }
+
+    // Remove empty terms
+    for (auto it = out.terms.begin(); it != out.terms.end();)
+    {
+        if (it->second.terms.empty())
+        {
+            it = out.terms.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    return out;
+}
+
 std::ostream& operator<<(std::ostream& os,
                          std::map<uint32_t, poly>::const_iterator const& it) noexcept
 {
@@ -258,7 +339,7 @@ std::ostream& operator<<(std::ostream& os, mv const& m) noexcept
 {
     if (m.terms.empty())
     {
-        os << '1';
+        os << '0';
         return os;
     }
 

@@ -182,6 +182,7 @@ std::vector<token> tokenize(std::string const& input, algebra const& algebra_)
         case '-':
         case '~':
         case '*':
+        case '^':
             t.type = token_type::op;
             t.op   = c;
             out.emplace_back(t);
@@ -340,15 +341,28 @@ static mv parse_factor(std::vector<token>::const_iterator& it,
     return {a};
 }
 
+static mv parse_ext_factor(std::vector<token>::const_iterator& it,
+                           std::vector<token>::const_iterator end,
+                           algebra const& a)
+{
+    mv out = parse_factor(it, end, a);
+    while (it != end && it->type == token_type::op && it->op == '^')
+    {
+        ++it;
+        out ^= parse_factor(it, end, a);
+    }
+    return out;
+}
+
 static mv parse_term(std::vector<token>::const_iterator& it,
                      std::vector<token>::const_iterator end,
                      algebra const& a)
 {
-    mv out = parse_factor(it, end, a);
+    mv out = parse_ext_factor(it, end, a);
     while (it != end && it->type == token_type::op && it->op == '*')
     {
         ++it;
-        out *= parse_factor(it, end, a);
+        out *= parse_ext_factor(it, end, a);
     }
     return out;
 }

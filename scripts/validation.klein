@@ -20,3 +20,51 @@
 
 # p3 * p2
 (a0 e123 + a1 e021 + a2 e013 + a3 e032) * (b0 e0123 + b1 e01 + b2 e02 + b3 e03)
+
+# p0 ^ p0
+(a0 e3 + a1 e2 + a2 e1 + a3 e0) ^ (b0 e3 + b1 e2 + b2 e1 + b3 e0)
+
+# p0 ^ p1
+(a0 e3 + a1 e2 + a2 e1 + a3 e0) ^ (b0 + b1 e12 + b2 e31 + b3 e23)
+
+# p1 ^ p0 (note: matches p0 ^ p1)
+(b0 + b1 e12 + b2 e31 + b3 e23) ^ (a0 e3 + a1 e2 + a2 e1 + a3 e0)
+
+# p0 ^ p2
+(a0 e3 + a1 e2 + a2 e1 + a3 e0) ^ (b0 e0123 + b1 e01 + b2 e02 + b3 e03)
+
+# p2 ^ p0 (note: matches p0 ^ p2)
+(b0 e0123 + b1 e01 + b2 e02 + b3 e03) ^ (a0 e3 + a1 e2 + a2 e1 + a3 e0)
+
+# p0 ^ p3
+(a0 e3 + a1 e2 + a2 e1 + a3 e0) ^ (b0 e123 + b1 e021 + b2 e013 + b3 e032)
+
+# p3 ^ p0
+(b0 e123 + b1 e021 + b2 e013 + b3 e032) ^ (a0 e3 + a1 e2 + a2 e1 + a3 e0)
+
+# p1 ^ p1
+(a0 + a1 e12 + a2 e31 + a3 e23) ^ (b0 + b1 e12 + b2 e31 + b3 e23)
+
+# p1 ^ p2
+(a0 + a1 e12 + a2 e31 + a3 e23) ^ (b0 e0123 + b1 e01 + b2 e02 + b3 e03)
+
+# p2 ^ p1
+(b0 e0123 + b1 e01 + b2 e02 + b3 e03) ^ (a0 + a1 e12 + a2 e31 + a3 e23)
+
+# p1 ^ p3
+(a0 + a1 e12 + a2 e31 + a3 e23) ^ (b0 e123 + b1 e021 + b2 e013 + b3 e032)
+
+# p3 ^ p1
+(b0 e123 + b1 e021 + b2 e013 + b3 e032) ^ (a0 + a1 e12 + a2 e31 + a3 e23)
+
+# p2 ^ p2
+(a0 e0123 + a1 e01 + a2 e02 + a3 e03) ^ (b0 e0123 + b1 e01 + b2 e02 + b3 e03)
+
+# p2 ^ p3
+(a0 e0123 + a1 e01 + a2 e02 + a3 e03) ^ (b0 e123 + b1 e021 + b2 e013 + b3 e032)
+
+# p3 ^ p2
+(b0 e123 + b1 e021 + b2 e013 + b3 e032) ^ (a0 e0123 + a1 e01 + a2 e02 + a3 e03)
+
+# p3 ^ p3
+(a0 e123 + a1 e021 + a2 e013 + a3 e032) ^ (b0 e123 + b1 e021 + b2 e013 + b3 e032)

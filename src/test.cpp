@@ -170,6 +170,27 @@ TEST_CASE("parser")
         CHECK_EQ(mv2.terms[0b1111].terms.begin()->second, -3.f);
     }
 
+    SUBCASE("exterior-product")
+    {
+        mv mv1 = parse("(e3 + e2 + e1 + e0) ^ (e3 + 2e2 + 2e1 + 2e0)", pga);
+        CHECK_EQ(mv1.terms[0b1001].terms.begin()->second, -1.f);
+        CHECK_EQ(mv1.terms[0b1010].terms.begin()->second, -1.f);
+        CHECK_EQ(mv1.terms[0b1100].terms.begin()->second, -1.f);
+        CHECK_EQ(mv1.terms[0b110].terms.size(), 0.f);
+        CHECK_EQ(mv1.terms[0b101].terms.size(), 0.f);
+        CHECK_EQ(mv1.terms[0b11].terms.size(), 0.f);
+
+        mv mv2
+            = parse("(e3 + e2 + e1 + e0) ^ (e123 + 2e021 + 2e013 + 2e032)", pga);
+        CHECK_EQ(mv2.terms[0b1111].terms.begin()->second, 7.f);
+        CHECK_EQ(mv1.terms[0b110].terms.begin()->second, 1.f);
+        CHECK_EQ(mv1.terms[0b1010].terms.begin()->second, -1.f);
+        CHECK_EQ(mv1.terms[0b1100].terms.begin()->second, 1.f);
+        CHECK_EQ(mv1.terms[0b11].terms.size(), 0);
+        CHECK_EQ(mv1.terms[0b101].terms.size(), 0);
+        CHECK_EQ(mv1.terms[0b1001].terms.size(), 0);
+    }
+
     SUBCASE("reverse")
     {
         mv mv1 = parse("~e02", pga);

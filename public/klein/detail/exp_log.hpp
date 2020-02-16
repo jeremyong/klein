@@ -30,7 +30,7 @@ inline namespace detail
                                  __m128& p2_out)
     {
         // The exponential map produces a continuous group of rotations about an
-        // axis. We'd *like* to evaluate the exp(ab) as exp(a)exp(b) but we
+        // axis. We'd *like* to evaluate the exp(a + b) as exp(a)exp(b) but we
         // cannot do that in general because a and b do not commute (consider
         // the differences between the Taylor expansion of exp(ab) and
         // exp(a)exp(b)).

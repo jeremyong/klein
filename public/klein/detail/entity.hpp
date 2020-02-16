@@ -1,5 +1,6 @@
 #pragma once
 
+#include "exterior_product.hpp"
 #include "geometric_product.hpp"
 #include "sandwich.hpp"
 #include <cstdint>
@@ -172,6 +173,138 @@ struct entity : public base_entity
             out.p3() = _mm_mul_ps(p3(), _mm_set1_ps(-1.f));
         }
 
+        return out;
+    }
+
+    template <uint8_t PMask2>
+    constexpr auto operator^(entity<PMask2> const& rhs) const noexcept
+    {
+        __m128 p0_ = _mm_set1_ps(0.f); // (e3, e2, e1, e0)
+        __m128 p1_ = _mm_set1_ps(0.f); // (1, e12, e31, e23)
+        __m128 p2_ = _mm_set1_ps(0.f); // (e0123, e01, e02, e03)
+        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e021, e013, e032)
+
+        if constexpr ((PMask & 1) > 0)
+        {
+            if constexpr ((PMask2 & 1) > 0)
+            {
+                ext00(p0(), rhs.p0(), p1_, p2_);
+            }
+            if constexpr ((PMask2 & 0b10) > 0)
+            {
+                __m128 tmp;
+                ext01(p0(), rhs.p1(), tmp, p3_);
+                p0_ = _mm_add_ps(tmp, p0_);
+            }
+            if constexpr ((PMask2 & 0b100) > 0)
+            {
+                __m128 tmp;
+                ext02(p0(), rhs.p2(), tmp);
+                p3_ = _mm_add_ps(tmp, p3_);
+            }
+            if constexpr ((PMask2 & 0b1000) > 0)
+            {
+                __m128 tmp;
+                ext03<false>(p0(), rhs.p3(), tmp);
+                p2_ = _mm_add_ps(tmp, p2_);
+            }
+        }
+
+        if constexpr ((PMask & 0b10) > 0)
+        {
+            if constexpr ((PMask2 & 1) > 0)
+            {
+                __m128 tmp1;
+                __m128 tmp2;
+                ext01(rhs.p0(), p1(), tmp1, tmp2);
+                p0_ = _mm_add_ps(tmp1, p0_);
+                p3_ = _mm_add_ps(tmp2, p3_);
+            }
+            if constexpr ((PMask2 & 0b10) > 0)
+            {
+                __m128 tmp;
+                ext11(p1(), rhs.p1(), tmp);
+                p1_ = _mm_add_ps(p1_, tmp);
+            }
+            if constexpr ((PMask2 & 0b100) > 0)
+            {
+                __m128 tmp;
+                ext12(p1(), rhs.p2(), tmp);
+                p2_ = _mm_add_ps(p2_, tmp);
+            }
+            if constexpr ((PMask2 & 0b1000) > 0)
+            {
+                __m128 tmp;
+                ext13(p1(), rhs.p3(), tmp);
+                p3_ = _mm_add_ps(tmp, p3_);
+            }
+        }
+
+        if constexpr ((PMask & 0b100) > 0)
+        {
+            if constexpr ((PMask2 & 1) > 0)
+            {
+                __m128 tmp;
+                ext02(rhs.p0(), p2(), tmp);
+                p3_ = _mm_add_ps(tmp, p3_);
+            }
+            if constexpr ((PMask2 & 0b10) > 0)
+            {
+                __m128 tmp;
+                ext12(rhs.p1(), p2(), tmp);
+                p2_ = _mm_add_ps(p2_, tmp);
+            }
+        }
+
+        if constexpr ((PMask & 0b1000) > 0)
+        {
+            if constexpr ((PMask2 & 1) > 0)
+            {
+                __m128 tmp;
+                ext03<true>(rhs.p0(), p2(), tmp);
+                p2_ = _mm_add_ps(tmp, p2_);
+            }
+            if constexpr ((PMask2 & 0b10) > 0)
+            {
+                __m128 tmp;
+                ext13(rhs.p1(), p3(), tmp);
+                p3_ = _mm_add_ps(tmp, p3_);
+            }
+        }
+
+        constexpr bool p0_set = ((PMask & 0b10) && (PMask2 & 1))
+                                || ((PMask & 1) && (PMask2 & 0b10));
+        constexpr bool p1_set = ((PMask & PMask2 & 1) || (PMask & PMask2 & 0b10));
+        constexpr bool p2_set = (PMask & PMask2 & 1)
+                                || ((PMask & 1000) && (PMask2 & 1))
+                                || ((PMask & 1) && (PMask2 & 0b1000))
+                                || ((PMask & 0b100) && (PMask2 & 0b10))
+                                || ((PMask & 0b10) && (PMask2 & 0b100));
+        constexpr bool p3_set = ((PMask & 1) && (PMask2 & 0b110))
+                                || ((PMask & 0b110) && (PMask2 & 1))
+                                || ((PMask & 0b1000) && (PMask2 & 0b10))
+                                || ((PMask & 0b10) && (PMask2 & 0b1000));
+
+        constexpr uint8_t out_mask
+            = (p3_set << 3) | (p2_set << 2) | (p1_set << 1) | p0_set;
+
+        entity<out_mask> out;
+        if constexpr (p0_set)
+        {
+            out.p0() = p0_;
+        }
+        if constexpr (p1_set)
+        {
+            out.p1() = p1_;
+        }
+        if constexpr (p2_set)
+        {
+            out.p2() = p2_;
+        }
+        if constexpr (p3_set)
+        {
+            out.p3() = p3_;
+        }
         return out;
     }
 
