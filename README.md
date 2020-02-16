@@ -1,6 +1,6 @@
 # Klein
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/236777729.svg)](https://zenodo.org/badge/latestdoi/236777729)
 
 ## Description
@@ -233,10 +233,3 @@ SIGGRAPH 2019 Geometric Algebra Course.
 Leo Dorst, Daniel Fontijne, Stephen Mann. (2007)
 Geometric Algebra for Computer Science.
 Burlington, MA: Morgan Kaufmann Publishers Inc.
-
-## TODO
-
-- Provide a fallback for SSE2 in case SSE4.1 isn't available
-- Sandwich operator for lines
-- Regressive product
-- Symmetric inner product

@@ -24,5 +24,7 @@ struct mat4x4
         out = _mm_add_ps(out, _mm_mul_ps(cols[3], KLN_SWIZZLE(xyzw, 3, 3, 3, 3)));
         return out;
     }
+
+    // TODO: provide a transpose function
 };
 }

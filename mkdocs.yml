@@ -1,0 +1,53 @@
+site_name: Klein
+theme:
+  name: material
+  custom_dir: 'theme'
+  palette:
+    primary: 'teal'
+    accent: 'deep orange'
+  favicon: 'images/favicon.ico'
+  logo:
+    icon: 'flip'
+site_url: https://jeremyong.com/klein
+repo_url: https://github.com/jeremyong/klein
+repo_name: 'jeremyong/klein'
+site_description: Klein - Realtime Projective Geometric Algebra
+site_author: Jeremy Ong
+copyright: 'Klein Copyright &copy; 2020 Jeremy Ong'
+google_analytics: ['UA-10576233-1', 'auto']
+
+plugins: []
+
+nav:
+  - 'Home': 'index.md'
+  - 'Quick Start': 'quickstart.md'
+  - 'Tutorial': 'tutorial.md'
+  - 'Klein Shell': 'shell.md'
+  - 'Roadmap': 'roadmap.md'
+
+edit_uri: ''
+
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - codehilite
+  - def_list
+  - footnotes
+  - pymdownx.arithmatex
+  - pymdownx.superfences
+  - pymdownx.mark
+  - pymdownx.extrarawhtml
+  - sane_lists
+
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/jeremyong'
+    - type: 'twitter'
+      link: 'https://twitter.com/m_ninepoints'
+    - type: 'linkedin'
+      link: 'https://www.linkedin.com/in/jeremycong'
