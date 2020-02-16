@@ -162,15 +162,15 @@ struct entity : public base_entity
 
         if constexpr ((PMask & 0b10) > 0)
         {
-            out.p1() = _mm_mul_ps(p1(), _mm_set_ps(-1.f, -1.f, -1.f, 1.f));
+            out.p1() = _mm_xor_ps(p1(), _mm_set_ps(-0.f, -0.f, -0.f, 0.f));
         }
         if constexpr ((PMask & 0b100) > 0)
         {
-            out.p2() = _mm_mul_ps(p2(), _mm_set_ps(-1.f, -1.f, -1.f, 1.f));
+            out.p2() = _mm_xor_ps(p2(), _mm_set_ps(-0.f, -0.f, -0.f, 0.f));
         }
         if constexpr ((PMask & 0b1000) > 0)
         {
-            out.p3() = _mm_mul_ps(p3(), _mm_set1_ps(-1.f));
+            out.p3() = _mm_xor_ps(p3(), _mm_set1_ps(-0.f));
         }
 
         return out;

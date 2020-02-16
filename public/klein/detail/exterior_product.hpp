@@ -30,14 +30,14 @@ inline namespace detail
         p1_out = _mm_sub_ps(
             p1_out,
             _mm_mul_ps(KLN_SWIZZLE(a, 0, 2, 1, 3), KLN_SWIZZLE(b, 1, 0, 2, 3)));
-        p1_out = _mm_mul_ss(p1_out, _mm_set_ss(0.f));
+        p1_out = _mm_blend_ps(p1_out, _mm_setzero_ps(), 0b0001);
 
         p2_out
             = _mm_mul_ps(KLN_SWIZZLE(a, 3, 3, 3, 0), KLN_SWIZZLE(b, 0, 1, 2, 0));
         p2_out = _mm_sub_ps(
             p2_out,
             _mm_mul_ps(KLN_SWIZZLE(a, 0, 1, 2, 3), KLN_SWIZZLE(b, 3, 3, 3, 3)));
-        p2_out = _mm_mul_ss(p2_out, _mm_set_ss(0.f));
+        p2_out = _mm_blend_ps(p2_out, _mm_setzero_ps(), 0b0001);
     }
 
     // NOTE: p1 ^ p0 and p0 ^ p1 produce identical results
@@ -62,8 +62,8 @@ inline namespace detail
         p3_out
             = _mm_mul_ps(KLN_SWIZZLE(a, 3, 3, 3, 0), KLN_SWIZZLE(b, 3, 2, 1, 1));
 
-        p3_out = _mm_mul_ps(
-            _mm_set_ps(-1.f, -1.f, -1.f, 1.f),
+        p3_out = _mm_xor_ps(
+            _mm_set1_ps(-0.f),
             _mm_add_ss(
                 p3_out, _mm_dp_ps(a, KLN_SWIZZLE(b, 0, 3, 2, 1), 0b01100001)));
     }
@@ -82,7 +82,7 @@ inline namespace detail
         p3_out = _mm_sub_ps(
             p3_out,
             _mm_mul_ps(KLN_SWIZZLE(a, 0, 2, 1, 3), KLN_SWIZZLE(b, 2, 3, 1, 0)));
-        p3_out = _mm_mul_ss(p3_out, _mm_set_ss(0.f));
+        p3_out = _mm_blend_ps(p3_out, _mm_setzero_ps(), 0b0001);
     }
 
     // p0 ^ p3 = -p3 ^ p0
@@ -95,7 +95,7 @@ inline namespace detail
         p2_out = _mm_dp_ps(a, KLN_SWIZZLE(b, 0, 3, 2, 1), 0b11110001);
         if constexpr (Flip)
         {
-            p2_out = _mm_mul_ss(p2_out, _mm_set_ss(-1.f));
+            p2_out = _mm_xor_ps(p2_out, _mm_set_ps(0, 0, 0, -0.f));
         }
     }
 
