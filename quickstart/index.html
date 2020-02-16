@@ -384,6 +384,32 @@ to reduce the included code footprint.</p>
 <span class="c1">// is a column-major matrix</span>
 <span class="n">mat4x4</span> <span class="n">m_matrix</span> <span class="o">=</span> <span class="n">m</span><span class="p">.</span><span class="n">as_matrix</span><span class="p">();</span>
 </pre></div>
+
+<p>The spherical interpolation (aka slerp) employed to produce smooth incremental
+rotations/transformations in the quaternion algebra is available in Klein
+using the exp and log functions as in the snippet below.</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Blend between two motors with a parameter t in the range [0, 1]</span>
+<span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="n">blend_motors</span><span class="p">(</span><span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">,</span> <span class="kt">float</span> <span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Starting from a, the motor needed to get to b is b * ~a.</span>
+    <span class="c1">// To perform this motion continuously, we can take the principal</span>
+    <span class="c1">// branch of the logarithm of b * ~a, and subdivide it before</span>
+    <span class="c1">// re-exponentiating it to produce a motor again.</span>
+
+    <span class="c1">// In practice, this should be cached whenever possible.</span>
+    <span class="n">line</span> <span class="n">motor_step</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="o">~</span><span class="n">a</span><span class="p">).</span><span class="n">log</span><span class="p">();</span>
+
+    <span class="c1">// exp(log(m)) = exp(t*log(m) + (1 - t)*log(m))</span>
+    <span class="c1">// = exp(t*(log(m))) * exp((1 - t)*log(m))</span>
+    <span class="n">motor_step</span> <span class="o">*=</span> <span class="n">t</span><span class="p">;</span>
+
+    <span class="c1">// The exponential of the step here can be cached if the blend occurs</span>
+    <span class="c1">// with fixed steps toward the final motor. Compose the interpolated</span>
+    <span class="c1">// result with the start motor to produce the intermediate blended</span>
+    <span class="c1">// motor.</span>
+    <span class="k">return</span> <span class="n">motor_step</span><span class="p">.</span><span class="n">exp</span><span class="p">()</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
                 
                   
                 
