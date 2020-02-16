@@ -52,8 +52,8 @@ William Rowan Hamilton, Julius Plücker, and William Kingdon Clifford, among oth
 
 <a id="1">[1]</a>
 Gunn, Charles G. (2019).
-Projective geometric algebra: A new framework for doing euclidean geometry.
-[arXiv link](https://arxiv.org/abs/1901.05873)
+Course notes Geometric Algebra for Computer Graphics, SIGGRAPH 2019.
+[arXiv link](https://arxiv.org/abs/2002.04509)
 
 <a id="2">[2]</a>
 Steven De Keninck and Charles Gunn. (2019).
