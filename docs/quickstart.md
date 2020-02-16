@@ -62,3 +62,31 @@ point p2 = m(p1);
 // is a column-major matrix
 mat4x4 m_matrix = m.as_matrix();
 ```
+
+The spherical interpolation (aka slerp) employed to produce smooth incremental
+rotations/transformations in the quaternion algebra is available in Klein
+using the exp and log functions as in the snippet below.
+
+```c++
+// Blend between two motors with a parameter t in the range [0, 1]
+kln::motor blend_motors(kln::motor const& a, kln::motor const& b, float t)
+{
+    // Starting from a, the motor needed to get to b is b * ~a.
+    // To perform this motion continuously, we can take the principal
+    // branch of the logarithm of b * ~a, and subdivide it before
+    // re-exponentiating it to produce a motor again.
+
+    // In practice, this should be cached whenever possible.
+    line motor_step = (b * ~a).log();
+
+    // exp(log(m)) = exp(t*log(m) + (1 - t)*log(m))
+    // = exp(t*(log(m))) * exp((1 - t)*log(m))
+    motor_step *= t;
+
+    // The exponential of the step here can be cached if the blend occurs
+    // with fixed steps toward the final motor. Compose the interpolated
+    // result with the start motor to produce the intermediate blended
+    // motor.
+    return motor_step.exp() * a;
+}
+```
