@@ -27,7 +27,7 @@ struct translator final : public entity<0b110>
     plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
-        out.p0() = sw02(p.p0(), parts[1].reg);
+        out.p0() = sw02(p.p0(), _mm_blend_ps(parts[1].reg, parts[0].reg, 1));
         return out;
     }
 

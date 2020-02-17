@@ -14,6 +14,7 @@ add_executable(klein_test
     test_ep.cpp
     test_exp_log.cpp
     test_gp.cpp
+    test_rp.cpp
     test_sw.cpp
 )
 target_link_libraries(klein_test PRIVATE klein doctest)

@@ -183,12 +183,15 @@ TEST_CASE("parser")
         mv mv2
             = parse("(e3 + e2 + e1 + e0) ^ (e123 + 2e021 + 2e013 + 2e032)", pga);
         CHECK_EQ(mv2.terms[0b1111].terms.begin()->second, 7.f);
-        CHECK_EQ(mv1.terms[0b110].terms.begin()->second, 1.f);
-        CHECK_EQ(mv1.terms[0b1010].terms.begin()->second, -1.f);
+        CHECK_EQ(mv2.terms.size(), 1);
+    }
+
+    SUBCASE("regressive-product")
+    {
+        // Join the origin and the point (1, 0, 0) to generate the x-axis
+        mv mv1 = parse("e123 & (e123 + e032)", pga);
+        CHECK_EQ(mv1.terms.size(), 1);
         CHECK_EQ(mv1.terms[0b1100].terms.begin()->second, 1.f);
-        CHECK_EQ(mv1.terms[0b11].terms.size(), 0);
-        CHECK_EQ(mv1.terms[0b101].terms.size(), 0);
-        CHECK_EQ(mv1.terms[0b1001].terms.size(), 0);
     }
 
     SUBCASE("reverse")

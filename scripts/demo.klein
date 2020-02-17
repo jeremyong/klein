@@ -2,7 +2,7 @@
 (1 + b1 e01 + b2 e02 + b3 e03) * (a0 e123 + a1 e021 + a2 e013 + a3 e032) * (1 - b1 e01 - b2 e02 - b3 e03)
 
 # Translate a plane
-(1 + b1 e01 + b2 e02 + b3 e03) * (a3 e0 + a2 e1 + a1 e2 + a0 e3) * (1 - b1 e01 - b2 e02 - b3 e03)
+(b0 + b1 e01 + b2 e02 + b3 e03) * (a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 - b1 e01 - b2 e02 - b3 e03)
 
 # Rotate a point
 (b0 + b1 e12 + b2 e31 + b3 e23) * (a0 e123 + a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e12 - b2 e31 - b3 e23)
@@ -17,7 +17,7 @@
 (1 + 2 e12 + 3 e31 + 4 e23 + 5 e01 + 6 e02 + 7 e03 + 8 e0123) * (1e123 + 2e021 + e013 - e032)* (1 - 2 e12 - 3 e31 - 4 e23 - 5 e01 - 6 e02 - 7 e03 + 8 e0123)
 
 # Conjugate plane with a motor
-(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a3 e0 + a2 e1 + a1 e2 + a0 e3) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
+(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
 
 # Example (motor * plane * ~motor)
 (1 + 2 e12 + 3 e31 + 4 e23 + 5 e01 + 6 e02 + 7 e03 + 8 e0123) * (3e1 + 2e2 + e3 - e0)* (1 - 2 e12 - 3 e31 - 4 e23 - 5 e01 - 6 e02 - 7 e03 + 8 e0123)

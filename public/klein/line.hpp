@@ -39,11 +39,6 @@ struct line final : public entity<0b110>
         : entity{e}
     {}
 
-    float operator[](size_t i) const noexcept
-    {
-        return reinterpret_cast<float const*>(this)[i];
-    }
-
     entity<0b110> exp() const noexcept
     {
         entity<0b110> out;

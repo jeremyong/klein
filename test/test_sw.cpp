@@ -12,10 +12,10 @@ TEST_CASE("simd-sandwich")
     float ab[4];
     _mm_store_ps(ab, detail::sw02(a, b));
 
-    CHECK_EQ(ab[0], 1.f);
+    CHECK_EQ(ab[0], 9.f);
     CHECK_EQ(ab[1], 2.f);
     CHECK_EQ(ab[2], 3.f);
-    CHECK_EQ(ab[3], -24.f);
+    CHECK_EQ(ab[3], 4.f);
 }
 
 TEST_CASE("rotor-point")

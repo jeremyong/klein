@@ -99,6 +99,81 @@ int32_t algebra::ext(uint32_t lhs, uint32_t rhs) const noexcept
     return factor * ((lhs | rhs) + 1);
 }
 
+int32_t algebra::dual(uint32_t in) const noexcept
+{
+    // NOTE: for now, this operator is specialized for P(R*_{3, 0, 1})
+    assert(p_ == 3);
+    assert(q_ == 0);
+    assert(r_ == 1);
+
+    // The dual-coordinate map J maps elements e_S to their right complement E^T
+    // where ST is an even permutation of {0123}. Exceptions are made for the
+    // trivector complements since their complements do not have indices that
+    // can be swapped. For these cases, a minus sign is introduced since the
+    // resulting permutation will be odd.
+    switch (in)
+    {
+    case 0:
+        return 0b1111 + 1;
+    case 1:
+        return 0b1110 + 1;
+    case 0b10:
+        return -(0b1101 + 1);
+    case 0b100:
+        return 0b1011 + 1;
+    case 0b1000:
+        return -(0b111 + 1);
+    case 0b11:
+        return 0b1100 + 1;
+    case 0b101:
+        return -(0b1010 + 1);
+    case 0b1001:
+        return 0b110 + 1;
+    case 0b110:
+        return 0b1001 + 1;
+    case 0b1010:
+        return -(0b101 + 1);
+    case 0b1100:
+        return 0b11 + 1;
+    case 0b111:
+        return -(0b1000 + 1);
+    case 0b1011:
+        return 0b100 + 1;
+    case 0b1101:
+        return -(0b10 + 1);
+    case 0b1110:
+        return 0b1 + 1;
+    case 0b1111:
+    default:
+        return 1;
+    }
+}
+
+int32_t algebra::reg(uint32_t lhs, uint32_t rhs) const noexcept
+{
+    int32_t lhs_j = dual(lhs);
+    int32_t rhs_j = dual(rhs);
+
+    int factor = lhs_j < 0 ? -1 : 1;
+    if (rhs_j < 0)
+    {
+        factor *= -1;
+    }
+
+    int32_t ext_j = ext(std::abs(lhs_j) - 1, std::abs(rhs_j) - 1);
+    if (ext_j < 0)
+    {
+        factor *= -1;
+    }
+    else if (ext_j == 0)
+    {
+        return 0;
+    }
+
+    int32_t result = dual(std::abs(ext_j) - 1);
+    return factor * result;
+}
+
 bool algebra::rev(uint32_t in) const noexcept
 {
     uint32_t bits = popcnt(in);
@@ -272,6 +347,62 @@ mv operator^(mv const& lhs, mv const& rhs) noexcept
         for (auto&& [e2, p2] : rhs.terms)
         {
             int32_t result = lhs.algebra_->ext(e1, e2);
+            if (result != 0)
+            {
+                uint32_t e = std::abs(result) - 1;
+                auto it    = out.terms.find(e);
+
+                poly p12 = p1 * p2;
+
+                if (it == out.terms.end())
+                {
+                    it = out.terms.emplace(e, poly{}).first;
+                }
+
+                if (result < 0)
+                {
+                    it->second += -p12;
+                }
+                else
+                {
+                    it->second += p12;
+                }
+            }
+        }
+    }
+
+    // Remove empty terms
+    for (auto it = out.terms.begin(); it != out.terms.end();)
+    {
+        if (it->second.terms.empty())
+        {
+            it = out.terms.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    return out;
+}
+
+mv& mv::operator&=(mv const& other) noexcept
+{
+    mv result = *this & other;
+    std::swap(terms, result.terms);
+    return *this;
+}
+
+mv operator&(mv const& lhs, mv const& rhs) noexcept
+{
+    mv out{*lhs.algebra_};
+
+    for (auto&& [e1, p1] : lhs.terms)
+    {
+        for (auto&& [e2, p2] : rhs.terms)
+        {
+            int32_t result = lhs.algebra_->reg(e1, e2);
             if (result != 0)
             {
                 uint32_t e = std::abs(result) - 1;

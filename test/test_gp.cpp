@@ -12,14 +12,14 @@ TEST_CASE("multivector-gp")
         plane p1{1.f, 2.f, 3.f, 4.f};
         plane p2{2.f, 3.f, -1.f, -2.f};
         line p12 = p1 * p2;
-        CHECK_EQ(p12[0], 5.f);
-        CHECK_EQ(p12[1], -1.f);
-        CHECK_EQ(p12[2], 7.f);
-        CHECK_EQ(p12[3], -11.f);
-        CHECK_EQ(p12[4], 0.f);
-        CHECK_EQ(p12[5], 10.f);
-        CHECK_EQ(p12[6], 16.f);
-        CHECK_EQ(p12[7], 2.f);
+        CHECK_EQ(p12.scalar(), 5.f);
+        CHECK_EQ(p12.e12(), -1.f);
+        CHECK_EQ(p12.e31(), 7.f);
+        CHECK_EQ(p12.e23(), -11.f);
+        CHECK_EQ(p12.e0123(), 0.f);
+        CHECK_EQ(p12.e01(), 10.f);
+        CHECK_EQ(p12.e02(), 16.f);
+        CHECK_EQ(p12.e03(), 2.f);
     }
 
     SUBCASE("plane*line")

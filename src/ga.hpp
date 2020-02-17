@@ -19,13 +19,26 @@ public:
     // Elements are encoded 1 + the bitfield to disambiguate 0.
     int32_t mul(uint32_t lhs, uint32_t rhs) const noexcept;
 
+    // Exterior product
     // Results are encoded in the same way as mul.
     int32_t ext(uint32_t lhs, uint32_t rhs) const noexcept;
+
+    // Regressive product (J(J(lhs) ^ J(rhs)))
+    int32_t reg(uint32_t lhs, uint32_t rhs) const noexcept;
+
+    // Applies the dual coordinate map J
+    int32_t dual(uint32_t in) const noexcept;
 
     // Return the parity of a reversion operator on a given element
     bool rev(uint32_t in) const noexcept;
 
     bool operator==(algebra const&) const noexcept;
+
+    // Pseudoscalar
+    uint32_t pss() const noexcept
+    {
+        return (1 << dim_) - 1;
+    }
 
 private:
     uint32_t p_;
@@ -66,10 +79,11 @@ public:
     mv& operator-() && noexcept;
     mv operator~() const& noexcept;
     mv& operator~() && noexcept;
-    mv& operator^=(mv const& other) noexcept;
-    mv& operator*=(mv const& other) noexcept;
     mv& operator+=(mv const& other) noexcept;
     mv& operator-=(mv const& other) noexcept;
+    mv& operator*=(mv const& other) noexcept;
+    mv& operator^=(mv const& other) noexcept;
+    mv& operator&=(mv const& other) noexcept;
 
     mv& push(uint32_t e, poly const& p) noexcept;
 
@@ -80,10 +94,12 @@ private:
     friend mv operator+(mv const& lhs, mv const& rhs) noexcept;
     friend mv operator*(mv const& lhs, mv const& rhs) noexcept;
     friend mv operator^(mv const& lhs, mv const& rhs) noexcept;
+    friend mv operator&(mv const& lhs, mv const& rhs) noexcept;
     algebra const* algebra_ = nullptr;
 };
 
 mv operator+(mv const& lhs, mv const& rhs) noexcept;
 mv operator*(mv const& lhs, mv const& rhs) noexcept;
 mv operator^(mv const& lhs, mv const& rhs) noexcept;
+mv operator&(mv const& lhs, mv const& rhs) noexcept;
 std::ostream& operator<<(std::ostream& os, mv const& m) noexcept;

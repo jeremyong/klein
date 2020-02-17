@@ -34,6 +34,7 @@ Supported operations:
 
 - Geometric product (used to compose group actions)
 - Exterior product (used to meet entities)
+- Regressive product (used to join entities)
 - Sandwich operators (defined via the call operator on rotors, translators, and motors)
 - Standard arithmetic operations
 - Line exponentiation to generate motors

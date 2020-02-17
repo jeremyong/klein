@@ -8,7 +8,7 @@ inline namespace detail
 {
     // Partition memory layouts
     //     LSB --> MSB
-    // p0: (e3, e2, e1, e0)
+    // p0: (e0, e1, e2, e3)
     // p1: (1, e12, e31, e23)
     // p2: (e0123, e01, e02, e03)
     // p3: (e123, e021, e013, e032)
@@ -18,54 +18,52 @@ inline namespace detail
                                    __m128& p1_out,
                                    __m128& p2_out) noexcept
     {
-        // (a2 b1 - a1 b2) e12 +
-        // (a0 b2 - a2 b0) e31 +
-        // (a1 b0 - a0 b1) e23 +
-        // (a3 b2 - a2 b3) e01 +
-        // (a3 b1 - a1 b3) e02 +
-        // (a3 b0 - a0 b3) e03
+        // (a1 b2 - a2 b1) e12 +
+        // (a3 b1 - a1 b3) e31 +
+        // (a2 b3 - a3 b2) e23 +
+        // (a0 b1 - a1 b0) e01 +
+        // (a0 b2 - a2 b0) e02 +
+        // (a0 b3 - a3 b0) e03
 
         p1_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 0, 2, 3), KLN_SWIZZLE(b, 0, 2, 1, 3));
+            = _mm_mul_ps(KLN_SWIZZLE(a, 2, 3, 1, 0), KLN_SWIZZLE(b, 3, 1, 2, 0));
         p1_out = _mm_sub_ps(
             p1_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 0, 2, 1, 3), KLN_SWIZZLE(b, 1, 0, 2, 3)));
-        p1_out = _mm_mul_ss(p1_out, _mm_set_ss(0.f));
+            _mm_mul_ps(KLN_SWIZZLE(a, 3, 1, 2, 0), KLN_SWIZZLE(b, 2, 3, 1, 0)));
 
-        p2_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 3, 3, 3, 0), KLN_SWIZZLE(b, 0, 1, 2, 0));
-        p2_out = _mm_sub_ps(
-            p2_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 0, 1, 2, 3), KLN_SWIZZLE(b, 3, 3, 3, 3)));
-        p2_out = _mm_mul_ss(p2_out, _mm_set_ss(0.f));
+        p2_out = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), b);
+        p2_out = _mm_sub_ps(p2_out, _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0)));
+
+        // For both outputs above, we don't zero the lowest component because
+        // we've arranged a cancelation
     }
 
     // NOTE: p1 ^ p0 and p0 ^ p1 produce identical results
-    // p0: (e3, e2, e1, e0)
+    // p0: (e0, e1, e2, e3)
     // p3: (e123, e021, e013, e032)
     inline void KLN_VEC_CALL ext01(__m128 const& a,
                                    __m128 const& b,
                                    __m128& p0_out,
                                    __m128& p3_out) noexcept
     {
-        // (a0 b0) e3 +
-        // (a1 b0) e2 +
-        // (a2 b0) e1 +
-        // (a3 b0) e0 +
-        // (a0 b1 + a1 b2 + a2 b3) e123 +
-        // (-a3 b1) e021 +
-        // (-a3 b2) e013 +
-        // (-a3 b3) e032
+        // (a0 b0) e0 +
+        // (a1 b0) e1 +
+        // (a2 b0) e2 +
+        // (a3 b0) e3 +
+        // (a1 b3 + a2 b2 + a3 b1) e123 +
+        // (-a0 b1) e021 +
+        // (-a0 b2) e013 +
+        // (-a0 b3) e032
 
         p0_out = _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0));
 
         p3_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 3, 3, 3, 0), KLN_SWIZZLE(b, 3, 2, 1, 1));
+            = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 1), KLN_SWIZZLE(b, 3, 2, 1, 3));
 
-        p3_out = _mm_mul_ps(
-            _mm_set_ps(-1.f, -1.f, -1.f, 1.f),
+        p3_out = _mm_xor_ps(
+            _mm_set_ps(-0.f, -0.f, -0.f, 0.f),
             _mm_add_ss(
-                p3_out, _mm_dp_ps(a, KLN_SWIZZLE(b, 0, 3, 2, 1), 0b01100001)));
+                p3_out, _mm_dp_ps(a, KLN_SWIZZLE(b, 1, 2, 0, 0), 0b11000001)));
     }
 
     // p0 ^ p2 = p2 ^ p0
@@ -73,16 +71,15 @@ inline namespace detail
                                    __m128 const& b,
                                    __m128& p3_out) noexcept
     {
-        // (a2 b2 - a1 b1) e021 +
-        // (a0 b1 - a2 b3) e013 +
-        // (a1 b3 - a0 b2) e032
+        // (a1 b2 - a2 b1) e021 +
+        // (a3 b1 - a1 b3) e013 +
+        // (a2 b3 - a3 b2) e032
 
         p3_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 0, 2, 3), KLN_SWIZZLE(b, 3, 1, 2, 0));
+            = _mm_mul_ps(KLN_SWIZZLE(a, 2, 3, 1, 0), KLN_SWIZZLE(b, 3, 1, 2, 0));
         p3_out = _mm_sub_ps(
             p3_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 0, 2, 1, 3), KLN_SWIZZLE(b, 2, 3, 1, 0)));
-        p3_out = _mm_mul_ss(p3_out, _mm_set_ss(0.f));
+            _mm_mul_ps(KLN_SWIZZLE(a, 3, 1, 2, 0), KLN_SWIZZLE(b, 2, 3, 1, 0)));
     }
 
     // p0 ^ p3 = -p3 ^ p0
@@ -91,11 +88,11 @@ inline namespace detail
                                    __m128 const& b,
                                    __m128& p2_out) noexcept
     {
-        // (a0 b1 + a1 b2 + a2 b3 + a3 b0) e0123
-        p2_out = _mm_dp_ps(a, KLN_SWIZZLE(b, 0, 3, 2, 1), 0b11110001);
+        // (a0 b0 + a1 b3 + a2 b2 + a3 b1) e0123
+        p2_out = _mm_dp_ps(a, KLN_SWIZZLE(b, 1, 2, 3, 0), 0b11110001);
         if constexpr (Flip)
         {
-            p2_out = _mm_mul_ss(p2_out, _mm_set_ss(-1.f));
+            p2_out = _mm_xor_ps(p2_out, _mm_set_ss(-0.f));
         }
     }
 

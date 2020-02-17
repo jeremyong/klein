@@ -14,7 +14,7 @@ namespace kln
 {
 // Partition memory layouts
 //     LSB --> MSB
-// p0: (e3, e2, e1, e0)
+// p0: (e0, e1, e2, e3)
 // p1: (1, e12, e31, e23)
 // p2: (e0123, e01, e02, e03)
 // p3: (e123, e021, e013, e032)

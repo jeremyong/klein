@@ -22,29 +22,45 @@ inline namespace detail
 {
     // Partition memory layouts
     //     LSB --> MSB
-    // p0: (e3, e2, e1, e0)
+    // p0: (e0, e1, e2, e3)
     // p1: (1, e12, e31, e23)
     // p2: (e0123, e01, e02, e03)
     // p3: (e123, e021, e013, e032)
 
     // Apply a translator to a plane.
     // Assumes e0123 component of p2 is exactly 0
-    // p0: (e3, e2, e1, e0)
+    // p0: (e0, e1, e2, e3)
     // p2: (e0123, e01, e02, e03)
     // b * a * ~b
+    // The low component of p2 is expected to be the scalar component instead
     inline auto KLN_VEC_CALL sw02(__m128 const& a, __m128 const& b)
     {
-        // (1 + b1*e01 + b2*e02 + b3*e03) *
-        //   (a3*e0 + a2*e1 + a1*e2 + a0*e3) *
-        //   (1 - b1*e01 - b2*e02 - b3*e03) =
+        // (a0 b0^2 + 2a1 b0 b1 + 2a2 b0 b2 + 2a3 b0 b3) e0 +
+        // (a1 b0^2) e1 +
+        // (a2 b0^2) e2 +
+        // (a3 b0^2) e3
         //
-        // (a3 + 2*a0*b3 + 2*a1*b2 + 2*a2*b1)*e0 + a2*e1 + a1*e2 + a0*e3
+        // Because the plane is projectively equivalent on multiplication by a
+        // scalar, we can divide the result through by b0^2
+        //
+        // (a0 + 2a1 b1 / b0 + 2a2 b2 / b0 + 2a3 b3 / b0) e0 +
+        // a1 e1 +
+        // a2 e2 +
+        // a3 e3
+        //
+        // The additive term clearly contains a dot product between the plane's
+        // normal and the translation axis, demonstrating that the plane
+        // "doesn't care" about translations along its span. More precisely, the
+        // plane translates by the projection of the translator on the plane's
+        // normal.
 
-        // a0*b3 + a1*b2 + a2*b1 stored in the high component of tmp
-        __m128 tmp = _mm_dp_ps(a, KLN_SWIZZLE(b, 0, 1, 2, 3), 0b01111000);
+        // a1*b1 + a2*b2 + a3*b3 stored in the low component of tmp
+        __m128 tmp = _mm_dp_ps(a, b, 0b11100001);
 
         // Scale by 2
-        tmp = _mm_mul_ps(tmp, _mm_set1_ps(2.f));
+        float b0;
+        _mm_store_ss(&b0, b);
+        tmp = _mm_mul_ps(tmp, _mm_set_ps(0.f, 0.f, 0.f, 2.f / b0));
 
         // Add to the plane
         return _mm_add_ps(a, tmp);
@@ -66,22 +82,22 @@ inline namespace detail
     {
         // LSB
         //
-        // (2a2(b0 b2 + b1 b3) +
-        //  2a1(b1 b2 - b0 b3) +
-        //  a0 (b0^2 + b1^2 - b2^2 - b3^2)) e3 +
+        // (2a3(b0 c3 + b3 c2 + b1 c0 - b2 c1) +
+        //  2a2(b0 c2 + b1 c1 + b2 c0 - b3 c3) +
+        //  2a1(b0 c1 + b2 c3 + b3 c0 - b1 c2) +
+        //  a0 (b0^2 + b1^2 + b2^2 + b3^2)) e0 +
         //
-        // (2a0(b0 b3 + b1 b2) +
-        //  2a2(b2 b3 - b0 b1) +
-        //  a1 (b0^2 + b2^2 - b1^2 - b3^2)) e2 +
+        // (2a2(b0 b1 + b2 b3) +
+        //  2a3(b1 b3 - b0 b2) +
+        //  a1 (b0^2 + b3^2 - b1^2 - b2^2)) e1 +
         //
-        // (2a1(b0 b1 + b2 b3) +
-        //  2a0(b1 b3 - b0 b2) +
-        //  a2 (b0^2 + b3^2 - b1^2 - b2^2)) e1 +
+        // (2a3(b0 b3 + b1 b2) +
+        //  2a1(b2 b3 - b0 b1) +
+        //  a2 (b0^2 + b2^2 - b1^2 - b3^2)) e2 +
         //
-        // (2a0(b0 c3 + b3 c2 + b1 c0 - b2 c1) +
-        //  2a1(b0 c2 + b1 c1 + b2 c0 - b3 c3) +
-        //  2a2(b0 c1 + b2 c3 + b3 c0 - b1 c2) +
-        //  a3 (b0^2 + b1^2 + b2^2 + b3^2)) e0
+        // (2a1(b0 b2 + b1 b3) +
+        //  2a2(b1 b2 - b0 b3) +
+        //  a3 (b0^2 + b1^2 - b2^2 - b3^2)) e3
         //
         // MSB
         //
@@ -93,30 +109,33 @@ inline namespace detail
         // a translator.
 
         // Double-cover scale
-        __m128 dc_scale = _mm_set_ps(1.f, 2.f, 2.f, 2.f);
+        __m128 dc_scale = _mm_set_ps(2.f, 2.f, 2.f, 1.f);
 
         // MSB is e0
         // LSB -> MSB
-        // (b0 b2, b0 b3, b0 b1, b0^2)
+        // (b0^2, b0 b1, b0 b3, b0 b2)
         __m128 tmp1
-            = _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 0), KLN_SWIZZLE(b, 0, 1, 3, 2));
+            = _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 0), KLN_SWIZZLE(b, 2, 3, 1, 0));
 
-        // Add (b1 b3, b1 b2, b2 b3, b1^2)
+        // Add (b1^2, b2 b3, b1 b2, b1 b3)
         tmp1 = _mm_add_ps(
             tmp1,
-            _mm_mul_ps(KLN_SWIZZLE(b, 1, 2, 1, 1), KLN_SWIZZLE(b, 1, 3, 2, 3)));
+            _mm_mul_ps(KLN_SWIZZLE(b, 1, 1, 2, 1), KLN_SWIZZLE(b, 3, 2, 3, 1)));
 
+        // Scale later with (a0, a2, a3, a1)
         tmp1 = _mm_mul_ps(tmp1, dc_scale);
 
-        // (b1 b2, b2 b3, b1 b3, b2^2)
+        // (b2^2, b1 b3, b2 b3, b1 b2)
         __m128 tmp2
-            = _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 2, 1), KLN_SWIZZLE(b, 2, 3, 3, 2));
+            = _mm_mul_ps(KLN_SWIZZLE(b, 1, 2, 1, 2), KLN_SWIZZLE(b, 2, 3, 3, 2));
 
-        // Add (-b0 b3, -b0 b1, -b0 b2, b3^2)
-        tmp2 = _mm_add_ps(tmp2,
-                          _mm_mul_ps(_mm_set_ps(1.f, -1.f, -1.f, -1.f),
-                                     _mm_mul_ps(KLN_SWIZZLE(b, 3, 0, 0, 3), b)));
+        // Sub (-b3^2, b0 b2, b0 b1, b0 b3)
+        tmp2 = _mm_sub_ps(tmp2,
+                          _mm_xor_ps(_mm_set_ss(-0.f),
+                                     _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 3),
+                                                KLN_SWIZZLE(b, 3, 1, 2, 3))));
 
+        // Scale later with (a0, a3, a1, a2)
         tmp2 = _mm_mul_ps(tmp2, dc_scale);
 
         __m128 b_tmp = KLN_SWIZZLE(b, 0, 0, 0, 0);
@@ -124,54 +143,49 @@ inline namespace detail
         // (b0^2, b0^2, b0^2, b0^2)
         __m128 tmp3 = _mm_mul_ps(b_tmp, b_tmp);
 
-        b_tmp = KLN_SWIZZLE(b, 1, 3, 2, 1);
+        b_tmp = KLN_SWIZZLE(b, 1, 2, 3, 0);
 
-        // Add (b1^2, b2^2, b3^2, b1^2)
+        // Add (b0^2, b3^2, b2^2, b1^2)
         tmp3 = _mm_add_ps(tmp3, _mm_mul_ps(b_tmp, b_tmp));
 
-        b_tmp = KLN_SWIZZLE(b, 2, 1, 1, 2);
+        b_tmp = KLN_SWIZZLE(b, 2, 1, 1, 0);
 
-        // Sub (b2^2, b1^2, b1^2, b_2^2)
+        // Sub (b0^2, b1^2, b1^2, b2^2)
         tmp3 = _mm_sub_ps(tmp3, _mm_mul_ps(b_tmp, b_tmp));
 
-        b_tmp = KLN_SWIZZLE(b, 3, 2, 3, 3);
+        b_tmp = KLN_SWIZZLE(b, 3, 3, 2, 0);
 
-        // Sub (b3^2, b3^2, b2^2, b3^2)
+        // Sub (b3^2, b2^2, b3^2, b3^2)
         tmp3 = _mm_sub_ps(tmp3, _mm_mul_ps(b_tmp, b_tmp));
-
-        // Mask high component
-        tmp3 = _mm_mul_ps(_mm_set_ps(0.f, 1.f, 1.f, 1.f), tmp3);
 
         // Compute
-        // 2a0(b0 c3 + b3 c2 + b1 c0 - b2 c1) +
-        // 2a1(b1 c1 + b0 c2 + b2 c0 - b3 c3) +
-        // 2a2(b2 c3 + b0 c1 + b3 c0 - b1 c2) +
-        // 0 * (_)
+        // 0 * _ +
+        // 2a1(b0 c1 + b2 c3 + b3 c0 - b1 c2) +
+        // 2a2(b0 c2 + b1 c1 + b2 c0 - b3 c3) +
+        // 2a3(b0 c3 + b3 c2 + b1 c0 - b2 c1)
         // by decomposing into four vectors, factoring out the a components
         //
-        // (b0 c3, b1 c1, b2 c3, b3 c0)
-        // Swizzle c here so that we don't have to swizzle tmp4 in the inner
-        // loop later
-        __m128 tmp4 = Translate ? _mm_mul_ps(b, KLN_SWIZZLE(*c, 0, 3, 1, 3))
-                                : _mm_set1_ps(0.f);
+        // (b0 c0, b0 c1, b0 c2, b0 c3)
+        __m128 tmp4 = Translate ? _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 0), *c)
+                                : _mm_setzero_ps();
 
         if constexpr (Translate)
         {
-            // Add (b3 c2, b0 c2, b0 c1, b0 c0)
+            // Add (b0 c0, b2 c3, b1 c1, b3 c2)
             tmp4 = _mm_add_ps(tmp4,
-                              _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 3),
-                                         KLN_SWIZZLE(*c, 0, 1, 2, 2)));
+                              _mm_mul_ps(KLN_SWIZZLE(b, 3, 1, 2, 0),
+                                         KLN_SWIZZLE(*c, 2, 1, 3, 0)));
 
-            // Add (b1 c0, b2 c0, b3 c0, b0 c0)
+            // Add (b0 c0, b3 c0, b2 c0, b1 c0)
             tmp4 = _mm_add_ps(tmp4,
-                              _mm_mul_ps(KLN_SWIZZLE(b, 0, 3, 2, 1),
+                              _mm_mul_ps(KLN_SWIZZLE(b, 1, 2, 3, 0),
                                          KLN_SWIZZLE(*c, 0, 0, 0, 0)));
 
-            // Sub (b2 c1, b3 c3, b1 c2, b0 c0)
+            // Sub (b0 c0, b1 c2, b3 c3, b2 c1)
             // NOTE: The high component of tmp4 is meaningless here
             tmp4 = _mm_sub_ps(tmp4,
-                              _mm_mul_ps(KLN_SWIZZLE(b, 0, 1, 3, 2),
-                                         KLN_SWIZZLE(*c, 0, 2, 3, 1)));
+                              _mm_mul_ps(KLN_SWIZZLE(b, 2, 3, 1, 0),
+                                         KLN_SWIZZLE(*c, 1, 3, 2, 0)));
 
             tmp4 = _mm_mul_ps(tmp4, dc_scale);
         }
@@ -185,14 +199,14 @@ inline namespace detail
             {
                 // Compute the lower block for components e1, e2, and e3
                 __m128& p = out[i];
-                p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(a[i], 3, 1, 0, 2));
+                p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(a[i], 1, 3, 2, 0));
                 p         = _mm_add_ps(
-                    p, _mm_mul_ps(tmp2, KLN_SWIZZLE(a[i], 3, 0, 2, 1)));
+                    p, _mm_mul_ps(tmp2, KLN_SWIZZLE(a[i], 2, 1, 3, 0)));
                 p = _mm_add_ps(p, _mm_mul_ps(tmp3, a[i]));
 
                 if constexpr (Translate)
                 {
-                    __m128 tmp5 = _mm_dp_ps(tmp4, a[i], 0b01111000);
+                    __m128 tmp5 = _mm_dp_ps(tmp4, a[i], 0b01110001);
                     p           = _mm_add_ps(p, tmp5);
                 }
             }
@@ -201,13 +215,13 @@ inline namespace detail
         {
             // Compute the lower block for components e1, e2, and e3
             __m128& p = *out;
-            p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(*a, 3, 1, 0, 2));
-            p = _mm_add_ps(p, _mm_mul_ps(tmp2, KLN_SWIZZLE(*a, 3, 0, 2, 1)));
+            p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(*a, 1, 3, 2, 0));
+            p = _mm_add_ps(p, _mm_mul_ps(tmp2, KLN_SWIZZLE(*a, 2, 1, 3, 0)));
             p = _mm_add_ps(p, _mm_mul_ps(tmp3, *a));
 
             if constexpr (Translate)
             {
-                __m128 tmp5 = _mm_dp_ps(tmp4, *a, 0b01111000);
+                __m128 tmp5 = _mm_dp_ps(tmp4, *a, 0b11100001);
                 p           = _mm_add_ps(p, tmp5);
             }
         }

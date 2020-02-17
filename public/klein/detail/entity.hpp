@@ -18,7 +18,7 @@ namespace kln
 // partitions corresponding to the following scheme:
 //
 //     LSB --> MSB
-// p0: (e3, e2, e1, e0)
+// p0: (e0, e1, e2, e3)
 // p1: (1, e12, e31, e23)
 // p2: (e0123, e01, e02, e03)
 // p3: (e123, e021, e013, e032)
@@ -308,6 +308,52 @@ struct entity : public base_entity
         return out;
     }
 
+    // Poincaré Dual
+    constexpr auto operator!() const noexcept
+    {
+        // p0 -> p3
+        // p1 -> p2
+        // p2 -> p1
+        // p3 -> p0
+        constexpr uint8_t dual_mask = ((PMask & 1) << 3) | ((PMask & 0b10) << 1)
+                                      | ((PMask & 0b100) >> 1)
+                                      | ((PMask & 0b1000) >> 3);
+        entity<dual_mask> out;
+
+        if constexpr ((PMask & 1) > 0)
+        {
+            out.p3() = KLN_SWIZZLE(p0(), 1, 2, 3, 0);
+        }
+
+        if constexpr ((PMask & 0b10) > 0)
+        {
+            out.p2() = KLN_SWIZZLE(p1(), 1, 2, 3, 0);
+        }
+
+        if constexpr ((PMask & 0b100) > 0)
+        {
+            out.p1() = KLN_SWIZZLE(p2(), 1, 2, 3, 0);
+        }
+
+        if constexpr ((PMask & 0b1000) > 0)
+        {
+            out.p0() = KLN_SWIZZLE(p3(), 1, 2, 3, 0);
+        }
+
+        return out;
+    }
+
+    // Regressive Product
+    template <uint8_t PMask2>
+    constexpr auto operator&(entity<PMask2> const& rhs) const noexcept
+    {
+        // Because of our choice of the cyclic basis, the dual map can be
+        // computed in terms of the exterior product with casting the lhs and
+        // rhs entities to their duals.
+
+        return !(!(*this) ^ !rhs);
+    }
+
     // Geometric Product
     template <uint8_t PMask2>
     constexpr auto operator*(entity<PMask2> const& rhs) const noexcept
@@ -324,27 +370,27 @@ struct entity : public base_entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                p1p2 p1p2_ = gp00(p0(), rhs.p0());
-                p1_        = p1p2_.p1;
-                p2_        = p1p2_.p2;
+                gp00(p0(), rhs.p0(), p1_, p2_);
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                p0p3 p0p3_ = gp01(p0(), rhs.p1());
-                p0_        = p0p3_.p0;
-                p3_        = p0p3_.p3;
+                gp01<false>(p0(), rhs.p1(), p0_, p3_);
             }
             if constexpr ((PMask2 & 0b100) > 0)
             {
-                p0p3 p0p3_ = gp02(p0(), rhs.p2());
-                p0_        = _mm_add_ps(p0_, p0p3_.p0);
-                p3_        = _mm_add_ps(p3_, p0p3_.p3);
+                __m128 p0_tmp;
+                __m128 p3_tmp;
+                gp02<false>(p0(), rhs.p2(), p0_tmp, p3_tmp);
+                p0_ = _mm_add_ps(p0_, p0_tmp);
+                p3_ = _mm_add_ps(p3_, p3_tmp);
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
-                p1p2 p1p2_ = gp03(p0(), rhs.p3());
-                p1_        = _mm_add_ps(p1_, p1p2_.p1);
-                p2_        = _mm_add_ps(p2_, p1p2_.p2);
+                __m128 p1_tmp;
+                __m128 p2_tmp;
+                gp03<false>(p0(), rhs.p3(), p1_tmp, p2_tmp);
+                p1_ = _mm_add_ps(p1_, p1_tmp);
+                p2_ = _mm_add_ps(p2_, p2_tmp);
             }
         }
 
@@ -352,9 +398,11 @@ struct entity : public base_entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                p0p3 p0p3_ = gp10(p1(), rhs.p0());
-                p0_        = _mm_add_ps(p0_, p0p3_.p0);
-                p3_        = _mm_add_ps(p3_, p0p3_.p3);
+                __m128 p0_tmp;
+                __m128 p3_tmp;
+                gp01<true>(rhs.p0(), p1(), p0_tmp, p3_tmp);
+                p0_ = _mm_add_ps(p0_, p0_tmp);
+                p3_ = _mm_add_ps(p3_, p3_tmp);
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
@@ -366,9 +414,11 @@ struct entity : public base_entity
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
-                p0p3 p0p3_ = gp13(p1(), rhs.p3());
-                p0_        = _mm_add_ps(p0_, p0p3_.p0);
-                p3_        = _mm_add_ps(p3_, p0p3_.p3);
+                __m128 p0_tmp;
+                __m128 p3_tmp;
+                gp13<false>(p1(), rhs.p3(), p0_tmp, p3_tmp);
+                p0_ = _mm_add_ps(p0_, p0_tmp);
+                p3_ = _mm_add_ps(p3_, p3_tmp);
             }
         }
 
@@ -376,9 +426,11 @@ struct entity : public base_entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                p0p3 p0p3_ = gp20(p2(), rhs.p0());
-                p0_        = _mm_add_ps(p0_, p0p3_.p0);
-                p3_        = _mm_add_ps(p3_, p0p3_.p3);
+                __m128 p0_tmp;
+                __m128 p3_tmp;
+                gp02<true>(rhs.p0(), p2(), p0_tmp, p3_tmp);
+                p0_ = _mm_add_ps(p0_, p0_tmp);
+                p3_ = _mm_add_ps(p3_, p3_tmp);
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
@@ -386,9 +438,11 @@ struct entity : public base_entity
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
-                p0p3 p0p3_ = gp23(p2(), rhs.p3());
-                p0_        = _mm_add_ps(p0_, p0p3_.p0);
-                p3_        = _mm_add_ps(p3_, p0p3_.p3);
+                __m128 p0_tmp;
+                __m128 p3_tmp;
+                gp23<false>(p2(), rhs.p3(), p0_tmp, p3_tmp);
+                p0_ = _mm_add_ps(p0_, p0_tmp);
+                p3_ = _mm_add_ps(p3_, p3_tmp);
             }
         }
 
@@ -396,27 +450,35 @@ struct entity : public base_entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                p1p2 p1p2_ = gp30(p3(), rhs.p0());
-                p1_        = _mm_add_ps(p1_, p1p2_.p1);
-                p2_        = _mm_add_ps(p2_, p1p2_.p2);
+                __m128 p1_tmp;
+                __m128 p2_tmp;
+                gp03<true>(rhs.p0(), p3(), p1_tmp, p2_tmp);
+                p1_ = _mm_add_ps(p1_, p1_tmp);
+                p2_ = _mm_add_ps(p2_, p2_tmp);
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                p0p3 p0p3_ = gp31(p3(), rhs.p1());
-                p0_        = _mm_add_ps(p0_, p0p3_.p0);
-                p3_        = _mm_add_ps(p3_, p0p3_.p3);
+                __m128 p0_tmp;
+                __m128 p3_tmp;
+                gp13<true>(rhs.p1(), p3(), p0_tmp, p3_tmp);
+                p0_ = _mm_add_ps(p0_, p0_tmp);
+                p3_ = _mm_add_ps(p3_, p3_tmp);
             }
             if constexpr ((PMask2 & 0b100) > 0)
             {
-                p0p3 p0p3_ = gp32(p3(), rhs.p2());
-                p0_        = _mm_add_ps(p0_, p0p3_.p0);
-                p3_        = _mm_add_ps(p3_, p0p3_.p3);
+                __m128 p0_tmp;
+                __m128 p3_tmp;
+                gp23<true>(rhs.p2(), p3(), p0_tmp, p3_tmp);
+                p0_ = _mm_add_ps(p0_, p0_tmp);
+                p3_ = _mm_add_ps(p3_, p3_tmp);
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
-                p1p2 p1p2_ = gp33(p3(), rhs.p3());
-                p1_        = _mm_add_ps(p1_, p1p2_.p1);
-                p2_        = _mm_add_ps(p2_, p1p2_.p2);
+                __m128 p1_tmp;
+                __m128 p2_tmp;
+                gp33(p3(), rhs.p3(), p1_tmp, p2_tmp);
+                p1_ = _mm_add_ps(p1_, p1_tmp);
+                p2_ = _mm_add_ps(p2_, p2_tmp);
             }
         }
 
@@ -458,7 +520,7 @@ struct entity : public base_entity
     // use. Accessing individual XMM components is an antipattern. They are
     // provided here as a convenience for testing and debugging.
 
-    // p0: (e3, e2, e1, e0)
+    // p0: (e0, e1, e2, e3)
     // p1: (1, e12, e31, e23)
     // p2: (e0123, e01, e02, e03)
     // p3: (e123, e021, e013, e032)
@@ -478,7 +540,7 @@ struct entity : public base_entity
     {
         if constexpr ((PMask & 1) > 0)
         {
-            return parts[partition_offsets[0]].data[3];
+            return parts[partition_offsets[0]].data[0];
         }
         else
         {
@@ -490,7 +552,7 @@ struct entity : public base_entity
     {
         if constexpr ((PMask & 1) > 0)
         {
-            return parts[partition_offsets[0]].data[2];
+            return parts[partition_offsets[0]].data[1];
         }
         else
         {
@@ -502,7 +564,7 @@ struct entity : public base_entity
     {
         if constexpr ((PMask & 1) > 0)
         {
-            return parts[partition_offsets[0]].data[1];
+            return parts[partition_offsets[0]].data[2];
         }
         else
         {
@@ -514,7 +576,7 @@ struct entity : public base_entity
     {
         if constexpr ((PMask & 1) > 0)
         {
-            return parts[partition_offsets[0]].data[0];
+            return parts[partition_offsets[0]].data[3];
         }
         else
         {
