@@ -24,7 +24,7 @@ inline namespace detail
     // that it is neither purely real nor purely ideal.
     // Exponentiates the bivector and returns the motor defined by partitions 1
     // and 2.
-    inline void KLN_VEC_CALL exp(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL exp(__m128 const& a,
                                  __m128 const& b,
                                  __m128& p1_out,
                                  __m128& p2_out)
@@ -125,7 +125,7 @@ inline namespace detail
         p2_out            = _mm_add_ps(_mm_set_ss(minus_vsinu), p2_out);
     }
 
-    inline void KLN_VEC_CALL log(__m128 const& p1,
+    KLN_INLINE void KLN_VEC_CALL log(__m128 const& p1,
                                  __m128 const& p2,
                                  __m128& p1_out,
                                  __m128& p2_out)

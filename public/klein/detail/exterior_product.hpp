@@ -13,7 +13,7 @@ inline namespace detail
     // p2: (e0123, e01, e02, e03)
     // p3: (e123, e021, e013, e032)
 
-    inline void KLN_VEC_CALL ext00(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL ext00(__m128 const& a,
                                    __m128 const& b,
                                    __m128& p1_out,
                                    __m128& p2_out) noexcept
@@ -41,7 +41,7 @@ inline namespace detail
     // NOTE: p1 ^ p0 and p0 ^ p1 produce identical results
     // p0: (e0, e1, e2, e3)
     // p3: (e123, e021, e013, e032)
-    inline void KLN_VEC_CALL ext01(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL ext01(__m128 const& a,
                                    __m128 const& b,
                                    __m128& p0_out,
                                    __m128& p3_out) noexcept
@@ -67,7 +67,7 @@ inline namespace detail
     }
 
     // p0 ^ p2 = p2 ^ p0
-    inline void KLN_VEC_CALL ext02(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL ext02(__m128 const& a,
                                    __m128 const& b,
                                    __m128& p3_out) noexcept
     {
@@ -84,7 +84,7 @@ inline namespace detail
 
     // p0 ^ p3 = -p3 ^ p0
     template <bool Flip = false>
-    inline void KLN_VEC_CALL ext03(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL ext03(__m128 const& a,
                                    __m128 const& b,
                                    __m128& p2_out) noexcept
     {
@@ -96,7 +96,7 @@ inline namespace detail
         }
     }
 
-    inline void KLN_VEC_CALL ext11(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL ext11(__m128 const& a,
                                    __m128 const& b,
                                    __m128& p1_out) noexcept
     {
@@ -111,7 +111,7 @@ inline namespace detail
     }
 
     // p1 ^ p2 = p2 ^ p1
-    inline void KLN_VEC_CALL ext12(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL ext12(__m128 const& a,
                                    __m128 const& b,
                                    __m128& p2_out) noexcept
     {
@@ -125,7 +125,7 @@ inline namespace detail
     }
 
     // p1 ^ p3 = p3 ^ p1
-    inline void KLN_VEC_CALL ext13(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL ext13(__m128 const& a,
                                    __m128 const& b,
                                    __m128& p3_out) noexcept
     {

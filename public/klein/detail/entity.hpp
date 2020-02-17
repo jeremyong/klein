@@ -125,19 +125,19 @@ struct entity : public base_entity
         entity out;
         __m128 s = _mm_set1_ps(scalar);
 
-        if constexpr (PMask & 0b1)
+        if constexpr (PMask & 0b1 > 0)
         {
             out.p0() = _mm_mul_ps(p0(), s);
         }
-        if constexpr (PMask & 0b10)
+        if constexpr (PMask & 0b10 > 0)
         {
             out.p1() = _mm_mul_ps(p1(), s);
         }
-        if constexpr (PMask & 0b100)
+        if constexpr (PMask & 0b100 > 0)
         {
             out.p2() = _mm_mul_ps(p2(), s);
         }
-        if constexpr (PMask & 0b1000)
+        if constexpr (PMask & 0b1000 > 0)
         {
             out.p3() = _mm_mul_ps(p3(), s);
         }
@@ -853,7 +853,7 @@ protected:
 
 private:
     template <bool Add, uint8_t PMask2>
-    constexpr auto add_sub(entity<PMask2> const& other) const& noexcept
+    KLN_INLINE constexpr auto add_sub(entity<PMask2> const& other) const& noexcept
     {
         constexpr uint8_t pmask = PMask | PMask2;
         kln::entity<pmask> out;
@@ -908,7 +908,7 @@ private:
     // If this is a mutable rvalue, we can add other in-place and save some
     // register allocation assuming the partition mask stays the same.
     template <bool Add, uint8_t PMask2>
-        constexpr auto add_sub(entity<PMask2> const& other) && noexcept
+    KLN_INLINE constexpr auto add_sub(entity<PMask2> const& other) && noexcept
     {
         constexpr uint8_t pmask = PMask | PMask2;
         if constexpr (pmask == PMask)

@@ -21,7 +21,7 @@ namespace kln
 
 // Convert a motor to a column-major 4x4
 template <bool Translate = true>
-inline void KLN_VEC_CALL mat4x4_12(__m128 const& b,
+KLN_INLINE void KLN_VEC_CALL mat4x4_12(__m128 const& b,
                                    __m128 const* c,
                                    __m128* out) noexcept
 {

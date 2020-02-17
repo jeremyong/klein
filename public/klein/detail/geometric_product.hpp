@@ -24,7 +24,7 @@ inline namespace detail
     // p0: (e0, e1, e2, e3)
     // p1: (1, e12, e31, e23)
     // p2: (e0123, e01, e02, e03)
-    inline void KLN_VEC_CALL gp00(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL gp00(__m128 const& a,
                                   __m128 const& b,
                                   __m128& p1_out,
                                   __m128& p2_out) noexcept
@@ -63,7 +63,7 @@ inline namespace detail
     // p1: (1, e12, e31, e23)
     // p3: (e123, e021, e013, e032)
     template <bool Flip>
-    inline void KLN_VEC_CALL gp01(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL gp01(__m128 const& a,
                                   __m128 const& b,
                                   __m128& p0_out,
                                   __m128& p3_out) noexcept
@@ -136,7 +136,7 @@ inline namespace detail
     // p2: (e0123, e01, e02, e03)
     // p3: (e123, e021, e013, e032)
     template <bool Flip>
-    inline void KLN_VEC_CALL gp02(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL gp02(__m128 const& a,
                                   __m128 const& b,
                                   __m128& p0_out,
                                   __m128& p3_out) noexcept
@@ -197,7 +197,7 @@ inline namespace detail
     // p1: (1, e12, e31, e23)
     // p2: (e0123, e01, e02, e03)
     template <bool Flip>
-    inline void KLN_VEC_CALL gp03(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL gp03(__m128 const& a,
                                   __m128 const& b,
                                   __m128& p1_out,
                                   __m128& p2_out) noexcept
@@ -362,7 +362,7 @@ inline namespace detail
     // p0: (e0, e1, e2, e3)
     // p3: (e123, e021, e013, e032)
     template <bool Flip>
-    inline void KLN_VEC_CALL gp13(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL gp13(__m128 const& a,
                                   __m128 const& b,
                                   __m128& p0_out,
                                   __m128& p3_out) noexcept
@@ -434,7 +434,7 @@ inline namespace detail
     // Note that this specific product is somewhat awkward as e1, e2, and e3 are
     // unused
     template <bool Flip>
-    inline void KLN_VEC_CALL gp23(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL gp23(__m128 const& a,
                                   __m128 const& b,
                                   __m128& p0_out,
                                   __m128& p3_out) noexcept
@@ -465,7 +465,7 @@ inline namespace detail
     // Returns p1 and p2
     // p1: (1, e12, e31, e23)
     // p2: (e0123, e01, e02, e03)
-    inline void KLN_VEC_CALL gp33(__m128 const& a,
+    KLN_INLINE void KLN_VEC_CALL gp33(__m128 const& a,
                                   __m128 const& b,
                                   __m128& p1_out,
                                   __m128& p2_out) noexcept

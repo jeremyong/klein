@@ -24,3 +24,11 @@
 #        define KLN_VEC_CALL
 #    endif
 #endif
+
+#ifndef KLN_INLINE
+#    ifdef _MSC_VER
+#        define KLN_INLINE __forceinline
+#    else
+#        define KLN_INLINE inline __attribute__((always_inline))
+#    endif
+#endif

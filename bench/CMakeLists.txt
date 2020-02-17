@@ -14,6 +14,7 @@ if(NOT benchmark_FOUND)
     set(BENCHMARK_ENABLE_INSTALL OFF CACHE BOOL "Disable benchmark install")
     set(BENCHMARK_ENABLE_GTEST_TESTS OFF CACHE BOOL "Disable benchmark gtests")
     FetchContent_MakeAvailable(benchmark)
+    add_library(benchmark::benchmark ALIAS benchmark)
 endif()
 
 find_package(glm)
@@ -34,9 +35,9 @@ set_target_properties(klein_bench
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
 )
-if(MSVC)
-    target_compile_options(klein_bench PRIVATE /O2)
-else()
+
+# For MSVC, be sure to compile the benchmark in release mode to get accurate timings
+if(NOT MSVC)
     target_compile_options(klein_bench PRIVATE -O2 -pipe -msse4.2)
 endif()
 

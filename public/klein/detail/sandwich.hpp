@@ -74,7 +74,7 @@ inline namespace detail
     // If Variadic is true, a and out must point to a contiguous block of memory
     // equivalent to __m128[count]
     template <bool Variadic = false, bool Translate = true>
-    inline void KLN_VEC_CALL sw012(__m128 const* a,
+    KLN_INLINE void KLN_VEC_CALL sw012(__m128 const* a,
                                    __m128 const& b,
                                    __m128 const* c,
                                    __m128* out,
@@ -255,7 +255,7 @@ inline namespace detail
 
     // Apply a motor to a point
     template <bool Variadic = false, bool Translate = true>
-    inline void KLN_VEC_CALL sw312(__m128 const* a,
+    KLN_INLINE void KLN_VEC_CALL sw312(__m128 const* a,
                                    __m128 const& b,
                                    __m128 const* c,
                                    __m128* out,
