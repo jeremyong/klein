@@ -1,0 +1,21 @@
+## struct `kln::mat4x4` 
+
+### Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public __m128 ` [`cols`](#structkln_1_1mat4x4_1a3798edf63f7687c50c6aaf6f244877f5)   | 
+`public float ` [`data`](#structkln_1_1mat4x4_1a435faa5258c42d877bc0a5376d9f42cb)   | 
+`public union kln::mat4x4::@0 ` [`@1`](#structkln_1_1mat4x4_1a712e1420fa5d56a97c96bbddc0c39f32)   | 
+`public __m128 KLN_VEC_CALL operator()(__m128 const & xyzw) const noexcept`  | 
+
+### Members
+
+#### `public __m128 ` [`cols`](#structkln_1_1mat4x4_1a3798edf63f7687c50c6aaf6f244877f5)   
+
+#### `public float ` [`data`](#structkln_1_1mat4x4_1a435faa5258c42d877bc0a5376d9f42cb)   
+
+#### `public union kln::mat4x4::@0 ` [`@1`](#structkln_1_1mat4x4_1a712e1420fa5d56a97c96bbddc0c39f32)   
+
+#### `public __m128 KLN_VEC_CALL operator()(__m128 const & xyzw) const noexcept`  
+

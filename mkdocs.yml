@@ -6,6 +6,8 @@ theme:
     primary: 'teal'
     accent: 'deep orange'
   favicon: 'img/favicon.ico'
+  feature:
+    tabs: false
   logo:
     icon: 'flip'
 site_url: https://jeremyong.com/klein
@@ -21,6 +23,17 @@ plugins: []
 nav:
   - 'Home': 'index.md'
   - 'Quick Start': 'quickstart.md'
+  - 'API':
+      - 'Entity': 'api/kln::entity.md'
+      - 'Plane': 'api/kln::plane.md'
+      - 'Line': 'api/kln::line.md'
+      - 'Point': 'api/kln::point.md'
+      - 'Rotor': 'api/kln::rotor.md'
+      - 'Translator': 'api/kln::translator.md'
+      - 'Motor': 'api/kln::motor.md'
+      - 'Ideal Line': 'api/kln::ideal_line.md'
+      - 'Direction': 'api/kln::direction.md'
+      - 'Mat4x4': 'api/kln::mat4x4.md'
   - 'Tutorial': 'tutorial.md'
   - 'Klein Shell': 'shell.md'
   - 'Benchmarks': 'benchmarks.md'
@@ -45,6 +58,7 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.mark
   - pymdownx.extrarawhtml
+  - toc
   - sane_lists
 
 extra:

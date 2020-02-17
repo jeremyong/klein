@@ -1,8 +1,8 @@
 #pragma once
 
-#include "detail/entity.hpp"
 #include "detail/exp_log.hpp"
 #include "detail/matrix.hpp"
+#include "entity.hpp"
 #include "mat4x4.hpp"
 #include "plane.hpp"
 #include "point.hpp"

@@ -29,3 +29,4 @@ ipch/
 
 # Statically generated documentation
 site/
+doxygen/

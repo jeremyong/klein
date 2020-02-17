@@ -1,7 +1,7 @@
 #pragma once
 
-#include "detail/entity.hpp"
 #include "detail/exp_log.hpp"
+#include "entity.hpp"
 
 namespace kln
 {

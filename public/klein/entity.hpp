@@ -1,8 +1,8 @@
 #pragma once
 
-#include "exterior_product.hpp"
-#include "geometric_product.hpp"
-#include "sandwich.hpp"
+#include "detail/exterior_product.hpp"
+#include "detail/geometric_product.hpp"
+#include "detail/sandwich.hpp"
 #include <cstdint>
 #include <type_traits>
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "detail/entity.hpp"
+#include "entity.hpp"
 
 namespace kln
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "detail/entity.hpp"
+#include "entity.hpp"
 #include "detail/matrix.hpp"
 #include "line.hpp"
 #include "mat4x4.hpp"
