@@ -12,6 +12,8 @@ struct kln::line
 `public  ` [`line`](#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a)`()`  | 
 `public  ` [`line`](#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7)`(float a,float b,float c,float d,float e,float f) noexcept`  | 
 `public  ` [`line`](#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe)`(` [`entity`](/Klein/api/kln::entity#structkln_1_1entity)`< 0b110 > const & e)`  | 
+`public  ` [`line`](#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0)`(` [`entity`](/Klein/api/kln::entity#structkln_1_1entity)`< 0b100 > const & e)`  | 
+`public  ` [`line`](#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be)`(` [`entity`](/Klein/api/kln::entity#structkln_1_1entity)`< 0b10 > const & e)`  | 
 `public ` [`entity`](/Klein/api/kln::entity#structkln_1_1entity)`< 0b110 > ` [`exp`](#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1)`() const noexcept`  | Line exponentiation
 
 ### Members
@@ -21,6 +23,10 @@ struct kln::line
 ####   [line](#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7)(float a,float b,float c,float d,float e,float f) noexcept  {#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7}
 
 ####   [line](#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe)( [entity](/Klein/api/kln::entity#structkln_1_1entity)< 0b110 > const & e)  {#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe}
+
+####   [line](#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0)( [entity](/Klein/api/kln::entity#structkln_1_1entity)< 0b100 > const & e)  {#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0}
+
+####   [line](#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be)( [entity](/Klein/api/kln::entity#structkln_1_1entity)< 0b10 > const & e)  {#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be}
 
 ####  [entity](/Klein/api/kln::entity#structkln_1_1entity)< 0b110 >  [exp](#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1)() const noexcept  {#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1}
 

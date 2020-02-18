@@ -1286,62 +1286,62 @@ struct entity
         }
     }
 
-    __m128 const& p0() const noexcept
+    constexpr __m128 const& p0() const noexcept
     {
         return parts[partition_offsets[0]].reg;
     }
 
-    __m128 const& p1() const noexcept
+    constexpr __m128 const& p1() const noexcept
     {
         return parts[partition_offsets[1]].reg;
     }
 
-    __m128 const& p2() const noexcept
+    constexpr __m128 const& p2() const noexcept
     {
         return parts[partition_offsets[2]].reg;
     }
 
-    __m128 const& p3() const noexcept
+    constexpr __m128 const& p3() const noexcept
     {
         return parts[partition_offsets[3]].reg;
     }
 
-    float const* p0f() const noexcept
+    constexpr float const* p0f() const noexcept
     {
         return parts[partition_offsets[0]].data;
     }
 
-    float const* p1f() const noexcept
+    constexpr float const* p1f() const noexcept
     {
         return parts[partition_offsets[1]].data;
     }
 
-    float const* p2f() const noexcept
+    constexpr float const* p2f() const noexcept
     {
         return parts[partition_offsets[2]].data;
     }
 
-    float const* p3f() const noexcept
+    constexpr float const* p3f() const noexcept
     {
         return parts[partition_offsets[3]].data;
     }
 
-    __m128& p0() noexcept
+    constexpr __m128& p0() noexcept
     {
         return parts[partition_offsets[0]].reg;
     }
 
-    __m128& p1() noexcept
+    constexpr __m128& p1() noexcept
     {
         return parts[partition_offsets[1]].reg;
     }
 
-    __m128& p2() noexcept
+    constexpr __m128& p2() noexcept
     {
         return parts[partition_offsets[2]].reg;
     }
 
-    __m128& p3() noexcept
+    constexpr __m128& p3() noexcept
     {
         return parts[partition_offsets[3]].reg;
     }
@@ -1357,7 +1357,7 @@ protected:
 
 private:
     template <bool Add, uint8_t PMask2>
-    KLN_INLINE constexpr auto add_sub(entity<PMask2> const& other) const noexcept
+    constexpr auto add_sub(entity<PMask2> const& other) const noexcept
     {
         constexpr uint8_t pmask = PMask | PMask2;
         kln::entity<pmask> out;
@@ -1412,7 +1412,7 @@ private:
     // If this is a mutable rvalue or non-const, we can add other in-place and
     // save some register allocation assuming the partition mask stays the same.
     template <bool Add, uint8_t PMask2>
-    KLN_INLINE constexpr auto add_sub(entity<PMask2> const& other) noexcept
+    constexpr auto add_sub(entity<PMask2> const& other) noexcept
     {
         constexpr uint8_t pmask = PMask | PMask2;
         if constexpr (pmask == PMask)

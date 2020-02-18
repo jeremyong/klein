@@ -34,51 +34,54 @@ All partitions contain 4 packed single-precision floating point values. An entit
 --------------------------------|---------------------------------------------
 `public  ` [`entity`](#structkln_1_1entity_1a5b24d28db8dd4146409bfb6167039be0)`()`  | Default constructor. The contents of the entity are left uninitialized.
 `public  ` [`entity`](#structkln_1_1entity_1ac2804bf484d645466da79b1dbf47ecaa)`(` [`entity`](#structkln_1_1entity)` const & other)`  | Copy constructor.
-`public template<>`  <br/>`constexpr auto ` [`operator+`](#structkln_1_1entity_1a7288ef4e2f601719f2c8e83359b44570)`(` [`entity`](#structkln_1_1entity)`< P > const & other) const noexcept`  | Addition.
-`public template<>`  <br/>`constexpr auto ` [`operator-`](#structkln_1_1entity_1a801c3a9ed167ccb21f02b90d89d68d83)`(` [`entity`](#structkln_1_1entity)`< P > const & other) const noexcept`  | Subtraction.
-`public ` [`entity`](#structkln_1_1entity)` & ` [`operator*=`](#structkln_1_1entity_1ace5d947cc7251834ee705b3c71ae7bd3)`(float scalar) noexcept`  | Scale the multivector by a scalar constant in-place.
-`public ` [`entity`](#structkln_1_1entity)` ` [`operator*`](#structkln_1_1entity_1a6e6631d9a3ebc3292f637e744220dae0)`(float scalar) const noexcept`  | Scale the multivector by a scalar constant and return the result.
-`public ` [`entity`](#structkln_1_1entity)` & ` [`operator/=`](#structkln_1_1entity_1ac86920ece406ef01975a88ce7170b3d9)`(float s) noexcept`  | Divide the multivector by a scalar constant in-place.
-`public ` [`entity`](#structkln_1_1entity)` ` [`operator/`](#structkln_1_1entity_1a36664c9061251afbfa23c55dd47b943e)`(float s) const noexcept`  | Divide the multivector by a scalar constant and return the result.
-`public constexpr ` [`entity`](#structkln_1_1entity)` ` [`operator~`](#structkln_1_1entity_1ad009244ee075ab1ee8fd566ff3ec9e21)`() const noexcept`  | Reversion operator
-`public template<>`  <br/>`constexpr auto ` [`operator^`](#structkln_1_1entity_1ad6bf5dca8f4c0bdcbd687483af95ce1b)`(` [`entity`](#structkln_1_1entity)`< PMask2 > const & rhs) const noexcept`  | Exterior Product
-`public constexpr auto ` [`operator!`](#structkln_1_1entity_1ad433523ab00b8c3b1f7ed493761ae39f)`() const noexcept`  | Poincaré Dual
-`public template<>`  <br/>`constexpr auto ` [`operator&`](#structkln_1_1entity_1a868f3551cb95294532100c4a21b9315e)`(` [`entity`](#structkln_1_1entity)`< PMask2 > const & rhs) const noexcept`  | Regressive Product
-`public template<>`  <br/>`constexpr auto ` [`operator*`](#structkln_1_1entity_1a65767f7c9fe6a5ef8d76863e9526429b)`(` [`entity`](#structkln_1_1entity)`< PMask2 > const & rhs) const noexcept`  | Geometric Product
-`public constexpr float ` [`scalar`](#structkln_1_1entity_1a21d43c5ba9879c5a467710a5f9595a04)`() const noexcept`  | 
-`public constexpr float ` [`e0`](#structkln_1_1entity_1ac9ec7b5b5fee7a87c7cb4fbe937eedfd)`() const noexcept`  | 
-`public constexpr float ` [`e1`](#structkln_1_1entity_1a64065edeb9501df5a07b17b219ab4289)`() const noexcept`  | 
-`public constexpr float ` [`e2`](#structkln_1_1entity_1aade01dacf2b720cb8bf57d0282c017e6)`() const noexcept`  | 
-`public constexpr float ` [`e3`](#structkln_1_1entity_1a3f4ac3d5aca043f44cb37d7b5c975d57)`() const noexcept`  | 
-`public constexpr float ` [`e12`](#structkln_1_1entity_1a6ea826a0579b5e3af406b3bdf469bb6c)`() const noexcept`  | 
-`public constexpr float ` [`e21`](#structkln_1_1entity_1ad0019d3f02141fe76bae8b3ce9774b5d)`() const noexcept`  | 
-`public constexpr float ` [`e31`](#structkln_1_1entity_1a00065a1b6bc1f1532876940d3de0d2e4)`() const noexcept`  | 
-`public constexpr float ` [`e13`](#structkln_1_1entity_1a69446b73fcaef24b744b2a14e31861fd)`() const noexcept`  | 
-`public constexpr float ` [`e23`](#structkln_1_1entity_1a4c9bba50265256e6e01b2ea8b0cf3ffa)`() const noexcept`  | 
-`public constexpr float ` [`e32`](#structkln_1_1entity_1a94f099f3e5dd4ff8d663396715c370a6)`() const noexcept`  | 
-`public constexpr float ` [`e01`](#structkln_1_1entity_1a030e60fa0c4ff7b1dafeca081acdfec5)`() const noexcept`  | 
-`public constexpr float ` [`e10`](#structkln_1_1entity_1a54ea443de00d60b6b16cb7fb7dc52870)`() const noexcept`  | 
-`public constexpr float ` [`e02`](#structkln_1_1entity_1a0f2957262d809cdf5294ef770468070b)`() const noexcept`  | 
-`public constexpr float ` [`e20`](#structkln_1_1entity_1a9a90ade68fc6975d7ad02e1fd736e53b)`() const noexcept`  | 
-`public constexpr float ` [`e03`](#structkln_1_1entity_1ae695df1c64e3803c8f67673b09023ffe)`() const noexcept`  | 
-`public constexpr float ` [`e30`](#structkln_1_1entity_1a8cfb7fb8d4f93d9674c399b7956ae367)`() const noexcept`  | 
-`public constexpr float ` [`e123`](#structkln_1_1entity_1a89a079a5b10a1bcaf49105bb8a0d7cd5)`() const noexcept`  | 
-`public constexpr float ` [`e021`](#structkln_1_1entity_1a3045a22eb3f141eaf1567f49503b9480)`() const noexcept`  | 
-`public constexpr float ` [`e013`](#structkln_1_1entity_1af59505260510fbb1556d1c859a59936c)`() const noexcept`  | 
-`public constexpr float ` [`e032`](#structkln_1_1entity_1a9fb409176fc8e3caf1e198f678947b56)`() const noexcept`  | 
-`public constexpr float ` [`e0123`](#structkln_1_1entity_1af600ee5cb17611634372db3ee224e2b7)`() const noexcept`  | 
-`public __m128 const  & ` [`p0`](#structkln_1_1entity_1a5ce7f65ed2f1ab3a36614248d77676c6)`() const noexcept`  | 
-`public __m128 const  & ` [`p1`](#structkln_1_1entity_1a292759d6bad720e2ea4853af25ef6f4c)`() const noexcept`  | 
-`public __m128 const  & ` [`p2`](#structkln_1_1entity_1a1ee3801d6acb2599c93d3cf17b291f30)`() const noexcept`  | 
-`public __m128 const  & ` [`p3`](#structkln_1_1entity_1a8fad5254df7d3d62dfdb43fa4c2b5e0a)`() const noexcept`  | 
-`public float const  * ` [`p0f`](#structkln_1_1entity_1af19fce68b106f2ada71e6b9810fe3109)`() const noexcept`  | 
-`public float const  * ` [`p1f`](#structkln_1_1entity_1ade8c1899ca84e55f9ddf263c676f3909)`() const noexcept`  | 
-`public float const  * ` [`p2f`](#structkln_1_1entity_1aa196667401be670635b16dec03ae2a11)`() const noexcept`  | 
-`public float const  * ` [`p3f`](#structkln_1_1entity_1a4957d08f0100cfcbaa76a6e5104f9afd)`() const noexcept`  | 
-`public __m128 & ` [`p0`](#structkln_1_1entity_1a6934b623020ecda2603d9a5a2efb9490)`() noexcept`  | 
-`public __m128 & ` [`p1`](#structkln_1_1entity_1aea4868647c6e9d51b95edfe06f07f1e0)`() noexcept`  | 
-`public __m128 & ` [`p2`](#structkln_1_1entity_1a22a629ae59cdc412a1f8939e3de15057)`() noexcept`  | 
-`public __m128 & ` [`p3`](#structkln_1_1entity_1a352c9ba8605a356d7f79a66390b26fc6)`() noexcept`  | 
+`public template<>`  <br/>`constexpr KLN_INLINE auto ` [`operator+`](#structkln_1_1entity_1a8e360a40492c2a7a6731e9c6b5bc1ecb)`(` [`entity`](#structkln_1_1entity)`< P > const & other) const noexcept`  | Addition.
+`public template<>`  <br/>`constexpr KLN_INLINE ` [`entity`](#structkln_1_1entity)` & ` [`operator+=`](#structkln_1_1entity_1ac6c390c05ea533f2ff95a6579d9d38b3)`(` [`entity`](#structkln_1_1entity)`< P > const & other) noexcept`  | 
+`public template<>`  <br/>`constexpr KLN_INLINE auto ` [`operator-`](#structkln_1_1entity_1ae2cdb3c51c8a54cd95f53f8902e6e2d7)`(` [`entity`](#structkln_1_1entity)`< P > const & other) const noexcept`  | Subtraction.
+`public template<>`  <br/>`constexpr KLN_INLINE ` [`entity`](#structkln_1_1entity)` & ` [`operator-=`](#structkln_1_1entity_1afd4c26191264b10c2959fc0f3466ae9f)`(` [`entity`](#structkln_1_1entity)`< P > const & other) noexcept`  | 
+`public KLN_INLINE ` [`entity`](#structkln_1_1entity)` & ` [`operator*=`](#structkln_1_1entity_1abc3d7c16ce1c1484ce756fb76097a49a)`(float scalar) noexcept`  | Scale the multivector by a scalar constant in-place.
+`public KLN_INLINE ` [`entity`](#structkln_1_1entity)` ` [`operator*`](#structkln_1_1entity_1a33986ac860118e521e25ff6e907f19d3)`(float scalar) const noexcept`  | Scale the multivector by a scalar constant and return the result.
+`public KLN_INLINE ` [`entity`](#structkln_1_1entity)` & ` [`operator/=`](#structkln_1_1entity_1a7282fd0b07e44ed6b6f3a60432800251)`(float s) noexcept`  | Divide the multivector by a scalar constant in-place.
+`public KLN_INLINE ` [`entity`](#structkln_1_1entity)` ` [`operator/`](#structkln_1_1entity_1a6d5de5a07546bbb274cecd5d60fdbd29)`(float s) const noexcept`  | Divide the multivector by a scalar constant and return the result.
+`public constexpr KLN_INLINE ` [`entity`](#structkln_1_1entity)` ` [`operator~`](#structkln_1_1entity_1a080f2750e9f4a871df78333f612e8f45)`() const noexcept`  | Reversion operator
+`public template<>`  <br/>`constexpr KLN_INLINE auto ` [`operator\|`](#structkln_1_1entity_1ac3f81a6633e42d2cc9ffc2c597c44d5c)`(` [`entity`](#structkln_1_1entity)`< PMask2 > const & rhs) const noexcept`  | Symmetric Inner Product
+`public template<>`  <br/>`constexpr KLN_INLINE auto ` [`operator^`](#structkln_1_1entity_1af55e7d089149e4d1781c13c5110991c5)`(` [`entity`](#structkln_1_1entity)`< PMask2 > const & rhs) const noexcept`  | Exterior Product
+`public constexpr KLN_INLINE auto ` [`operator!`](#structkln_1_1entity_1adfd82048030dab3923a936764ba0bebc)`() const noexcept`  | Poincaré Dual
+`public template<>`  <br/>`constexpr KLN_INLINE auto ` [`operator&`](#structkln_1_1entity_1a91f91384b86bd2816cdebf3c366a0127)`(` [`entity`](#structkln_1_1entity)`< PMask2 > const & rhs) const noexcept`  | Regressive Product
+`public template<>`  <br/>`constexpr KLN_INLINE auto ` [`operator*`](#structkln_1_1entity_1a208c1d169995e533ceadc8a33828e148)`(` [`entity`](#structkln_1_1entity)`< PMask2 > const & rhs) const noexcept`  | Geometric Product
+`public constexpr KLN_INLINE float ` [`scalar`](#structkln_1_1entity_1a566913263d5b478360fd73a5b24e7672)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e0`](#structkln_1_1entity_1a92cf5ab25f53d6c697a82d2841ade541)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e1`](#structkln_1_1entity_1a0b6542f7f228c740c64ca9e92b0a1c55)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e2`](#structkln_1_1entity_1a1211965c1130241734bfdb9798c68817)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e3`](#structkln_1_1entity_1a560d5ecb1676831f68eba0ea328e3cde)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e12`](#structkln_1_1entity_1aa1e06fabcb77b201ce1b5a43d1d1cb27)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e21`](#structkln_1_1entity_1a50bbd24b01ebb1a55291fbb1ab75599a)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e31`](#structkln_1_1entity_1a7b2e7f2b10fcf21d7dc11d8b4b59f4a3)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e13`](#structkln_1_1entity_1aee357fbf4f8c689bed9e8d3efc8dca38)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e23`](#structkln_1_1entity_1aeb95c72f276000f9db2e2c38dd81b6a6)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e32`](#structkln_1_1entity_1a3fa2b35b59bfd9dc80078f3a9eeac474)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e01`](#structkln_1_1entity_1a55f13415da9b4c0eb0e0becb4f40ece3)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e10`](#structkln_1_1entity_1a7e19e32456e9ca0beed00cd136d8a5b3)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e02`](#structkln_1_1entity_1ade984d1ced6248671098bb8b3be54d76)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e20`](#structkln_1_1entity_1a4437dfec6857a548c56146cc7421443c)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e03`](#structkln_1_1entity_1aa058a1efe6f524d8dca5eb62bcee7119)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e30`](#structkln_1_1entity_1a7dad08eca3bb1ad66e0ae18c12fd2dce)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e123`](#structkln_1_1entity_1aa0815f2b21d673f611bbde9235a2c8f1)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e021`](#structkln_1_1entity_1a55a5fdcf5803e20a277088b51407dfdf)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e013`](#structkln_1_1entity_1a74abd8e8f52f3af1e4f5047bd9726571)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e032`](#structkln_1_1entity_1ac571c7e7ad105a50130646f477e8dcea)`() const noexcept`  | 
+`public constexpr KLN_INLINE float ` [`e0123`](#structkln_1_1entity_1a429ecf90306003684c804f08351ab530)`() const noexcept`  | 
+`public constexpr KLN_INLINE __m128 const  & ` [`p0`](#structkln_1_1entity_1abf168e157c9271173de069b6de62bcc1)`() const noexcept`  | 
+`public constexpr KLN_INLINE __m128 const  & ` [`p1`](#structkln_1_1entity_1a7a34322ee2e4b49e404b59a3efc644e1)`() const noexcept`  | 
+`public constexpr KLN_INLINE __m128 const  & ` [`p2`](#structkln_1_1entity_1a58bd400f84669e248bed438dd18f5239)`() const noexcept`  | 
+`public constexpr KLN_INLINE __m128 const  & ` [`p3`](#structkln_1_1entity_1a677765e6eba5338f2ffea28c7b0cc3bf)`() const noexcept`  | 
+`public constexpr KLN_INLINE float const  * ` [`p0f`](#structkln_1_1entity_1aaaeabf34ad615fe756a2ccf7725ef3aa)`() const noexcept`  | 
+`public constexpr KLN_INLINE float const  * ` [`p1f`](#structkln_1_1entity_1a55df7701da4c18be993616a867ed578d)`() const noexcept`  | 
+`public constexpr KLN_INLINE float const  * ` [`p2f`](#structkln_1_1entity_1ae72c795b19eb7f44ecec17b58ebecab0)`() const noexcept`  | 
+`public constexpr KLN_INLINE float const  * ` [`p3f`](#structkln_1_1entity_1a9ae540deeb8a5bd79e5e66a2fad8fc70)`() const noexcept`  | 
+`public constexpr KLN_INLINE __m128 & ` [`p0`](#structkln_1_1entity_1a3acae1a153b333b8fa033d787a60d551)`() noexcept`  | 
+`public constexpr KLN_INLINE __m128 & ` [`p1`](#structkln_1_1entity_1a868f7278b039cda4d39d9a75440a6520)`() noexcept`  | 
+`public constexpr KLN_INLINE __m128 & ` [`p2`](#structkln_1_1entity_1a9655fcede93875b3f59a2ff2a717e7ff)`() noexcept`  | 
+`public constexpr KLN_INLINE __m128 & ` [`p3`](#structkln_1_1entity_1ac55a05247356a8787cf41c5ad2ebd552)`() noexcept`  | 
 `protected ` [`partition`](/Klein/api/kln::entity::partition#unionkln_1_1entity_1_1partition)` ` [`parts`](#structkln_1_1entity_1accb4153a7732f7f3649c016b87210b23) | 
 
 ### Members
@@ -91,35 +94,39 @@ Default constructor. The contents of the entity are left uninitialized.
 
 Copy constructor.
 
-#### template<>  <br/>auto  [operator+](#structkln_1_1entity_1a7288ef4e2f601719f2c8e83359b44570)( [entity](#structkln_1_1entity)< P > const & other) const noexcept  {#structkln_1_1entity_1a7288ef4e2f601719f2c8e83359b44570}
+#### template<>  <br/>KLN_INLINE auto  [operator+](#structkln_1_1entity_1a8e360a40492c2a7a6731e9c6b5bc1ecb)( [entity](#structkln_1_1entity)< P > const & other) const noexcept  {#structkln_1_1entity_1a8e360a40492c2a7a6731e9c6b5bc1ecb}
 
 Addition.
 
 Returns the sum of this entity and another. The partition mask of the result will be the union of the two addends.
 
-#### template<>  <br/>auto  [operator-](#structkln_1_1entity_1a801c3a9ed167ccb21f02b90d89d68d83)( [entity](#structkln_1_1entity)< P > const & other) const noexcept  {#structkln_1_1entity_1a801c3a9ed167ccb21f02b90d89d68d83}
+#### template<>  <br/>KLN_INLINE  [entity](#structkln_1_1entity) &  [operator+=](#structkln_1_1entity_1ac6c390c05ea533f2ff95a6579d9d38b3)( [entity](#structkln_1_1entity)< P > const & other) noexcept  {#structkln_1_1entity_1ac6c390c05ea533f2ff95a6579d9d38b3}
+
+#### template<>  <br/>KLN_INLINE auto  [operator-](#structkln_1_1entity_1ae2cdb3c51c8a54cd95f53f8902e6e2d7)( [entity](#structkln_1_1entity)< P > const & other) const noexcept  {#structkln_1_1entity_1ae2cdb3c51c8a54cd95f53f8902e6e2d7}
 
 Subtraction.
 
 Returns the difference of this entity and another. The partition mask of the result will be the union of the two operands.
 
-####  [entity](#structkln_1_1entity) &  [operator*=](#structkln_1_1entity_1ace5d947cc7251834ee705b3c71ae7bd3)(float scalar) noexcept  {#structkln_1_1entity_1ace5d947cc7251834ee705b3c71ae7bd3}
+#### template<>  <br/>KLN_INLINE  [entity](#structkln_1_1entity) &  [operator-=](#structkln_1_1entity_1afd4c26191264b10c2959fc0f3466ae9f)( [entity](#structkln_1_1entity)< P > const & other) noexcept  {#structkln_1_1entity_1afd4c26191264b10c2959fc0f3466ae9f}
+
+#### KLN_INLINE  [entity](#structkln_1_1entity) &  [operator*=](#structkln_1_1entity_1abc3d7c16ce1c1484ce756fb76097a49a)(float scalar) noexcept  {#structkln_1_1entity_1abc3d7c16ce1c1484ce756fb76097a49a}
 
 Scale the multivector by a scalar constant in-place.
 
-####  [entity](#structkln_1_1entity)  [operator*](#structkln_1_1entity_1a6e6631d9a3ebc3292f637e744220dae0)(float scalar) const noexcept  {#structkln_1_1entity_1a6e6631d9a3ebc3292f637e744220dae0}
+#### KLN_INLINE  [entity](#structkln_1_1entity)  [operator*](#structkln_1_1entity_1a33986ac860118e521e25ff6e907f19d3)(float scalar) const noexcept  {#structkln_1_1entity_1a33986ac860118e521e25ff6e907f19d3}
 
 Scale the multivector by a scalar constant and return the result.
 
-####  [entity](#structkln_1_1entity) &  [operator/=](#structkln_1_1entity_1ac86920ece406ef01975a88ce7170b3d9)(float s) noexcept  {#structkln_1_1entity_1ac86920ece406ef01975a88ce7170b3d9}
+#### KLN_INLINE  [entity](#structkln_1_1entity) &  [operator/=](#structkln_1_1entity_1a7282fd0b07e44ed6b6f3a60432800251)(float s) noexcept  {#structkln_1_1entity_1a7282fd0b07e44ed6b6f3a60432800251}
 
 Divide the multivector by a scalar constant in-place.
 
-####  [entity](#structkln_1_1entity)  [operator/](#structkln_1_1entity_1a36664c9061251afbfa23c55dd47b943e)(float s) const noexcept  {#structkln_1_1entity_1a36664c9061251afbfa23c55dd47b943e}
+#### KLN_INLINE  [entity](#structkln_1_1entity)  [operator/](#structkln_1_1entity_1a6d5de5a07546bbb274cecd5d60fdbd29)(float s) const noexcept  {#structkln_1_1entity_1a6d5de5a07546bbb274cecd5d60fdbd29}
 
 Divide the multivector by a scalar constant and return the result.
 
-####  [entity](#structkln_1_1entity)  [operator~](#structkln_1_1entity_1ad009244ee075ab1ee8fd566ff3ec9e21)() const noexcept  {#structkln_1_1entity_1ad009244ee075ab1ee8fd566ff3ec9e21}
+#### KLN_INLINE  [entity](#structkln_1_1entity)  [operator~](#structkln_1_1entity_1a080f2750e9f4a871df78333f612e8f45)() const noexcept  {#structkln_1_1entity_1a080f2750e9f4a871df78333f612e8f45}
 
 Reversion operator
 
@@ -127,7 +134,15 @@ Given a basis element $e_S$, the reverse is given as $\mathbf{e}_{\widetilde{S}}
 
 Ex: The reverse of $\mathbf{e}_{12} + 3\mathbf{e}_{021}$ is $\mathbf{e}_{21} + 3\mathbf{e}_{120}$. Signs will be flipped to reexpress the result in the cyclic basis as $-\mathbf{e}_{12} - 3\mathbf{e}_{021}$.
 
-#### template<>  <br/>auto  [operator^](#structkln_1_1entity_1ad6bf5dca8f4c0bdcbd687483af95ce1b)( [entity](#structkln_1_1entity)< PMask2 > const & rhs) const noexcept  {#structkln_1_1entity_1ad6bf5dca8f4c0bdcbd687483af95ce1b}
+#### template<>  <br/>KLN_INLINE auto  [operator|](#structkln_1_1entity_1ac3f81a6633e42d2cc9ffc2c597c44d5c)( [entity](#structkln_1_1entity)< PMask2 > const & rhs) const noexcept  {#structkln_1_1entity_1ac3f81a6633e42d2cc9ffc2c597c44d5c}
+
+Symmetric Inner Product
+
+The symmetric inner product takes two arguments and contracts the lower graded element to the greater graded element. If lower graded element spans an index that is not contained in the higher graded element, the result is annihilated. Otherwise, the result is the part of the higher graded element "most unlike" the lower graded element. Thus, the symmetric inner product can be thought of as a bidirectional contraction operator.
+
+There is some merit in providing both a left and right contraction operator for explicitness. However, when using Klein, it's generally clear what the interpretation of the symmetric inner product is with respect to the projection on various entities.
+
+#### template<>  <br/>KLN_INLINE auto  [operator^](#structkln_1_1entity_1af55e7d089149e4d1781c13c5110991c5)( [entity](#structkln_1_1entity)< PMask2 > const & rhs) const noexcept  {#structkln_1_1entity_1af55e7d089149e4d1781c13c5110991c5}
 
 Exterior Product
 
@@ -137,7 +152,7 @@ The exterior product extends to general multivectors by linearity.
 
 Ex: The exterior product $e_1 \wedge \mathbf{e}_{32}$ is $-\mathbf{e}_{123}$.
 
-#### auto  [operator!](#structkln_1_1entity_1ad433523ab00b8c3b1f7ed493761ae39f)() const noexcept  {#structkln_1_1entity_1ad433523ab00b8c3b1f7ed493761ae39f}
+#### KLN_INLINE auto  [operator!](#structkln_1_1entity_1adfd82048030dab3923a936764ba0bebc)() const noexcept  {#structkln_1_1entity_1adfd82048030dab3923a936764ba0bebc}
 
 Poincaré Dual
 
@@ -145,85 +160,85 @@ The Poincaré Dual of an element is the "subspace complement" of the argument wi
 
 Ex: The dual of the point $\mathbf{e}_{123} + 3\mathbf{e}_{013} - 2\mathbf{e}_{021}$ (the point at $(0, 3, -2)$) is the plane $e_0 + 3e_2 - 2e_3$.
 
-#### template<>  <br/>auto  [operator&](#structkln_1_1entity_1a868f3551cb95294532100c4a21b9315e)( [entity](#structkln_1_1entity)< PMask2 > const & rhs) const noexcept  {#structkln_1_1entity_1a868f3551cb95294532100c4a21b9315e}
+#### template<>  <br/>KLN_INLINE auto  [operator&](#structkln_1_1entity_1a91f91384b86bd2816cdebf3c366a0127)( [entity](#structkln_1_1entity)< PMask2 > const & rhs) const noexcept  {#structkln_1_1entity_1a91f91384b86bd2816cdebf3c366a0127}
 
 Regressive Product
 
 The regressive product is implemented in terms of the exterior product. Given multivectors $\mathbf{a}$ and $\mathbf{b}$, the regressive product $\mathbf{a}\vee\mathbf{b}$ is equivalent to $J(J(\mathbf{a})\wedge J(\mathbf{b}))$. Thus, both meets and joins reside in the same algebraic structure.
 
-#### template<>  <br/>auto  [operator*](#structkln_1_1entity_1a65767f7c9fe6a5ef8d76863e9526429b)( [entity](#structkln_1_1entity)< PMask2 > const & rhs) const noexcept  {#structkln_1_1entity_1a65767f7c9fe6a5ef8d76863e9526429b}
+#### template<>  <br/>KLN_INLINE auto  [operator*](#structkln_1_1entity_1a208c1d169995e533ceadc8a33828e148)( [entity](#structkln_1_1entity)< PMask2 > const & rhs) const noexcept  {#structkln_1_1entity_1a208c1d169995e533ceadc8a33828e148}
 
 Geometric Product
 
 The geometric product extends the exterior product with a notion of a metric. When the subspace intersection of the operands of two basis elements is non-zero, instead of the product extinguishing, the grade collapses and a scalar weight is included in the final result according to the metric. The geometric product can be used to build rotations, and by extension, rotations and translations in projective space.
 
-#### float  [scalar](#structkln_1_1entity_1a21d43c5ba9879c5a467710a5f9595a04)() const noexcept  {#structkln_1_1entity_1a21d43c5ba9879c5a467710a5f9595a04}
+#### KLN_INLINE float  [scalar](#structkln_1_1entity_1a566913263d5b478360fd73a5b24e7672)() const noexcept  {#structkln_1_1entity_1a566913263d5b478360fd73a5b24e7672}
 
-#### float  [e0](#structkln_1_1entity_1ac9ec7b5b5fee7a87c7cb4fbe937eedfd)() const noexcept  {#structkln_1_1entity_1ac9ec7b5b5fee7a87c7cb4fbe937eedfd}
+#### KLN_INLINE float  [e0](#structkln_1_1entity_1a92cf5ab25f53d6c697a82d2841ade541)() const noexcept  {#structkln_1_1entity_1a92cf5ab25f53d6c697a82d2841ade541}
 
-#### float  [e1](#structkln_1_1entity_1a64065edeb9501df5a07b17b219ab4289)() const noexcept  {#structkln_1_1entity_1a64065edeb9501df5a07b17b219ab4289}
+#### KLN_INLINE float  [e1](#structkln_1_1entity_1a0b6542f7f228c740c64ca9e92b0a1c55)() const noexcept  {#structkln_1_1entity_1a0b6542f7f228c740c64ca9e92b0a1c55}
 
-#### float  [e2](#structkln_1_1entity_1aade01dacf2b720cb8bf57d0282c017e6)() const noexcept  {#structkln_1_1entity_1aade01dacf2b720cb8bf57d0282c017e6}
+#### KLN_INLINE float  [e2](#structkln_1_1entity_1a1211965c1130241734bfdb9798c68817)() const noexcept  {#structkln_1_1entity_1a1211965c1130241734bfdb9798c68817}
 
-#### float  [e3](#structkln_1_1entity_1a3f4ac3d5aca043f44cb37d7b5c975d57)() const noexcept  {#structkln_1_1entity_1a3f4ac3d5aca043f44cb37d7b5c975d57}
+#### KLN_INLINE float  [e3](#structkln_1_1entity_1a560d5ecb1676831f68eba0ea328e3cde)() const noexcept  {#structkln_1_1entity_1a560d5ecb1676831f68eba0ea328e3cde}
 
-#### float  [e12](#structkln_1_1entity_1a6ea826a0579b5e3af406b3bdf469bb6c)() const noexcept  {#structkln_1_1entity_1a6ea826a0579b5e3af406b3bdf469bb6c}
+#### KLN_INLINE float  [e12](#structkln_1_1entity_1aa1e06fabcb77b201ce1b5a43d1d1cb27)() const noexcept  {#structkln_1_1entity_1aa1e06fabcb77b201ce1b5a43d1d1cb27}
 
-#### float  [e21](#structkln_1_1entity_1ad0019d3f02141fe76bae8b3ce9774b5d)() const noexcept  {#structkln_1_1entity_1ad0019d3f02141fe76bae8b3ce9774b5d}
+#### KLN_INLINE float  [e21](#structkln_1_1entity_1a50bbd24b01ebb1a55291fbb1ab75599a)() const noexcept  {#structkln_1_1entity_1a50bbd24b01ebb1a55291fbb1ab75599a}
 
-#### float  [e31](#structkln_1_1entity_1a00065a1b6bc1f1532876940d3de0d2e4)() const noexcept  {#structkln_1_1entity_1a00065a1b6bc1f1532876940d3de0d2e4}
+#### KLN_INLINE float  [e31](#structkln_1_1entity_1a7b2e7f2b10fcf21d7dc11d8b4b59f4a3)() const noexcept  {#structkln_1_1entity_1a7b2e7f2b10fcf21d7dc11d8b4b59f4a3}
 
-#### float  [e13](#structkln_1_1entity_1a69446b73fcaef24b744b2a14e31861fd)() const noexcept  {#structkln_1_1entity_1a69446b73fcaef24b744b2a14e31861fd}
+#### KLN_INLINE float  [e13](#structkln_1_1entity_1aee357fbf4f8c689bed9e8d3efc8dca38)() const noexcept  {#structkln_1_1entity_1aee357fbf4f8c689bed9e8d3efc8dca38}
 
-#### float  [e23](#structkln_1_1entity_1a4c9bba50265256e6e01b2ea8b0cf3ffa)() const noexcept  {#structkln_1_1entity_1a4c9bba50265256e6e01b2ea8b0cf3ffa}
+#### KLN_INLINE float  [e23](#structkln_1_1entity_1aeb95c72f276000f9db2e2c38dd81b6a6)() const noexcept  {#structkln_1_1entity_1aeb95c72f276000f9db2e2c38dd81b6a6}
 
-#### float  [e32](#structkln_1_1entity_1a94f099f3e5dd4ff8d663396715c370a6)() const noexcept  {#structkln_1_1entity_1a94f099f3e5dd4ff8d663396715c370a6}
+#### KLN_INLINE float  [e32](#structkln_1_1entity_1a3fa2b35b59bfd9dc80078f3a9eeac474)() const noexcept  {#structkln_1_1entity_1a3fa2b35b59bfd9dc80078f3a9eeac474}
 
-#### float  [e01](#structkln_1_1entity_1a030e60fa0c4ff7b1dafeca081acdfec5)() const noexcept  {#structkln_1_1entity_1a030e60fa0c4ff7b1dafeca081acdfec5}
+#### KLN_INLINE float  [e01](#structkln_1_1entity_1a55f13415da9b4c0eb0e0becb4f40ece3)() const noexcept  {#structkln_1_1entity_1a55f13415da9b4c0eb0e0becb4f40ece3}
 
-#### float  [e10](#structkln_1_1entity_1a54ea443de00d60b6b16cb7fb7dc52870)() const noexcept  {#structkln_1_1entity_1a54ea443de00d60b6b16cb7fb7dc52870}
+#### KLN_INLINE float  [e10](#structkln_1_1entity_1a7e19e32456e9ca0beed00cd136d8a5b3)() const noexcept  {#structkln_1_1entity_1a7e19e32456e9ca0beed00cd136d8a5b3}
 
-#### float  [e02](#structkln_1_1entity_1a0f2957262d809cdf5294ef770468070b)() const noexcept  {#structkln_1_1entity_1a0f2957262d809cdf5294ef770468070b}
+#### KLN_INLINE float  [e02](#structkln_1_1entity_1ade984d1ced6248671098bb8b3be54d76)() const noexcept  {#structkln_1_1entity_1ade984d1ced6248671098bb8b3be54d76}
 
-#### float  [e20](#structkln_1_1entity_1a9a90ade68fc6975d7ad02e1fd736e53b)() const noexcept  {#structkln_1_1entity_1a9a90ade68fc6975d7ad02e1fd736e53b}
+#### KLN_INLINE float  [e20](#structkln_1_1entity_1a4437dfec6857a548c56146cc7421443c)() const noexcept  {#structkln_1_1entity_1a4437dfec6857a548c56146cc7421443c}
 
-#### float  [e03](#structkln_1_1entity_1ae695df1c64e3803c8f67673b09023ffe)() const noexcept  {#structkln_1_1entity_1ae695df1c64e3803c8f67673b09023ffe}
+#### KLN_INLINE float  [e03](#structkln_1_1entity_1aa058a1efe6f524d8dca5eb62bcee7119)() const noexcept  {#structkln_1_1entity_1aa058a1efe6f524d8dca5eb62bcee7119}
 
-#### float  [e30](#structkln_1_1entity_1a8cfb7fb8d4f93d9674c399b7956ae367)() const noexcept  {#structkln_1_1entity_1a8cfb7fb8d4f93d9674c399b7956ae367}
+#### KLN_INLINE float  [e30](#structkln_1_1entity_1a7dad08eca3bb1ad66e0ae18c12fd2dce)() const noexcept  {#structkln_1_1entity_1a7dad08eca3bb1ad66e0ae18c12fd2dce}
 
-#### float  [e123](#structkln_1_1entity_1a89a079a5b10a1bcaf49105bb8a0d7cd5)() const noexcept  {#structkln_1_1entity_1a89a079a5b10a1bcaf49105bb8a0d7cd5}
+#### KLN_INLINE float  [e123](#structkln_1_1entity_1aa0815f2b21d673f611bbde9235a2c8f1)() const noexcept  {#structkln_1_1entity_1aa0815f2b21d673f611bbde9235a2c8f1}
 
-#### float  [e021](#structkln_1_1entity_1a3045a22eb3f141eaf1567f49503b9480)() const noexcept  {#structkln_1_1entity_1a3045a22eb3f141eaf1567f49503b9480}
+#### KLN_INLINE float  [e021](#structkln_1_1entity_1a55a5fdcf5803e20a277088b51407dfdf)() const noexcept  {#structkln_1_1entity_1a55a5fdcf5803e20a277088b51407dfdf}
 
-#### float  [e013](#structkln_1_1entity_1af59505260510fbb1556d1c859a59936c)() const noexcept  {#structkln_1_1entity_1af59505260510fbb1556d1c859a59936c}
+#### KLN_INLINE float  [e013](#structkln_1_1entity_1a74abd8e8f52f3af1e4f5047bd9726571)() const noexcept  {#structkln_1_1entity_1a74abd8e8f52f3af1e4f5047bd9726571}
 
-#### float  [e032](#structkln_1_1entity_1a9fb409176fc8e3caf1e198f678947b56)() const noexcept  {#structkln_1_1entity_1a9fb409176fc8e3caf1e198f678947b56}
+#### KLN_INLINE float  [e032](#structkln_1_1entity_1ac571c7e7ad105a50130646f477e8dcea)() const noexcept  {#structkln_1_1entity_1ac571c7e7ad105a50130646f477e8dcea}
 
-#### float  [e0123](#structkln_1_1entity_1af600ee5cb17611634372db3ee224e2b7)() const noexcept  {#structkln_1_1entity_1af600ee5cb17611634372db3ee224e2b7}
+#### KLN_INLINE float  [e0123](#structkln_1_1entity_1a429ecf90306003684c804f08351ab530)() const noexcept  {#structkln_1_1entity_1a429ecf90306003684c804f08351ab530}
 
-#### __m128 const  &  [p0](#structkln_1_1entity_1a5ce7f65ed2f1ab3a36614248d77676c6)() const noexcept  {#structkln_1_1entity_1a5ce7f65ed2f1ab3a36614248d77676c6}
+#### KLN_INLINE __m128 const  &  [p0](#structkln_1_1entity_1abf168e157c9271173de069b6de62bcc1)() const noexcept  {#structkln_1_1entity_1abf168e157c9271173de069b6de62bcc1}
 
-#### __m128 const  &  [p1](#structkln_1_1entity_1a292759d6bad720e2ea4853af25ef6f4c)() const noexcept  {#structkln_1_1entity_1a292759d6bad720e2ea4853af25ef6f4c}
+#### KLN_INLINE __m128 const  &  [p1](#structkln_1_1entity_1a7a34322ee2e4b49e404b59a3efc644e1)() const noexcept  {#structkln_1_1entity_1a7a34322ee2e4b49e404b59a3efc644e1}
 
-#### __m128 const  &  [p2](#structkln_1_1entity_1a1ee3801d6acb2599c93d3cf17b291f30)() const noexcept  {#structkln_1_1entity_1a1ee3801d6acb2599c93d3cf17b291f30}
+#### KLN_INLINE __m128 const  &  [p2](#structkln_1_1entity_1a58bd400f84669e248bed438dd18f5239)() const noexcept  {#structkln_1_1entity_1a58bd400f84669e248bed438dd18f5239}
 
-#### __m128 const  &  [p3](#structkln_1_1entity_1a8fad5254df7d3d62dfdb43fa4c2b5e0a)() const noexcept  {#structkln_1_1entity_1a8fad5254df7d3d62dfdb43fa4c2b5e0a}
+#### KLN_INLINE __m128 const  &  [p3](#structkln_1_1entity_1a677765e6eba5338f2ffea28c7b0cc3bf)() const noexcept  {#structkln_1_1entity_1a677765e6eba5338f2ffea28c7b0cc3bf}
 
-#### float const  *  [p0f](#structkln_1_1entity_1af19fce68b106f2ada71e6b9810fe3109)() const noexcept  {#structkln_1_1entity_1af19fce68b106f2ada71e6b9810fe3109}
+#### KLN_INLINE float const  *  [p0f](#structkln_1_1entity_1aaaeabf34ad615fe756a2ccf7725ef3aa)() const noexcept  {#structkln_1_1entity_1aaaeabf34ad615fe756a2ccf7725ef3aa}
 
-#### float const  *  [p1f](#structkln_1_1entity_1ade8c1899ca84e55f9ddf263c676f3909)() const noexcept  {#structkln_1_1entity_1ade8c1899ca84e55f9ddf263c676f3909}
+#### KLN_INLINE float const  *  [p1f](#structkln_1_1entity_1a55df7701da4c18be993616a867ed578d)() const noexcept  {#structkln_1_1entity_1a55df7701da4c18be993616a867ed578d}
 
-#### float const  *  [p2f](#structkln_1_1entity_1aa196667401be670635b16dec03ae2a11)() const noexcept  {#structkln_1_1entity_1aa196667401be670635b16dec03ae2a11}
+#### KLN_INLINE float const  *  [p2f](#structkln_1_1entity_1ae72c795b19eb7f44ecec17b58ebecab0)() const noexcept  {#structkln_1_1entity_1ae72c795b19eb7f44ecec17b58ebecab0}
 
-#### float const  *  [p3f](#structkln_1_1entity_1a4957d08f0100cfcbaa76a6e5104f9afd)() const noexcept  {#structkln_1_1entity_1a4957d08f0100cfcbaa76a6e5104f9afd}
+#### KLN_INLINE float const  *  [p3f](#structkln_1_1entity_1a9ae540deeb8a5bd79e5e66a2fad8fc70)() const noexcept  {#structkln_1_1entity_1a9ae540deeb8a5bd79e5e66a2fad8fc70}
 
-#### __m128 &  [p0](#structkln_1_1entity_1a6934b623020ecda2603d9a5a2efb9490)() noexcept  {#structkln_1_1entity_1a6934b623020ecda2603d9a5a2efb9490}
+#### KLN_INLINE __m128 &  [p0](#structkln_1_1entity_1a3acae1a153b333b8fa033d787a60d551)() noexcept  {#structkln_1_1entity_1a3acae1a153b333b8fa033d787a60d551}
 
-#### __m128 &  [p1](#structkln_1_1entity_1aea4868647c6e9d51b95edfe06f07f1e0)() noexcept  {#structkln_1_1entity_1aea4868647c6e9d51b95edfe06f07f1e0}
+#### KLN_INLINE __m128 &  [p1](#structkln_1_1entity_1a868f7278b039cda4d39d9a75440a6520)() noexcept  {#structkln_1_1entity_1a868f7278b039cda4d39d9a75440a6520}
 
-#### __m128 &  [p2](#structkln_1_1entity_1a22a629ae59cdc412a1f8939e3de15057)() noexcept  {#structkln_1_1entity_1a22a629ae59cdc412a1f8939e3de15057}
+#### KLN_INLINE __m128 &  [p2](#structkln_1_1entity_1a9655fcede93875b3f59a2ff2a717e7ff)() noexcept  {#structkln_1_1entity_1a9655fcede93875b3f59a2ff2a717e7ff}
 
-#### __m128 &  [p3](#structkln_1_1entity_1a352c9ba8605a356d7f79a66390b26fc6)() noexcept  {#structkln_1_1entity_1a352c9ba8605a356d7f79a66390b26fc6}
+#### KLN_INLINE __m128 &  [p3](#structkln_1_1entity_1ac55a05247356a8787cf41c5ad2ebd552)() noexcept  {#structkln_1_1entity_1ac55a05247356a8787cf41c5ad2ebd552}
 
 #### protected  [partition](/Klein/api/kln::entity::partition#unionkln_1_1entity_1_1partition)  [parts](#structkln_1_1entity_1accb4153a7732f7f3649c016b87210b23) {#structkln_1_1entity_1accb4153a7732f7f3649c016b87210b23}
 

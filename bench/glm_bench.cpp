@@ -29,12 +29,8 @@ static void BM_quat_composition(benchmark::State& state)
 {
     glm::quat q1;
     glm::quat q2;
-    for (auto _ : state)
+    while (state.KeepRunning())
     {
-        state.PauseTiming();
-        q1 = random_quat();
-        q2 = random_quat();
-        state.ResumeTiming();
         benchmark::DoNotOptimize(q1 * q2);
     }
 }
@@ -44,12 +40,8 @@ static void BM_quat_application(benchmark::State& state)
 {
     glm::quat q;
     glm::vec4 p;
-    for (auto _ : state)
+    while (state.KeepRunning())
     {
-        state.PauseTiming();
-        q = random_quat();
-        p = random_point();
-        state.ResumeTiming();
         auto m = glm::toMat4(q);
         benchmark::DoNotOptimize(m * p);
     }
@@ -59,11 +51,8 @@ BENCHMARK(BM_quat_application);
 static void BM_quat_matrix_conversion(benchmark::State& state)
 {
     glm::quat q;
-    for (auto _ : state)
+    while (state.KeepRunning())
     {
-        state.PauseTiming();
-        q = random_quat();
-        state.ResumeTiming();
         benchmark::DoNotOptimize(glm::toMat4(q));
     }
 }
@@ -71,14 +60,12 @@ BENCHMARK(BM_quat_matrix_conversion);
 
 static void BM_dual_quat_composition(benchmark::State& state)
 {
-    glm::dualquat dq1;
-    glm::dualquat dq2;
-    for (auto _ : state)
+    glm::dualquat dq1{
+        glm::quat{1.f, 2.f, 3.f, 4.f}, glm::quat{1.f, 2.f, 3.f, 4.f}};
+    glm::dualquat dq2{
+        glm::quat{1.f, 2.f, 3.f, 4.f}, glm::quat{1.f, 2.f, 3.f, 4.f}};
+    while (state.KeepRunning())
     {
-        state.PauseTiming();
-        dq1 = random_dual_quat();
-        dq2 = random_dual_quat();
-        state.ResumeTiming();
         benchmark::DoNotOptimize(dq1 * dq2);
     }
 }
@@ -86,14 +73,11 @@ BENCHMARK(BM_dual_quat_composition);
 
 static void BM_dual_quat_application(benchmark::State& state)
 {
-    glm::dualquat dq;
+    glm::dualquat dq{
+        glm::quat{1.f, 2.f, 3.f, 4.f}, glm::quat{1.f, 2.f, 3.f, 4.f}};
     glm::vec4 p;
-    for (auto _ : state)
+    while (state.KeepRunning())
     {
-        state.PauseTiming();
-        dq = random_dual_quat();
-        p  = random_point();
-        state.ResumeTiming();
         auto m = glm::mat3x4_cast(dq);
         benchmark::DoNotOptimize(m * p);
     }
@@ -102,12 +86,9 @@ BENCHMARK(BM_dual_quat_application);
 
 static void BM_dual_quat_matrix_conversion(benchmark::State& state)
 {
-    glm::dualquat dq;
-    for (auto _ : state)
+    glm::dualquat dq{glm::quat{}, glm::quat{}};
+    while (state.KeepRunning())
     {
-        state.PauseTiming();
-        dq = random_dual_quat();
-        state.ResumeTiming();
         benchmark::DoNotOptimize(glm::mat3x4_cast(dq));
     }
 }

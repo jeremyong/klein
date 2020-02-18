@@ -149,3 +149,6 @@
 
 # p3 | p3
 (a0 e123 + a1 e021 + a2 e013 + a3 e032) | (b0 e123 + b1 e021 + b2 e013 + b3 e032)
+
+# plane conjugate plane
+(a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 e0 + b1 e1 + b2 e2 + b3 e3) * (-a0 e0 - a1 e1 - a2 e2 - a3 e3)

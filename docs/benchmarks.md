@@ -1,6 +1,6 @@
 The [`bench`](https://github.com/jeremyong/Klein/tree/master/bench) folder provides
 a `klein_bench` executable target and a `glm_bench` executable target to compare
-common operations. Some timings taken as of 2020/02/14 are reproduced below:
+common operations. Some timings taken as of 2020/02/17 are reproduced below:
 
 ```
 Running ./klein_bench
@@ -10,16 +10,16 @@ CPU Caches:
   L1 Instruction 32K (x8)
   L2 Unified 256K (x8)
   L3 Unified 16384K (x1)
-Load Average: 0.73, 0.84, 0.66
+Load Average: 0.50, 0.77, 0.80
 ---------------------------------------------------------------------
 Benchmark                           Time             CPU   Iterations
 ---------------------------------------------------------------------
-BM_rotor_composition              209 ns          211 ns      3356746
-BM_rotor_application              207 ns          209 ns      3353725
-BM_rotor_matrix_conversion        206 ns          208 ns      3358056
-BM_motor_composition              210 ns          211 ns      3313448
-BM_motor_application              206 ns          208 ns      3346123
-BM_motor_matrix_conversion        208 ns          210 ns      3328768
+BM_rotor_composition             1.47 ns         1.47 ns    477453168
+BM_rotor_application             2.26 ns         2.26 ns    307239187
+BM_rotor_matrix_conversion       3.68 ns         3.68 ns    191073706
+BM_motor_composition             3.40 ns         3.40 ns    205014962
+BM_motor_application             2.96 ns         2.96 ns    237085085
+BM_motor_matrix_conversion       3.61 ns         3.61 ns    195147950
 ```
 
 For comparison, an equivalent benchmark for the well-optimized GLM is provided:
@@ -32,16 +32,16 @@ CPU Caches:
   L1 Instruction 32K (x8)
   L2 Unified 256K (x8)
   L3 Unified 16384K (x1)
-Load Average: 0.81, 0.85, 0.67
+Load Average: 0.56, 0.79, 0.81
 -------------------------------------------------------------------------
 Benchmark                               Time             CPU   Iterations
 -------------------------------------------------------------------------
-BM_quat_composition                   210 ns          212 ns      3290850
-BM_quat_application                   212 ns          213 ns      3268476
-BM_quat_matrix_conversion             208 ns          209 ns      3303599
-BM_quat_composition                   211 ns          213 ns      3292393
-BM_dual_quat_application              219 ns          221 ns      3165149
-BM_dual_quat_matrix_conversion        214 ns          215 ns      3249413
+BM_quat_composition                  3.22 ns         3.22 ns    219698708
+BM_quat_application                  5.98 ns         5.98 ns    116975752
+BM_quat_matrix_conversion            3.15 ns         3.15 ns    222991272
+BM_dual_quat_composition             1.04 ns         1.04 ns    661996928
+BM_dual_quat_application             5.76 ns         5.76 ns    122759985
+BM_dual_quat_matrix_conversion       3.17 ns         3.17 ns    218222581
 ```
 
 These results should _not_ be interpreted to mean that Klein is unilaterally superior
