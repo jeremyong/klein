@@ -743,7 +743,7 @@
 <td>Convenience constructor. Computes transcendentals and normalizes rotation axis.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><code>rotor</code></a><code>(</code> <a href="/api/kln::entity #structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; other)</code></td>
+<td><code>public</code> <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><code>rotor</code></a><code>(</code> <a href="/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; other)</code></td>
 <td></td>
 </tr>
 <tr>
@@ -755,15 +755,15 @@
 <td>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/api/kln::plane #structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><code>operator()</code></a><code>(</code> <a href="/api/kln::plane #structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public</code> <a href="/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><code>operator()</code></a><code>(</code> <a href="/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/api/kln::point #structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><code>operator()</code></a><code>(</code> <a href="/api/kln::point #structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public</code> <a href="/api/kln::point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><code>operator()</code></a><code>(</code> <a href="/api/kln::point#structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a point <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/api/kln::mat4x4 #structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><code>as_matrix</code></a><code>() const noexcept</code></td>
+<td><code>public</code> <a href="/api/kln::mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><code>as_matrix</code></a><code>() const noexcept</code></td>
 <td>Converts the rotor to a 4x4 column-major matrix.</td>
 </tr>
 </tbody>
@@ -773,7 +773,7 @@
 <p>Default constructor leaves memory uninitialized.</p>
 <h4 id="structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c"><a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c">rotor</a>(float ang_rad,float x,float y,float z)</h4>
 <p>Convenience constructor. Computes transcendentals and normalizes rotation axis.</p>
-<h4 id="structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298">rotor</a>( <a href="/api/kln::entity #structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; other)</h4>
+<h4 id="structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298">rotor</a>( <a href="/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; other)</h4>
 <h4 id="structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">void  <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">load_normalized</a>(float * data) noexcept</h4>
 <p>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23}\)</span>.</p>
 <div class="admonition danger">
@@ -783,11 +783,11 @@ rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex
 </div>
 <h4 id="structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4">void  <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4">normalize</a>() noexcept</h4>
 <p>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</p>
-<h4 id="structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><a href="/api/kln::plane #structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec">operator()</a>( <a href="/api/kln::plane #structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><a href="/api/kln::plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec">operator()</a>( <a href="/api/kln::plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><a href="/api/kln::point #structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199">operator()</a>( <a href="/api/kln::point #structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><a href="/api/kln::point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199">operator()</a>( <a href="/api/kln::point#structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a point <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><a href="/api/kln::mat4x4 #structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11">as_matrix</a>() const noexcept</h4>
+<h4 id="structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><a href="/api/kln::mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11">as_matrix</a>() const noexcept</h4>
 <p>Converts the rotor to a 4x4 column-major matrix.</p>
                 
                   

@@ -753,6 +753,8 @@
 <span class="err">  : public kln::entity&lt; 0b110 &gt;</span>
 </code></pre></div>
 
+<p>A <code>motor</code>  represents a kinematic motion in our algebra. From <a href="https://en.wikipedia.org/wiki/Chasles%27_theorem_(kinematics)">Chasles' theorem</a>, we know that any rigid body displacement can be produced by a translation along a line, followed or preceded by a rotation about an axis parallel to that line. The motor algebra is isomorphic to the dual quaternions but exists here in the same algebra as all the other geometric entities and actions at our disposal. Operations such as composing a motor with a rotor or translator are possible for example. The primary benefit to using a motor over its corresponding matrix operation is twofold. First, you get the benefit of numerical stability when composing multiple actions via the geometric product (<code>*</code> ). Second, because the motors constitute a continuous group, they are amenable to smooth interpolation and differentiation.</p>
+<p>A demonstration of using the exponential and logarithmic map to blend between two motors is provided in a test case <a href="https://github.com/jeremyong/Klein/blob/master/test/test_exp_log.cpp#L48">here</a>.</p>
 <h3 id="summary">Summary</h3>
 <table>
 <thead>
@@ -771,7 +773,7 @@
 <td>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span></td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><code>motor</code></a><code>(</code> <a href="/api/kln::entity #structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; e) noexcept</code></td>
+<td><code>public</code> <a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><code>motor</code></a><code>(</code> <a href="/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; e) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
@@ -783,23 +785,23 @@
 <td>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/api/kln::mat4x4 #structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><code>as_matrix</code></a><code>() const noexcept</code></td>
+<td><code>public</code> <a href="/api/kln::mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><code>as_matrix</code></a><code>() const noexcept</code></td>
 <td>Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/api/kln::entity #structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt;</code> <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><code>log</code></a><code>() const noexcept</code></td>
+<td><code>public</code> <a href="/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt;</code> <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><code>log</code></a><code>() const noexcept</code></td>
 <td>Takes the principal branch of the logarithm of the motor, returning a bivector. Exponentiation of that bivector without any changes produces this motor again. Scaling that bivector by <span class="arithmatex">\(\frac{1}{n}\)</span>, re-exponentiating, and taking the result to the <span class="arithmatex">\(n\)</span>th power will also produce this motor again.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/api/kln::plane #structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196"><code>operator()</code></a><code>(</code> <a href="/api/kln::plane #structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public</code> <a href="/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196"><code>operator()</code></a><code>(</code> <a href="/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/api/kln::point #structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40"><code>operator()</code></a><code>(</code> <a href="/api/kln::point #structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public</code> <a href="/api/kln::point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40"><code>operator()</code></a><code>(</code> <a href="/api/kln::point#structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a point <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/api/kln::point #structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><code>operator()</code></a><code>(</code> <a href="/api/kln::origin #structkln_1_1origin"><code>origin</code></a><code>) const noexcept</code></td>
+<td><code>public</code> <a href="/api/kln::point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><code>operator()</code></a><code>(</code> <a href="/api/kln::origin#structkln_1_1origin"><code>origin</code></a><code>) const noexcept</code></td>
 <td>Conjugates a origin <span class="arithmatex">\(O\)</span> with this motor and returns the result <span class="arithmatex">\(rO\widetilde{r}\)</span>.</td>
 </tr>
 </tbody>
@@ -808,20 +810,20 @@
 <h4 id="structkln_1_1motor_1af185a86b951973e31cd16398845f73bf"><a href="#structkln_1_1motor_1af185a86b951973e31cd16398845f73bf">motor</a>() = default</h4>
 <h4 id="structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5"><a href="#structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5">motor</a>(float a,float b,float c,float d,float e,float f,float g,float h) noexcept</h4>
 <p>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span></p>
-<h4 id="structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8">motor</a>( <a href="/api/kln::entity #structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e) noexcept</h4>
+<h4 id="structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8">motor</a>( <a href="/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e) noexcept</h4>
 <h4 id="structkln_1_1motor_1a3a048b8d0f35322259f8f1cbaad88cab">void  <a href="#structkln_1_1motor_1a3a048b8d0f35322259f8f1cbaad88cab">load</a>(float * in) noexcept</h4>
 <p>Load motor data using two unaligned loads. This routine does <em>not</em> assume the data passed in this way is normalized.</p>
 <h4 id="structkln_1_1motor_1a8af12b78c4e98b84c51f605b47dbc0a1">void  <a href="#structkln_1_1motor_1a8af12b78c4e98b84c51f605b47dbc0a1">normalize</a>() noexcept</h4>
 <p>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</p>
-<h4 id="structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><a href="/api/kln::mat4x4 #structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab">as_matrix</a>() const noexcept</h4>
+<h4 id="structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><a href="/api/kln::mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab">as_matrix</a>() const noexcept</h4>
 <p>Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.</p>
-<h4 id="structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><a href="/api/kln::entity #structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374">log</a>() const noexcept</h4>
+<h4 id="structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><a href="/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374">log</a>() const noexcept</h4>
 <p>Takes the principal branch of the logarithm of the motor, returning a bivector. Exponentiation of that bivector without any changes produces this motor again. Scaling that bivector by <span class="arithmatex">\(\frac{1}{n}\)</span>, re-exponentiating, and taking the result to the <span class="arithmatex">\(n\)</span>th power will also produce this motor again.</p>
-<h4 id="structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196"><a href="/api/kln::plane #structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196">operator()</a>( <a href="/api/kln::plane #structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
+<h4 id="structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196"><a href="/api/kln::plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196">operator()</a>( <a href="/api/kln::plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40"><a href="/api/kln::point #structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40">operator()</a>( <a href="/api/kln::point #structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
+<h4 id="structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40"><a href="/api/kln::point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40">operator()</a>( <a href="/api/kln::point#structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a point <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><a href="/api/kln::point #structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489">operator()</a>( <a href="/api/kln::origin #structkln_1_1origin">origin</a>) const noexcept</h4>
+<h4 id="structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><a href="/api/kln::point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489">operator()</a>( <a href="/api/kln::origin#structkln_1_1origin">origin</a>) const noexcept</h4>
 <p>Conjugates a origin <span class="arithmatex">\(O\)</span> with this motor and returns the result <span class="arithmatex">\(rO\widetilde{r}\)</span>.</p>
                 
                   
