@@ -4,11 +4,19 @@
 
 namespace kln
 {
-// x*e_032 + y*e_013 + z*e_021 + e_123
+/// A point is represented as the multivector
+/// $x\mathbf{e}_{032} + y\mathbf{e}_{013} + z\mathbf{e}_{021} +
+/// \mathbf{e}_{123}$. The point has a trivector representation because it is
+/// the fixed point of 3 planar reflections (each of which is a grade-1
+/// multivector). In practice, the coordinate mapping can be thought of as an
+/// implementation detail.
 struct point final : public entity<0b1000>
 {
+    /// Default constructor leaves memory uninitialized.
     point() = default;
 
+    /// Component-wise constructor (homogeneous coordinate is automatically
+    /// initialized to 1)
     point(float x, float y, float z) noexcept
     {
         parts[0].reg = _mm_set_ps(x, y, z, 1.f);
@@ -17,6 +25,24 @@ struct point final : public entity<0b1000>
     point(entity<0b1000> const& e)
         : entity{e}
     {}
+
+    /// Fast load from a pointer to an array of four floats with layout
+    /// `(w, z, y, x)` where `w` occupies the lowest address in memory.
+    ///
+    /// !!! tip
+    ///
+    ///     This load operation is more efficient that modifying individual
+    ///     components back-to-back.
+    ///
+    /// !!! danger
+    ///
+    ///     Unlike the component-wise constructor, the load here requires the
+    ///     homogeneous coordinate `w` to be supplied as well in the lowest
+    ///     address pointed to by `data`.
+    void load(float* data) noexcept
+    {
+        parts[0].reg = _mm_loadu_ps(data);
+    }
 
     float x() const noexcept
     {
@@ -48,7 +74,7 @@ struct point final : public entity<0b1000>
         return parts[0].data[1];
     }
 
-    // Unity when normalized
+    /// The homogeneous coordinate `w` is exactly $1$ when normalized.
     float w() const noexcept
     {
         return parts[0].data[0];
@@ -59,6 +85,13 @@ struct point final : public entity<0b1000>
         return parts[0].data[0];
     }
 
+    /// Normalize this point
+    ///
+    /// !!! tip
+    ///
+    ///     Point normalization divides the coordinates by the homogeneous
+    ///     coordinate `w`. This is done using the `rcpps` instruction with a
+    ///     maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
         // Fast reciprocal operation to divide by w. The maximum relative error
@@ -68,10 +101,14 @@ struct point final : public entity<0b1000>
     }
 };
 
-// The origin is a convenience type that occupies no memory but is castable to a
-// point entity
+/// The origin is a convenience type that occupies no memory but is castable to
+/// a point entity. Several operations like conjugation of the origin by a motor
+/// is optimized.
 struct origin
 {
+    /// On its own, the origin occupies no memory, but it can be casted as an
+    /// entity at any point, at which point it is represented as
+    /// $\mathbf{e}_{123}$.
     operator entity<0b1000>() const noexcept
     {
         entity<0b1000> out;
@@ -79,4 +116,4 @@ struct origin
         return out;
     }
 };
-}
+} // namespace kln

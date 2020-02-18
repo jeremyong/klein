@@ -9,15 +9,35 @@
 
 namespace kln
 {
+/// A `motor` represents a kinematic motion in our algebra. From
+/// [Chasles'
+/// theorem](https://en.wikipedia.org/wiki/Chasles%27_theorem_(kinematics)), we
+/// know that any rigid body displacement can be produced by a translation along
+/// a line, followed or preceded by a rotation about an axis parallel to that
+/// line. The motor algebra is isomorphic to the dual quaternions but exists
+/// here in the same algebra as all the other geometric entities and actions at
+/// our disposal. Operations such as composing a motor with a rotor or
+/// translator are possible for example. The primary benefit to using a motor
+/// over its corresponding matrix operation is twofold. First, you get the
+/// benefit of numerical stability when composing multiple actions via the
+/// geometric product (`*`). Second, because the motors constitute a continuous
+/// group, they are amenable to smooth interpolation and differentiation.
+///
+/// A demonstration of using the exponential and logarithmic map to blend
+/// between two motors is provided in a test case
+/// [here](https://github.com/jeremyong/Klein/blob/master/test/test_exp_log.cpp#L48).
 struct motor final : public entity<0b110>
 {
     motor() = default;
 
-    // Direct initialization from components. A more common way of creating a
-    // motor is to take a product between a rotor and a translator.
+    /// Direct initialization from components. A more common way of creating a
+    /// motor is to take a product between a rotor and a translator.
+    /// The arguments coorespond to the multivector
+    /// $a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23} +\
+    /// e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\
+    /// h\mathbf{e}_{0123}$
     motor(float a, float b, float c, float d, float e, float f, float g, float h) noexcept
     {
-        // TODO: optimize initialization
         parts[0].reg = _mm_set_ps(d, c, b, a);
         parts[1].reg = _mm_set_ps(g, f, e, h);
     }
@@ -26,15 +46,17 @@ struct motor final : public entity<0b110>
         : entity{e}
     {}
 
-    // Aligned and unaligned loads incur the same amount of latency and have
-    // identical throughput on most modern processors
+    /// Load motor data using two unaligned loads. This routine does *not*
+    /// assume the data passed in this way is normalized.
     void load(float* in) noexcept
     {
+        // Aligned and unaligned loads incur the same amount of latency and have
+        // identical throughput on most modern processors
         parts[0].reg = _mm_loadu_ps(in);
         parts[1].reg = _mm_loadu_ps(in + 4);
     }
 
-    // When normalized, the motor times its reverse should equal 1
+    /// Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
     void normalize() noexcept
     {
         // m = b + c where b is p1 and c is p2
@@ -75,6 +97,8 @@ struct motor final : public entity<0b110>
         p1()       = _mm_mul_ps(p1(), s);
     }
 
+    /// Convert this motor to a 4x4 column-major matrix representing this
+    /// motor's action as a linear transformation.
     [[nodiscard]] mat4x4 as_matrix() const noexcept
     {
         mat4x4 out;
@@ -82,8 +106,11 @@ struct motor final : public entity<0b110>
         return out;
     }
 
-    // Takes the principal branch of the logarithm of the motor, returning a
-    // bivector.
+    /// Takes the principal branch of the logarithm of the motor, returning a
+    /// bivector. Exponentiation of that bivector without any changes produces
+    /// this motor again. Scaling that bivector by $\frac{1}{n}$,
+    /// re-exponentiating, and taking the result to the $n$th power will also
+    /// produce this motor again.
     [[nodiscard]] entity<0b110> log() const noexcept
     {
         entity<0b110> out;
@@ -91,6 +118,8 @@ struct motor final : public entity<0b110>
         return out;
     }
 
+    /// Conjugates a plane $p$ with this motor and returns the result
+    /// $rp\widetilde{r}$.
     plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
@@ -98,6 +127,8 @@ struct motor final : public entity<0b110>
         return out;
     }
 
+    /// Conjugates a point $p$ with this motor and returns the result
+    /// $rp\widetilde{r}$.
     point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
@@ -105,6 +136,8 @@ struct motor final : public entity<0b110>
         return out;
     }
 
+    /// Conjugates a origin $O$ with this motor and returns the result
+    /// $rO\widetilde{r}$.
     point KLN_VEC_CALL operator()(origin) const noexcept
     {
         point out;

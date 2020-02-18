@@ -8,44 +8,57 @@
 
 namespace kln
 {
-// The full P(R_{3, 0, 1}) graded-algebra requires 16 floats to represent a
-// general multivector. However, it is very common to perform computation on
-// either the odd or even subalgebras. For example, motor composition lives
-// entirely within the even subalgebra, while entities such as planes, and
-// points exist in the odd subalgebra.
-
-// To compute PGA elements using SSE, we partition the basis into four
-// partitions corresponding to the following scheme:
-//
-//     LSB --> MSB
-// p0: (e0, e1, e2, e3)
-// p1: (1, e12, e31, e23)
-// p2: (e0123, e01, e02, e03)
-// p3: (e123, e021, e013, e032)
-//
-// The scalar and pseudoscalar are packed in partitions p1 and p2 along with the
-// 6 bivector elements. The scheme groups, for the most part, elements of
-// similar grade and the presence of the degenerate generator. When
-// non-uniformity exists within a partition (mixed degenerate and non-degenerate
-// components, or mixed grade), the "exception" is housed in the first component
-// so that the same swizzle masks can be used.
-
-// All partitions contain 4 packed single-precision floating point values.
-union alignas(16) partition
-{
-    float data[4];
-    __m128 reg;
-};
-
-struct base_entity
-{};
-
-// An entity's memory layout is specified based on which partitions are present.
-// The least significant bit in the mask corresponds to the presence of P0, and
-// the 4th least significant bit corresponds to the presence of P3.
-// This class is not intended to be used by the user directly.
+/// The full $\mathbf{P}(\mathbb{R}^*_{3, 0, 1})$ graded-algebra requires 16
+/// floats to represent a general multivector. However, it is very common to
+/// perform computation on either the odd or even subalgebras. For example,
+/// motor composition lives entirely within the even subalgebra, while entities
+/// such as planes, and points exist in the odd subalgebra.
+///
+/// The `entity` struct is the base class for all geometric entities in Klein
+/// and encapsulates their multivector representations. The `plane`, `line`, and
+/// `point` class are some examples of geometric entities. Geometric *actions*
+/// such as the `rotor`, `translator`, and `motor` also have multivector
+/// representations and are implemented as `entity` subclasses as well. Note
+/// that while inheritance is used, there _is no virtual dispatch_ occurring at
+/// any point. Inheritance is used here strictly because all the entities above
+/// have the same underlying representation, and all operations implemented here
+/// are valid for each one.
+///
+/// To compute PGA elements using SSE, we partition the basis into four
+/// partitions corresponding to the following scheme:
+///
+/// ```
+///     LSB --> MSB
+/// p0: (e_0, e_1, e_2, e_3)
+/// p1: (1, e_12, e_31, e_23)
+/// p2: (e_0123, e_01, e_02, e_03)
+/// p3: (e_123, e_021, e_013, e_032)
+/// ```
+///
+/// The scalar and pseudoscalar are packed in partitions $p_1$ and $p_2$ along
+/// with the 6 bivector elements. The scheme groups, for the most part, elements
+/// of similar grade and the presence of the degenerate generator. When
+/// non-uniformity exists within a partition (mixed degenerate and
+/// non-degenerate components, or mixed grade), the "exception" is housed in the
+/// first component so that the same swizzle masks can be used.
+///
+/// All partitions contain 4 packed single-precision floating point values.
+/// An entity's memory layout is specified based on which partitions are
+/// present. The least significant bit in the mask corresponds to the presence
+/// of P0, and the 4th least significant bit corresponds to the presence of P3.
+///
+/// !!! danger
+///
+///     For performance, the single-element accessors such as `e0`
+///     should be used sparingly or coalesced together in code so that the
+///     entity data remains in packed SSE registers for as long as possible
+///     without any dependent load.
+///
+/// @tparam PMask The `PMask` template parameter is a bitmask corresponding to
+/// the partitions present in the entity. The size of the entity will be
+/// `popcnt(PMask) * 4 * sizeof(float)` since each partition contains 4 floats.
 template <uint8_t PMask /* Partition Mask */>
-struct entity : public base_entity
+struct entity
 {
     template <uint8_t P>
     friend class entity;
@@ -60,9 +73,11 @@ struct entity : public base_entity
            (PMask & 1) + ((PMask >> 1) & 1) + ((PMask >> 2) & 1)};
     constexpr static uint8_t partition_mask = PMask;
 
+    /// Default constructor. The contents of the entity are left uninitialized.
     entity()
     {}
 
+    /// Copy constructor.
     entity(entity const& other)
     {
         for (uint8_t i = 0; i != partition_count; ++i)
@@ -71,31 +86,27 @@ struct entity : public base_entity
         }
     }
 
+    /// @brief Addition.
+    ///
+    /// Returns the sum of this entity and another. The
+    /// partition mask of the result will be the union of the two addends.
     template <uint8_t P>
     constexpr auto operator+(entity<P> const& other) const noexcept
     {
         return add_sub<true>(other);
     }
 
-    template <uint8_t P>
-    constexpr auto operator+(entity<P> const& other) noexcept
-    {
-        return add_sub<true>(other);
-    }
-
+    /// @brief Subtraction.
+    ///
+    /// Returns the difference of this entity and another.
+    /// The partition mask of the result will be the union of the two operands.
     template <uint8_t P>
     constexpr auto operator-(entity<P> const& other) const noexcept
     {
         return add_sub<false>(other);
     }
 
-    template <uint8_t P>
-    constexpr auto operator-(entity<P> const& other) noexcept
-    {
-        return add_sub<false>(other);
-    }
-
-    // Scale
+    /// Scale the multivector by a scalar constant in-place.
     entity& operator*=(float scalar) noexcept
     {
         __m128 s = _mm_set1_ps(scalar);
@@ -120,6 +131,7 @@ struct entity : public base_entity
         return *this;
     }
 
+    /// Scale the multivector by a scalar constant and return the result.
     [[nodiscard]] entity operator*(float scalar) const noexcept
     {
         entity out;
@@ -145,17 +157,30 @@ struct entity : public base_entity
         return out;
     }
 
+    /// Divide the multivector by a scalar constant in-place.
     entity& operator/=(float s) noexcept
     {
         return operator*=(1.f / s);
     }
 
+    /// Divide the multivector by a scalar constant and return the result.
     [[nodiscard]] entity operator/(float s) const noexcept
     {
         return operator*(1.f / s);
     }
 
-    // Reverse
+    /// Reversion operator
+    ///
+    /// Given a basis element $e_S$, the reverse
+    /// is given as $\mathbf{e}_{\widetilde{S}}$ where the sequence
+    /// $\widetilde{S}$ is the reverse of the indices in $S$. For a given basis
+    /// element, $e_S\widetilde{e}_S = 1$. The operator extends linearly to
+    /// general multivectors.
+    ///
+    /// Ex: The reverse of $\mathbf{e}_{12} + 3\mathbf{e}_{021}$ is
+    /// $\mathbf{e}_{21} + 3\mathbf{e}_{120}$. Signs will be flipped to
+    /// reexpress the result in the cyclic basis as
+    /// $-\mathbf{e}_{12} - 3\mathbf{e}_{021}$.
     constexpr entity operator~() const noexcept
     {
         entity out = *this;
@@ -176,6 +201,18 @@ struct entity : public base_entity
         return out;
     }
 
+    /// Exterior Product
+    ///
+    /// The exterior product between two basis elements extinguishes if the two
+    /// operands share any common index. Otherwise, the element produced is
+    /// equivalent to the union of the subspaces. A sign flip is introduced if
+    /// the concatenation of the element indices is an odd permutation of the
+    /// cyclic basis representation.
+    ///
+    /// The exterior product extends to general multivectors by linearity.
+    ///
+    /// Ex: The exterior product $e_1 \wedge \mathbf{e}_{32}$ is
+    /// $-\mathbf{e}_{123}$.
     template <uint8_t PMask2>
     constexpr auto operator^(entity<PMask2> const& rhs) const noexcept
     {
@@ -308,7 +345,17 @@ struct entity : public base_entity
         return out;
     }
 
-    // Poincaré Dual
+    /// Poincaré Dual
+    ///
+    /// The Poincaré Dual of an element is the "subspace complement" of the
+    /// argument with respect to the pseudoscalar. In practice, it is a
+    /// relabeling of the coordinates to their dual-coordinates and is used most
+    /// often to implement a "join" operation in terms of the exterior product
+    /// of the duals of each operand.
+    ///
+    /// Ex: The dual of the point $\mathbf{e}_{123} + 3\mathbf{e}_{013} -
+    /// 2\mathbf{e}_{021}$ (the point at
+    /// $(0, 3, -2)$) is the plane $e_0 + 3e_2 - 2e_3$.
     constexpr auto operator!() const noexcept
     {
         // p0 -> p3
@@ -343,7 +390,13 @@ struct entity : public base_entity
         return out;
     }
 
-    // Regressive Product
+    /// Regressive Product
+    ///
+    /// The regressive product is implemented in terms of the exterior product.
+    /// Given multivectors $\mathbf{a}$ and $\mathbf{b}$, the regressive product
+    /// $\mathbf{a}\vee\mathbf{b}$ is equivalent to
+    /// $J(J(\mathbf{a})\wedge J(\mathbf{b}))$. Thus, both meets and joins
+    /// reside in the same algebraic structure.
     template <uint8_t PMask2>
     constexpr auto operator&(entity<PMask2> const& rhs) const noexcept
     {
@@ -354,7 +407,14 @@ struct entity : public base_entity
         return !(!(*this) ^ !rhs);
     }
 
-    // Geometric Product
+    /// Geometric Product
+    ///
+    /// The geometric product extends the exterior product with a notion of a
+    /// metric. When the subspace intersection of the operands of two basis
+    /// elements is non-zero, instead of the product extinguishing, the grade
+    /// collapses and a scalar weight is included in the final result according
+    /// to the metric. The geometric product can be used to build rotations, and
+    /// by extension, rotations and translations in projective space.
     template <uint8_t PMask2>
     constexpr auto operator*(entity<PMask2> const& rhs) const noexcept
     {
@@ -849,6 +909,12 @@ struct entity : public base_entity
     }
 
 protected:
+    union alignas(16) partition
+    {
+        float data[4];
+        __m128 reg;
+    };
+
     partition parts[partition_count];
 
 private:
@@ -908,7 +974,7 @@ private:
     // If this is a mutable rvalue, we can add other in-place and save some
     // register allocation assuming the partition mask stays the same.
     template <bool Add, uint8_t PMask2>
-    KLN_INLINE constexpr auto add_sub(entity<PMask2> const& other) && noexcept
+        KLN_INLINE constexpr auto add_sub(entity<PMask2> const& other) && noexcept
     {
         constexpr uint8_t pmask = PMask | PMask2;
         if constexpr (pmask == PMask)

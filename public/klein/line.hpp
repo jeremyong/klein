@@ -39,6 +39,12 @@ struct line final : public entity<0b110>
         : entity{e}
     {}
 
+    /// Line exponentiation
+    ///
+    /// The line can be exponentiated to produce a motor that posesses this line
+    /// as its axis. This routine will be used most often when this line is
+    /// produced as the logarithm of an existing rotor, then scaled to subdivide
+    /// or accelerate the motor's action.
     entity<0b110> exp() const noexcept
     {
         entity<0b110> out;

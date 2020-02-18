@@ -24,6 +24,7 @@ nav:
   - 'Home': 'index.md'
   - 'Quick Start': 'quickstart.md'
   - 'API':
+      - 'Overview': 'overview.md'
       - 'Entity': 'api/kln::entity.md'
       - 'Plane': 'api/kln::plane.md'
       - 'Line': 'api/kln::line.md'
@@ -34,6 +35,7 @@ nav:
       - 'Ideal Line': 'api/kln::ideal_line.md'
       - 'Direction': 'api/kln::direction.md'
       - 'Mat4x4': 'api/kln::mat4x4.md'
+      - 'Origin': 'api/kln::origin.md'
   - 'Tutorial': 'tutorial.md'
   - 'Klein Shell': 'shell.md'
   - 'Benchmarks': 'benchmarks.md'
@@ -42,10 +44,12 @@ nav:
 
 edit_uri: ''
 
+extra_css:
+  - 'https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css'
+
 extra_javascript:
-  # - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
   - 'js/extra.js'
-  - 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js'
+  - 'https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js'
 
 markdown_extensions:
   - abbr
@@ -54,7 +58,8 @@ markdown_extensions:
   - codehilite
   - def_list
   - footnotes
-  - pymdownx.arithmatex
+  - pymdownx.arithmatex:
+      generic: True
   - pymdownx.superfences
   - pymdownx.mark
   - pymdownx.extrarawhtml

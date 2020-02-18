@@ -82,7 +82,7 @@ static void BM_dual_quat_composition(benchmark::State& state)
         benchmark::DoNotOptimize(dq1 * dq2);
     }
 }
-BENCHMARK(BM_quat_composition);
+BENCHMARK(BM_dual_quat_composition);
 
 static void BM_dual_quat_application(benchmark::State& state)
 {
