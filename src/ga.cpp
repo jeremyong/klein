@@ -174,6 +174,35 @@ int32_t algebra::reg(uint32_t lhs, uint32_t rhs) const noexcept
     return factor * result;
 }
 
+// The inner product contracts indices between the LHS and RHS producing an
+// element that is "most unlike" the lower-graded element.
+int32_t algebra::dot(uint32_t lhs, uint32_t rhs) const noexcept
+{
+    if (lhs == 0 || rhs == 0)
+    {
+        return 0;
+    }
+
+    // Reuse the existing geometric product to compute the inner product
+    int32_t g = mul(lhs, rhs);
+    if (g == 0)
+    {
+        return 0;
+    }
+
+    int32_t target
+        = std::abs(static_cast<int>(popcnt(lhs)) - static_cast<int>(popcnt(rhs)));
+
+    // If the target grade doesn't match the grade difference, we know that a
+    // full contraction could not be performed in one direction or the other.
+    if (static_cast<int>(popcnt(std::abs(g) - 1)) == target)
+    {
+        return g;
+    }
+
+    return 0;
+}
+
 bool algebra::rev(uint32_t in) const noexcept
 {
     uint32_t bits = popcnt(in);
@@ -315,20 +344,7 @@ mv operator*(mv const& lhs, mv const& rhs) noexcept
         }
     }
 
-    // Remove empty terms
-    for (auto it = out.terms.begin(); it != out.terms.end();)
-    {
-        if (it->second.terms.empty())
-        {
-            it = out.terms.erase(it);
-        }
-        else
-        {
-            ++it;
-        }
-    }
-
-    return out;
+    return out.prune();
 }
 
 mv& mv::operator^=(mv const& other) noexcept
@@ -371,20 +387,7 @@ mv operator^(mv const& lhs, mv const& rhs) noexcept
         }
     }
 
-    // Remove empty terms
-    for (auto it = out.terms.begin(); it != out.terms.end();)
-    {
-        if (it->second.terms.empty())
-        {
-            it = out.terms.erase(it);
-        }
-        else
-        {
-            ++it;
-        }
-    }
-
-    return out;
+    return out.prune();
 }
 
 mv& mv::operator&=(mv const& other) noexcept
@@ -427,20 +430,67 @@ mv operator&(mv const& lhs, mv const& rhs) noexcept
         }
     }
 
+    return out.prune();
+}
+
+mv& mv::operator|=(mv const& other) noexcept
+{
+    mv result = *this | other;
+    std::swap(terms, result.terms);
+    return *this;
+}
+
+mv operator|(mv const& lhs, mv const& rhs) noexcept
+{
+    mv out{*lhs.algebra_};
+
+    for (auto&& [e1, p1] : lhs.terms)
+    {
+        for (auto&& [e2, p2] : rhs.terms)
+        {
+            int32_t result = lhs.algebra_->dot(e1, e2);
+            if (result != 0)
+            {
+                uint32_t e = std::abs(result) - 1;
+                auto it    = out.terms.find(e);
+
+                poly p12 = p1 * p2;
+
+                if (it == out.terms.end())
+                {
+                    it = out.terms.emplace(e, poly{}).first;
+                }
+
+                if (result < 0)
+                {
+                    it->second += -p12;
+                }
+                else
+                {
+                    it->second += p12;
+                }
+            }
+        }
+    }
+
+    return out.prune();
+}
+
+mv& mv::prune()
+{
     // Remove empty terms
-    for (auto it = out.terms.begin(); it != out.terms.end();)
+    for (auto it = terms.begin(); it != terms.end();)
     {
         if (it->second.terms.empty())
         {
-            it = out.terms.erase(it);
+            it = terms.erase(it);
         }
         else
         {
             ++it;
         }
     }
-
-    return out;
+    return *this;
 }
 
 std::ostream& operator<<(std::ostream& os,

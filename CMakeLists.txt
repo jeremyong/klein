@@ -38,7 +38,7 @@ if(MSVC)
     # AVX extensions). This is on by default.
 else()
     # Unlike MSVC, FMA instructions are enabled with a separate feature flag
-    target_compile_options(klein INTERFACE -msse4.2 -mfma)
+    target_compile_options(klein INTERFACE -msse4.2)
 endif()
 
 if(KLEIN_ENABLE_BENCH)

@@ -194,6 +194,22 @@ TEST_CASE("parser")
         CHECK_EQ(mv1.terms[0b1100].terms.begin()->second, 1.f);
     }
 
+    SUBCASE("inner-product")
+    {
+        // The inner product of two places is a scalar.
+        mv mv1 = parse("(e0 + e1 + e2 + e3) | (e0 + e1 + e2 + e3)", pga);
+        CHECK_EQ(mv1.terms.size(), 1);
+        CHECK_EQ(mv1.terms[0].terms.begin()->second, 3.f);
+
+        mv mv2
+            = parse("(e0 + e1 + e2 + e3) | (2e0123 + 3e01 - 4e02 + 2e03)", pga);
+        CHECK_EQ(mv2.terms.size(), 4);
+        CHECK_EQ(mv2.terms[1].terms.begin()->second, -1.f);
+        CHECK_EQ(mv2.terms[0b111].terms.begin()->second, -2.f);
+        CHECK_EQ(mv2.terms[0b1011].terms.begin()->second, 2.f);
+        CHECK_EQ(mv2.terms[0b1101].terms.begin()->second, -2.f);
+    }
+
     SUBCASE("reverse")
     {
         mv mv1 = parse("~e02", pga);
