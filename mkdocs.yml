@@ -38,7 +38,7 @@ nav:
       - 'Origin': 'api/kln::origin.md'
   - 'Tutorial': 'tutorial.md'
   - 'Klein Shell': 'shell.md'
-  - 'Benchmarks': 'benchmarks.md'
+  # - 'Benchmarks': 'benchmarks.md'
   - 'Roadmap': 'roadmap.md'
   - 'References': 'references.md'
 

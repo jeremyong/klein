@@ -231,7 +231,7 @@ struct entity
     /// clear what the interpretation of the symmetric inner product is with
     /// respect to the projection on various entities.
     template <uint8_t PMask2>
-    constexpr auto operator|(entity<PMask2> const& rhs) const noexcept
+    auto operator|(entity<PMask2> const& rhs) const noexcept
     {
         __m128 p0_ = _mm_set1_ps(0.f); // (e3, e2, e1, e0)
         __m128 p1_ = _mm_set1_ps(0.f); // (1, e12, e31, e23)
@@ -396,7 +396,7 @@ struct entity
                 __m128 p1_tmp;
                 __m128 p2_tmp;
                 dot03(rhs.p0(), p3(), p1_tmp, p2_tmp);
-                if constexpr ((PMask & 1) && (PMask2 & 0b1001)
+                if constexpr (((PMask & 1) && (PMask2 & 0b1001))
                               || ((PMask & 0b10) && (PMask2 & 0b10)))
                 {
                     p1_ = _mm_add_ps(p1_, p1_tmp);
@@ -514,7 +514,7 @@ struct entity
     /// Ex: The exterior product $e_1 \wedge \mathbf{e}_{32}$ is
     /// $-\mathbf{e}_{123}$.
     template <uint8_t PMask2>
-    constexpr auto operator^(entity<PMask2> const& rhs) const noexcept
+    auto operator^(entity<PMask2> const& rhs) const noexcept
     {
         __m128 p0_ = _mm_set1_ps(0.f); // (e3, e2, e1, e0)
         __m128 p1_ = _mm_set1_ps(0.f); // (1, e12, e31, e23)
@@ -716,7 +716,7 @@ struct entity
     /// to the metric. The geometric product can be used to build rotations, and
     /// by extension, rotations and translations in projective space.
     template <uint8_t PMask2>
-    constexpr auto operator*(entity<PMask2> const& rhs) const noexcept
+    auto operator*(entity<PMask2> const& rhs) const noexcept
     {
         // (Keeping e0 away from the least significant slot is an optimization
         // which allows us to avoid a shuffle in certain circumstances)
