@@ -30,10 +30,11 @@ kln::point random_point()
 
 static void BM_rotor_composition(benchmark::State& state)
 {
-    kln::rotor r1{1.f, 2.f, 3.f, 4.f};
-    kln::rotor r2{-1.f, 1.f, 4.f, 2.f};
+    static kln::rotor r1{1.f, 2.f, 3.f, 4.f};
+    static kln::rotor r2{-1.f, 1.f, 4.f, 2.f};
     while (state.KeepRunning())
     {
+        benchmark::ClobberMemory();
         benchmark::DoNotOptimize(r1 * r2);
     }
 }
@@ -45,6 +46,7 @@ static void BM_rotor_application(benchmark::State& state)
     kln::point p{1.f, 2.f, 3.f};
     while (state.KeepRunning())
     {
+        benchmark::ClobberMemory();
         benchmark::DoNotOptimize(r(p));
     }
 }
@@ -55,6 +57,7 @@ static void BM_rotor_matrix_conversion(benchmark::State& state)
     kln::rotor r{1.f, 2.f, 3.f, 4.f};
     while (state.KeepRunning())
     {
+        benchmark::ClobberMemory();
         benchmark::DoNotOptimize(r.as_matrix());
     }
 }
@@ -66,6 +69,7 @@ static void BM_motor_composition(benchmark::State& state)
     kln::motor m2{1.f, -2.f, 3.f, 3.f, 5.f, 1.f, 2.f, -8.f};
     while (state.KeepRunning())
     {
+        benchmark::ClobberMemory();
         benchmark::DoNotOptimize(m1 * m2);
     }
 }
@@ -77,6 +81,7 @@ static void BM_motor_application(benchmark::State& state)
     kln::point p{1.f, 2.f, 3.f};
     while (state.KeepRunning())
     {
+        benchmark::ClobberMemory();
         benchmark::DoNotOptimize(m(p));
     }
 }
@@ -87,6 +92,7 @@ static void BM_motor_matrix_conversion(benchmark::State& state)
     kln::motor m{1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f};
     while (state.KeepRunning())
     {
+        benchmark::ClobberMemory();
         benchmark::DoNotOptimize(m.as_matrix());
     }
 }

@@ -116,7 +116,7 @@ static element tokenize_element(std::string::const_iterator& it,
             }
 
             // Determine if the parity flips based on the swap count
-            if (popcnt(out.value & ~((1 << bit) - 1)) & 1 == 1)
+            if ((popcnt(out.value & ~((1 << bit) - 1)) & 1) == 1)
             {
                 out.negative = !out.negative;
             }

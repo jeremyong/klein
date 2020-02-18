@@ -207,4 +207,19 @@ TEST_CASE("multivector-ip")
         entity<0b10> p1p2 = p1 | p2;
         CHECK_EQ(p1p2.scalar(), -1.f);
     }
+
+    SUBCASE("project point to line")
+    {
+        point p1{2.f, 2.f, 0.f};
+        point p2{0.f, 0.f, 0.f};
+        point p3{1.f, 0.f, 0.f};
+        line l = p2 & p3;
+        point p4{(l | p1) * l};
+        p4.normalize();
+
+        CHECK_EQ(p4.e123(), doctest::Approx(1.f).epsilon(0.001));
+        CHECK_EQ(p4.x(), doctest::Approx(2.f).epsilon(0.001));
+        CHECK_EQ(p4.y(), doctest::Approx(0.f));
+        CHECK_EQ(p4.z(), doctest::Approx(0.f));
+    }
 }

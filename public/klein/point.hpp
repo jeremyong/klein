@@ -22,9 +22,16 @@ struct point final : public entity<0b1000>
         parts[0].reg = _mm_set_ps(x, y, z, 1.f);
     }
 
-    point(entity<0b1000> const& e)
+    point(entity<0b1000> const& e) noexcept
         : entity{e}
     {}
+
+    /// A point projected onto a line will have an extinguished partition-0,
+    /// which necessitates this explicit cast when it is known to be safe.
+    explicit point(entity<0b1001> const& e) noexcept
+    {
+        p3() = e.p3();
+    }
 
     /// Fast load from a pointer to an array of four floats with layout
     /// `(w, z, y, x)` where `w` occupies the lowest address in memory.
