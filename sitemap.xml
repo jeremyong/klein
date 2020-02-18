@@ -2,97 +2,97 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://jeremyong.com/klein/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/quickstart/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/overview/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::entity/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::plane/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::line/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::point/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::rotor/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::translator/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::motor/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::ideal_line/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::direction/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::mat4x4/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/kln::origin/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/tutorial/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/shell/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/benchmarks/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/roadmap/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/references/</loc>
-     <lastmod>2020-02-17</lastmod>
+     <lastmod>2020-02-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
