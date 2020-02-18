@@ -1,0 +1,38 @@
+## struct `kln::plane` {#structkln_1_1plane}
+
+```
+struct kln::plane
+  : public entity< 0b1 >
+```  
+
+### Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  ` [`plane`](#structkln_1_1plane_1a0ab245bca0c1ad3aca86b9ceeab3fe42)`() = default`  | 
+`public  ` [`plane`](#structkln_1_1plane_1a51933d8d8853797034621ce41ad34a8e)`(float a,float b,float c,float d) noexcept`  | 
+`public  ` [`plane`](#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc)`(float * data) noexcept`  | 
+`public  explicit ` [`plane`](#structkln_1_1plane_1a4fe52a0426bc881947909d0d9b1745d0)`(entity< 0b1001 > const & other) noexcept`  | 
+`public float ` [`x`](#structkln_1_1plane_1ad2a57bafbd388d4ca9ca98d0074fee0a)`() const noexcept`  | 
+`public float ` [`y`](#structkln_1_1plane_1adce64826f47e1a017fba8fefab69c174)`() const noexcept`  | 
+`public float ` [`z`](#structkln_1_1plane_1a2a01bee79dfb0c11414dc5a936397987)`() const noexcept`  | 
+`public float ` [`d`](#structkln_1_1plane_1ab3aa088fdf83091809bb7e08ace460bb)`() const noexcept`  | 
+
+### Members
+
+#### `public  ` [`plane`](#structkln_1_1plane_1a0ab245bca0c1ad3aca86b9ceeab3fe42)`() = default`  {#structkln_1_1plane_1a0ab245bca0c1ad3aca86b9ceeab3fe42}
+
+#### `public  ` [`plane`](#structkln_1_1plane_1a51933d8d8853797034621ce41ad34a8e)`(float a,float b,float c,float d) noexcept`  {#structkln_1_1plane_1a51933d8d8853797034621ce41ad34a8e}
+
+#### `public  ` [`plane`](#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc)`(float * data) noexcept`  {#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc}
+
+#### `public  explicit ` [`plane`](#structkln_1_1plane_1a4fe52a0426bc881947909d0d9b1745d0)`(entity< 0b1001 > const & other) noexcept`  {#structkln_1_1plane_1a4fe52a0426bc881947909d0d9b1745d0}
+
+#### `public float ` [`x`](#structkln_1_1plane_1ad2a57bafbd388d4ca9ca98d0074fee0a)`() const noexcept`  {#structkln_1_1plane_1ad2a57bafbd388d4ca9ca98d0074fee0a}
+
+#### `public float ` [`y`](#structkln_1_1plane_1adce64826f47e1a017fba8fefab69c174)`() const noexcept`  {#structkln_1_1plane_1adce64826f47e1a017fba8fefab69c174}
+
+#### `public float ` [`z`](#structkln_1_1plane_1a2a01bee79dfb0c11414dc5a936397987)`() const noexcept`  {#structkln_1_1plane_1a2a01bee79dfb0c11414dc5a936397987}
+
+#### `public float ` [`d`](#structkln_1_1plane_1ab3aa088fdf83091809bb7e08ace460bb)`() const noexcept`  {#structkln_1_1plane_1ab3aa088fdf83091809bb7e08ace460bb}
+

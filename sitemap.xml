@@ -11,6 +11,66 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://jeremyong.com/klein/overview/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::entity/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::plane/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::line/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::point/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::rotor/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::translator/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::motor/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::ideal_line/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::direction/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::mat4x4/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://jeremyong.com/klein/api/kln::origin/</loc>
+     <lastmod>2020-02-17</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://jeremyong.com/klein/tutorial/</loc>
      <lastmod>2020-02-17</lastmod>
      <changefreq>daily</changefreq>

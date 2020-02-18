@@ -38,7 +38,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../img/favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.5.0">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.3">
     
     
       
@@ -46,7 +46,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/application.1b62728e.css">
+      <link rel="stylesheet" href="../assets/stylesheets/application.adb8469c.css">
       
         <link rel="stylesheet" href="../assets/stylesheets/application-palette.a8b3c06d.css">
       
@@ -57,17 +57,19 @@
       
     
     
-      <script src="../assets/javascripts/modernizr.268332fc.js"></script>
+      <script src="../assets/javascripts/modernizr.86422ebf.js"></script>
     
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
         <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
       
     
     <link rel="stylesheet" href="../assets/fonts/material-icons.css">
     
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
     
     
       
@@ -121,7 +123,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://jeremyong.com/klein" title="Klein" class="md-header-nav__button md-logo">
+        <a href="https://jeremyong.com/klein" title="Klein" aria-label="Klein" class="md-header-nav__button md-logo">
           
             <i class="md-icon">flip</i>
           
@@ -247,6 +249,174 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::entity/" title="Entity" class="md-nav__link">
+      Entity
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::plane/" title="Plane" class="md-nav__link">
+      Plane
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::line/" title="Line" class="md-nav__link">
+      Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::point/" title="Point" class="md-nav__link">
+      Point
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::rotor/" title="Rotor" class="md-nav__link">
+      Rotor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::translator/" title="Translator" class="md-nav__link">
+      Translator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::motor/" title="Motor" class="md-nav__link">
+      Motor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::ideal_line/" title="Ideal Line" class="md-nav__link">
+      Ideal Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::direction/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::mat4x4/" title="Mat4x4" class="md-nav__link">
+      Mat4x4
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/kln::origin/" title="Origin" class="md-nav__link">
+      Origin
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item">
     <a href="../tutorial/" title="Tutorial" class="md-nav__link">
       Tutorial
@@ -327,7 +497,7 @@
                 <p>The <a href="https://github.com/jeremyong/Klein/tree/master/bench"><code>bench</code></a> folder provides
 a <code>klein_bench</code> executable target and a <code>glm_bench</code> executable target to compare
 common operations. Some timings taken as of 2020/02/14 are reproduced below:</p>
-<div class="codehilite"><pre><span></span><span class="err">Running ./klein_bench</span>
+<div class="codehilite"><pre><span></span><code><span class="err">Running ./klein_bench</span>
 <span class="err">Run on (16 X 5000 MHz CPU s)</span>
 <span class="err">CPU Caches:</span>
 <span class="err">  L1 Data 32K (x8)</span>
@@ -344,10 +514,10 @@ common operations. Some timings taken as of 2020/02/14 are reproduced below:</p>
 <span class="err">BM_motor_composition              210 ns          211 ns      3313448</span>
 <span class="err">BM_motor_application              206 ns          208 ns      3346123</span>
 <span class="err">BM_motor_matrix_conversion        208 ns          210 ns      3328768</span>
-</pre></div>
+</code></pre></div>
 
 <p>For comparison, an equivalent benchmark for the well-optimized GLM is provided:</p>
-<div class="codehilite"><pre><span></span><span class="err">Running ./glm_bench</span>
+<div class="codehilite"><pre><span></span><code><span class="err">Running ./glm_bench</span>
 <span class="err">Run on (16 X 5000 MHz CPU s)</span>
 <span class="err">CPU Caches:</span>
 <span class="err">  L1 Data 32K (x8)</span>
@@ -364,7 +534,7 @@ common operations. Some timings taken as of 2020/02/14 are reproduced below:</p>
 <span class="err">BM_quat_composition                   211 ns          213 ns      3292393</span>
 <span class="err">BM_dual_quat_application              219 ns          221 ns      3165149</span>
 <span class="err">BM_dual_quat_matrix_conversion        214 ns          215 ns      3249413</span>
-</pre></div>
+</code></pre></div>
 
 <p>These results should <em>not</em> be interpreted to mean that Klein is unilaterally superior
 performance-wise to GLM or any other such major library. However, it is a good indicator that Klein
@@ -380,6 +550,7 @@ occur when the CPU ramps up in the initial part of an SSE heavy benchmark. In ad
 klein and glm benchmark programs were compiled with -O2 under GCC 9.1 with SSE4.2 enabled.</p>
                 
                   
+                
                 
               
               
@@ -468,11 +639,11 @@ klein and glm benchmark programs were compiled with -O2 under GCC 9.1 with SSE4.
   <div class="md-footer-social">
     <link rel="stylesheet" href="../assets/fonts/font-awesome.css">
     
-      <a href="https://github.com/jeremyong" class="md-footer-social__link fa fa-github"></a>
+      <a href="https://github.com/jeremyong" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
     
-      <a href="https://twitter.com/m_ninepoints" class="md-footer-social__link fa fa-twitter"></a>
+      <a href="https://twitter.com/m_ninepoints" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
     
-      <a href="https://www.linkedin.com/in/jeremycong" class="md-footer-social__link fa fa-linkedin"></a>
+      <a href="https://www.linkedin.com/in/jeremycong" target="_blank" rel="noopener" title="linkedin" class="md-footer-social__link fa fa-linkedin"></a>
     
   </div>
 
@@ -482,13 +653,13 @@ klein and glm benchmark programs were compiled with -O2 under GCC 9.1 with SSE4.
       
     </div>
     
-      <script src="../assets/javascripts/application.a8b5e56f.js"></script>
+      <script src="../assets/javascripts/application.c33a9706.js"></script>
       
       <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
       
         <script src="../js/extra.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
       
     
   </body>

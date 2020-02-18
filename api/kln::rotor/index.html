@@ -1,0 +1,907 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
+      
+      
+        <link rel="canonical" href="https://jeremyong.com/klein/api/kln::rotor/">
+      
+      
+        <meta name="author" content="Jeremy Ong">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>Rotor - Klein</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.adb8469c.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009688">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-10576233-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="teal" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#structkln_1_1rotor" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://jeremyong.com/klein" title="Klein" aria-label="Klein" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">flip</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Klein
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Rotor
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jeremyong/klein" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://jeremyong.com/klein" title="Klein" class="md-nav__button md-logo">
+      
+        <i class="md-icon">flip</i>
+      
+    </a>
+    Klein
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jeremyong/klein" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../quickstart/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::entity/" title="Entity" class="md-nav__link">
+      Entity
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::plane/" title="Plane" class="md-nav__link">
+      Plane
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::line/" title="Line" class="md-nav__link">
+      Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::point/" title="Point" class="md-nav__link">
+      Point
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Rotor
+      </label>
+    
+    <a href="./" title="Rotor" class="md-nav__link md-nav__link--active">
+      Rotor
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#structkln_1_1rotor" class="md-nav__link">
+    struct kln::rotor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#members" class="md-nav__link">
+    Members
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4" class="md-nav__link">
+    rotor() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c" class="md-nav__link">
+    rotor(float ang_rad,float x,float y,float z)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298" class="md-nav__link">
+    rotor( entity&lt; 0b10 &gt; const &amp; other)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da" class="md-nav__link">
+    void  load_normalized(float * data) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4" class="md-nav__link">
+    void  normalize() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec" class="md-nav__link">
+    plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199" class="md-nav__link">
+    point KLN_VEC_CALL  operator()( point const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11" class="md-nav__link">
+    mat4x4  as_matrix() const noexcept
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::translator/" title="Translator" class="md-nav__link">
+      Translator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::motor/" title="Motor" class="md-nav__link">
+      Motor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::ideal_line/" title="Ideal Line" class="md-nav__link">
+      Ideal Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::direction/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::mat4x4/" title="Mat4x4" class="md-nav__link">
+      Mat4x4
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln::origin/" title="Origin" class="md-nav__link">
+      Origin
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/" title="Tutorial" class="md-nav__link">
+      Tutorial
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../shell/" title="Klein Shell" class="md-nav__link">
+      Klein Shell
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../benchmarks/" title="Benchmarks" class="md-nav__link">
+      Benchmarks
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../roadmap/" title="Roadmap" class="md-nav__link">
+      Roadmap
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../references/" title="References" class="md-nav__link">
+      References
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#structkln_1_1rotor" class="md-nav__link">
+    struct kln::rotor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#members" class="md-nav__link">
+    Members
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4" class="md-nav__link">
+    rotor() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c" class="md-nav__link">
+    rotor(float ang_rad,float x,float y,float z)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298" class="md-nav__link">
+    rotor( entity&lt; 0b10 &gt; const &amp; other)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da" class="md-nav__link">
+    void  load_normalized(float * data) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4" class="md-nav__link">
+    void  normalize() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec" class="md-nav__link">
+    plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199" class="md-nav__link">
+    point KLN_VEC_CALL  operator()( point const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11" class="md-nav__link">
+    mat4x4  as_matrix() const noexcept
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Rotor</h1>
+                
+                <h2 id="structkln_1_1rotor">struct <code>kln::rotor</code></h2>
+<div class="codehilite"><pre><span></span><code><span class="err">struct kln::rotor</span>
+<span class="err">  : public kln::entity&lt; 0b10 &gt;</span>
+</code></pre></div>
+
+<h3 id="summary">Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Members</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>public</code> <a href="#structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4"><code>rotor</code></a><code>() = default</code></td>
+<td>Default constructor leaves memory uninitialized.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c"><code>rotor</code></a><code>(float ang_rad,float x,float y,float z)</code></td>
+<td>Convenience constructor. Computes transcendentals and normalizes rotation axis.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><code>rotor</code></a><code>(</code> <a href="/api/kln::entity #structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; other)</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public void</code> <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da"><code>load_normalized</code></a><code>(float * data) noexcept</code></td>
+<td>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public void</code> <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4"><code>normalize</code></a><code>() noexcept</code></td>
+<td>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="/api/kln::plane #structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><code>operator()</code></a><code>(</code> <a href="/api/kln::plane #structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
+<td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="/api/kln::point #structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><code>operator()</code></a><code>(</code> <a href="/api/kln::point #structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
+<td>Conjugates a point <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="/api/kln::mat4x4 #structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><code>as_matrix</code></a><code>() const noexcept</code></td>
+<td>Converts the rotor to a 4x4 column-major matrix.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="members">Members</h3>
+<h4 id="structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4"><a href="#structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4">rotor</a>() = default</h4>
+<p>Default constructor leaves memory uninitialized.</p>
+<h4 id="structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c"><a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c">rotor</a>(float ang_rad,float x,float y,float z)</h4>
+<p>Convenience constructor. Computes transcendentals and normalizes rotation axis.</p>
+<h4 id="structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298">rotor</a>( <a href="/api/kln::entity #structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; other)</h4>
+<h4 id="structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">void  <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">load_normalized</a>(float * data) noexcept</h4>
+<p>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23}\)</span>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>The rotor data loaded this way <em>must</em> be normalized. That is, the
+rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex">\(r\widetilde{r} = 1\)</span>.</p>
+</div>
+<h4 id="structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4">void  <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4">normalize</a>() noexcept</h4>
+<p>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</p>
+<h4 id="structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><a href="/api/kln::plane #structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec">operator()</a>( <a href="/api/kln::plane #structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
+<p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
+<h4 id="structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><a href="/api/kln::point #structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199">operator()</a>( <a href="/api/kln::point #structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
+<p>Conjugates a point <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
+<h4 id="structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><a href="/api/kln::mat4x4 #structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11">as_matrix</a>() const noexcept</h4>
+<p>Converts the rotor to a 4x4 column-major matrix.</p>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+
+        <!-- Link to previous page -->
+        
+          <a href="../kln::point/"
+              title="Point"
+              class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+              rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back
+                    md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch
+                  md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Point
+              </span>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          <a href="../kln::translator/"
+              title="Translator"
+              class="md-flex md-footer-nav__link md-footer-nav__link--next"
+              rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch
+                  md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Translator
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward
+                    md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Klein Copyright &copy; 2020 Jeremy Ong
+          </div>
+        
+      </div>
+
+      <!-- Social links -->
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jeremyong" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/m_ninepoints" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://www.linkedin.com/in/jeremycong" target="_blank" rel="noopener" title="linkedin" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../js/extra.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+      
+    
+  </body>
+</html>

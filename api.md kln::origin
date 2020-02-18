@@ -1,0 +1,12 @@
+## struct `kln::origin` {#structkln_1_1origin}
+
+### Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  ` [`operator entity< 0b1000 >`](#structkln_1_1origin_1a28d4f7e2065c6e9e48789b2e825f982a)`() const noexcept`  | 
+
+### Members
+
+#### `public  ` [`operator entity< 0b1000 >`](#structkln_1_1origin_1a28d4f7e2065c6e9e48789b2e825f982a)`() const noexcept`  {#structkln_1_1origin_1a28d4f7e2065c6e9e48789b2e825f982a}
+

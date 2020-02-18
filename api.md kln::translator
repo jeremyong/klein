@@ -1,0 +1,26 @@
+## struct `kln::translator` {#structkln_1_1translator}
+
+```
+struct kln::translator
+  : public entity< 0b110 >
+```  
+
+### Summary
+
+ Members                        | Descriptions                                
+--------------------------------|---------------------------------------------
+`public  ` [`translator`](#structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1)`() = default`  | 
+`public  ` [`translator`](#structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2)`(float delta,float x,float y,float z)`  | 
+`public ` [`plane`](docs/api.md kln::plane#structkln_1_1plane)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59)`(` [`plane`](docs/api.md kln::plane#structkln_1_1plane)` const & p) const noexcept`  | 
+`public ` [`point`](docs/api.md kln::point#structkln_1_1point)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5)`(` [`point`](docs/api.md kln::point#structkln_1_1point)` const & p) const noexcept`  | 
+
+### Members
+
+#### `public  ` [`translator`](#structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1)`() = default`  {#structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1}
+
+#### `public  ` [`translator`](#structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2)`(float delta,float x,float y,float z)`  {#structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2}
+
+#### `public ` [`plane`](docs/api.md kln::plane#structkln_1_1plane)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59)`(` [`plane`](docs/api.md kln::plane#structkln_1_1plane)` const & p) const noexcept`  {#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59}
+
+#### `public ` [`point`](docs/api.md kln::point#structkln_1_1point)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5)`(` [`point`](docs/api.md kln::point#structkln_1_1point)` const & p) const noexcept`  {#structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5}
+
