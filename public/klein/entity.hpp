@@ -216,6 +216,291 @@ struct entity
         return out;
     }
 
+    /// Symmetric Inner Product
+    ///
+    /// The symmetric inner product takes two arguments and contracts the lower
+    /// graded element to the greater graded element. If lower graded element
+    /// spans an index that is not contained in the higher graded element, the
+    /// result is annihilated. Otherwise, the result is the part of the higher
+    /// graded element "most unlike" the lower graded element. Thus, the
+    /// symmetric inner product can be thought of as a bidirectional contraction
+    /// operator.
+    ///
+    /// There is some merit in providing both a left and right contraction
+    /// operator for explicitness. However, when using Klein, it's generally
+    /// clear what the interpretation of the symmetric inner product is with
+    /// respect to the projection on various entities.
+    template <uint8_t PMask2>
+    constexpr auto operator|(entity<PMask2> const& rhs) const noexcept
+    {
+        __m128 p0_ = _mm_set1_ps(0.f); // (e3, e2, e1, e0)
+        __m128 p1_ = _mm_set1_ps(0.f); // (1, e12, e31, e23)
+        __m128 p2_ = _mm_set1_ps(0.f); // (e0123, e01, e02, e03)
+        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e021, e013, e032)
+
+        if constexpr ((PMask & 1) > 0)
+        {
+            if constexpr ((PMask2 & 1) > 0)
+            {
+                dot00(p0(), rhs.p0(), p1_);
+            }
+            if constexpr ((PMask2 & 0b10) > 0)
+            {
+                dot01<false>(p0(), rhs.p1(), p0_);
+            }
+            if constexpr ((PMask2 & 0b100) > 0)
+            {
+                __m128 p0_tmp;
+                dot02<false>(p0(), rhs.p2(), p0_tmp, p3_);
+
+                if constexpr ((PMask2 & 0b10) > 0)
+                {
+                    p0_ = _mm_add_ps(p0_tmp, p0_);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                }
+            }
+            if constexpr ((PMask2 & 0b1000) > 0)
+            {
+                __m128 p1_tmp;
+                dot03(p0(), rhs.p3(), p1_tmp, p2_);
+                if constexpr ((PMask2 & 0b1) > 0)
+                {
+                    p1_ = _mm_add_ps(p1_tmp, p1_);
+                }
+                else
+                {
+                    p1_ = p1_tmp;
+                }
+            }
+        }
+
+        if constexpr ((PMask & 0b10) > 0)
+        {
+            if constexpr ((PMask2 & 0b1) > 0)
+            {
+                __m128 p0_tmp;
+                dot01<true>(rhs.p0(), p1(), p0_tmp);
+                if constexpr ((PMask & 0b1) && (PMask2 & 0b110))
+                {
+                    p0_ = _mm_add_ps(p0_tmp, p0_);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                }
+            }
+            if constexpr ((PMask2 & 0b10) > 0)
+            {
+                __m128 p1_tmp;
+                dot11(p1(), rhs.p1(), p1_tmp);
+                if constexpr ((PMask & 0b1) && (PMask2 & 0b1001))
+                {
+                    p1_ = _mm_add_ps(p1_, p1_tmp);
+                }
+                else
+                {
+                    p1_ = p1_tmp;
+                }
+            }
+            if constexpr ((PMask2 & 0b100) > 0)
+            {
+                __m128 p2_tmp;
+                dot12(p1(), rhs.p2(), p2_tmp);
+                if constexpr ((PMask & 1) && (PMask2 & 0b1000))
+                {
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
+            }
+            if constexpr ((PMask2 & 0b1000) > 0)
+            {
+                __m128 p0_tmp;
+                dot13(p1(), rhs.p3(), p0_tmp);
+                if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
+                              || (PMask2 & 0b1))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                }
+            }
+        }
+
+        if constexpr ((PMask & 0b100) > 0)
+        {
+            if constexpr ((PMask2 & 0b1) > 0)
+            {
+                __m128 p0_tmp;
+                __m128 p3_tmp;
+                dot02<true>(rhs.p0(), p2(), p0_tmp, p3_tmp);
+                if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001)))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                }
+                if constexpr ((PMask & 1) && (PMask2 & 0b100))
+                {
+                    p3_ = _mm_add_ps(p3_, p3_tmp);
+                }
+                else
+                {
+                    p3_ = p3_tmp;
+                }
+            }
+            if constexpr ((PMask2 & 0b10) > 0)
+            {
+                __m128 p2_tmp;
+                dot12(rhs.p1(), p2(), p2_tmp);
+                if constexpr ((PMask & 0b10) && (PMask2 & 0b100))
+                {
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
+            }
+            if constexpr ((PMask2 & 0b1000) > 0)
+            {
+                __m128 p0_tmp;
+                dot23(p2(), rhs.p3(), p0_tmp);
+                if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001))
+                              || (PMask2 & 0b1))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                }
+            }
+        }
+
+        if constexpr ((PMask & 0b1000) > 0)
+        {
+            if constexpr ((PMask2 & 0b1) > 0)
+            {
+                __m128 p1_tmp;
+                __m128 p2_tmp;
+                dot03(rhs.p0(), p3(), p1_tmp, p2_tmp);
+                if constexpr ((PMask & 1) && (PMask2 & 0b1001)
+                              || ((PMask & 0b10) && (PMask2 & 0b10)))
+                {
+                    p1_ = _mm_add_ps(p1_, p1_tmp);
+                }
+                else
+                {
+                    p1_ = p1_tmp;
+                }
+                if constexpr (((PMask & 0b1) && (PMask2 & 0b1000))
+                              || ((PMask & 0b10) && (PMask2 & 0b100))
+                              || ((PMask & 0b100) && (PMask2 & 0b10)))
+                {
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
+            }
+            if constexpr ((PMask2 & 0b10) > 0)
+            {
+                __m128 p0_tmp;
+                dot13(rhs.p1(), p3(), p0_tmp);
+                if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001))
+                              || ((PMask & 0b100) & (PMask2 & 0b1001)))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                }
+            }
+            if constexpr ((PMask2 & 0b100) > 0)
+            {
+                __m128 p0_tmp;
+                dot23(rhs.p2(), p3(), p0_tmp);
+                if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001))
+                              || ((PMask & 0b100) & (PMask2 & 0b1001))
+                              || (PMask2 & 0b10))
+                {
+                    p0_ = _mm_sub_ps(p0_, p0_tmp);
+                }
+                else
+                {
+                    p0_ = _mm_xor_ps(_mm_set_ss(-0.f), p0_tmp);
+                }
+            }
+            if constexpr ((PMask2 & 0b1000) > 0)
+            {
+                __m128 p1_tmp;
+                dot33(p3(), rhs.p3(), p1_tmp);
+                if constexpr (((PMask & 0b1) && (PMask2 & 1001))
+                              || ((PMask & 0b10) && (PMask2 & 0b10))
+                              || (PMask2 & 0b1))
+                {
+                    p1_ = _mm_add_ps(p1_, p1_tmp);
+                }
+                else
+                {
+                    p1_ = p1_tmp;
+                }
+            }
+        }
+
+        constexpr bool p0_set = ((PMask & 0b1) && (PMask2 & 0b110))
+                                || ((PMask & 0b10) && (PMask2 & 0b1001))
+                                || ((PMask & 0b100) && (PMask2 & 0b1001))
+                                || ((PMask & 0b1000) && (PMask2 & 0b110));
+        constexpr bool p1_set = ((PMask & 0b1) && (PMask2 & 0b1001))
+                                || (PMask & PMask2 & 0b10)
+                                || ((PMask & 0b1000) && (PMask2 & 1001));
+        constexpr bool p2_set = ((PMask & 0b1) && (PMask2 & 0b1000))
+                                || ((PMask & 0b10) && (PMask2 & 0b100))
+                                || ((PMask & 0b100) && (PMask2 & 0b10))
+                                || ((PMask & 0b1000) && (PMask2 & 0b1));
+        constexpr bool p3_set = ((PMask & 0b1) && (PMask2 & 0b100))
+                                || ((PMask & 0b100) && (PMask2 & 0b1));
+
+        constexpr uint8_t out_mask
+            = (p3_set << 3) | (p2_set << 2) | (p1_set << 1) | p0_set;
+
+        entity<out_mask> out;
+        if constexpr (p0_set)
+        {
+            out.p0() = p0_;
+        }
+        if constexpr (p1_set)
+        {
+            out.p1() = p1_;
+        }
+        if constexpr (p2_set)
+        {
+            out.p2() = p2_;
+        }
+        if constexpr (p3_set)
+        {
+            out.p3() = p3_;
+        }
+        return out;
+    }
+
     /// Exterior Product
     ///
     /// The exterior product between two basis elements extinguishes if the two
@@ -456,16 +741,38 @@ struct entity
                 __m128 p0_tmp;
                 __m128 p3_tmp;
                 gp02<false>(p0(), rhs.p2(), p0_tmp, p3_tmp);
-                p0_ = _mm_add_ps(p0_, p0_tmp);
-                p3_ = _mm_add_ps(p3_, p3_tmp);
+                if constexpr ((PMask2 & 0b10) || (PMask2 & 0b10))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                }
+                if constexpr ((PMask2 & 0b10) > 0)
+                {
+                    p3_ = _mm_add_ps(p3_, p3_tmp);
+                }
+                else
+                {
+                    p3_ = p3_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p1_tmp;
                 __m128 p2_tmp;
                 gp03<false>(p0(), rhs.p3(), p1_tmp, p2_tmp);
-                p1_ = _mm_add_ps(p1_, p1_tmp);
-                p2_ = _mm_add_ps(p2_, p2_tmp);
+                if constexpr ((PMask2 & 1) > 0)
+                {
+                    p1_ = _mm_add_ps(p1_, p1_tmp);
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p1_ = p1_tmp;
+                    p2_ = p2_tmp;
+                }
             }
         }
 
@@ -476,24 +783,56 @@ struct entity
                 __m128 p0_tmp;
                 __m128 p3_tmp;
                 gp01<true>(rhs.p0(), p1(), p0_tmp, p3_tmp);
-                p0_ = _mm_add_ps(p0_, p0_tmp);
-                p3_ = _mm_add_ps(p3_, p3_tmp);
+                if constexpr ((PMask & 1) && (PMask2 & 0b110))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                    p3_ = _mm_add_ps(p3_, p3_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                    p3_ = p3_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                p1_ = _mm_add_ps(p1_, gp11(p1(), rhs.p1()));
+                __m128 p1_tmp = gp11(p1(), rhs.p1());
+                if constexpr ((PMask & 1) && (PMask2 & 0b1001))
+                {
+                    p1_ = _mm_add_ps(p1_, p1_tmp);
+                }
+                else
+                {
+                    p1_ = p1_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b100) > 0)
             {
-                p2_ = _mm_add_ps(p2_, gp12(p1(), rhs.p2()));
+                __m128 p2_tmp = gp12(p1(), rhs.p2());
+                if constexpr ((PMask & 1) && (PMask2 & 0b1001))
+                {
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
                 gp13<false>(p1(), rhs.p3(), p0_tmp, p3_tmp);
-                p0_ = _mm_add_ps(p0_, p0_tmp);
-                p3_ = _mm_add_ps(p3_, p3_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b110)) || (PMask2 & 0b1))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                    p3_ = _mm_add_ps(p3_, p3_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                    p3_ = p3_tmp;
+                }
             }
         }
 
@@ -504,20 +843,48 @@ struct entity
                 __m128 p0_tmp;
                 __m128 p3_tmp;
                 gp02<true>(rhs.p0(), p2(), p0_tmp, p3_tmp);
-                p0_ = _mm_add_ps(p0_, p0_tmp);
-                p3_ = _mm_add_ps(p3_, p3_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001)))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                    p3_ = _mm_add_ps(p3_, p3_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                    p3_ = p3_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                p2_ = _mm_add_ps(p2_, gp21(p2(), rhs.p1()));
+                __m128 p2_tmp = gp21(p2(), rhs.p1());
+                if constexpr (((PMask & 1) && (PMask2 & 0b1001))
+                              || ((PMask & 0b10) && (PMask2 & 0b100)))
+                {
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
                 gp23<false>(p2(), rhs.p3(), p0_tmp, p3_tmp);
-                p0_ = _mm_add_ps(p0_, p0_tmp);
-                p3_ = _mm_add_ps(p3_, p3_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001))
+                              || (PMask2 & 0b1))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                    p3_ = _mm_add_ps(p3_, p3_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                    p3_ = p3_tmp;
+                }
             }
         }
 
@@ -528,32 +895,88 @@ struct entity
                 __m128 p1_tmp;
                 __m128 p2_tmp;
                 gp03<true>(rhs.p0(), p3(), p1_tmp, p2_tmp);
-                p1_ = _mm_add_ps(p1_, p1_tmp);
-                p2_ = _mm_add_ps(p2_, p2_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b1001))
+                              || (PMask & PMask2 & 0b10))
+                {
+                    p1_ = _mm_add_ps(p1_, p1_tmp);
+                }
+                else
+                {
+                    p1_ = p1_tmp;
+                }
+                if constexpr (((PMask & 1) && (PMask2 & 0b1001))
+                              || ((PMask & 0b10) && (PMask2 & 0b100))
+                              || ((PMask & 0b100) && (PMask2 & 0b10)))
+                {
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
                 gp13<true>(rhs.p1(), p3(), p0_tmp, p3_tmp);
-                p0_ = _mm_add_ps(p0_, p0_tmp);
-                p3_ = _mm_add_ps(p3_, p3_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001))
+                              || ((PMask & 0b100) && (PMask2 & 0b1001)))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                    p3_ = _mm_add_ps(p3_, p3_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                    p3_ = p3_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b100) > 0)
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
                 gp23<true>(rhs.p2(), p3(), p0_tmp, p3_tmp);
-                p0_ = _mm_add_ps(p0_, p0_tmp);
-                p3_ = _mm_add_ps(p3_, p3_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001))
+                              || ((PMask & 0b100) && (PMask2 & 0b1001))
+                              || (PMask2 & 0b10))
+                {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                    p3_ = _mm_add_ps(p3_, p3_tmp);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                    p3_ = p3_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p1_tmp;
                 __m128 p2_tmp;
                 gp33(p3(), rhs.p3(), p1_tmp, p2_tmp);
-                p1_ = _mm_add_ps(p1_, p1_tmp);
-                p2_ = _mm_add_ps(p2_, p2_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b1001))
+                              || (PMask & PMask2 & 0b10) || (PMask2 & 1))
+                {
+                    p1_ = _mm_add_ps(p1_, p1_tmp);
+                }
+                else
+                {
+                    p1_ = p1_tmp;
+                }
+                if constexpr (((PMask & 1) && (PMask2 & 0b1001))
+                              || ((PMask & 0b10) && (PMask2 & 0b100))
+                              || ((PMask & 0b100) && (PMask2 & 0b10))
+                              || (PMask2 & 1))
+                {
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
             }
         }
 

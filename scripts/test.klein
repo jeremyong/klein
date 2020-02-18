@@ -50,3 +50,48 @@
 
 # Point ^ point
 (e123 + e032 + 2e013 + 3e021) ^ (e123 - 2e032 + e013 + 4e021)
+
+# Plane | plane
+(e1 + 2e2 + 3e3 + 4e0) | (2e1 + 3e2 -e3 -2e0)
+
+# Plane | line
+(e1 + 2e2 + 3e3 + 4e0) | (e03 - 2e12 + e31 + 4e23)
+
+# Plane | ideal line
+(e1 + 2e2 + 3e3 + 4e0) | (-2e01 + e02 + 4e03)
+
+# Plane | point
+(e1 + 2e2 + 3e3 + 4e0) | (e123 -2e032 + e013 + 4e021)
+
+# Line | plane
+(e03 - 2e12 + e31 + 4e23) | (e1 + 2e2 + 3e3 + 4e0)
+
+# Line | line
+(e01 + e12 + 2e31 + 3e23) | (e02 - 2e12 + e31 + 4e23)
+
+# Line | ideal line
+(e03 - 2e12 + e31 + 4e23) | (-2e01 + e02 + 4e03)
+
+# Line | point
+(e03 + e12 + 2e31 + 3e23) | (e123 -2e032 + e013 + 4e021)
+
+# Ideal line | plane
+(-2e01 + e02 + 4e03) | (e1 + 2e2 + 3e3 + 4e0)
+
+# Ideal line | plane
+(-2e01 + e02 + 4e03) | (e03 + e12 + 2e31 + 3e23)
+
+# Ideal line | point
+(-2e01 + e02 + 4e03) | (e123 - 2e032 + 1e013 + 4e021)
+
+# Point | plane
+(e123 - 2e032 + e013 + 4e021) | (e1 + 2e2 + 3e3 + 4e0)
+
+# Point | line
+(e123 - 2e032 + e013 + 4e021) | (e03 + e12 + 2e31 + 3e23)
+
+# Point | line
+(e123 - 2e032 + e013 + 4e021) | (e01 + 2e02 + 3e03)
+
+# Point | point
+(e123 + e032 + 2e013 + 3e021) | (e123 - 2e032 + e013 + 4e021)

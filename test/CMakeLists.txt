@@ -13,6 +13,7 @@ add_executable(klein_test
     main.cpp
     test_ep.cpp
     test_exp_log.cpp
+    test_ip.cpp
     test_gp.cpp
     test_rp.cpp
     test_sw.cpp

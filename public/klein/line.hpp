@@ -39,6 +39,16 @@ struct line final : public entity<0b110>
         : entity{e}
     {}
 
+    line(entity<0b100> const& e)
+    {
+        p2() = e.p2();
+    }
+
+    line(entity<0b10> const& e)
+    {
+        p1() = e.p1();
+    }
+
     /// Line exponentiation
     ///
     /// The line can be exponentiated to produce a motor that posesses this line

@@ -143,23 +143,13 @@ inline namespace detail
             _mm_mul_ps(KLN_SWIZZLE(a, 1, 2, 3, 0), KLN_SWIZZLE(b, 0, 0, 0, 0)));
     }
 
-    template <bool Flip>
+    // Callee must negate result if lhs and rhs operands are interchanged
     KLN_INLINE void KLN_VEC_CALL dot23(__m128 const& a,
                                        __m128 const& b,
                                        __m128& p0_out)
     {
-        if constexpr (Flip)
-        {
-            // a0 b0 e0
-            p0_out = _mm_blend_ps(_mm_setzero_ps(), _mm_mul_ss(a, b), 1);
-        }
-        else
-        {
-            // -a0 b0 e0
-            p0_out = _mm_blend_ps(_mm_setzero_ps(),
-                                  _mm_xor_ps(_mm_set_ss(-0.f), _mm_mul_ss(a, b)),
-                                  1);
-        }
+        // a0 b0 e0
+        p0_out = _mm_blend_ps(_mm_setzero_ps(), _mm_mul_ss(a, b), 1);
     }
 
     KLN_INLINE void KLN_VEC_CALL dot33(__m128 const& a,

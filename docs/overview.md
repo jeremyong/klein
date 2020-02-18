@@ -13,14 +13,15 @@ and geometric actions ([`rotors`](/Klein/api/kln::rotor), [`translators`](/Klein
 The multivector operations such as the geometric product, exterior product, regressive product, etc.
 are supported for all the listed entities above via the following operator table:
 
-| Operator | Description        |
-| -------- | ------------------ |
-| `+`      | Addition           |
-| `-`      | Subtraction        |
-| `*`      | Geometric Product  |
-| `^`      | Exterior Product   |
-| `&`      | Regressive Product |
-| `!`      | Poincaré Dual      |
+| Operator | Description             |
+| -------- | ----------------------- |
+| `+`      | Addition                |
+| `-`      | Subtraction             |
+| `*`      | Geometric Product       |
+| `^`      | Exterior Product        |
+| `&`      | Regressive Product      |
+| `|`      | Symmetric Inner Product |
+| `!`      | Poincaré Dual           |
 
 !!! tip
 
