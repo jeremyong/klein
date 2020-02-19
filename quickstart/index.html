@@ -520,7 +520,23 @@
                 
                 <p>Klein is header only, so you may use it by adding the contents of the <code>public</code>
 directory to your include path. If you use <a href="https://cmake.org/">cmake</a>, you
-may opt to link the <code>klein</code> target interface.</p>
+may opt to link the <code>klein</code> target interface. If you have CMake 3.15 or later,
+you can use the following snippet to easily fetch Klein into your build tree:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">include</span><span class="p">(</span><span class="s">FetchContent</span><span class="p">)</span>
+
+<span class="c"># This tracks the latest commit on the master branch of the Klein</span>
+<span class="c"># repository. Instead of `origin/master`, you can specify a specific</span>
+<span class="c"># commit hash or tag.</span>
+<span class="nb">FetchContent_Declare</span><span class="p">(</span>
+    <span class="s">klein</span>
+    <span class="s">GIT_REPOSITORY</span> <span class="s">https://github.com/jeremyong/Klein.git</span>
+    <span class="s">GIT_TAG</span> <span class="s">origin/master</span>
+<span class="p">)</span>
+<span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">klein</span><span class="p">)</span>
+
+<span class="c"># Now, you can use target_link_libraries(your_lib PUBLIC klein)</span>
+</code></pre></div>
+
 <p>The primary "catch-all" header provided can be included using <code>#include &lt;klein/klein.hpp&gt;</code>.
 If you wish, individual headers in the top level <code>public/klein</code> folder may be included
 to reduce the included code footprint.</p>
