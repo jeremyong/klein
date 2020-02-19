@@ -156,7 +156,7 @@ Ex: The exterior product $e_1 \wedge \mathbf{e}_{32}$ is $-\mathbf{e}_{123}$.
 
 Poincaré Dual
 
-The Poincaré Dual of an element is the "subspace complement" of the argument with respect to the pseudoscalar. In practice, it is a relabeling of the coordinates to their dual-coordinates and is used most often to implement a "join" operation in terms of the exterior product of the duals of each operand.
+The Poincaré Dual of an element is the "subspace complement" of the argument with respect to the pseudoscalar in the exterior algebra. In practice, it is a relabeling of the coordinates to their dual-coordinates and is used most often to implement a "join" operation in terms of the exterior product of the duals of each operand.
 
 Ex: The dual of the point $\mathbf{e}_{123} + 3\mathbf{e}_{013} - 2\mathbf{e}_{021}$ (the point at $(0, 3, -2)$) is the plane $e_0 + 3e_2 - 2e_3$.
 

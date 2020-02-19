@@ -18,6 +18,42 @@ TEST_CASE("simd-sandwich")
     CHECK_EQ(ab[3], 4.f);
 }
 
+TEST_CASE("reflect-plane")
+{
+    plane p1{3.f, 2.f, 1.f, -1.f};
+    plane p2{1.f, 2.f, -1.f, -3.f};
+    plane p3 = p1(p2);
+
+    CHECK_EQ(p3.e0(), 30.f);
+    CHECK_EQ(p3.e1(), 22.f);
+    CHECK_EQ(p3.e2(), -4.f);
+    CHECK_EQ(p3.e3(), 26.f);
+}
+
+TEST_CASE("reflect-line")
+{
+    plane p{3.f, 2.f, 1.f, -1.f};
+    line l1{1.f, -2.f, 3.f, -4.f, 5.f, 6.f};
+    line l2 = p(l1);
+    CHECK_EQ(l2.e01(), 28.f);
+    CHECK_EQ(l2.e02(), -72.f);
+    CHECK_EQ(l2.e03(), 32.f);
+    CHECK_EQ(l2.e12(), 104.f);
+    CHECK_EQ(l2.e31(), 26.f);
+    CHECK_EQ(l2.e23(), 60.f);
+}
+
+TEST_CASE("reflect-point")
+{
+    plane p1{3.f, 2.f, 1.f, -1.f};
+    point p2{4.f, -2.f, -1.f};
+    point p3 = p1(p2);
+    CHECK_EQ(p3.e021(), -26.f);
+    CHECK_EQ(p3.e013(), -52.f);
+    CHECK_EQ(p3.e032(), 20.f);
+    CHECK_EQ(p3.e123(), 14.f);
+}
+
 TEST_CASE("rotor-point")
 {
     rotor r{M_PI * 0.5f, 0, 0, 1.f};
