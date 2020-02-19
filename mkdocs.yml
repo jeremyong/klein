@@ -10,9 +10,10 @@ theme:
     tabs: false
   logo:
     icon: 'flip'
-site_url: https://jeremyong.com/klein
-repo_url: https://github.com/jeremyong/klein
-repo_name: 'jeremyong/klein'
+site_url: https://jeremyong.com/Klein/
+repo_url: https://github.com/jeremyong/Klein/
+edit_uri: ''
+repo_name: 'jeremyong/Klein'
 site_description: Klein - Realtime Projective Geometric Algebra
 site_author: Jeremy Ong
 copyright: 'Klein Copyright &copy; 2020 Jeremy Ong'
@@ -36,19 +37,20 @@ nav:
       - 'Direction': 'api/kln::direction.md'
       - 'Mat4x4': 'api/kln::mat4x4.md'
       - 'Origin': 'api/kln::origin.md'
-  - 'Tutorial': 'tutorial.md'
+  - 'Tutorial':
+      - 'Introduction': 'tutorial/intro.md'
+      - 'Exterior Algebra': 'tutorial/exterior_algebra.md'
   - 'Klein Shell': 'shell.md'
   # - 'Benchmarks': 'benchmarks.md'
   - 'Roadmap': 'roadmap.md'
   - 'References': 'references.md'
-
-edit_uri: ''
 
 extra_css:
   - 'https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css'
 
 extra_javascript:
   - 'js/extra.js'
+  - 'https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js'
   - 'https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js'
 
 markdown_extensions:

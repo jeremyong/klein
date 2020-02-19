@@ -27,13 +27,149 @@ inline namespace detail
     // p2: (e0123, e01, e02, e03)
     // p3: (e123, e021, e013, e032)
 
+    // Reflect a plane through another plane
+    // b * a * b
+    KLN_INLINE void KLN_VEC_CALL sw00(__m128 const& a,
+                                      __m128 const& b,
+                                      __m128& p0_out)
+    {
+        // (2a0(a1 b1 + a2 b2 + a3 b3) - b0(a1^2 + a2^2 + a3^2)) e0 +
+        // (2a1(a2 b2 + a3 b3) + b1(a1^2 - a2^2 - a3^2)) e1 +
+        // (2a2(a1 b1 + a3 b3) + b2(a2^2 - a3^2 - a1^2)) e2 +
+        // (2a3(a1 b1 + a2 b2) + b3(a3^2 - a1^2 - a2^2)) e3
+
+        // Left block
+        __m128 tmp
+            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 1, 2, 1), KLN_SWIZZLE(b, 1, 1, 2, 1));
+        tmp = _mm_add_ps(
+            tmp,
+            _mm_mul_ps(KLN_SWIZZLE(a, 2, 3, 3, 2), KLN_SWIZZLE(b, 2, 3, 3, 2)));
+        tmp = _mm_add_ss(
+            tmp,
+            _mm_mul_ss(KLN_SWIZZLE(a, 0, 0, 0, 3), KLN_SWIZZLE(b, 0, 0, 0, 3)));
+        tmp = _mm_mul_ps(tmp, _mm_mul_ps(a, _mm_set1_ps(2.f)));
+
+        // Right block
+        __m128 a_tmp = KLN_SWIZZLE(a, 3, 2, 1, 1);
+        __m128 tmp2  = _mm_xor_ps(_mm_mul_ps(a_tmp, a_tmp), _mm_set_ss(-0.f));
+        a_tmp        = KLN_SWIZZLE(a, 1, 3, 2, 2);
+        tmp2         = _mm_sub_ps(tmp2, _mm_mul_ps(a_tmp, a_tmp));
+        a_tmp        = KLN_SWIZZLE(a, 2, 1, 3, 3);
+        tmp2         = _mm_sub_ps(tmp2, _mm_mul_ps(a_tmp, a_tmp));
+        tmp2         = _mm_mul_ps(tmp2, b);
+
+        p0_out = _mm_add_ps(tmp, tmp2);
+    }
+
+    KLN_INLINE void KLN_VEC_CALL sw10(__m128 const& a,
+                                      __m128 const& b,
+                                      __m128& p1_out,
+                                      __m128& p2_out)
+    {
+        //
+        // b0(a1^2 + a2^2 + a3^2) +
+        // (2a3(a1 b3 + a2 b2) + b1(a3^2 - a1^2 - a2^2)) e12 +
+        // (2a2(a3 b1 + a1 b3) + b2(a2^2 - a3^2 - a1^2)) e31 +
+        // (2a1(a2 b2 + a3 b1) + b3(a1^2 - a2^2 - a3^2)) e23 +
+        //
+        // 2a0(a2 b1 - a3 b2) e01 +
+        // 2a0(a3 b3 - a1 b1) e02 +
+        // 2a0(a1 b2 - a2 b3) e03
+
+        p1_out
+            = _mm_mul_ps(KLN_SWIZZLE(a, 2, 3, 1, 0), KLN_SWIZZLE(b, 2, 1, 3, 0));
+        p1_out = _mm_add_ps(
+            p1_out,
+            _mm_mul_ps(KLN_SWIZZLE(a, 3, 1, 2, 0), KLN_SWIZZLE(b, 1, 3, 2, 0)));
+        p1_out       = _mm_mul_ps(p1_out,
+                            _mm_mul_ps(KLN_SWIZZLE(a, 1, 2, 3, 0),
+                                       _mm_set_ps(2.f, 2.f, 2.f, 0.f)));
+        __m128 a_tmp = KLN_SWIZZLE(a, 1, 2, 3, 1);
+        __m128 tmp   = _mm_mul_ps(a_tmp, a_tmp);
+        a_tmp        = KLN_SWIZZLE(a, 2, 3, 1, 2);
+        tmp          = _mm_sub_ps(
+            tmp, _mm_xor_ps(_mm_set_ss(-0.f), _mm_mul_ps(a_tmp, a_tmp)));
+        a_tmp = KLN_SWIZZLE(a, 3, 1, 2, 3);
+        tmp   = _mm_sub_ps(
+            tmp, _mm_xor_ps(_mm_set_ss(-0.f), _mm_mul_ps(a_tmp, a_tmp)));
+        p1_out = _mm_add_ps(p1_out, _mm_mul_ps(b, tmp));
+
+        p2_out
+            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 2, 3, 1, 0));
+        p2_out = _mm_sub_ps(
+            p2_out,
+            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 3, 1, 2, 0)));
+        p2_out = _mm_mul_ps(p2_out,
+                            _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0),
+                                       _mm_set_ps(2.f, 2.f, 2.f, 0.f)));
+    }
+
+    KLN_INLINE void KLN_VEC_CALL sw20(__m128 const& a,
+                                      __m128 const& b,
+                                      __m128& p2_out)
+    {
+        // -b0(a1^2 + a2^2 + a3^2) e0123 +
+        // (-2a1(a2 b2 + a3 b3) + b1(a2^2 + a3^2 - a1^2)) e01 +
+        // (-2a2(a3 b3 + a1 b1) + b2(a3^2 + a1^2 - a2^2)) e02 +
+        // (-2a3(a1 b1 + a2 b2) + b3(a1^2 + a2^2 - a3^2)) e03
+
+        p2_out
+            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 1, 3, 2, 0));
+        p2_out = _mm_add_ps(
+            p2_out,
+            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 2, 1, 3, 0)));
+        p2_out = _mm_mul_ps(
+            p2_out, _mm_mul_ps(a, _mm_set_ps(-2.f, -2.f, -2.f, 0.f)));
+
+        __m128 a_tmp = KLN_SWIZZLE(a, 1, 3, 2, 1);
+        __m128 tmp   = _mm_mul_ps(a_tmp, a_tmp);
+        a_tmp        = KLN_SWIZZLE(a, 2, 1, 3, 2);
+        tmp          = _mm_xor_ps(
+            _mm_set_ss(-0.f), _mm_add_ps(tmp, _mm_mul_ps(a_tmp, a_tmp)));
+        a_tmp  = KLN_SWIZZLE(a, 3, 2, 1, 3);
+        tmp    = _mm_sub_ps(tmp, _mm_mul_ps(a_tmp, a_tmp));
+        p2_out = _mm_add_ps(p2_out, _mm_mul_ps(tmp, b));
+    }
+
+    KLN_INLINE void KLN_VEC_CALL sw30(__m128 const& a,
+                                      __m128 const& b,
+                                      __m128& p3_out)
+    {
+        // b0(a1^2 + a2^2 + a3^2) e123 +
+        // (-2a3(a0 b0 + a1 b3 + a2 b2) + b1(a1^2 + a2^2 - a3^2)) e021 +
+        // (-2a2(a0 b0 + a1 b3 + a3 b1) + b2(a3^2 + a1^2 - a2^2)) e013 +
+        // (-2a1(a0 b0 + a3 b1 + a2 b2) + b3(a2^2 + a3^2 - a1^2)) e032
+
+        p3_out
+            = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), KLN_SWIZZLE(b, 0, 0, 0, 0));
+        p3_out = _mm_add_ps(
+            p3_out,
+            _mm_mul_ps(KLN_SWIZZLE(a, 3, 1, 1, 0), KLN_SWIZZLE(b, 1, 3, 3, 0)));
+        p3_out = _mm_add_ps(
+            p3_out,
+            _mm_mul_ps(KLN_SWIZZLE(a, 2, 3, 2, 0), KLN_SWIZZLE(b, 2, 1, 2, 0)));
+        p3_out = _mm_mul_ps(p3_out,
+                            _mm_mul_ps(KLN_SWIZZLE(a, 1, 2, 3, 0),
+                                       _mm_set_ps(-2.f, -2.f, -2.f, 0.f)));
+
+        __m128 a_tmp = KLN_SWIZZLE(a, 2, 3, 1, 1);
+        __m128 tmp   = _mm_mul_ps(a_tmp, a_tmp);
+        a_tmp        = KLN_SWIZZLE(a, 3, 1, 2, 2);
+        tmp          = _mm_add_ps(tmp, _mm_mul_ps(a_tmp, a_tmp));
+        a_tmp        = KLN_SWIZZLE(a, 1, 2, 3, 3);
+        tmp          = _mm_sub_ps(
+            tmp, _mm_xor_ps(_mm_mul_ps(a_tmp, a_tmp), _mm_set_ss(-0.f)));
+
+        p3_out = _mm_add_ps(p3_out, _mm_mul_ps(b, tmp));
+    }
+
     // Apply a translator to a plane.
     // Assumes e0123 component of p2 is exactly 0
     // p0: (e0, e1, e2, e3)
     // p2: (e0123, e01, e02, e03)
     // b * a * ~b
     // The low component of p2 is expected to be the scalar component instead
-    inline auto KLN_VEC_CALL sw02(__m128 const& a, __m128 const& b)
+    KLN_INLINE auto KLN_VEC_CALL sw02(__m128 const& a, __m128 const& b)
     {
         // (a0 b0^2 + 2a1 b0 b1 + 2a2 b0 b2 + 2a3 b0 b3) e0 +
         // (a1 b0^2) e1 +
@@ -75,10 +211,10 @@ inline namespace detail
     // equivalent to __m128[count]
     template <bool Variadic = false, bool Translate = true>
     KLN_INLINE void KLN_VEC_CALL sw012(__m128 const* a,
-                                   __m128 const& b,
-                                   __m128 const* c,
-                                   __m128* out,
-                                   size_t count = 0)
+                                       __m128 const& b,
+                                       __m128 const* c,
+                                       __m128* out,
+                                       size_t count = 0)
     {
         // LSB
         //
@@ -232,7 +368,7 @@ inline namespace detail
     // p2: (e0123, e01, e02, e03)
     // p3: (e123, e021, e013, e032)
     // b * a * ~b
-    inline auto KLN_VEC_CALL sw32(__m128 const& a, __m128 const& b) noexcept
+    KLN_INLINE auto KLN_VEC_CALL sw32(__m128 const& a, __m128 const& b) noexcept
     {
         // (1 + b1*e01 + b2*e02 + b3*e03) *
         //   (a0*e123 + a1*e021 + a2*e013 + a3*e032) *
@@ -256,10 +392,10 @@ inline namespace detail
     // Apply a motor to a point
     template <bool Variadic = false, bool Translate = true>
     KLN_INLINE void KLN_VEC_CALL sw312(__m128 const* a,
-                                   __m128 const& b,
-                                   __m128 const* c,
-                                   __m128* out,
-                                   size_t count = 0) noexcept
+                                       __m128 const& b,
+                                       __m128 const* c,
+                                       __m128* out,
+                                       size_t count = 0) noexcept
     {
         // LSB
         // a0(b0^2 + b1^2 + b2^2 + b3^2) e123 +
@@ -377,7 +513,7 @@ inline namespace detail
     // Conjugate origin with motor. Unlike other operations the motor MUST be
     // normalized prior to usage b is the rotor component (p1) c is the
     // translator component (p2)
-    inline __m128 swo12(__m128 const& b, __m128 const& c)
+    KLN_INLINE __m128 swo12(__m128 const& b, __m128 const& c)
     {
         // Rearranged to eliminate a b swizzle
         //  (b1^2 + b0^2 + b2^2 + b3^2) e123 +

@@ -95,3 +95,12 @@
 
 # Point | point
 (e123 + e032 + 2e013 + 3e021) | (e123 - 2e032 + e013 + 4e021)
+
+# Reflect plane
+(3e1 + 2e2 + e3 - e0) * (e1 + 2e2 - e3 - 3e0) *(3e1 + 2e2 + e3 - e0)
+
+# Reflect line
+(3e1 + 2e2 + e3 - e0) * (e01 - 2e02 + 3e03 - 4e12 + 5e31 + 6e23) *(3e1 + 2e2 + e3 - e0)
+
+# Reflect point
+(3e1 + 2e2 + e3 - e0) * (e123 + 4e032 - 2e013 - e021) *(3e1 + 2e2 + e3 - e0)

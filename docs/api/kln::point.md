@@ -13,7 +13,8 @@ A point is represented as the multivector $x\mathbf{e}_{032} + y\mathbf{e}_{013}
 --------------------------------|---------------------------------------------
 `public  ` [`point`](#structkln_1_1point_1a4ea8cb4d3d80d9f50032061265ed32b6)`() = default`  | Default constructor leaves memory uninitialized.
 `public  ` [`point`](#structkln_1_1point_1adc78c30fe71a140259dd7add02d36df8)`(float x,float y,float z) noexcept`  | Component-wise constructor (homogeneous coordinate is automatically initialized to 1)
-`public  ` [`point`](#structkln_1_1point_1a1e262c4762927c28e7ba744acbe672bf)`(` [`entity`](/Klein/api/kln::entity#structkln_1_1entity)`< 0b1000 > const & e)`  | 
+`public  ` [`point`](#structkln_1_1point_1a9b3754f1b4479d862d026cf55b91f7be)`(` [`entity`](/Klein/api/kln::entity#structkln_1_1entity)`< 0b1000 > const & e) noexcept`  | 
+`public  explicit ` [`point`](#structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0)`(` [`entity`](/Klein/api/kln::entity#structkln_1_1entity)`< 0b1001 > const & e) noexcept`  | A point projected onto a line will have an extinguished partition-0, which necessitates this explicit cast when it is known to be safe.
 `public void ` [`load`](#structkln_1_1point_1a805739dde6d772f5b228cce5b95ef13f)`(float * data) noexcept`  | Fast load from a pointer to an array of four floats with layout `(w, z, y, x)`  where `w`  occupies the lowest address in memory.
 `public float ` [`x`](#structkln_1_1point_1a0c100888d1b7edc3fdb81f8b7c22feb1)`() const noexcept`  | 
 `public float & ` [`x`](#structkln_1_1point_1a47e6deddfdd3939952ef80bb33236bfc)`() noexcept`  | 
@@ -35,7 +36,11 @@ Default constructor leaves memory uninitialized.
 
 Component-wise constructor (homogeneous coordinate is automatically initialized to 1)
 
-####   [point](#structkln_1_1point_1a1e262c4762927c28e7ba744acbe672bf)( [entity](/Klein/api/kln::entity#structkln_1_1entity)< 0b1000 > const & e)  {#structkln_1_1point_1a1e262c4762927c28e7ba744acbe672bf}
+####   [point](#structkln_1_1point_1a9b3754f1b4479d862d026cf55b91f7be)( [entity](/Klein/api/kln::entity#structkln_1_1entity)< 0b1000 > const & e) noexcept  {#structkln_1_1point_1a9b3754f1b4479d862d026cf55b91f7be}
+
+####  explicit  [point](#structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0)( [entity](/Klein/api/kln::entity#structkln_1_1entity)< 0b1001 > const & e) noexcept  {#structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0}
+
+A point projected onto a line will have an extinguished partition-0, which necessitates this explicit cast when it is known to be safe.
 
 #### void  [load](#structkln_1_1point_1a805739dde6d772f5b228cce5b95ef13f)(float * data) noexcept  {#structkln_1_1point_1a805739dde6d772f5b228cce5b95ef13f}
 

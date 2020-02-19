@@ -2,13 +2,18 @@
 
 Working with Klein is designed to be as simple as it is efficient. To "grok" the API, the main thing
 to understand is that everything that has an underlying multivector representation is an
-[`entity`](/Klein/api/kln::entity) which means that all operations supported by the entity will be
+[`entity`](../api/kln::entity) which means that all operations supported by the entity will be
 inherited.
 
-The entities provided are Euclidean objects ([`points`](/Klein/api/kln::point), [`lines`](/Klein/api/kln::line), [`planes`](/Klein/api/kln::plane)), objects that arise in
-Projective space ([`directions`](/Klein/api/kln::direction), [`ideal lines`](/Klein/api/kln::ideal_line)),
-and geometric actions ([`rotors`](/Klein/api/kln::rotor), [`translators`](/Klein/api/kln::translator),
-[`motors`](/Klein/api/kln::motor)).
+The entities provided are Euclidean objects ([`points`](../api/kln::point), [`lines`](../api/kln::line), [`planes`](../api/kln::plane)), objects that arise in
+Projective space ([`directions`](../api/kln::direction), [`ideal lines`](../api/kln::ideal_line)),
+and geometric actions ([`rotors`](../api/kln::rotor), [`translators`](../api/kln::translator),
+[`motors`](../api/kln::motor), and [`planes`](../api/kln::plane)).
+
+!!! note
+
+    The call operator on a plane performs a _reflection_ of the passed entity through the plane. The call operator on a rotor performs a _rotation_ of the entity. The translator
+    translates, and the motor performs a combination of a rotation and a translation.
 
 The multivector operations such as the geometric product, exterior product, regressive product, etc.
 are supported for all the listed entities above via the following operator table:

@@ -18,6 +18,9 @@ The plane multivector in PGA looks like $d\mathbf{e}_0 + a\mathbf{e}_1 + b\mathb
 `public  ` [`plane`](#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc)`(float * data) noexcept`  | Data should point to four floats with memory layout `(d, a, b, c)`  where `d`  occupies the lowest address in memory.
 `public  explicit ` [`plane`](#structkln_1_1plane_1a4fe52a0426bc881947909d0d9b1745d0)`(` [`entity`](/Klein/api/kln::entity#structkln_1_1entity)`< 0b1001 > const & other) noexcept`  | Line to plane cast.
 `public void ` [`load`](#structkln_1_1plane_1a5a00871dbe19d7658b7e8cda71b326f2)`(float * data) noexcept`  | Unaligned load of data. The `data`  argument should point to 4 floats corresponding to the `(d, a, b, c)`  components of the plane multivector where `d`  occupies the lowest address in memory.
+`public ` [`plane`](#structkln_1_1plane)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9)`(` [`plane`](#structkln_1_1plane)` const & p) const noexcept`  | Reflect another plane $p_2$ through this plane $p_1$. The operation performed via this call operator is an optimized routine equivalent to the expression $p_1 p_2 p_1$.
+`public ` [`line`](/Klein/api/kln::line#structkln_1_1line)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1plane_1a782e4e0b1b93ab5bffb2c972f6d7acfa)`(` [`line`](/Klein/api/kln::line#structkln_1_1line)` const & l) const noexcept`  | Reflect line $\ell$ through this plane $p$. The operation performed via this call operator is an optimized routine equivalent to the expression $p \ell p$.
+`public ` [`point`](/Klein/api/kln::point#structkln_1_1point)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1plane_1a20b6577f6d1717e1ec086314d3ebd497)`(` [`point`](/Klein/api/kln::point#structkln_1_1point)` const & p) const noexcept`  | Reflect the point $P$ through this plane $p$. The operation performed via this call operator is an optimized routine equivalent to the expression $p P p$.
 `public float ` [`x`](#structkln_1_1plane_1ad2a57bafbd388d4ca9ca98d0074fee0a)`() const noexcept`  | 
 `public float & ` [`x`](#structkln_1_1plane_1a42cc26e2b8d3f4d620a9719716583e93)`() noexcept`  | 
 `public float ` [`y`](#structkln_1_1plane_1adce64826f47e1a017fba8fefab69c174)`() const noexcept`  | 
@@ -63,6 +66,18 @@ Unaligned load of data. The `data`  argument should point to 4 floats correspond
 !!! tip 
     This is a faster mechanism for setting data compared to setting
     components one at a time.
+
+####  [plane](#structkln_1_1plane) KLN_VEC_CALL  [operator()](#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9)( [plane](#structkln_1_1plane) const & p) const noexcept  {#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9}
+
+Reflect another plane $p_2$ through this plane $p_1$. The operation performed via this call operator is an optimized routine equivalent to the expression $p_1 p_2 p_1$.
+
+####  [line](/Klein/api/kln::line#structkln_1_1line) KLN_VEC_CALL  [operator()](#structkln_1_1plane_1a782e4e0b1b93ab5bffb2c972f6d7acfa)( [line](/Klein/api/kln::line#structkln_1_1line) const & l) const noexcept  {#structkln_1_1plane_1a782e4e0b1b93ab5bffb2c972f6d7acfa}
+
+Reflect line $\ell$ through this plane $p$. The operation performed via this call operator is an optimized routine equivalent to the expression $p \ell p$.
+
+####  [point](/Klein/api/kln::point#structkln_1_1point) KLN_VEC_CALL  [operator()](#structkln_1_1plane_1a20b6577f6d1717e1ec086314d3ebd497)( [point](/Klein/api/kln::point#structkln_1_1point) const & p) const noexcept  {#structkln_1_1plane_1a20b6577f6d1717e1ec086314d3ebd497}
+
+Reflect the point $P$ through this plane $p$. The operation performed via this call operator is an optimized routine equivalent to the expression $p P p$.
 
 #### float  [x](#structkln_1_1plane_1ad2a57bafbd388d4ca9ca98d0074fee0a)() const noexcept  {#structkln_1_1plane_1ad2a57bafbd388d4ca9ca98d0074fee0a}
 

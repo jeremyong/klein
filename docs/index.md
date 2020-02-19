@@ -10,6 +10,9 @@ generalize the metric or dimensionality of the space. In exchange for this loss 
 Klein implements the algebraic operations using the full weight of SSE (Streaming
 SIMD Extensions) for maximum throughput. Klein's performance is fully competitive with state of the
 art kinematic and math libraries built with traditional vector and quaternion formulations.
+Knowledge of Geometric Algebra is not required to benefit from the library, but familiarity
+can ease the learning curve of the API somewhat, as the operators in Geometric Algebra map
+cleanly to geometric operations.
 
 Summary
 
@@ -35,7 +38,8 @@ Supported operations:
 - Geometric product (used to compose group actions)
 - Exterior product (used to meet entities)
 - Regressive product (used to join entities)
-- Sandwich operators (defined via the call operator on rotors, translators, and motors)
+- Sandwich operators (defined via the call operator on planes, rotors, translators, and motors)
+- Inner product (used for metric measurements and to project entities)
 - Standard arithmetic operations
 - Line exponentiation to generate motors
 - Motor logarithm to compute the motor axis

@@ -1,6 +1,23 @@
 Klein is header only, so you may use it by adding the contents of the `public`
 directory to your include path. If you use [cmake](https://cmake.org/), you
-may opt to link the `klein` target interface.
+may opt to link the `klein` target interface. If you have CMake 3.15 or later,
+you can use the following snippet to easily fetch Klein into your build tree:
+
+```cmake
+include(FetchContent)
+
+# This tracks the latest commit on the master branch of the Klein
+# repository. Instead of `origin/master`, you can specify a specific
+# commit hash or tag.
+FetchContent_Declare(
+    klein
+    GIT_REPOSITORY https://github.com/jeremyong/Klein.git
+    GIT_TAG origin/master
+)
+FetchContent_MakeAvailable(klein)
+
+# Now, you can use target_link_libraries(your_lib PUBLIC klein)
+```
 
 The primary "catch-all" header provided can be included using `#include <klein/klein.hpp>`.
 If you wish, individual headers in the top level `public/klein` folder may be included
