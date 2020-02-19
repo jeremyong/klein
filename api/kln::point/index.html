@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/klein/api/kln::point/">
+        <link rel="canonical" href="https://jeremyong.com/Klein/api/kln::point/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -127,7 +127,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="https://jeremyong.com/klein" title="Klein" aria-label="Klein" class="md-header-nav__button md-logo">
+        <a href="https://jeremyong.com/Klein/" title="Klein" aria-label="Klein" class="md-header-nav__button md-logo">
           
             <i class="md-icon">flip</i>
           
@@ -161,7 +161,7 @@
 
   
 
-<a href="https://github.com/jeremyong/klein" title="Go to repository" class="md-source" data-md-source="github">
+<a href="https://github.com/jeremyong/Klein/" title="Go to repository" class="md-source" data-md-source="github">
   
     <div class="md-source__icon">
       <svg viewBox="0 0 24 24" width="24" height="24">
@@ -170,7 +170,7 @@
     </div>
   
   <div class="md-source__repository">
-    jeremyong/klein
+    jeremyong/Klein
   </div>
 </a>
           </div>
@@ -194,7 +194,7 @@
                   <div class="md-sidebar__inner">
                     <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="https://jeremyong.com/klein" title="Klein" class="md-nav__button md-logo">
+    <a href="https://jeremyong.com/Klein/" title="Klein" class="md-nav__button md-logo">
       
         <i class="md-icon">flip</i>
       
@@ -208,7 +208,7 @@
 
   
 
-<a href="https://github.com/jeremyong/klein" title="Go to repository" class="md-source" data-md-source="github">
+<a href="https://github.com/jeremyong/Klein/" title="Go to repository" class="md-source" data-md-source="github">
   
     <div class="md-source__icon">
       <svg viewBox="0 0 24 24" width="24" height="24">
@@ -217,7 +217,7 @@
     </div>
   
   <div class="md-source__repository">
-    jeremyong/klein
+    jeremyong/Klein
   </div>
 </a>
     </div>
@@ -383,8 +383,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1point_1a1e262c4762927c28e7ba744acbe672bf" class="md-nav__link">
-    point( entity&lt; 0b1000 &gt; const &amp; e)
+  <a href="#structkln_1_1point_1a9b3754f1b4479d862d026cf55b91f7be" class="md-nav__link">
+    point( entity&lt; 0b1000 &gt; const &amp; e) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0" class="md-nav__link">
+    explicit  point( entity&lt; 0b1001 &gt; const &amp; e) noexcept
   </a>
   
 </li>
@@ -574,10 +581,46 @@
       
 
 
-  <li class="md-nav__item">
-    <a href="../../tutorial/" title="Tutorial" class="md-nav__link">
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
       Tutorial
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Tutorial
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/intro/" title="Introduction" class="md-nav__link">
+      Introduction
     </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/exterior_algebra/" title="Exterior Algebra" class="md-nav__link">
+      Exterior Algebra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
     
@@ -673,8 +716,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1point_1a1e262c4762927c28e7ba744acbe672bf" class="md-nav__link">
-    point( entity&lt; 0b1000 &gt; const &amp; e)
+  <a href="#structkln_1_1point_1a9b3754f1b4479d862d026cf55b91f7be" class="md-nav__link">
+    point( entity&lt; 0b1000 &gt; const &amp; e) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0" class="md-nav__link">
+    explicit  point( entity&lt; 0b1001 &gt; const &amp; e) noexcept
   </a>
   
 </li>
@@ -802,8 +852,12 @@
 <td>Component-wise constructor (homogeneous coordinate is automatically initialized to 1)</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1point_1a1e262c4762927c28e7ba744acbe672bf"><code>point</code></a><code>(</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b1000 &gt; const &amp; e)</code></td>
+<td><code>public</code> <a href="#structkln_1_1point_1a9b3754f1b4479d862d026cf55b91f7be"><code>point</code></a><code>(</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b1000 &gt; const &amp; e) noexcept</code></td>
 <td></td>
+</tr>
+<tr>
+<td><code>public  explicit</code> <a href="#structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0"><code>point</code></a><code>(</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b1001 &gt; const &amp; e) noexcept</code></td>
+<td>A point projected onto a line will have an extinguished partition-0, which necessitates this explicit cast when it is known to be safe.</td>
 </tr>
 <tr>
 <td><code>public void</code> <a href="#structkln_1_1point_1a805739dde6d772f5b228cce5b95ef13f"><code>load</code></a><code>(float * data) noexcept</code></td>
@@ -852,7 +906,9 @@
 <p>Default constructor leaves memory uninitialized.</p>
 <h4 id="structkln_1_1point_1adc78c30fe71a140259dd7add02d36df8"><a href="#structkln_1_1point_1adc78c30fe71a140259dd7add02d36df8">point</a>(float x,float y,float z) noexcept</h4>
 <p>Component-wise constructor (homogeneous coordinate is automatically initialized to 1)</p>
-<h4 id="structkln_1_1point_1a1e262c4762927c28e7ba744acbe672bf"><a href="#structkln_1_1point_1a1e262c4762927c28e7ba744acbe672bf">point</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b1000 &gt; const &amp; e)</h4>
+<h4 id="structkln_1_1point_1a9b3754f1b4479d862d026cf55b91f7be"><a href="#structkln_1_1point_1a9b3754f1b4479d862d026cf55b91f7be">point</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b1000 &gt; const &amp; e) noexcept</h4>
+<h4 id="structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0">explicit  <a href="#structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0">point</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b1001 &gt; const &amp; e) noexcept</h4>
+<p>A point projected onto a line will have an extinguished partition-0, which necessitates this explicit cast when it is known to be safe.</p>
 <h4 id="structkln_1_1point_1a805739dde6d772f5b228cce5b95ef13f">void  <a href="#structkln_1_1point_1a805739dde6d772f5b228cce5b95ef13f">load</a>(float * data) noexcept</h4>
 <p>Fast load from a pointer to an array of four floats with layout <code>(w, z, y, x)</code>  where <code>w</code>  occupies the lowest address in memory.</p>
 <div class="admonition tip">
@@ -993,6 +1049,8 @@ maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
         <script src="../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
       
