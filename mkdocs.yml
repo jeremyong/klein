@@ -53,6 +53,7 @@ extra_javascript:
   - 'js/extra.js'
   - 'https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js'
   - 'https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js'
+  - 'https://cdn.jsdelivr.net/npm/ganja.js@1.0.169'
 
 markdown_extensions:
   - abbr
