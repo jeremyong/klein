@@ -202,6 +202,47 @@ inline namespace detail
         return _mm_add_ps(a, tmp);
     }
 
+    // Apply a translator to a line
+    // a := p1 input
+    // d := p2 input
+    // c := p2 translator
+    // out points to the start address of a line (p1, p2)
+    KLN_INLINE void KLN_VEC_CALL swL2(__m128 const& a,
+                                      __m128 const& d,
+                                      __m128 const& c,
+                                      __m128* out)
+    {
+        // a0 +
+        // a1 e12 +
+        // a2 e31 +
+        // a3 e23 +
+        //
+        // (2a0 c0 + d0) e0123 +
+        // (2(a2 c3 - a1 c2 - a3 c0) + d1) e01 +
+        // (2(a1 c1 - a3 c3 - a2 c0) + d2) e02 +
+        // (2(a3 c2 - a2 c1 - a1 c0) + d3) e03
+
+        __m128& p1_out = *out;
+        __m128& p2_out = *(out + 1);
+
+        p1_out = a;
+
+        p2_out
+            = _mm_mul_ps(KLN_SWIZZLE(a, 3, 1, 2, 0), KLN_SWIZZLE(c, 2, 1, 3, 0));
+
+        // Add and subtract the same quantity in the low component to produce a
+        // cancellation
+        p2_out = _mm_sub_ps(
+            p2_out,
+            _mm_mul_ps(KLN_SWIZZLE(a, 2, 3, 1, 0), KLN_SWIZZLE(c, 1, 3, 2, 0)));
+        p2_out = _mm_sub_ps(p2_out,
+                            _mm_xor_ps(_mm_mul_ps(KLN_SWIZZLE(a, 1, 2, 3, 0),
+                                                  KLN_SWIZZLE(c, 0, 0, 0, 0)),
+                                       _mm_set_ss(-0.f)));
+        p2_out = _mm_mul_ps(p2_out, _mm_set1_ps(2.f));
+        p2_out = _mm_add_ps(p2_out, d);
+    }
+
     // Apply a motor to a motor (works on lines as well)
     // a points to the start of an array of line inputs (alternating p1 and p2)
     // out points to the start of an array of line outputs (alternating p1 and

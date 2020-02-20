@@ -90,6 +90,21 @@ TEST_CASE("translator-point")
     CHECK_EQ(p2.z(), 1.f);
 }
 
+TEST_CASE("translator-line")
+{
+    float data[4] = {0.f, -5.f, -2.f, 2.f};
+    translator t;
+    t.load_normalized(data);
+    line l1{-1.f, 2.f, -3.f, 4.f, 5.f, -6.f};
+    line l2{t(l1)};
+    CHECK_EQ(l2.e01(), 35.f);
+    CHECK_EQ(l2.e02(), -14.f);
+    CHECK_EQ(l2.e03(), 71.f);
+    CHECK_EQ(l2.e12(), 4.f);
+    CHECK_EQ(l2.e31(), 5.f);
+    CHECK_EQ(l2.e23(), -6.f);
+}
+
 TEST_CASE("construct-motor")
 {
     rotor r{M_PI * 0.5f, 0, 0, 1.f};

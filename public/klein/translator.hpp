@@ -60,6 +60,10 @@ struct translator final : public entity<0b110>
             parts[1].reg, _mm_set_ps(inv_norm, inv_norm, inv_norm, 0.f));
     }
 
+    translator(entity<0b110> const& other)
+        : entity{other}
+    {}
+
     /// Fast load operation for packed data that is already normalized. The
     /// argument `data` should point to a set of 4 float values with layout
     /// `(0.f, a, b, c)` corresponding to the multivector $a\mathbf{e}_{01} +
@@ -67,8 +71,9 @@ struct translator final : public entity<0b110>
     ///
     /// !!! danger
     ///
-    ///     The rotor data loaded this way *must* be normalized. That is, the
-    ///     quantity $a^2 + b^2 + c^2$ must be 1.
+    ///     The translator data loaded this way *must* be normalized. That is,
+    ///     the quantity $-\sqrt{a^2 + b^2 + c^2}$ must be half the desired
+    ///     displacement.
     void load_normalized(float* data) noexcept
     {
         parts[0].reg = _mm_set_ss(1.f);
@@ -81,6 +86,15 @@ struct translator final : public entity<0b110>
     {
         plane out;
         out.p0() = sw02(p.p0(), _mm_blend_ps(parts[1].reg, parts[0].reg, 1));
+        return out;
+    }
+
+    /// Conjugates a line $\ell$ with this translator and returns the result
+    /// $t\ell\widetilde{t}$.
+    line KLN_VEC_CALL operator()(line const& l) const noexcept
+    {
+        line out;
+        swL2(l.p1(), l.p2(), p2(), &out.p1());
         return out;
     }
 

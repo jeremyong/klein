@@ -44,30 +44,30 @@ using namespace kln;
 
 TEST_CASE("multivector-sum")
 {
-    SUBCASE("directions")
+    SUBCASE("points")
     {
-        direction d1{1.f, 2.f, 3.f};
-        direction d2{2.f, 3.f, -1.f};
-        direction d3 = d1 + d2;
-        CHECK_EQ(d3.x(), 1.f + 2.f);
-        CHECK_EQ(d3.y(), 2.f + 3.f);
-        CHECK_EQ(d3.z(), 3.f + -1.f);
+        point p1{1.f, 2.f, 3.f};
+        point p2{2.f, 3.f, -1.f};
+        point p3 = p1 + p2;
+        CHECK_EQ(p3.x(), 1.f + 2.f);
+        CHECK_EQ(p3.y(), 2.f + 3.f);
+        CHECK_EQ(p3.z(), 3.f + -1.f);
 
-        direction d4 = d1 - d2;
-        CHECK_EQ(d4.x(), 1.f - 2.f);
-        CHECK_EQ(d4.y(), 2.f - 3.f);
-        CHECK_EQ(d4.z(), 3.f - -1.f);
+        point p4 = p1 - p2;
+        CHECK_EQ(p4.x(), 1.f - 2.f);
+        CHECK_EQ(p4.y(), 2.f - 3.f);
+        CHECK_EQ(p4.z(), 3.f - -1.f);
 
         // Adding rvalue to lvalue
-        direction d5 = direction{1.f, 2.f, 3.f} + d2;
-        CHECK_EQ(d5.x(), 1.f + 2.f);
-        CHECK_EQ(d5.y(), 2.f + 3.f);
-        CHECK_EQ(d5.z(), 3.f + -1.f);
+        point p5 = point{1.f, 2.f, 3.f} + p2;
+        CHECK_EQ(p5.x(), 1.f + 2.f);
+        CHECK_EQ(p5.y(), 2.f + 3.f);
+        CHECK_EQ(p5.z(), 3.f + -1.f);
 
         // Adding rvalue to rvalue
-        direction d6 = direction{1.f, 2.f, 3.f} + direction{2.f, 3.f, -1.f};
-        CHECK_EQ(d6.x(), 1.f + 2.f);
-        CHECK_EQ(d6.y(), 2.f + 3.f);
-        CHECK_EQ(d6.z(), 3.f + -1.f);
+        point p6 = point{1.f, 2.f, 3.f} + point{2.f, 3.f, -1.f};
+        CHECK_EQ(p6.x(), 1.f + 2.f);
+        CHECK_EQ(p6.y(), 2.f + 3.f);
+        CHECK_EQ(p6.z(), 3.f + -1.f);
     }
 }
