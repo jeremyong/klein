@@ -7,13 +7,13 @@
 This guide is meant to be a gentle intro to Projective Geometric Algebra,
 also referred to as $\mathbf{P}(\mathbb{R}^*_{3, 0, 1})$. It assumes no
 knowledge of quaternions and dual-quaternions, but if you have some familiarity
-of either, you may find yourself armed with a new appreciation for them. Also not assumed
+with either, you may find yourself armed with new insights and appreciation. Also not assumed
 is any knowledge of abstract algebra, or any specific algebra closely related to Geometric
 Algebra (e.g. exterior algebra, Clifford Algebra, etc.).
 
-The emphasis first is on just getting familiarity with the notation and the various
+The emphasis first is on just getting familiar with the notation, the various
 operations and what they do. The [references](../../references) page on the left contains
-some excellent references if you prefer a bottom up approach. Here though, the goal will
+some excellent material if you prefer a bottom up approach. Here though, the goal will
 be to build your intuition primarily through examples, and then introduce the formalism
 afterwards.
 
@@ -30,6 +30,43 @@ $\ee_1$ point in the x-direction, $\ee_2$ point in the y-direction, $\ee_3$ poin
 z-direction, and give all of them unit length. Each one of these basis vectors can be
 scaled by a weight, and we can take linear combinations of them to create any vector
 in our 3D space. So far, everything behaves just like your good ol' 3D vector space.
+
+<DIV ID="vector"></DIV>
+<SCRIPT>
+window.addEventListener('load',()=>{
+    Algebra(3,0,1,()=>{
+    // rotation helper and Lathe function.     
+    var rot = (a,P)=>Math.cos(a)+Math.sin(a)*P.Normalized,
+        lathe=(X,n,P,m)=>[...Array(n+1)].map((x,i)=>rot(i/n*Math.PI*(m||1),P)>>>X),
+
+    // wrap takes X, a double array of points, and generates triangles.    
+        wrap=(X)=>{ 
+          var u=X.length-1,v=X[0].length-1; X=[].concat.apply([],X);
+          var P=[],vp=v+1; for(var i=0;i<u*vp;i+=vp)for(var j=0;j<v;j++)P.push([i+j,i+j+1,vp+i+j],[i+j+1,vp+i+j,vp+i+j+1]);
+          return P.map(x=>x.map(x=>X[x]));
+        },
+        
+    // Basic primitives constructed by Lathing points, line segments, etc.    
+        cylinder = (r=1,h=1,x=32)=>wrap(lathe([!1e0,!(1e0+r*1e3),!(1e0+r*1e3+h*1e1),!(1e0+h*1e1)],x,1e23)),
+        torus    = (r=.3,r2=.25,x=32,y=16)=>wrap(lathe((1+r*.5e03)>>>lathe(!(1e0+r2*(1e1+1e3)/2**.5),y,1e13),x,1e23)),
+        sphere   = (r=1,x=32,y=16)=>wrap(lathe(lathe(!(1e0+r*1e1),y,1e13,.5),x,1e23)),
+        cone     = (r=1,h=1,x=64)=>wrap(lathe([!1e0,!(1e0+r*1e3),!(1e0+h*1e1)],x,1e23)),
+        arrow    = ()=>[...cone(.075,.2),...cone(.075,0),...cylinder(.03,-1)],
+        
+    // A selection of these objects.     
+        objs=[arrow()].map(x=>({data:x}));
+          
+    // Render and rotate them using the webGL2 previewer.      
+      var c=document.getElementById('vector').appendChild( this.graph(()=>{
+        var time = Math.PI/2+-.5*Math.sin(performance.now()/1000);
+        objs.forEach((obj,i)=>obj.transform = rot(time,1e13)*rot(-0.1,1e12)*(1-.5e01));
+        return [0x00ff88,...objs]
+      },{gl:1,alpha:1,animate:1,camera:(1-.7e03)*Math.E**(Math.PI/4*1e13),grid:1}));    
+      c.style.width='100%'; c.style.height='250px'; c.style.background='transparent';
+    });							
+});
+</SCRIPT>
+
 
 Now, let's pause and consider for a moment what our vector space might be lacking. With
 vectors alone, we can certainly come up with ways to represent all sorts of things.
