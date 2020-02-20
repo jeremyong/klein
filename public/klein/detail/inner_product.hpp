@@ -157,7 +157,7 @@ inline namespace detail
                                        __m128& p1_out)
     {
         // -a0 b0
-        p1_out = _mm_xor_ps(_mm_set_ss(-0.f), _mm_mul_ss(a, b));
+        p1_out = _mm_mul_ps(_mm_set_ss(-1.f), _mm_mul_ss(a, b));
     }
 } // namespace detail
 } // namespace kln

@@ -270,4 +270,35 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(p1p2.e02(), 1.f);
         CHECK_EQ(p1p2.e03(), -1.f);
     }
+
+    SUBCASE("dense*dense")
+    {
+        entity<0b1111> e1;
+        e1.p0() = _mm_set1_ps(1.f);
+        e1.p1() = _mm_set1_ps(1.f);
+        e1.p2() = _mm_set1_ps(1.f);
+        e1.p3() = _mm_set1_ps(1.f);
+        entity<0b1111> e2;
+        e2.p0()   = _mm_set1_ps(1.f);
+        e2.p1()   = _mm_set1_ps(1.f);
+        e2.p2()   = _mm_set1_ps(1.f);
+        e2.p3()   = _mm_set1_ps(1.f);
+        auto e1e2 = e1 * e2;
+        CHECK_EQ(e1e2.scalar(), 0.f);
+        CHECK_EQ(e1e2.e0(), 8.f);
+        CHECK_EQ(e1e2.e1(), 0.f);
+        CHECK_EQ(e1e2.e2(), 0.f);
+        CHECK_EQ(e1e2.e3(), 0.f);
+        CHECK_EQ(e1e2.e01(), 0.f);
+        CHECK_EQ(e1e2.e02(), 0.f);
+        CHECK_EQ(e1e2.e03(), 0.f);
+        CHECK_EQ(e1e2.e12(), 4.f);
+        CHECK_EQ(e1e2.e31(), 4.f);
+        CHECK_EQ(e1e2.e23(), 4.f);
+        CHECK_EQ(e1e2.e021(), 0.f);
+        CHECK_EQ(e1e2.e013(), 0.f);
+        CHECK_EQ(e1e2.e032(), 0.f);
+        CHECK_EQ(e1e2.e123(), 8.f);
+        CHECK_EQ(e1e2.e0123(), 8.f);
+    }
 }

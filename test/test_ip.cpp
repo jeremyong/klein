@@ -208,6 +208,37 @@ TEST_CASE("multivector-ip")
         CHECK_EQ(p1p2.scalar(), -1.f);
     }
 
+    SUBCASE("dense|dense")
+    {
+        entity<0b1111> e1;
+        e1.p0() = _mm_set1_ps(1.f);
+        e1.p1() = _mm_set1_ps(1.f);
+        e1.p2() = _mm_set1_ps(1.f);
+        e1.p3() = _mm_set1_ps(1.f);
+        entity<0b1111> e2;
+        e2.p0()   = _mm_set1_ps(1.f);
+        e2.p1()   = _mm_set1_ps(1.f);
+        e2.p2()   = _mm_set1_ps(1.f);
+        e2.p3()   = _mm_set1_ps(1.f);
+        auto e1e2 = e1 | e2;
+        CHECK_EQ(e1e2.scalar(), -1);
+        CHECK_EQ(e1e2.e0(), 6.f);
+        CHECK_EQ(e1e2.e1(), -2.f);
+        CHECK_EQ(e1e2.e2(), -2.f);
+        CHECK_EQ(e1e2.e3(), -2.f);
+        CHECK_EQ(e1e2.e01(), -2.f);
+        CHECK_EQ(e1e2.e02(), -2.f);
+        CHECK_EQ(e1e2.e03(), -2.f);
+        CHECK_EQ(e1e2.e12(), 2.f);
+        CHECK_EQ(e1e2.e31(), 2.f);
+        CHECK_EQ(e1e2.e23(), 2.f);
+        CHECK_EQ(e1e2.e021(), 0.f);
+        CHECK_EQ(e1e2.e013(), 0.f);
+        CHECK_EQ(e1e2.e032(), 0.f);
+        CHECK_EQ(e1e2.e123(), 0.f);
+        CHECK_EQ(e1e2.e0123(), 0.f);
+    }
+
     SUBCASE("project point to line")
     {
         point p1{2.f, 2.f, 0.f};

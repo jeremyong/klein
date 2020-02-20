@@ -57,6 +57,23 @@ struct line final : public entity<0b110>
         p1() = e.p1();
     }
 
+    /// If a line is constructed as the regressive product (join) of two points,
+    /// the squared norm provided here is the squared distance between the two
+    /// points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
+    float squared_norm()
+    {
+        float out;
+        __m128 dp = _mm_dp_ps(p1(), p1(), 0b11100001);
+        _mm_store_ss(&out, dp);
+        return out;
+    }
+
+    /// Returns the square root of the quantity produced by `squared_norm`.
+    float norm()
+    {
+        return std::sqrt(squared_norm());
+    }
+
     /// Line exponentiation
     ///
     /// The line can be exponentiated to produce a motor that posesses this line
