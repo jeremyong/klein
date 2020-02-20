@@ -4,14 +4,18 @@
 
 namespace kln
 {
-// Ideal points will have a 0 for the homogeneous coordinate
-// x*e_032 + y*e_013 + z*e_021
+/// Directions in $\mathbf{P}(\mathbb{R}^3_{3, 0, 1})$ are represented using
+/// points at infinity (homogeneous coordinate 0). Having a homogeneous
+/// coordinate of zero ensures that directions are translation-invariant.
 struct direction final : public entity<0b1000>
 {
     direction() = default;
+
+    /// Create a normalized direction
     direction(float x, float y, float z) noexcept
     {
         parts[0].reg = _mm_set_ps(x, y, z, 0.f);
+        normalize();
     }
 
     // Provide conversion operator from parent class entity
@@ -39,7 +43,17 @@ struct direction final : public entity<0b1000>
         return parts[0].data[3];
     }
 
+    float& x() noexcept
+    {
+        return parts[0].data[3];
+    }
+
     float y() const noexcept
+    {
+        return parts[0].data[2];
+    }
+
+    float& y() noexcept
     {
         return parts[0].data[2];
     }
@@ -48,5 +62,26 @@ struct direction final : public entity<0b1000>
     {
         return parts[0].data[1];
     }
+
+    float& z() noexcept
+    {
+        return parts[0].data[1];
+    }
+
+    /// Normalize this direction by dividing all components by the square
+    /// magnitude
+    ///
+    /// !!! tip
+    ///
+    ///     Direction normalization divides the coordinates by the quantity
+    ///     a^2 + b^2 + c^2. This is done using the `rcpps` instruction with a
+    ///     maximum relative error of $1.5\times 2^{-12}$.
+    void normalize() noexcept
+    {
+        // Fast reciprocal operation to divide by a^2 + b^2 + c^2. The maximum
+        // relative error for the rcp approximation is 1.5*2^-12 (~.00036621)
+        __m128 tmp   = _mm_rcp_ps(_mm_dp_ps(p3(), p3(), 0b11101110));
+        parts[0].reg = _mm_mul_ps(parts[0].reg, tmp);
+    }
 };
-}
+} // namespace kln

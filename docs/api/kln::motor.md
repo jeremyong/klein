@@ -7,6 +7,42 @@ struct kln::motor
 
 A `motor`  represents a kinematic motion in our algebra. From [Chasles' theorem](https://en.wikipedia.org/wiki/Chasles%27_theorem_(kinematics)), we know that any rigid body displacement can be produced by a translation along a line, followed or preceded by a rotation about an axis parallel to that line. The motor algebra is isomorphic to the dual quaternions but exists here in the same algebra as all the other geometric entities and actions at our disposal. Operations such as composing a motor with a rotor or translator are possible for example. The primary benefit to using a motor over its corresponding matrix operation is twofold. First, you get the benefit of numerical stability when composing multiple actions via the geometric product (`*` ). Second, because the motors constitute a continuous group, they are amenable to smooth interpolation and differentiation.
 
+!!! example 
+    ```c++
+        // Create a rotor representing a pi/2 rotation about the z-axis
+        // Normalization is done automatically
+        rotor r{M_PI * 0.5f, 0.f, 0.f, 1.f};
+    
+        // Create a translator that represents a translation of 1 unit
+        // in the yz-direction. Normalization is done automatically.
+        translator t{1.f, 0.f, 1.f, 1.f};
+    
+        // Create a motor that combines the action of the rotation and
+        // translation above.
+        motor m = r * t;
+    
+        // Initialize a point at (1, 3, 2)
+        kln::point p1{1.f, 3.f, 2.f};
+    
+        // Translate p1 and rotate it to create a new point p2
+        kln::point p2 = m(p1);
+    ```
+    
+
+Motors can be multiplied to one another with the `*`  operator to create a new motor equivalent to the application of each factor.
+
+!!! example 
+    ```c++
+        // Suppose we have 3 motors m1, m2, and m3
+    
+        // The motor m created here represents the combined action of m1,
+        // m2, and m3.
+        kln::motor m = m3 * m2 * m1;
+    ```
+    
+
+The same `*`  operator can be used to compose the motor's action with other translators and rotors.
+
 A demonstration of using the exponential and logarithmic map to blend between two motors is provided in a test case [here](https://github.com/jeremyong/Klein/blob/master/test/test_exp_log.cpp#L48).
 
 ### Summary
@@ -27,6 +63,8 @@ A demonstration of using the exponential and logarithmic map to blend between tw
 `public ` [`point`](/Klein/api/kln::point#structkln_1_1point)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40)`(` [`point`](/Klein/api/kln::point#structkln_1_1point)` const & p) const noexcept`  | Conjugates a point $p$ with this motor and returns the result $mp\widetilde{m}$.
 `public void KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1ab14cf440bf8281b4a56cc338c568156b)`(` [`point`](/Klein/api/kln::point#structkln_1_1point)` * in,` [`point`](/Klein/api/kln::point#structkln_1_1point)` * out,size_t count) const noexcept`  | Conjugates an array of points with this motor in the input array and stores the result in the output array. Aliasing is only permitted when `in == out`  (in place motor application).
 `public ` [`point`](/Klein/api/kln::point#structkln_1_1point)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489)`(` [`origin`](/Klein/api/kln::origin#structkln_1_1origin)`) const noexcept`  | Conjugates the origin $O$ with this motor and returns the result $mO\widetilde{m}$.
+`public ` [`direction`](/Klein/api/kln::direction#structkln_1_1direction)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f)`(` [`direction`](/Klein/api/kln::direction#structkln_1_1direction)` const & d) const noexcept`  | Conjugates a direction $d$ with this motor and returns the result $md\widetilde{m}$.
+`public void KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376)`(` [`direction`](/Klein/api/kln::direction#structkln_1_1direction)` * in,` [`direction`](/Klein/api/kln::direction#structkln_1_1direction)` * out,size_t count) const noexcept`  | Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when `in == out`  (in place motor application).
 
 ### Members
 
@@ -96,4 +134,21 @@ Conjugates an array of points with this motor in the input array and stores the 
 ####  [point](/Klein/api/kln::point#structkln_1_1point) KLN_VEC_CALL  [operator()](#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489)( [origin](/Klein/api/kln::origin#structkln_1_1origin)) const noexcept  {#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489}
 
 Conjugates the origin $O$ with this motor and returns the result $mO\widetilde{m}$.
+
+####  [direction](/Klein/api/kln::direction#structkln_1_1direction) KLN_VEC_CALL  [operator()](#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f)( [direction](/Klein/api/kln::direction#structkln_1_1direction) const & d) const noexcept  {#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f}
+
+Conjugates a direction $d$ with this motor and returns the result $md\widetilde{m}$.
+
+The cost of this operation is the same as the application of a rotor due to the translational invariance of directions (points at infinity).
+
+#### void KLN_VEC_CALL  [operator()](#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376)( [direction](/Klein/api/kln::direction#structkln_1_1direction) * in, [direction](/Klein/api/kln::direction#structkln_1_1direction) * out,size_t count) const noexcept  {#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376}
+
+Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when `in == out`  (in place motor application).
+
+The cost of this operation is the same as the application of a rotor due to the translational invariance of directions (points at infinity).
+
+!!! tip 
+    When applying a motor to a list of tightly packed directions, this
+    routine will be *significantly faster* than applying the motor to
+    each direction individually.
 

@@ -190,3 +190,9 @@
 
 # Translate line
 (b0 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 + a1 e12 + a2 e31 + a3 e23 + d1 e01 + d2 e02 + d3 e03 + d0 e0123) * (b0 -c1 e01 - c2 e02 - c3 e03 + c0 e0123) 
+
+# Motor conjugate direction
+(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123) 
+
+# Rotor conjugate direction (demonstrates that this is identical to motor conjugation)
+(b0 + b1 e12 + b2 e31 + b3 e23) * (a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e12 - b2 e31 - b3 e23) 
