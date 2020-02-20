@@ -55,7 +55,7 @@ Create a normalized direction.
 Normalize this direction by dividing all components by the square magnitude
 
 !!! tip 
-    Point normalization divides the coordinates by the quantity
+    Direction normalization divides the coordinates by the quantity
     a^2 + b^2 + c^2. This is done using the `rcpps` instruction with a
     maximum relative error of $1.5\times 2^{-12}$.
 
