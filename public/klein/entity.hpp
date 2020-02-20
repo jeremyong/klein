@@ -252,7 +252,6 @@ struct entity
             {
                 __m128 p0_tmp;
                 dot02<false>(p0(), rhs.p2(), p0_tmp, p3_);
-
                 if constexpr ((PMask2 & 0b10) > 0)
                 {
                     p0_ = _mm_add_ps(p0_tmp, p0_);

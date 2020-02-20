@@ -8,6 +8,41 @@
 
 namespace kln
 {
+/// A translator represents a rigid-body displacement along a normalized axis.
+/// To apply the translator to a supported entity, the call operator is
+/// available.
+///
+/// !!! example
+///
+///     ```c++
+///         // Initialize a point at (1, 3, 2)
+///         kln::point p{1.f, 3.f, 2.f};
+///
+///         // Create a normalized translator representing a 4-unit
+///         // displacement along the xz-axis.
+///         kln::translator r{4.f, 1.f, 0.f, 1.f};
+///
+///         // Displace our point using the created translator
+///         kln::point translated = r(p);
+///     ```
+///     We can translate lines and planes as well using the translator's call
+///     operator.
+///
+/// Translators can be multiplied to one another with the `*` operator to create
+/// a new translator equivalent to the application of each factor.
+///
+/// !!! example
+///
+///     ```c++
+///         // Suppose we have 3 translators t1, t2, and t3
+///
+///         // The translator t created here represents the combined action of
+///         // t1, t2, and t3.
+///         kln::translator t = t3 * t2 * t1;
+///     ```
+///
+/// The same `*` operator can be used to compose the translator's action with
+/// other rotors and motors.
 struct translator final : public entity<0b110>
 {
     translator() = default;

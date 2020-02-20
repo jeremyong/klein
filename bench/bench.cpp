@@ -1,4 +1,3 @@
-#include <benchmark/benchmark.h>
 #include <klein/klein.hpp>
 #include <random>
 
@@ -28,74 +27,11 @@ kln::point random_point()
     return {dist(lcg), dist(lcg), dist(lcg)};
 }
 
-static void BM_rotor_composition(benchmark::State& state)
+int main(int argc, char** argv)
 {
-    static kln::rotor r1{1.f, 2.f, 3.f, 4.f};
-    static kln::rotor r2{-1.f, 1.f, 4.f, 2.f};
-    while (state.KeepRunning())
-    {
-        benchmark::ClobberMemory();
-        benchmark::DoNotOptimize(r1 * r2);
-    }
+    // NOTE: All benchmarks from before were removed in favor of inspecting
+    // assembly from the time being due to pathological measurement errors.
+    // A new benchmark is underway that doesn't rely on `asm volatile` due to
+    // compilers ignoring the directive.
+    return 0;
 }
-BENCHMARK(BM_rotor_composition);
-
-static void BM_rotor_application(benchmark::State& state)
-{
-    kln::rotor r{1.f, 2.f, 3.f, 4.f};
-    kln::point p{1.f, 2.f, 3.f};
-    while (state.KeepRunning())
-    {
-        benchmark::ClobberMemory();
-        benchmark::DoNotOptimize(r(p));
-    }
-}
-BENCHMARK(BM_rotor_application);
-
-static void BM_rotor_matrix_conversion(benchmark::State& state)
-{
-    kln::rotor r{1.f, 2.f, 3.f, 4.f};
-    while (state.KeepRunning())
-    {
-        benchmark::ClobberMemory();
-        benchmark::DoNotOptimize(r.as_matrix());
-    }
-}
-BENCHMARK(BM_rotor_matrix_conversion);
-
-static void BM_motor_composition(benchmark::State& state)
-{
-    kln::motor m1{1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f};
-    kln::motor m2{1.f, -2.f, 3.f, 3.f, 5.f, 1.f, 2.f, -8.f};
-    while (state.KeepRunning())
-    {
-        benchmark::ClobberMemory();
-        benchmark::DoNotOptimize(m1 * m2);
-    }
-}
-BENCHMARK(BM_motor_composition);
-
-static void BM_motor_application(benchmark::State& state)
-{
-    kln::motor m{1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f};
-    kln::point p{1.f, 2.f, 3.f};
-    while (state.KeepRunning())
-    {
-        benchmark::ClobberMemory();
-        benchmark::DoNotOptimize(m(p));
-    }
-}
-BENCHMARK(BM_motor_application);
-
-static void BM_motor_matrix_conversion(benchmark::State& state)
-{
-    kln::motor m{1.f, 2.f, 3.f, 4.f, 5.f, 6.f, 7.f, 8.f};
-    while (state.KeepRunning())
-    {
-        benchmark::ClobberMemory();
-        benchmark::DoNotOptimize(m.as_matrix());
-    }
-}
-BENCHMARK(BM_motor_matrix_conversion);
-
-BENCHMARK_MAIN();

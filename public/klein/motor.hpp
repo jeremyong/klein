@@ -23,6 +23,44 @@ namespace kln
 /// geometric product (`*`). Second, because the motors constitute a continuous
 /// group, they are amenable to smooth interpolation and differentiation.
 ///
+/// !!! example
+///
+///     ```c++
+///         // Create a rotor representing a pi/2 rotation about the z-axis
+///         // Normalization is done automatically
+///         rotor r{M_PI * 0.5f, 0.f, 0.f, 1.f};
+///
+///         // Create a translator that represents a translation of 1 unit
+///         // in the yz-direction. Normalization is done automatically.
+///         translator t{1.f, 0.f, 1.f, 1.f};
+///
+///         // Create a motor that combines the action of the rotation and
+///         // translation above.
+///         motor m = r * t;
+///
+///         // Initialize a point at (1, 3, 2)
+///         kln::point p1{1.f, 3.f, 2.f};
+///
+///         // Translate p1 and rotate it to create a new point p2
+///         kln::point p2 = m(p1);
+///     ```
+///
+/// Motors can be multiplied to one another with the `*` operator to create
+/// a new motor equivalent to the application of each factor.
+///
+/// !!! example
+///
+///     ```c++
+///         // Suppose we have 3 motors m1, m2, and m3
+///
+///         // The motor m created here represents the combined action of m1,
+///         // m2, and m3.
+///         kln::motor m = m3 * m2 * m1;
+///     ```
+///
+/// The same `*` operator can be used to compose the motor's action with other
+/// translators and rotors.
+///
 /// A demonstration of using the exponential and logarithmic map to blend
 /// between two motors is provided in a test case
 /// [here](https://github.com/jeremyong/Klein/blob/master/test/test_exp_log.cpp#L48).
@@ -119,7 +157,7 @@ struct motor final : public entity<0b110>
     }
 
     /// Conjugates a plane $p$ with this motor and returns the result
-    /// $rp\widetilde{r}$.
+    /// $mp\widetilde{m}$.
     plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
@@ -127,8 +165,48 @@ struct motor final : public entity<0b110>
         return out;
     }
 
+    /// Conjugates an array of planes with this motor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place motor application).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a motor to a list of tightly packed planes, this
+    ///     routine will be *significantly faster* than applying the motor to
+    ///     each plane individually.
+    void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const
+        noexcept
+    {
+        sw012<true, true>(
+            &in->p0(), parts[0].reg, &parts[1].reg, &out->p0(), count);
+    }
+
+    /// Conjugates a line $\ell$ with this motor and returns the result
+    /// $m\ell \widetilde{m}$.
+    line KLN_VEC_CALL operator()(line const& l) const noexcept
+    {
+        line out;
+        swMM<false, true>(&l.p1(), p1(), &p2(), &out.p1());
+        return out;
+    }
+
+    /// Conjugates an array of lines with this motor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place motor application).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a motor to a list of tightly packed lines, this
+    ///     routine will be *significantly faster* than applying the motor to
+    ///     each line individually.
+    void KLN_VEC_CALL operator()(line* in, line* out, size_t count) const noexcept
+    {
+        swMM<true, true>(
+            &in->p1(), parts[0].reg, &parts[1].reg, &out->p1(), count);
+    }
+
     /// Conjugates a point $p$ with this motor and returns the result
-    /// $rp\widetilde{r}$.
+    /// $mp\widetilde{m}$.
     point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
@@ -136,13 +214,59 @@ struct motor final : public entity<0b110>
         return out;
     }
 
-    /// Conjugates a origin $O$ with this motor and returns the result
-    /// $rO\widetilde{r}$.
+    /// Conjugates an array of points with this motor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place motor application).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a motor to a list of tightly packed points, this
+    ///     routine will be *significantly faster* than applying the motor to
+    ///     each point individually.
+    void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const
+        noexcept
+    {
+        sw312<true, true>(
+            &in->p3(), parts[0].reg, &parts[1].reg, &out->p3(), count);
+    }
+
+    /// Conjugates the origin $O$ with this motor and returns the result
+    /// $mO\widetilde{m}$.
     point KLN_VEC_CALL operator()(origin) const noexcept
     {
         point out;
         out.p3() = swo12(parts[0].reg, parts[1].reg);
         return out;
+    }
+
+    /// Conjugates a direction $d$ with this motor and returns the result
+    /// $md\widetilde{m}$.
+    ///
+    /// The cost of this operation is the same as the application of a rotor due
+    /// to the translational invariance of directions (points at infinity).
+    direction KLN_VEC_CALL operator()(direction const& d) const noexcept
+    {
+        direction out;
+        sw312<false, false>(&d.p3(), parts[0].reg, nullptr, &out.p3());
+        return out;
+    }
+
+    /// Conjugates an array of directions with this motor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place motor application).
+    ///
+    /// The cost of this operation is the same as the application of a rotor due
+    /// to the translational invariance of directions (points at infinity).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a motor to a list of tightly packed directions, this
+    ///     routine will be *significantly faster* than applying the motor to
+    ///     each direction individually.
+    void KLN_VEC_CALL operator()(direction* in, direction* out, size_t count) const
+        noexcept
+    {
+        sw312<true, false>(&in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
 };
 } // namespace kln

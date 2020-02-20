@@ -202,6 +202,176 @@ inline namespace detail
         return _mm_add_ps(a, tmp);
     }
 
+    // Apply a motor to a motor (works on lines as well)
+    // a points to the start of an array of line inputs (alternating p1 and p2)
+    // out points to the start of an array of line outputs (alternating p1 and
+    // p2)
+    //
+    // Note: a and out are permitted to alias iff a == out.
+    template <bool Variadic = false, bool Translate = true>
+    KLN_INLINE void KLN_VEC_CALL swMM(__m128 const* in,
+                                      __m128 const& b,
+                                      __m128 const* c,
+                                      __m128* out,
+                                      size_t count = 0) noexcept
+    {
+        // p1 block
+        // a0(b0^2 + b1^2 + b2^2 + b3^2) +
+        // (a1(b1^2 + b0^2 - b2^2 - b3^2) +
+        //     2a3(b0 b2 + b1 b3) + 2a2(b1 b2 - b0 b3)) e12 +
+        // (a2(b2^2 + b0^2 - b1^2 - b3^2) +
+        //     2a1(b0 b3 + b2 b1) + 2a3(b2 b3 - b0 b1)) e31 +
+        // (a3(b3^2 + b0^2 - b1^2 - b2^2) +
+        //     2a2(b0 b1 + b3 b2) + 2a1(b3 b1 - b0 b2)) e23
+
+        __m128 tmp   = _mm_mul_ps(b, b);
+        __m128 b_tmp = KLN_SWIZZLE(b, 0, 0, 0, 1);
+        tmp          = _mm_add_ps(tmp, _mm_mul_ps(b_tmp, b_tmp));
+        b_tmp        = KLN_SWIZZLE(b, 1, 1, 2, 2);
+        tmp          = _mm_sub_ps(
+            tmp, _mm_xor_ps(_mm_mul_ps(b_tmp, b_tmp), _mm_set_ss(-0.f)));
+        b_tmp = KLN_SWIZZLE(b, 2, 3, 3, 3);
+        tmp   = _mm_sub_ps(
+            tmp, _mm_xor_ps(_mm_mul_ps(b_tmp, b_tmp), _mm_set_ss(-0.f)));
+        // tmp needs to be scaled by a and set to p1_out
+
+        __m128 bzero = KLN_SWIZZLE(b, 0, 0, 0, 0);
+        __m128 scale = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
+        __m128 tmp2  = _mm_mul_ps(bzero, KLN_SWIZZLE(b, 1, 3, 2, 0));
+        tmp2 = _mm_add_ps(tmp2, _mm_mul_ps(b, KLN_SWIZZLE(b, 2, 1, 3, 0)));
+        tmp2 = _mm_mul_ps(tmp2, scale);
+        // tmp2 needs to be scaled by (a0, a3, a1, a2) and added to p1_out
+
+        __m128 tmp3 = _mm_mul_ps(b, KLN_SWIZZLE(b, 1, 3, 2, 0));
+        tmp3 = _mm_sub_ps(tmp3, _mm_mul_ps(bzero, KLN_SWIZZLE(b, 2, 1, 3, 0)));
+        tmp3 = _mm_mul_ps(tmp3, scale);
+        // tmp3 needs to be scaled by (a0, a2, a3, a1) and added to p1_out
+
+        // p2 block
+        // (d coefficients are the components of the input line p2)
+        // (2a0(b0 c0 - b1 c3 - b2 c2 - b3 c1) +
+        //  d0(b0^2 + b1^2 + b2^2 + b3^2)) e0123 +
+        //
+        // (2a3(b3 c1 - b0 c0 - b1 c3 - b2 c2) +
+        //  2a1(b1 c1 + b2 c0 + b3 c3 - b0 c2) +
+        //  2a2(b0 c3 + b2 c1 + b3 c2 - b1 c0) +
+        //  2d2(b0 b1 + b2 b3) +
+        //  2d3(b1 b3 - b0 b2) +
+        //  d1(b0^2 + b3^2 - b1^2 - b2^2))     e01 +
+        //
+        // (2a2(b2 c2 - b0 c0 - b1 c3 - b3 c1) +
+        //  2a3(b2 c1 + b1 c0 + b3 c2 - b0 c3) +
+        //  2a1(b0 c1 + b1 c2 + b2 c3 - b3 c0) +
+        //  2d3(b0 b3 + b1 b2) +
+        //  2d1(b2 b3 - b0 b1) +
+        //  d2(b0^2 + b2^2 - b1^2 - b3^2)) e02 +
+        //
+        // (2a1(b1 c3 - b3 c1 - b0 c0 - b2 c2) +
+        //  2a2(b3 c0 + b1 c2 + b2 c3 - b0 c1) +
+        //  2a3(b0 c2 + b3 c3 + b1 c1 - b2 c0) +
+        //  2d1(b0 b2 + b1 b3) +
+        //  2d2(b1 b2 - b0 b3) +
+        //  d3(b0^2 + b1^2 - b2^2 - b3^2)) e03
+
+        // Rotation
+        // scaled by d and added to p2
+        __m128 tmp4 = _mm_mul_ps(bzero, bzero);
+        b_tmp       = KLN_SWIZZLE(b, 1, 2, 3, 1);
+        tmp4        = _mm_add_ps(tmp4, _mm_mul_ps(b_tmp, b_tmp));
+        b_tmp       = KLN_SWIZZLE(b, 2, 1, 1, 2);
+        tmp4        = _mm_sub_ps(
+            tmp4, _mm_xor_ps(_mm_mul_ps(b_tmp, b_tmp), _mm_set_ss(-0.f)));
+        b_tmp = KLN_SWIZZLE(b, 3, 3, 2, 3);
+        tmp4  = _mm_sub_ps(
+            tmp4, _mm_xor_ps(_mm_mul_ps(b_tmp, b_tmp), _mm_set_ss(-0.f)));
+
+        // scaled by (d0, d2, d3, d1) and added to p2
+        __m128 tmp5 = _mm_mul_ps(bzero, KLN_SWIZZLE(b, 2, 3, 1, 0));
+        tmp5        = _mm_add_ps(
+            tmp5,
+            _mm_mul_ps(KLN_SWIZZLE(b, 3, 1, 2, 0), KLN_SWIZZLE(b, 1, 2, 3, 0)));
+        tmp5 = _mm_mul_ps(tmp5, scale);
+
+        // scaled by (d0, d3, d1, d2) and added to p2
+        __m128 tmp6
+            = _mm_mul_ps(KLN_SWIZZLE(b, 1, 2, 3, 0), KLN_SWIZZLE(b, 2, 3, 1, 0));
+        tmp6 = _mm_sub_ps(tmp6, _mm_mul_ps(bzero, KLN_SWIZZLE(b, 3, 1, 2, 0)));
+        tmp6 = _mm_mul_ps(tmp6, scale);
+
+        // Translation
+        __m128 tmp7; // scaled by (a0, a3, a2, a1) and added to p2
+        __m128 tmp8; // scaled by (a0, a1, a3, a2) and added to p2
+        __m128 tmp9; // scaled by (a0, a2, a1, a3) and added to p2
+        if constexpr (Translate)
+        {
+            tmp7 = _mm_mul_ps(KLN_SWIZZLE(b, 1, 2, 3, 0), *c);
+            tmp7 = _mm_sub_ps(tmp7,
+                              _mm_mul_ps(KLN_SWIZZLE(b, 3, 0, 0, 1),
+                                         KLN_SWIZZLE(*c, 1, 0, 0, 3)));
+            tmp7 = _mm_sub_ps(tmp7,
+                              _mm_mul_ps(KLN_SWIZZLE(b, 0, 1, 1, 2),
+                                         KLN_SWIZZLE(*c, 0, 3, 3, 2)));
+            tmp7 = _mm_sub_ps(tmp7,
+                              _mm_mul_ps(KLN_SWIZZLE(b, 2, 3, 2, 3),
+                                         KLN_SWIZZLE(*c, 2, 1, 2, 1)));
+            tmp7 = _mm_mul_ps(tmp7, _mm_set1_ps(2.f));
+
+            tmp8 = _mm_mul_ps(b, KLN_SWIZZLE(*c, 0, 1, 1, 0));
+            tmp8 = _mm_add_ps(tmp8,
+                              _mm_mul_ps(KLN_SWIZZLE(b, 1, 1, 2, 0),
+                                         KLN_SWIZZLE(*c, 2, 0, 0, 0)));
+            tmp8 = _mm_add_ps(tmp8,
+                              _mm_mul_ps(KLN_SWIZZLE(b, 2, 3, 3, 0),
+                                         KLN_SWIZZLE(*c, 3, 2, 3, 0)));
+            tmp8 = _mm_sub_ps(
+                tmp8, _mm_mul_ps(bzero, KLN_SWIZZLE(*c, 1, 3, 2, 0)));
+            tmp8 = _mm_mul_ps(tmp8, scale);
+
+            tmp9 = _mm_mul_ps(bzero, KLN_SWIZZLE(*c, 2, 1, 3, 0));
+            tmp9 = _mm_add_ps(tmp9, _mm_mul_ps(KLN_SWIZZLE(b, 3, 1, 2, 0), *c));
+            tmp9 = _mm_add_ps(tmp9,
+                              _mm_mul_ps(KLN_SWIZZLE(b, 1, 2, 3, 0),
+                                         KLN_SWIZZLE(*c, 1, 3, 2, 0)));
+            tmp9 = _mm_sub_ps(tmp9,
+                              _mm_mul_ps(KLN_SWIZZLE(b, 2, 3, 1, 0),
+                                         KLN_SWIZZLE(*c, 0, 0, 0, 0)));
+            tmp9 = _mm_mul_ps(tmp9, scale);
+        }
+
+        size_t limit = Variadic ? count : 1;
+        for (size_t i = 0; i != limit; ++i)
+        {
+            __m128 const& p1_in = in[2 * i];     // a
+            __m128 const& p2_in = in[2 * i + 1]; // d
+            __m128& p1_out      = out[2 * i];
+            __m128& p2_out      = out[2 * i + 1];
+
+            p1_out = _mm_mul_ps(tmp, p1_in);
+            p1_out = _mm_add_ps(
+                p1_out, _mm_mul_ps(tmp2, KLN_SWIZZLE(p1_in, 2, 1, 3, 0)));
+            p1_out = _mm_add_ps(
+                p1_out, _mm_mul_ps(tmp3, KLN_SWIZZLE(p1_in, 1, 3, 2, 0)));
+
+            p2_out = _mm_mul_ps(tmp4, p2_in);
+            p2_out = _mm_add_ps(
+                p2_out, _mm_mul_ps(tmp5, KLN_SWIZZLE(p2_in, 1, 3, 2, 0)));
+            p2_out = _mm_add_ps(
+                p2_out, _mm_mul_ps(tmp6, KLN_SWIZZLE(p2_in, 2, 1, 3, 0)));
+
+            // If what is being applied is a rotor, the non-directional
+            // components of the line are left untouched
+            if constexpr (Translate)
+            {
+                p2_out = _mm_add_ps(
+                    p2_out, _mm_mul_ps(tmp7, KLN_SWIZZLE(p1_in, 1, 2, 3, 0)));
+                p2_out = _mm_add_ps(
+                    p2_out, _mm_mul_ps(tmp8, KLN_SWIZZLE(p1_in, 2, 3, 1, 0)));
+                p2_out = _mm_add_ps(
+                    p2_out, _mm_mul_ps(tmp9, KLN_SWIZZLE(p1_in, 3, 1, 2, 0)));
+            }
+        }
+    }
+
     // Apply a motor to a plane
     // a := p0
     // b := p1
@@ -302,11 +472,12 @@ inline namespace detail
         // by decomposing into four vectors, factoring out the a components
         //
         // (b0 c0, b0 c1, b0 c2, b0 c3)
-        __m128 tmp4 = Translate ? _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 0), *c)
-                                : _mm_setzero_ps();
+        __m128 tmp4;
 
         if constexpr (Translate)
         {
+            tmp4 = _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 0), *c);
+
             // Add (b0 c0, b2 c3, b1 c1, b3 c2)
             tmp4 = _mm_add_ps(tmp4,
                               _mm_mul_ps(KLN_SWIZZLE(b, 3, 1, 2, 0),
@@ -329,35 +500,18 @@ inline namespace detail
         // The temporaries (tmp1, tmp2, tmp3, tmp4) strictly only have a
         // dependence on b and c.
 
-        if constexpr (Variadic)
-        {
-            for (size_t i = 0; i != count; ++i)
-            {
-                // Compute the lower block for components e1, e2, and e3
-                __m128& p = out[i];
-                p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(a[i], 1, 3, 2, 0));
-                p         = _mm_add_ps(
-                    p, _mm_mul_ps(tmp2, KLN_SWIZZLE(a[i], 2, 1, 3, 0)));
-                p = _mm_add_ps(p, _mm_mul_ps(tmp3, a[i]));
-
-                if constexpr (Translate)
-                {
-                    __m128 tmp5 = _mm_dp_ps(tmp4, a[i], 0b01110001);
-                    p           = _mm_add_ps(p, tmp5);
-                }
-            }
-        }
-        else
+        size_t limit = Variadic ? count : 1;
+        for (size_t i = 0; i != limit; ++i)
         {
             // Compute the lower block for components e1, e2, and e3
-            __m128& p = *out;
-            p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(*a, 1, 3, 2, 0));
-            p = _mm_add_ps(p, _mm_mul_ps(tmp2, KLN_SWIZZLE(*a, 2, 1, 3, 0)));
-            p = _mm_add_ps(p, _mm_mul_ps(tmp3, *a));
+            __m128& p = out[i];
+            p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(a[i], 1, 3, 2, 0));
+            p = _mm_add_ps(p, _mm_mul_ps(tmp2, KLN_SWIZZLE(a[i], 2, 1, 3, 0)));
+            p = _mm_add_ps(p, _mm_mul_ps(tmp3, a[i]));
 
             if constexpr (Translate)
             {
-                __m128 tmp5 = _mm_dp_ps(tmp4, *a, 0b11100001);
+                __m128 tmp5 = _mm_dp_ps(tmp4, a[i], 0b11100001);
                 p           = _mm_add_ps(p, tmp5);
             }
         }
@@ -479,33 +633,18 @@ inline namespace detail
             // tmp4 needs to be scaled by (_, a0, a0, a0)
         }
 
-        if constexpr (Variadic)
+        size_t limit = Variadic ? count : 1;
+        for (size_t i = 0; i != limit; ++i)
         {
-            for (size_t i = 0; i != count; ++i)
-            {
-                __m128& p = out[i];
-                p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(a[i], 1, 3, 2, 0));
-                p         = _mm_add_ps(
-                    p, _mm_mul_ps(tmp2, KLN_SWIZZLE(a[i], 2, 1, 3, 0)));
-                p = _mm_add_ps(p, _mm_mul_ps(tmp3, a[i]));
-
-                if constexpr (Translate)
-                {
-                    p = _mm_add_ps(
-                        p, _mm_mul_ps(tmp4, KLN_SWIZZLE(a[i], 0, 0, 0, 0)));
-                }
-            }
-        }
-        else
-        {
-            __m128& p = *out;
-            p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(*a, 1, 3, 2, 0));
-            p = _mm_add_ps(p, _mm_mul_ps(tmp2, KLN_SWIZZLE(*a, 2, 1, 3, 0)));
-            p = _mm_add_ps(p, _mm_mul_ps(tmp3, *a));
+            __m128& p = out[i];
+            p         = _mm_mul_ps(tmp1, KLN_SWIZZLE(a[i], 1, 3, 2, 0));
+            p = _mm_add_ps(p, _mm_mul_ps(tmp2, KLN_SWIZZLE(a[i], 2, 1, 3, 0)));
+            p = _mm_add_ps(p, _mm_mul_ps(tmp3, a[i]));
 
             if constexpr (Translate)
             {
-                p = _mm_add_ps(p, _mm_mul_ps(tmp4, KLN_SWIZZLE(*a, 0, 0, 0, 0)));
+                p = _mm_add_ps(
+                    p, _mm_mul_ps(tmp4, KLN_SWIZZLE(a[i], 0, 0, 0, 0)));
             }
         }
     }

@@ -23,7 +23,6 @@
 
 # p1 * p2
 (a0 + a1 e12 + a2 e31 + a3 e23) * (b0 e0123 + b1 e01 + b2 e02 + b3 e03)
-
 # p2 * p1
 (a0 e0123 + a1 e01 + a2 e02 + a3 e03) * (b0 + b1 e12 + b2 e31 + b3 e23)
 
@@ -161,3 +160,39 @@
 
 # plane conjugate point
 (a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 e123 + b1 e021 + b2 e013 + b3 e032) * (a0 e0 + a1 e1 + a2 e2 + a3 e3)
+
+# p1 * p1 * ~p1
+(b0 + b1 e12 + b2 e31 + b3 e23) * (a0 + a1 e12 + a2 e31 + a3 e23) * (b0 - b1 e12 - b2 e31 - b3 e23) 
+
+# p2 * p1 * ~p2 (exactly zero)
+(b0 e0123 + b1 e021 + b2 e013 + b3 e032) * (a0 + a1 e12 + a2 e31 + a3 e23) * (b0 e0123 - b1 e021 - b2 e013 - b3 e032) 
+
+# p1 * p2 * ~p1
+(b0 + b1 e12 + b2 e31 + b3 e23) * (a0 e0123 + a1 e01 + a2 e02 + a3 e03) * (b0 - b1 e12 - b2 e31 - b3 e23) 
+
+# p2 * p2 * ~p2 (exactly zero)
+(b0 e0123 + b1 e021 + b2 e013 + b3 e032) * (a0 e0123 + a1 e01 + a2 e02 + a3 e03) * (b0 e0123 - b1 e021 - b2 e013 - b3 e032) 
+
+# p1 * p1 * ~p2
+(b0 + b1 e12 + b2 e31 + b3 e23) * (a0 + a1 e12 + a2 e31 + a3 e23) * (c0 e0123 - c1 e01 - c2 e02 - c3 e03) 
+
+# p1 * p2 * ~p2 (exactly zero)
+(b0 + b1 e12 + b2 e31 + b3 e23) * (a0 e0123 + a1 e01 + a2 e02 + a3 e03) * (c0 e0123 - c1 e01 - c2 e02 - c3 e03) 
+
+# p2 * p1 * ~p1
+(b0 e0123 + b1 e01 + b2 e02 + b3 e03) * (a0 + a1 e12 + a2 e31 + a3 e23) * (c0 - c1 e12 - c2 e31 - c3 e23) 
+
+# p2 * p2 * ~p1 (exactly zero)
+(b0 e0123 + b1 e01 + b2 e02 + b3 e03) * (a0 e0123 + a1 e01 + a2 e02 + a3 e03) * (c0 - c1 e12 - c2 e31 - c3 e23) 
+
+# Motor conjugate line
+(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 + a1 e12 + a2 e31 + a3 e23 + d1 e01 + d2 e02 + d3 e03 + d0 e0123) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123) 
+
+# Translate line
+(b0 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 + a1 e12 + a2 e31 + a3 e23 + d1 e01 + d2 e02 + d3 e03 + d0 e0123) * (b0 -c1 e01 - c2 e02 - c3 e03 + c0 e0123) 
+
+# Motor conjugate direction
+(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123) 
+
+# Rotor conjugate direction (demonstrates that this is identical to motor conjugation)
+(b0 + b1 e12 + b2 e31 + b3 e23) * (a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e12 - b2 e31 - b3 e23) 

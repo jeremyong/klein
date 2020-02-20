@@ -54,6 +54,22 @@ TEST_CASE("reflect-point")
     CHECK_EQ(p3.e123(), 14.f);
 }
 
+TEST_CASE("rotor-line")
+{
+    // Make an unnormalized rotor to verify correctness
+    float data[4] = {1.f, 2.f, -3.f, 4.f};
+    rotor r;
+    r.load_normalized(data);
+    line l1{-1.f, 2.f, -3.f, 4.f, 5.f, -6.f};
+    line l2{r(l1)};
+    CHECK_EQ(l2.e01(), -110.f);
+    CHECK_EQ(l2.e02(), 20.f);
+    CHECK_EQ(l2.e03(), 10.f);
+    CHECK_EQ(l2.e12(), -240.f);
+    CHECK_EQ(l2.e31(), 102.f);
+    CHECK_EQ(l2.e23(), -36.f);
+}
+
 TEST_CASE("rotor-point")
 {
     rotor r{M_PI * 0.5f, 0, 0, 1.f};
@@ -106,6 +122,19 @@ TEST_CASE("motor-point")
     CHECK_EQ(p2.y(), -86.f);
     CHECK_EQ(p2.z(), -86.f);
     CHECK_EQ(p2.w(), 30.f);
+}
+
+TEST_CASE("motor-line")
+{
+    motor m{2.f, -1.f, 3.f, 4.f, -5.f, -2.f, 2.f, -3.f};
+    line l1{-1.f, 2.f, -3.f, 4.f, 5.f, -6.f};
+    line l2{m(l1)};
+    CHECK_EQ(l2.e01(), 6.f);
+    CHECK_EQ(l2.e02(), 522.f);
+    CHECK_EQ(l2.e03(), 96.f);
+    CHECK_EQ(l2.e12(), -214.f);
+    CHECK_EQ(l2.e31(), -148.f);
+    CHECK_EQ(l2.e23(), -40.f);
 }
 
 TEST_CASE("motor-origin")
