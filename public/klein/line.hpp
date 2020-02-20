@@ -29,6 +29,14 @@ struct line final : public entity<0b110>
         parts[1].data[0] = 0.0f;
     }
 
+    /// A line is specifed by 6 coordinates which correspond to the line's
+    /// [Plücker
+    /// coordinates](https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates).
+    /// The coordinates specified in this way correspond to the following
+    /// multivector:
+    ///
+    /// $$a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\
+    /// d\mathbf{e}_{12} + e\mathbf{e}_{31} + f\mathbf{e}_{23}$$
     line(float a, float b, float c, float d, float e, float f) noexcept
     {
         parts[0].reg = _mm_set_ps(f, e, d, 0.f);

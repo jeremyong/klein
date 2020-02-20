@@ -61,6 +61,14 @@ struct rotor final : public entity<0b10>
         p1()            = _mm_mul_ps(p1(), inv_norm);
     }
 
+    /// Converts the rotor to a 4x4 column-major matrix.
+    mat4x4 as_matrix() const noexcept
+    {
+        mat4x4 out;
+        mat4x4_12<false>(parts[0].reg, nullptr, out.cols);
+        return out;
+    }
+
     /// Conjugates a plane $p$ with this rotor and returns the result
     /// $rp\widetilde{r}$.
     plane KLN_VEC_CALL operator()(plane const& p) const noexcept
@@ -68,6 +76,44 @@ struct rotor final : public entity<0b10>
         plane out;
         sw012<false, false>(&p.p0(), parts[0].reg, nullptr, &out.p0());
         return out;
+    }
+
+    /// Conjugates an array of planes with this rotor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place motor application).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a rotor to a list of tightly packed planes, this
+    ///     routine will be *significantly faster* than applying the rotor to
+    ///     each plane individually.
+    void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const
+        noexcept
+    {
+        sw012<true, false>(&in->p0(), parts[0].reg, nullptr, &out->p0(), count);
+    }
+
+    /// Conjugates a line $\ell$ with this rotor and returns the result
+    /// $r\ell \widetilde{r}$.
+    line KLN_VEC_CALL operator()(line const& l) const noexcept
+    {
+        line out;
+        swMM<false, false>(&l.p1(), p1(), nullptr, &out.p1());
+        return out;
+    }
+
+    /// Conjugates an array of lines with this rotor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place rotor application).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a rotor to a list of tightly packed lines, this
+    ///     routine will be *significantly faster* than applying the rotor to
+    ///     each line individually.
+    void KLN_VEC_CALL operator()(line* in, line* out, size_t count) const noexcept
+    {
+        swMM<true, false>(&in->p1(), parts[0].reg, nullptr, &out->p1(), count);
     }
 
     /// Conjugates a point $p$ with this rotor and returns the result
@@ -79,12 +125,20 @@ struct rotor final : public entity<0b10>
         return out;
     }
 
-    /// Converts the rotor to a 4x4 column-major matrix.
-    mat4x4 as_matrix() const noexcept
+    /// Conjugates an array of points with this rotor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place rotor application).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a rotor to a list of tightly packed points, this
+    ///     routine will be *significantly faster* than applying the rotor to
+    ///     each point individually.
+    void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const
+        noexcept
     {
-        mat4x4 out;
-        mat4x4_12<false>(parts[0].reg, nullptr, out.cols);
-        return out;
+        sw312<true, true>(
+            &in->p3(), parts[0].reg, &parts[1].reg, &out->p3(), count);
     }
 };
 } // namespace kln

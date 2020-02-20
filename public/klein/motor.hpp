@@ -119,7 +119,7 @@ struct motor final : public entity<0b110>
     }
 
     /// Conjugates a plane $p$ with this motor and returns the result
-    /// $rp\widetilde{r}$.
+    /// $mp\widetilde{m}$.
     plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
@@ -127,8 +127,48 @@ struct motor final : public entity<0b110>
         return out;
     }
 
+    /// Conjugates an array of planes with this motor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place motor application).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a motor to a list of tightly packed planes, this
+    ///     routine will be *significantly faster* than applying the motor to
+    ///     each plane individually.
+    void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const
+        noexcept
+    {
+        sw012<true, true>(
+            &in->p0(), parts[0].reg, &parts[1].reg, &out->p0(), count);
+    }
+
+    /// Conjugates a line $\ell$ with this motor and returns the result
+    /// $m\ell \widetilde{m}$.
+    line KLN_VEC_CALL operator()(line const& l) const noexcept
+    {
+        line out;
+        swMM<false, true>(&l.p1(), p1(), &p2(), &out.p1());
+        return out;
+    }
+
+    /// Conjugates an array of lines with this motor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place motor application).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a motor to a list of tightly packed lines, this
+    ///     routine will be *significantly faster* than applying the motor to
+    ///     each line individually.
+    void KLN_VEC_CALL operator()(line* in, line* out, size_t count) const noexcept
+    {
+        swMM<true, true>(
+            &in->p1(), parts[0].reg, &parts[1].reg, &out->p1(), count);
+    }
+
     /// Conjugates a point $p$ with this motor and returns the result
-    /// $rp\widetilde{r}$.
+    /// $mp\widetilde{m}$.
     point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
@@ -136,8 +176,24 @@ struct motor final : public entity<0b110>
         return out;
     }
 
-    /// Conjugates a origin $O$ with this motor and returns the result
-    /// $rO\widetilde{r}$.
+    /// Conjugates an array of points with this motor in the input array and
+    /// stores the result in the output array. Aliasing is only permitted when
+    /// `in == out` (in place motor application).
+    ///
+    /// !!! tip
+    ///
+    ///     When applying a motor to a list of tightly packed points, this
+    ///     routine will be *significantly faster* than applying the motor to
+    ///     each point individually.
+    void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const
+        noexcept
+    {
+        sw312<true, true>(
+            &in->p3(), parts[0].reg, &parts[1].reg, &out->p3(), count);
+    }
+
+    /// Conjugates the origin $O$ with this motor and returns the result
+    /// $mO\widetilde{m}$.
     point KLN_VEC_CALL operator()(origin) const noexcept
     {
         point out;
