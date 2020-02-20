@@ -28,7 +28,16 @@ target_compile_definitions(klein_test PRIVATE
     DOCTEST_CONFIG_NO_EXCEPTIONS
 )
 if (NOT MSVC)
-    target_compile_options(klein_test PRIVATE -fno-omit-frame-pointer -fsanitize=address)
+    target_compile_options(klein_test
+        PRIVATE
+        -fno-omit-frame-pointer
+        -fsanitize=address
+        -Wall
+        -Wextra
+        -Wno-unused-but-set-parameter
+        -Wno-comment # Needed for doxygen
+        -Wno-unused-but-set-variable # This is needed in several entity operations
+    )
     target_link_options(klein_test PRIVATE -fno-omit-frame-pointer -fsanitize=address)
 endif()
 # Place the test executable at the project binary directory instead of in the nested subfolder

@@ -1,0 +1,127 @@
+language: cpp
+sudo: false
+
+# Default to Ubuntu Bionic
+os: linux
+dist: bionic
+
+env:
+  global:
+    # COVERITY_SCAN_TOKEN
+    - secure: 'R+LQViHn4EdJCzE3RU40ynnaSQVE+fTp4ipN8YzSBsIP7oUfTh64nJGyt7PmbAHYzF4dUYy9+KcDDdrF252grrzcLGo3HMrMONxmQ1RJUJnj1brLaGNRw2iwEA1qBm2pznDmOMrbXm7vjIfzVbx7Y7Orv658d85osT9rfWODgkpK9AYDm6SgMZrwpN9RR2Mzie6/hnBkTpmYvLtnwLBi20nkocxnMwMt5SMJ6voGciKqnO5yh77gODO0K7otcwJVruHRZ8ldCxFy3fb3+bGHuf/lYxR0IXlEz+zvCfmLrKQcVK8FGaUr53JJ9G2M+fGmB1UyDQHIktDxnYYQATphHEkLo6LsBc7APczb+l3C3CMAGipq4k7zMwBSCbviPrOOTfCDTNzFd6mF71PIdCu+9T29v8yECYUInRVzZMCj/2HEdlMdZvwWmXndCiP8iWIteTkAOerav2cGFhasB6yivKSgk8Z1l5kpFinnYgCFQkk/qLqD2SIzXA6mKhPPu9cvgi7PFqlSt6GE/pGh+iX4q/huYnDkxZZEwm4M2DgU6RDVzX78e+mQ3rby8varWlaTNjoZ7QKXcsvRPHEeH1EjgvJODgJlyCoU/oEK+VR3OtN4QaxIW3z70+rOlnJ3WHtokhElEotcXE1LSFL0DNPoMC+XIcUsGS1rl2b+jOdNrSA='
+
+addons:
+  coverity_scan:
+    project:
+      name: 'jeremyong/Klein'
+      description: 'Build submitted via Travis CI'
+    notification_email: jeremycong@gmail.com
+    build_command_prepend: 'cmake -DENABLE_COVERAGE:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Debug .'
+    build_command: 'cmake --build .'
+    branch_pattern: coverity_scan
+
+jobs:
+  include:
+    # MacOS Clang Debug
+    - env:
+        - CXX=clang++
+        - CC=clang
+        - BUILD_TYPE=Debug
+      os: osx
+      osx_image: xcode11.3
+
+    # MacOS Clang Release
+    - env:
+        - CXX=clang++
+        - CC=clang
+        - BUILD_TYPE=Release
+      os: osx
+      osx_image: xcode11.3
+
+    # Bionic Clang-9 Debug
+    - env:
+        - CXX=clang++-9
+        - CC=clang
+        - BUILD_TYPE=Debug
+      addons:
+        apt:
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+            - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+          packages:
+            - clang-9
+            - ninja-build
+
+    # Bionic Clang-9 Release
+    - env:
+        - CXX=clang++-9
+        - CC=clang
+        - BUILD_TYPE=Release
+      addons:
+        apt:
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+            - sourceline: 'deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+          packages:
+            - clang-9
+            - ninja-build
+
+    # Bionic GCC-9 Debug
+    - env:
+        - CXX=g++-9
+        - CC=gcc
+        - BUILD_TYPE=Debug
+        - ENABLE_GCOV=1
+      cache:
+        directories:
+          - ${TRAVIS_BUILD_DIR}/tools/cmake
+      addons:
+        apt:
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+          packages:
+            - g++-9
+            - ninja-build
+
+    # Bionic GCC-9 Release
+    - env:
+        - CXX=g++-9
+        - CC=gcc
+        - BUILD_TYPE=Release
+      cache:
+        directories:
+          - ${TRAVIS_BUILD_DIR}/tools/cmake
+      addons:
+        apt:
+          sources:
+            - sourceline: 'ppa:ubuntu-toolchain-r/test'
+          packages:
+            - g++-9
+            - ninja-build
+
+install:
+  - |
+    if [ "${TRAVIS_OS_NAME}" = "osx" ]; then
+      brew update
+      brew upgrade cmake
+      brew install ninja
+    else
+      mkdir -p ${TRAVIS_BUILD_DIR}/tools
+      travis_retry wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.16.4/cmake-3.16.4-Linux-x86_64.tar.gz
+      tar -xf cmake-3.16.4-Linux-x86_64.tar.gz
+      mv cmake-3.16.4-Linux-x86_64 ${TRAVIS_BUILD_DIR}/tools/cmake
+      PATH=${TRAVIS_BUILD_DIR}/tools/cmake/bin:$PATH
+    fi
+  - which cmake
+  - cmake --version
+  - ninja --version
+
+before_script:
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+  - cmake --build .
+
+script:
+  - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then ./klein_test; fi
+  - if [ "${ENABLE_GCOV}" = 1 ]; then bash <(curl -s https://codecov.io/bash) -x gcov-9 -a "-s `pwd`"; fi

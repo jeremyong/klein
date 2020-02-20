@@ -1,0 +1,21 @@
+branches:
+  only:
+    - master
+
+configuration:
+  - Debug
+  - Release
+
+clone_depth: 1
+
+image:
+  - Visual Studio 2019
+
+platform:
+  - x64
+
+build_script:
+  - cmake --version
+  - cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=%configuration%
+  - cmake --build .
+  - .\klein_test.exe
