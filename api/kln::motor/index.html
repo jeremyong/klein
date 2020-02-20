@@ -502,6 +502,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f" class="md-nav__link">
+    direction KLN_VEC_CALL  operator()( direction const &amp; d) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376" class="md-nav__link">
+    void KLN_VEC_CALL  operator()( direction * in, direction * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -799,6 +813,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f" class="md-nav__link">
+    direction KLN_VEC_CALL  operator()( direction const &amp; d) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376" class="md-nav__link">
+    void KLN_VEC_CALL  operator()( direction * in, direction * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -834,6 +862,40 @@
 </code></pre></div>
 
 <p>A <code>motor</code>  represents a kinematic motion in our algebra. From <a href="https://en.wikipedia.org/wiki/Chasles%27_theorem_(kinematics)">Chasles' theorem</a>, we know that any rigid body displacement can be produced by a translation along a line, followed or preceded by a rotation about an axis parallel to that line. The motor algebra is isomorphic to the dual quaternions but exists here in the same algebra as all the other geometric entities and actions at our disposal. Operations such as composing a motor with a rotor or translator are possible for example. The primary benefit to using a motor over its corresponding matrix operation is twofold. First, you get the benefit of numerical stability when composing multiple actions via the geometric product (<code>*</code> ). Second, because the motors constitute a continuous group, they are amenable to smooth interpolation and differentiation.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="codehilite"><pre><span></span><code>    <span class="c1">// Create a rotor representing a pi/2 rotation about the z-axis</span>
+    <span class="c1">// Normalization is done automatically</span>
+    <span class="n">rotor</span> <span class="n">r</span><span class="p">{</span><span class="n">M_PI</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
+
+    <span class="c1">// Create a translator that represents a translation of 1 unit</span>
+    <span class="c1">// in the yz-direction. Normalization is done automatically.</span>
+    <span class="n">translator</span> <span class="n">t</span><span class="p">{</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
+
+    <span class="c1">// Create a motor that combines the action of the rotation and</span>
+    <span class="c1">// translation above.</span>
+    <span class="n">motor</span> <span class="n">m</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">t</span><span class="p">;</span>
+
+    <span class="c1">// Initialize a point at (1, 3, 2)</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p1</span><span class="p">{</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">3.f</span><span class="p">,</span> <span class="mf">2.f</span><span class="p">};</span>
+
+    <span class="c1">// Translate p1 and rotate it to create a new point p2</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+</code></pre></div>
+
+</div>
+<p>Motors can be multiplied to one another with the <code>*</code>  operator to create a new motor equivalent to the application of each factor.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="codehilite"><pre><span></span><code>    <span class="c1">// Suppose we have 3 motors m1, m2, and m3</span>
+
+    <span class="c1">// The motor m created here represents the combined action of m1,</span>
+    <span class="c1">// m2, and m3.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m3</span> <span class="o">*</span> <span class="n">m2</span> <span class="o">*</span> <span class="n">m1</span><span class="p">;</span>
+</code></pre></div>
+
+</div>
+<p>The same <code>*</code>  operator can be used to compose the motor's action with other translators and rotors.</p>
 <p>A demonstration of using the exponential and logarithmic map to blend between two motors is provided in a test case <a href="https://github.com/jeremyong/Klein/blob/master/test/test_exp_log.cpp#L48">here</a>.</p>
 <h3 id="summary">Summary</h3>
 <table>
@@ -900,6 +962,14 @@
 <td><code>public</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::origin#structkln_1_1origin"><code>origin</code></a><code>) const noexcept</code></td>
 <td>Conjugates the origin <span class="arithmatex">\(O\)</span> with this motor and returns the result <span class="arithmatex">\(mO\widetilde{m}\)</span>.</td>
 </tr>
+<tr>
+<td><code>public</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>const &amp; d) const noexcept</code></td>
+<td>Conjugates a direction <span class="arithmatex">\(d\)</span> with this motor and returns the result <span class="arithmatex">\(md\widetilde{m}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>* in,</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>* out,size_t count) const noexcept</code></td>
+<td>Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
+</tr>
 </tbody>
 </table>
 <h3 id="members">Members</h3>
@@ -947,6 +1017,18 @@ each point individually.</p>
 </div>
 <h4 id="structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><a href="/Klein/api/kln::point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489">operator()</a>( <a href="/Klein/api/kln::origin#structkln_1_1origin">origin</a>) const noexcept</h4>
 <p>Conjugates the origin <span class="arithmatex">\(O\)</span> with this motor and returns the result <span class="arithmatex">\(mO\widetilde{m}\)</span>.</p>
+<h4 id="structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f"><a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f">operator()</a>( <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> const &amp; d) const noexcept</h4>
+<p>Conjugates a direction <span class="arithmatex">\(d\)</span> with this motor and returns the result <span class="arithmatex">\(md\widetilde{m}\)</span>.</p>
+<p>The cost of this operation is the same as the application of a rotor due to the translational invariance of directions (points at infinity).</p>
+<h4 id="structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376">void KLN_VEC_CALL  <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376">operator()</a>( <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> * in, <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> * out,size_t count) const noexcept</h4>
+<p>Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
+<p>The cost of this operation is the same as the application of a rotor due to the translational invariance of directions (points at infinity).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When applying a motor to a list of tightly packed directions, this
+routine will be <em>significantly faster</em> than applying the motor to
+each direction individually.</p>
+</div>
                 
                   
                 

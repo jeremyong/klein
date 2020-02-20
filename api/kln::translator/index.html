@@ -707,6 +707,34 @@
 <span class="err">  : public kln::entity&lt; 0b110 &gt;</span>
 </code></pre></div>
 
+<p>A translator represents a rigid-body displacement along a normalized axis. To apply the translator to a supported entity, the call operator is available.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><div class="codehilite"><pre><span></span><code>    <span class="c1">// Initialize a point at (1, 3, 2)</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p</span><span class="p">{</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">3.f</span><span class="p">,</span> <span class="mf">2.f</span><span class="p">};</span>
+
+    <span class="c1">// Create a normalized translator representing a 4-unit</span>
+    <span class="c1">// displacement along the xz-axis.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">translator</span> <span class="n">r</span><span class="p">{</span><span class="mf">4.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
+
+    <span class="c1">// Displace our point using the created translator</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">translated</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</code></pre></div>
+We can translate lines and planes as well using the translator's call
+operator.</p>
+</div>
+<p>Translators can be multiplied to one another with the <code>*</code>  operator to create a new translator equivalent to the application of each factor.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="codehilite"><pre><span></span><code>    <span class="c1">// Suppose we have 3 translators t1, t2, and t3</span>
+
+    <span class="c1">// The translator t created here represents the combined action of</span>
+    <span class="c1">// t1, t2, and t3.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">translator</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t3</span> <span class="o">*</span> <span class="n">t2</span> <span class="o">*</span> <span class="n">t1</span><span class="p">;</span>
+</code></pre></div>
+
+</div>
+<p>The same <code>*</code>  operator can be used to compose the translator's action with other rotors and motors.</p>
 <h3 id="summary">Summary</h3>
 <table>
 <thead>

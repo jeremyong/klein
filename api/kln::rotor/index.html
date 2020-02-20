@@ -464,6 +464,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43" class="md-nav__link">
+    direction KLN_VEC_CALL  operator()( direction const &amp; d) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999" class="md-nav__link">
+    void KLN_VEC_CALL  operator()( direction * in, direction * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -771,6 +785,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43" class="md-nav__link">
+    direction KLN_VEC_CALL  operator()( direction const &amp; d) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999" class="md-nav__link">
+    void KLN_VEC_CALL  operator()( direction * in, direction * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -805,6 +833,40 @@
 <span class="err">  : public kln::entity&lt; 0b10 &gt;</span>
 </code></pre></div>
 
+<p>The rotor is an entity that represents a rigid rotation about an axis. To apply the rotor to a supported entity, the call operator is available.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><div class="codehilite"><pre><span></span><code>    <span class="c1">// Initialize a point at (1, 3, 2)</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p</span><span class="p">{</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">3.f</span><span class="p">,</span> <span class="mf">2.f</span><span class="p">};</span>
+
+    <span class="c1">// Create a normalized rotor representing a pi/2 radian</span>
+    <span class="c1">// rotation about the xz-axis.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">rotor</span> <span class="n">r</span><span class="p">{</span><span class="n">M_PI</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
+
+    <span class="c1">// Rotate our point using the created rotor</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">rotated</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+</code></pre></div>
+We can rotate lines and planes as well using the rotor's call operator.</p>
+</div>
+<p>Rotors can be multiplied to one another with the <code>*</code>  operator to create a new rotor equivalent to the application of each factor.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="codehilite"><pre><span></span><code>    <span class="c1">// Create a normalized rotor representing a $\frac{\pi}{2}$ radian</span>
+    <span class="c1">// rotation about the xz-axis.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">rotor</span> <span class="n">r1</span><span class="p">{</span><span class="n">M_PI</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
+
+    <span class="c1">// Create a second rotor representing a $\frac{\pi}{3}$ radian</span>
+    <span class="c1">// rotation about the yz-axis.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">rotor</span> <span class="n">r2</span><span class="p">{</span><span class="n">M_PI</span> <span class="o">/</span> <span class="mf">3.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
+
+    <span class="c1">// Use the geometric product to create a rotor equivalent to first</span>
+    <span class="c1">// applying r1, then applying r2. Note that the order of the</span>
+    <span class="c1">// operands here is significant.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">rotor</span> <span class="n">r3</span> <span class="o">=</span> <span class="n">r2</span> <span class="o">*</span> <span class="n">r1</span><span class="p">;</span>
+</code></pre></div>
+
+</div>
+<p>The same <code>*</code>  operator can be used to compose the rotor's action with other translators and motors.</p>
 <h3 id="summary">Summary</h3>
 <table>
 <thead>
@@ -862,6 +924,14 @@
 <td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>* in,</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of points with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</td>
 </tr>
+<tr>
+<td><code>public</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>const &amp; d) const noexcept</code></td>
+<td>Conjugates a direction <span class="arithmatex">\(d\)</span> with this rotor and returns the result <span class="arithmatex">\(rd\widetilde{r}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>* in,</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>* out,size_t count) const noexcept</code></td>
+<td>Conjugates an array of directions with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</td>
+</tr>
 </tbody>
 </table>
 <h3 id="members">Members</h3>
@@ -910,6 +980,16 @@ each line individually.</p>
 <p>When applying a rotor to a list of tightly packed points, this
 routine will be <em>significantly faster</em> than applying the rotor to
 each point individually.</p>
+</div>
+<h4 id="structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43"><a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43">operator()</a>( <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> const &amp; d) const noexcept</h4>
+<p>Conjugates a direction <span class="arithmatex">\(d\)</span> with this rotor and returns the result <span class="arithmatex">\(rd\widetilde{r}\)</span>.</p>
+<h4 id="structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999">operator()</a>( <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> * in, <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> * out,size_t count) const noexcept</h4>
+<p>Conjugates an array of directions with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When applying a rotor to a list of tightly packed directions, this
+routine will be <em>significantly faster</em> than applying the rotor to
+each direction individually.</p>
 </div>
                 
                   
