@@ -238,9 +238,52 @@
       
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Home
+      </label>
+    
     <a href="." title="Home" class="md-nav__link md-nav__link--active">
       Home
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-entities" class="md-nav__link">
+    Supported entities
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-operations" class="md-nav__link">
+    Supported operations
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -526,6 +569,36 @@
     
   
   
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-entities" class="md-nav__link">
+    Supported entities
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-operations" class="md-nav__link">
+    Supported operations
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -540,25 +613,30 @@
                 <h1 id="klein">Klein</h1>
 <p><a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blueviolet.svg" /></a>
 <a href="https://zenodo.org/badge/latestdoi/236777729"><img alt="DOI" src="https://zenodo.org/badge/236777729.svg" /></a></p>
+<h2 id="summary">Summary</h2>
 <p><a href="https://github.com/jeremyong/Klein">Klein</a> is an implementation of <span class="arithmatex">\(\mathbf{P}(\mathbb{R}^*_{3, 0, 1})\)</span>, aka 3D Projective Geometric Algebra.
 It is designed for applications that demand high-throughput (animation libraries,
 kinematic solvers, etc). In contrast to other GA libraries, Klein does not attempt to
 generalize the metric or dimensionality of the space. In exchange for this loss of generality,
 Klein implements the algebraic operations using the full weight of SSE (Streaming
 SIMD Extensions) for maximum throughput. Klein's performance is fully competitive with state of the
-art kinematic and math libraries built with traditional vector and quaternion formulations.
-Knowledge of Geometric Algebra is not required to benefit from the library, but familiarity
-can ease the learning curve of the API somewhat, as the operators in Geometric Algebra map
-cleanly to geometric operations.</p>
-<p>Summary</p>
+art kinematic and math libraries built with traditional vector and quaternion formulations.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Knowledge of Geometric Algebra is NOT required to benefit from the library</strong>, but
+familiarity can ease the learning curve of the API somewhat, as the operators in
+Geometric Algebra map cleanly to geometric operations.</p>
+</div>
 <ul>
 <li>Geometric computing library suitable for use with realtime graphics and animation applications</li>
 <li>Header-only core libary with an optional lightweight symbolic computer algebra system</li>
 <li>4.2 SSE-optimized implementation (SSE2 fallback on the way)</li>
-<li>Requires a C++17 compiler (C++11/14 fallback on the way)</li>
+<li>Requires a C++17 compiler</li>
 <li>Tested on Linux and Windows (Mac support is expected, but help testing is appreciated)</li>
+<li>Requires no third-party dependencies</li>
+<li>Permissively licensed</li>
 </ul>
-<p>Supported entities:</p>
+<h2 id="supported-entities">Supported entities</h2>
 <ul>
 <li>Points</li>
 <li>Directions</li>
@@ -569,12 +647,12 @@ cleanly to geometric operations.</p>
 <li>Translators</li>
 <li>Motors</li>
 </ul>
-<p>Supported operations:</p>
+<h2 id="supported-operations">Supported operations</h2>
 <ul>
 <li>Geometric product (used to compose group actions)</li>
 <li>Exterior product (used to meet entities)</li>
 <li>Regressive product (used to join entities)</li>
-<li>Sandwich operators (defined via the call operator on planes, rotors, translators, and motors)</li>
+<li>Conjugation (aka "sandwich") operators (defined via the call operator on planes, rotors, translators, and motors)</li>
 <li>Inner product (used for metric measurements and to project entities)</li>
 <li>Standard arithmetic operations</li>
 <li>Line exponentiation to generate motors</li>
