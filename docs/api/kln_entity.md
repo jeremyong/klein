@@ -82,7 +82,7 @@ All partitions contain 4 packed single-precision floating point values. An entit
 `public constexpr __m128 & ` [`p1`](#structkln_1_1entity_1ac1738c1afc34ec2d32d162b145e3fd62)`() noexcept`  | 
 `public constexpr __m128 & ` [`p2`](#structkln_1_1entity_1ae5da7f4d3dbec74bff9b8b1b4022cf50)`() noexcept`  | 
 `public constexpr __m128 & ` [`p3`](#structkln_1_1entity_1a11244fde748ffb72b84d614c5416351a)`() noexcept`  | 
-`protected ` [`partition`](/Klein/api/kln::entity::partition#unionkln_1_1entity_1_1partition)` ` [`parts`](#structkln_1_1entity_1accb4153a7732f7f3649c016b87210b23) | 
+`protected ` [`partition`](../../api/kln_entity::partition#unionkln_1_1entity_1_1partition)` ` [`parts`](#structkln_1_1entity_1accb4153a7732f7f3649c016b87210b23) | 
 
 ### Members
 
@@ -240,5 +240,5 @@ The geometric product extends the exterior product with a notion of a metric. Wh
 
 #### __m128 &  [p3](#structkln_1_1entity_1a11244fde748ffb72b84d614c5416351a)() noexcept  {#structkln_1_1entity_1a11244fde748ffb72b84d614c5416351a}
 
-#### protected  [partition](/Klein/api/kln::entity::partition#unionkln_1_1entity_1_1partition)  [parts](#structkln_1_1entity_1accb4153a7732f7f3649c016b87210b23) {#structkln_1_1entity_1accb4153a7732f7f3649c016b87210b23}
+#### protected  [partition](../../api/kln_entity::partition#unionkln_1_1entity_1_1partition)  [parts](#structkln_1_1entity_1accb4153a7732f7f3649c016b87210b23) {#structkln_1_1entity_1accb4153a7732f7f3649c016b87210b23}
 

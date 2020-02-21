@@ -8,6 +8,13 @@ configuration:
 
 clone_depth: 1
 
+skip_commits:
+  files:
+    - scripts/*
+    - docs/*
+    - theme/*
+    - bench/*
+
 image:
   - Visual Studio 2019
 
