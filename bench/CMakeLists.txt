@@ -1,3 +1,7 @@
+# WARNING: The benchmarks below are NOT to be trusted until a bad interaction between
+# google/benchmark and the compiler is resolved (compiler currently overly aggressively
+# optimizes)
+
 include(FetchContent)
 
 find_package(glm)
@@ -30,6 +34,7 @@ endif()
 
 add_executable(glm_bench glm_bench.cpp)
 target_link_libraries(glm_bench PRIVATE glm)
+target_compile_features(glm_bench PRIVATE cxx_std_17)
 set_target_properties(glm_bench
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}

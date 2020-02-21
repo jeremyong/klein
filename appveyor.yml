@@ -14,6 +14,7 @@ skip_commits:
     - docs/*
     - theme/*
     - bench/*
+    - '*.md'
 
 init:
   - set PATH=C:\cygwin\bin;%PATH%
@@ -28,4 +29,5 @@ build_script:
   - cmake --version
   - cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=%configuration%
   - cmake --build .
-  - .\klein_test.exe
+  - dir
+  - ./klein_test.exe
