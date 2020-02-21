@@ -121,7 +121,7 @@ install:
   - ninja --version
 
 before_script:
-  - cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+  - cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DKLEIN_ENABLE_BENCH=OFF
   - cmake --build .
 
 script:

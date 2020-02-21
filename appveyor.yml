@@ -27,7 +27,7 @@ platform:
 
 build_script:
   - cmake --version
-  - cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=%configuration%
+  - cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=%configuration% -DKLEIN_ENABLE_BENCH=OFF
   - cmake --build .
   - dir
-  - ./%configuration%/klein_test.exe
+  - C:\projects\klein\%configuration%\klein_test.exe
