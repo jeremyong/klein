@@ -4,6 +4,7 @@
 [![DOI](https://zenodo.org/badge/236777729.svg)](https://zenodo.org/badge/latestdoi/236777729)
 [![Build Status](https://travis-ci.org/jeremyong/Klein.svg?branch=master)](https://travis-ci.org/jeremyong/Klein)
 [![Build Status](https://ci.appveyor.com/api/projects/status/w3ug2ad08jyved8o?svg=true)](https://ci.appveyor.com/project/jeremyong/klein)
+[![Coverity Status](https://img.shields.io/coverity/scan/20402.svg)](https://scan.coverity.com/projects/jeremyong-klein)
 
 ## Summary
 
@@ -23,11 +24,17 @@ art kinematic and math libraries built with traditional vector and quaternion fo
 
 - Geometric computing library suitable for use with realtime graphics and animation applications
 - Header-only core libary with an optional lightweight symbolic computer algebra system
-- 4.2 SSE-optimized implementation (SSE2 fallback on the way)
-- Requires a C++17 compiler
-- Tested on Linux and Windows (Mac support is expected, but help testing is appreciated)
+- SSE4.2-optimized implementation (SSE2 fallback on the way)
+- Tested on Linux, MacOS, and Windows
 - Requires no third-party dependencies
 - Permissively licensed
+
+### Frequently tested compilers:
+
+- GCC 9.2.1 on Linux
+- Clang 9.0.1 on Linux
+- Visual Studio 2019 on Windows 10
+- Xcode 11.3 on MacOS
 
 ## Supported entities
 

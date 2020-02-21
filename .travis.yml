@@ -5,6 +5,11 @@ sudo: false
 os: linux
 dist: bionic
 
+branches:
+  only:
+    - master
+    - coverity_scan
+
 env:
   global:
     # COVERITY_SCAN_TOKEN
