@@ -40,6 +40,8 @@ nav:
   - 'Tutorial':
       - 'Introduction': 'tutorial/intro.md'
       - 'Exterior Algebra': 'tutorial/exterior_algebra.md'
+  - 'Case Studies':
+      - 'Basic Skeletal Animation': 'case_studies/kinematic_chain.md'
   - 'Klein Shell': 'shell.md'
   # - 'Benchmarks': 'benchmarks.md'
   - 'Discord': 'discord.md'
@@ -64,6 +66,7 @@ markdown_extensions:
   - footnotes
   - pymdownx.arithmatex:
       generic: True
+  - pymdownx.details
   - pymdownx.superfences
   - pymdownx.mark
   - pymdownx.extrarawhtml
