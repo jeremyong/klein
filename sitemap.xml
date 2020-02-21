@@ -16,57 +16,57 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::entity/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_entity/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::plane/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_plane/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::line/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_line/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::point/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_point/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::rotor/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_rotor/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::translator/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_translator/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::motor/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_motor/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::ideal_line/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_ideal_line/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::direction/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_direction/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::mat4x4/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_mat4x4/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://jeremyong.com/Klein/api/kln::origin/</loc>
+     <loc>https://jeremyong.com/Klein/api/kln_origin/</loc>
      <lastmod>2020-02-20</lastmod>
      <changefreq>daily</changefreq>
     </url>

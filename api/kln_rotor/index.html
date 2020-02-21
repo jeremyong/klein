@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/Klein/api/kln::rotor/">
+        <link rel="canonical" href="https://jeremyong.com/Klein/api/kln_rotor/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -287,7 +287,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::entity/" title="Entity" class="md-nav__link">
+    <a href="../kln_entity/" title="Entity" class="md-nav__link">
       Entity
     </a>
   </li>
@@ -299,7 +299,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::plane/" title="Plane" class="md-nav__link">
+    <a href="../kln_plane/" title="Plane" class="md-nav__link">
       Plane
     </a>
   </li>
@@ -311,7 +311,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::line/" title="Line" class="md-nav__link">
+    <a href="../kln_line/" title="Line" class="md-nav__link">
       Line
     </a>
   </li>
@@ -323,7 +323,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::point/" title="Point" class="md-nav__link">
+    <a href="../kln_point/" title="Point" class="md-nav__link">
       Point
     </a>
   </li>
@@ -505,7 +505,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::translator/" title="Translator" class="md-nav__link">
+    <a href="../kln_translator/" title="Translator" class="md-nav__link">
       Translator
     </a>
   </li>
@@ -517,7 +517,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::motor/" title="Motor" class="md-nav__link">
+    <a href="../kln_motor/" title="Motor" class="md-nav__link">
       Motor
     </a>
   </li>
@@ -529,7 +529,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::ideal_line/" title="Ideal Line" class="md-nav__link">
+    <a href="../kln_ideal_line/" title="Ideal Line" class="md-nav__link">
       Ideal Line
     </a>
   </li>
@@ -541,7 +541,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::direction/" title="Direction" class="md-nav__link">
+    <a href="../kln_direction/" title="Direction" class="md-nav__link">
       Direction
     </a>
   </li>
@@ -553,7 +553,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::mat4x4/" title="Mat4x4" class="md-nav__link">
+    <a href="../kln_mat4x4/" title="Mat4x4" class="md-nav__link">
       Mat4x4
     </a>
   </li>
@@ -565,7 +565,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::origin/" title="Origin" class="md-nav__link">
+    <a href="../kln_origin/" title="Origin" class="md-nav__link">
       Origin
     </a>
   </li>
@@ -897,7 +897,7 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <td>Convenience constructor. Computes transcendentals and normalizes rotation axis.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><code>rotor</code></a><code>(</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; other)</code></td>
+<td><code>public</code> <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><code>rotor</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; other)</code></td>
 <td></td>
 </tr>
 <tr>
@@ -909,39 +909,39 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <td>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><code>as_matrix</code></a><code>() const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><code>as_matrix</code></a><code>() const noexcept</code></td>
 <td>Converts the rotor to a 4x4 column-major matrix.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><code>operator()</code></a><code>(</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>* in,</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b"><code>operator()</code></a><code>(</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>* in,</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of planes with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>const &amp; l) const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc"><code>operator()</code></a><code>(</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>const &amp; l) const noexcept</code></td>
 <td>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this rotor and returns the result <span class="arithmatex">\(r\ell \widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>* in,</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a"><code>operator()</code></a><code>(</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>* in,</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of lines with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><code>operator()</code></a><code>(</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a point <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>* in,</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad"><code>operator()</code></a><code>(</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>* in,</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of points with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>const &amp; d) const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43"><code>operator()</code></a><code>(</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>const &amp; d) const noexcept</code></td>
 <td>Conjugates a direction <span class="arithmatex">\(d\)</span> with this rotor and returns the result <span class="arithmatex">\(rd\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>* in,</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999"><code>operator()</code></a><code>(</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>* in,</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of directions with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</td>
 </tr>
 </tbody>
@@ -951,7 +951,7 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <p>Default constructor leaves memory uninitialized.</p>
 <h4 id="structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c"><a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c">rotor</a>(float ang_rad,float x,float y,float z)</h4>
 <p>Convenience constructor. Computes transcendentals and normalizes rotation axis.</p>
-<h4 id="structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298">rotor</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; other)</h4>
+<h4 id="structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298">rotor</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; other)</h4>
 <h4 id="structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">void  <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">load_normalized</a>(float * data) noexcept</h4>
 <p>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23}\)</span>.</p>
 <div class="admonition danger">
@@ -961,11 +961,11 @@ rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex
 </div>
 <h4 id="structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4">void  <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4">normalize</a>() noexcept</h4>
 <p>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</p>
-<h4 id="structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><a href="/Klein/api/kln::mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11">as_matrix</a>() const noexcept</h4>
+<h4 id="structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11">as_matrix</a>() const noexcept</h4>
 <p>Converts the rotor to a 4x4 column-major matrix.</p>
-<h4 id="structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec">operator()</a>( <a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><a href="../../api/kln_plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b">operator()</a>( <a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> * in, <a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> * out,size_t count) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> * in, <a href="../../api/kln_plane#structkln_1_1plane">plane</a> * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of planes with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -973,9 +973,9 @@ rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex
 routine will be <em>significantly faster</em> than applying the rotor to
 each plane individually.</p>
 </div>
-<h4 id="structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc"><a href="/Klein/api/kln::line#structkln_1_1line">line</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc">operator()</a>( <a href="/Klein/api/kln::line#structkln_1_1line">line</a> const &amp; l) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc"><a href="../../api/kln_line#structkln_1_1line">line</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc">operator()</a>( <a href="../../api/kln_line#structkln_1_1line">line</a> const &amp; l) const noexcept</h4>
 <p>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this rotor and returns the result <span class="arithmatex">\(r\ell \widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a">operator()</a>( <a href="/Klein/api/kln::line#structkln_1_1line">line</a> * in, <a href="/Klein/api/kln::line#structkln_1_1line">line</a> * out,size_t count) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a">operator()</a>( <a href="../../api/kln_line#structkln_1_1line">line</a> * in, <a href="../../api/kln_line#structkln_1_1line">line</a> * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of lines with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -983,9 +983,9 @@ each plane individually.</p>
 routine will be <em>significantly faster</em> than applying the rotor to
 each line individually.</p>
 </div>
-<h4 id="structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><a href="/Klein/api/kln::point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199">operator()</a>( <a href="/Klein/api/kln::point#structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><a href="../../api/kln_point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199">operator()</a>( <a href="../../api/kln_point#structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a point <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad">operator()</a>( <a href="/Klein/api/kln::point#structkln_1_1point">point</a> * in, <a href="/Klein/api/kln::point#structkln_1_1point">point</a> * out,size_t count) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad">operator()</a>( <a href="../../api/kln_point#structkln_1_1point">point</a> * in, <a href="../../api/kln_point#structkln_1_1point">point</a> * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of points with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -993,9 +993,9 @@ each line individually.</p>
 routine will be <em>significantly faster</em> than applying the rotor to
 each point individually.</p>
 </div>
-<h4 id="structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43"><a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43">operator()</a>( <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> const &amp; d) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43"><a href="../../api/kln_direction#structkln_1_1direction">direction</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43">operator()</a>( <a href="../../api/kln_direction#structkln_1_1direction">direction</a> const &amp; d) const noexcept</h4>
 <p>Conjugates a direction <span class="arithmatex">\(d\)</span> with this rotor and returns the result <span class="arithmatex">\(rd\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999">operator()</a>( <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> * in, <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> * out,size_t count) const noexcept</h4>
+<h4 id="structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999">operator()</a>( <a href="../../api/kln_direction#structkln_1_1direction">direction</a> * in, <a href="../../api/kln_direction#structkln_1_1direction">direction</a> * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of directions with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1031,7 +1031,7 @@ each direction individually.</p>
 
         <!-- Link to previous page -->
         
-          <a href="../kln::point/"
+          <a href="../kln_point/"
               title="Point"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
@@ -1053,7 +1053,7 @@ each direction individually.</p>
 
         <!-- Link to next page -->
         
-          <a href="../kln::translator/"
+          <a href="../kln_translator/"
               title="Translator"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">

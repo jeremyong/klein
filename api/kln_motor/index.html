@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/Klein/api/kln::motor/">
+        <link rel="canonical" href="https://jeremyong.com/Klein/api/kln_motor/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -287,7 +287,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::entity/" title="Entity" class="md-nav__link">
+    <a href="../kln_entity/" title="Entity" class="md-nav__link">
       Entity
     </a>
   </li>
@@ -299,7 +299,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::plane/" title="Plane" class="md-nav__link">
+    <a href="../kln_plane/" title="Plane" class="md-nav__link">
       Plane
     </a>
   </li>
@@ -311,7 +311,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::line/" title="Line" class="md-nav__link">
+    <a href="../kln_line/" title="Line" class="md-nav__link">
       Line
     </a>
   </li>
@@ -323,7 +323,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::point/" title="Point" class="md-nav__link">
+    <a href="../kln_point/" title="Point" class="md-nav__link">
       Point
     </a>
   </li>
@@ -335,7 +335,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::rotor/" title="Rotor" class="md-nav__link">
+    <a href="../kln_rotor/" title="Rotor" class="md-nav__link">
       Rotor
     </a>
   </li>
@@ -347,7 +347,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::translator/" title="Translator" class="md-nav__link">
+    <a href="../kln_translator/" title="Translator" class="md-nav__link">
       Translator
     </a>
   </li>
@@ -543,7 +543,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::ideal_line/" title="Ideal Line" class="md-nav__link">
+    <a href="../kln_ideal_line/" title="Ideal Line" class="md-nav__link">
       Ideal Line
     </a>
   </li>
@@ -555,7 +555,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::direction/" title="Direction" class="md-nav__link">
+    <a href="../kln_direction/" title="Direction" class="md-nav__link">
       Direction
     </a>
   </li>
@@ -567,7 +567,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::mat4x4/" title="Mat4x4" class="md-nav__link">
+    <a href="../kln_mat4x4/" title="Mat4x4" class="md-nav__link">
       Mat4x4
     </a>
   </li>
@@ -579,7 +579,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::origin/" title="Origin" class="md-nav__link">
+    <a href="../kln_origin/" title="Origin" class="md-nav__link">
       Origin
     </a>
   </li>
@@ -927,7 +927,7 @@
 <td>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span></td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><code>motor</code></a><code>(</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; e) noexcept</code></td>
+<td><code>public</code> <a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><code>motor</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; e) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
@@ -939,47 +939,47 @@
 <td>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><code>as_matrix</code></a><code>() const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><code>as_matrix</code></a><code>() const noexcept</code></td>
 <td>Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt;</code> <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><code>log</code></a><code>() const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt;</code> <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><code>log</code></a><code>() const noexcept</code></td>
 <td>Takes the principal branch of the logarithm of the motor, returning a bivector. Exponentiation of that bivector without any changes produces this motor again. Scaling that bivector by <span class="arithmatex">\(\frac{1}{n}\)</span>, re-exponentiating, and taking the result to the <span class="arithmatex">\(n\)</span>th power will also produce this motor again.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196"><code>operator()</code></a><code>(</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(mp\widetilde{m}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aff16ea8f993f2c7ddb7e64aa5fd089ad"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>* in,</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aff16ea8f993f2c7ddb7e64aa5fd089ad"><code>operator()</code></a><code>(</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>* in,</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of planes with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1addae2fa94b3f6aa0045209c7692397e7"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>const &amp; l) const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1addae2fa94b3f6aa0045209c7692397e7"><code>operator()</code></a><code>(</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>const &amp; l) const noexcept</code></td>
 <td>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this motor and returns the result <span class="arithmatex">\(m\ell \widetilde{m}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1a63d8a856db029b21898c203115c431e0"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>* in,</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1a63d8a856db029b21898c203115c431e0"><code>operator()</code></a><code>(</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>* in,</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of lines with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40"><code>operator()</code></a><code>(</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a point <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(mp\widetilde{m}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1ab14cf440bf8281b4a56cc338c568156b"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>* in,</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1ab14cf440bf8281b4a56cc338c568156b"><code>operator()</code></a><code>(</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>* in,</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of points with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::origin#structkln_1_1origin"><code>origin</code></a><code>) const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><code>operator()</code></a><code>(</code> <a href="../../api/kln_origin#structkln_1_1origin"><code>origin</code></a><code>) const noexcept</code></td>
 <td>Conjugates the origin <span class="arithmatex">\(O\)</span> with this motor and returns the result <span class="arithmatex">\(mO\widetilde{m}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>const &amp; d) const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f"><code>operator()</code></a><code>(</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>const &amp; d) const noexcept</code></td>
 <td>Conjugates a direction <span class="arithmatex">\(d\)</span> with this motor and returns the result <span class="arithmatex">\(md\widetilde{m}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>* in,</code> <a href="/Klein/api/kln::direction#structkln_1_1direction"><code>direction</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376"><code>operator()</code></a><code>(</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>* in,</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
 </tr>
 </tbody>
@@ -988,18 +988,18 @@
 <h4 id="structkln_1_1motor_1af185a86b951973e31cd16398845f73bf"><a href="#structkln_1_1motor_1af185a86b951973e31cd16398845f73bf">motor</a>() = default</h4>
 <h4 id="structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5"><a href="#structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5">motor</a>(float a,float b,float c,float d,float e,float f,float g,float h) noexcept</h4>
 <p>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span></p>
-<h4 id="structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8">motor</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e) noexcept</h4>
+<h4 id="structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8">motor</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e) noexcept</h4>
 <h4 id="structkln_1_1motor_1a3a048b8d0f35322259f8f1cbaad88cab">void  <a href="#structkln_1_1motor_1a3a048b8d0f35322259f8f1cbaad88cab">load</a>(float * in) noexcept</h4>
 <p>Load motor data using two unaligned loads. This routine does <em>not</em> assume the data passed in this way is normalized.</p>
 <h4 id="structkln_1_1motor_1a8af12b78c4e98b84c51f605b47dbc0a1">void  <a href="#structkln_1_1motor_1a8af12b78c4e98b84c51f605b47dbc0a1">normalize</a>() noexcept</h4>
 <p>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</p>
-<h4 id="structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><a href="/Klein/api/kln::mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab">as_matrix</a>() const noexcept</h4>
+<h4 id="structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab">as_matrix</a>() const noexcept</h4>
 <p>Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.</p>
-<h4 id="structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374">log</a>() const noexcept</h4>
+<h4 id="structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374">log</a>() const noexcept</h4>
 <p>Takes the principal branch of the logarithm of the motor, returning a bivector. Exponentiation of that bivector without any changes produces this motor again. Scaling that bivector by <span class="arithmatex">\(\frac{1}{n}\)</span>, re-exponentiating, and taking the result to the <span class="arithmatex">\(n\)</span>th power will also produce this motor again.</p>
-<h4 id="structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196"><a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196">operator()</a>( <a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
+<h4 id="structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196"><a href="../../api/kln_plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(mp\widetilde{m}\)</span>.</p>
-<h4 id="structkln_1_1motor_1aff16ea8f993f2c7ddb7e64aa5fd089ad">void KLN_VEC_CALL  <a href="#structkln_1_1motor_1aff16ea8f993f2c7ddb7e64aa5fd089ad">operator()</a>( <a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> * in, <a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> * out,size_t count) const noexcept</h4>
+<h4 id="structkln_1_1motor_1aff16ea8f993f2c7ddb7e64aa5fd089ad">void KLN_VEC_CALL  <a href="#structkln_1_1motor_1aff16ea8f993f2c7ddb7e64aa5fd089ad">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> * in, <a href="../../api/kln_plane#structkln_1_1plane">plane</a> * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of planes with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1007,9 +1007,9 @@
 routine will be <em>significantly faster</em> than applying the motor to
 each plane individually.</p>
 </div>
-<h4 id="structkln_1_1motor_1addae2fa94b3f6aa0045209c7692397e7"><a href="/Klein/api/kln::line#structkln_1_1line">line</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1addae2fa94b3f6aa0045209c7692397e7">operator()</a>( <a href="/Klein/api/kln::line#structkln_1_1line">line</a> const &amp; l) const noexcept</h4>
+<h4 id="structkln_1_1motor_1addae2fa94b3f6aa0045209c7692397e7"><a href="../../api/kln_line#structkln_1_1line">line</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1addae2fa94b3f6aa0045209c7692397e7">operator()</a>( <a href="../../api/kln_line#structkln_1_1line">line</a> const &amp; l) const noexcept</h4>
 <p>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this motor and returns the result <span class="arithmatex">\(m\ell \widetilde{m}\)</span>.</p>
-<h4 id="structkln_1_1motor_1a63d8a856db029b21898c203115c431e0">void KLN_VEC_CALL  <a href="#structkln_1_1motor_1a63d8a856db029b21898c203115c431e0">operator()</a>( <a href="/Klein/api/kln::line#structkln_1_1line">line</a> * in, <a href="/Klein/api/kln::line#structkln_1_1line">line</a> * out,size_t count) const noexcept</h4>
+<h4 id="structkln_1_1motor_1a63d8a856db029b21898c203115c431e0">void KLN_VEC_CALL  <a href="#structkln_1_1motor_1a63d8a856db029b21898c203115c431e0">operator()</a>( <a href="../../api/kln_line#structkln_1_1line">line</a> * in, <a href="../../api/kln_line#structkln_1_1line">line</a> * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of lines with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1017,9 +1017,9 @@ each plane individually.</p>
 routine will be <em>significantly faster</em> than applying the motor to
 each line individually.</p>
 </div>
-<h4 id="structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40"><a href="/Klein/api/kln::point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40">operator()</a>( <a href="/Klein/api/kln::point#structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
+<h4 id="structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40"><a href="../../api/kln_point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1a7ae8d73c558d1f6581df3a4b50fb2a40">operator()</a>( <a href="../../api/kln_point#structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a point <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(mp\widetilde{m}\)</span>.</p>
-<h4 id="structkln_1_1motor_1ab14cf440bf8281b4a56cc338c568156b">void KLN_VEC_CALL  <a href="#structkln_1_1motor_1ab14cf440bf8281b4a56cc338c568156b">operator()</a>( <a href="/Klein/api/kln::point#structkln_1_1point">point</a> * in, <a href="/Klein/api/kln::point#structkln_1_1point">point</a> * out,size_t count) const noexcept</h4>
+<h4 id="structkln_1_1motor_1ab14cf440bf8281b4a56cc338c568156b">void KLN_VEC_CALL  <a href="#structkln_1_1motor_1ab14cf440bf8281b4a56cc338c568156b">operator()</a>( <a href="../../api/kln_point#structkln_1_1point">point</a> * in, <a href="../../api/kln_point#structkln_1_1point">point</a> * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of points with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1027,12 +1027,12 @@ each line individually.</p>
 routine will be <em>significantly faster</em> than applying the motor to
 each point individually.</p>
 </div>
-<h4 id="structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><a href="/Klein/api/kln::point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489">operator()</a>( <a href="/Klein/api/kln::origin#structkln_1_1origin">origin</a>) const noexcept</h4>
+<h4 id="structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489"><a href="../../api/kln_point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489">operator()</a>( <a href="../../api/kln_origin#structkln_1_1origin">origin</a>) const noexcept</h4>
 <p>Conjugates the origin <span class="arithmatex">\(O\)</span> with this motor and returns the result <span class="arithmatex">\(mO\widetilde{m}\)</span>.</p>
-<h4 id="structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f"><a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f">operator()</a>( <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> const &amp; d) const noexcept</h4>
+<h4 id="structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f"><a href="../../api/kln_direction#structkln_1_1direction">direction</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f">operator()</a>( <a href="../../api/kln_direction#structkln_1_1direction">direction</a> const &amp; d) const noexcept</h4>
 <p>Conjugates a direction <span class="arithmatex">\(d\)</span> with this motor and returns the result <span class="arithmatex">\(md\widetilde{m}\)</span>.</p>
 <p>The cost of this operation is the same as the application of a rotor due to the translational invariance of directions (points at infinity).</p>
-<h4 id="structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376">void KLN_VEC_CALL  <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376">operator()</a>( <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> * in, <a href="/Klein/api/kln::direction#structkln_1_1direction">direction</a> * out,size_t count) const noexcept</h4>
+<h4 id="structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376">void KLN_VEC_CALL  <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376">operator()</a>( <a href="../../api/kln_direction#structkln_1_1direction">direction</a> * in, <a href="../../api/kln_direction#structkln_1_1direction">direction</a> * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
 <p>The cost of this operation is the same as the application of a rotor due to the translational invariance of directions (points at infinity).</p>
 <div class="admonition tip">
@@ -1069,7 +1069,7 @@ each direction individually.</p>
 
         <!-- Link to previous page -->
         
-          <a href="../kln::translator/"
+          <a href="../kln_translator/"
               title="Translator"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
@@ -1091,7 +1091,7 @@ each direction individually.</p>
 
         <!-- Link to next page -->
         
-          <a href="../kln::ideal_line/"
+          <a href="../kln_ideal_line/"
               title="Ideal Line"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">

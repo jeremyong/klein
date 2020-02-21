@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/Klein/api/kln::line/">
+        <link rel="canonical" href="https://jeremyong.com/Klein/api/kln_origin/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Line - Klein</title>
+        <title>Origin - Klein</title>
       
     
     
@@ -118,7 +118,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#structkln_1_1line" tabindex="0" class="md-skip">
+      <a href="#structkln_1_1origin" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -144,7 +144,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Line
+                Origin
               
             </span>
           
@@ -287,7 +287,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::entity/" title="Entity" class="md-nav__link">
+    <a href="../kln_entity/" title="Entity" class="md-nav__link">
       Entity
     </a>
   </li>
@@ -299,8 +299,104 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln::plane/" title="Plane" class="md-nav__link">
+    <a href="../kln_plane/" title="Plane" class="md-nav__link">
       Plane
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_line/" title="Line" class="md-nav__link">
+      Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_point/" title="Point" class="md-nav__link">
+      Point
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_rotor/" title="Rotor" class="md-nav__link">
+      Rotor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_translator/" title="Translator" class="md-nav__link">
+      Translator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_motor/" title="Motor" class="md-nav__link">
+      Motor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_ideal_line/" title="Ideal Line" class="md-nav__link">
+      Ideal Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_direction/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_mat4x4/" title="Mat4x4" class="md-nav__link">
+      Mat4x4
     </a>
   </li>
 
@@ -318,11 +414,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Line
+        Origin
       </label>
     
-    <a href="./" title="Line" class="md-nav__link md-nav__link--active">
-      Line
+    <a href="./" title="Origin" class="md-nav__link md-nav__link--active">
+      Origin
     </a>
     
       
@@ -334,8 +430,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1line" class="md-nav__link">
-    struct kln::line
+  <a href="#structkln_1_1origin" class="md-nav__link">
+    struct kln::origin
   </a>
   
     <nav class="md-nav">
@@ -357,57 +453,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a" class="md-nav__link">
-    line()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7" class="md-nav__link">
-    line(float a,float b,float c,float d,float e,float f) noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe" class="md-nav__link">
-    line( entity&lt; 0b110 &gt; const &amp; e)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0" class="md-nav__link">
-    line( entity&lt; 0b100 &gt; const &amp; e)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be" class="md-nav__link">
-    line( entity&lt; 0b10 &gt; const &amp; e)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8" class="md-nav__link">
-    float  squared_norm()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c" class="md-nav__link">
-    float  norm()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1" class="md-nav__link">
-    entity&lt; 0b110 &gt;  exp() const noexcept
+  <a href="#structkln_1_1origin_1a28d4f7e2065c6e9e48789b2e825f982a" class="md-nav__link">
+    operator entity&lt; 0b1000 &gt;() const noexcept
   </a>
   
 </li>
@@ -430,102 +477,6 @@
   
 </nav>
     
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln::point/" title="Point" class="md-nav__link">
-      Point
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln::rotor/" title="Rotor" class="md-nav__link">
-      Rotor
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln::translator/" title="Translator" class="md-nav__link">
-      Translator
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln::motor/" title="Motor" class="md-nav__link">
-      Motor
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln::ideal_line/" title="Ideal Line" class="md-nav__link">
-      Ideal Line
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln::direction/" title="Direction" class="md-nav__link">
-      Direction
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln::mat4x4/" title="Mat4x4" class="md-nav__link">
-      Mat4x4
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln::origin/" title="Origin" class="md-nav__link">
-      Origin
-    </a>
   </li>
 
         
@@ -649,8 +600,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1line" class="md-nav__link">
-    struct kln::line
+  <a href="#structkln_1_1origin" class="md-nav__link">
+    struct kln::origin
   </a>
   
     <nav class="md-nav">
@@ -672,57 +623,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a" class="md-nav__link">
-    line()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7" class="md-nav__link">
-    line(float a,float b,float c,float d,float e,float f) noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe" class="md-nav__link">
-    line( entity&lt; 0b110 &gt; const &amp; e)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0" class="md-nav__link">
-    line( entity&lt; 0b100 &gt; const &amp; e)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be" class="md-nav__link">
-    line( entity&lt; 0b10 &gt; const &amp; e)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8" class="md-nav__link">
-    float  squared_norm()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c" class="md-nav__link">
-    float  norm()
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1" class="md-nav__link">
-    entity&lt; 0b110 &gt;  exp() const noexcept
+  <a href="#structkln_1_1origin_1a28d4f7e2065c6e9e48789b2e825f982a" class="md-nav__link">
+    operator entity&lt; 0b1000 &gt;() const noexcept
   </a>
   
 </li>
@@ -754,13 +656,10 @@
               
                 
                 
-                  <h1>Line</h1>
+                  <h1>Origin</h1>
                 
-                <h2 id="structkln_1_1line">struct <code>kln::line</code></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">struct kln::line</span>
-<span class="err">  : public kln::entity&lt; 0b110 &gt;</span>
-</code></pre></div>
-
+                <h2 id="structkln_1_1origin">struct <code>kln::origin</code></h2>
+<p>The origin is a convenience type that occupies no memory but is castable to a point entity. Several operations like conjugation of the origin by a motor is optimized.</p>
 <h3 id="summary">Summary</h3>
 <table>
 <thead>
@@ -771,54 +670,14 @@
 </thead>
 <tbody>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a"><code>line</code></a><code>()</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>public</code> <a href="#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7"><code>line</code></a><code>(float a,float b,float c,float d,float e,float f) noexcept</code></td>
-<td>A line is specifed by 6 coordinates which correspond to the line's <a href="https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates">Plücker coordinates</a>. The coordinates specified in this way correspond to the following multivector:</td>
-</tr>
-<tr>
-<td><code>public</code> <a href="#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe"><code>line</code></a><code>(</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; e)</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>public</code> <a href="#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0"><code>line</code></a><code>(</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b100 &gt; const &amp; e)</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>public</code> <a href="#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be"><code>line</code></a><code>(</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; e)</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>public float</code> <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8"><code>squared_norm</code></a><code>()</code></td>
-<td>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</td>
-</tr>
-<tr>
-<td><code>public float</code> <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c"><code>norm</code></a><code>()</code></td>
-<td>Returns the square root of the quantity produced by <code>squared_norm</code> .</td>
-</tr>
-<tr>
-<td><code>public</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt;</code> <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1"><code>exp</code></a><code>() const noexcept</code></td>
-<td>Line exponentiation</td>
+<td><code>public</code> <a href="#structkln_1_1origin_1a28d4f7e2065c6e9e48789b2e825f982a"><code>operator entity&lt; 0b1000 &gt;</code></a><code>() const noexcept</code></td>
+<td>On its own, the origin occupies no memory, but it can be casted as an entity at any point, at which point it is represented as <span class="arithmatex">\(\mathbf{e}_{123}\)</span>.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="members">Members</h3>
-<h4 id="structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a"><a href="#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a">line</a>()</h4>
-<h4 id="structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7"><a href="#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7">line</a>(float a,float b,float c,float d,float e,float f) noexcept</h4>
-<p>A line is specifed by 6 coordinates which correspond to the line's <a href="https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates">Plücker coordinates</a>. The coordinates specified in this way correspond to the following multivector:</p>
-<div class="arithmatex">\[a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\ d\mathbf{e}_{12} + e\mathbf{e}_{31} + f\mathbf{e}_{23}\]</div>
-<h4 id="structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe"><a href="#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe">line</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e)</h4>
-<h4 id="structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0"><a href="#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0">line</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b100 &gt; const &amp; e)</h4>
-<h4 id="structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be"><a href="#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be">line</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; e)</h4>
-<h4 id="structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8">float  <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8">squared_norm</a>()</h4>
-<p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
-<h4 id="structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c">float  <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c">norm</a>()</h4>
-<p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
-<h4 id="structkln_1_1line_1ab81feed09b9c02934914071206bf54d1"><a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1">exp</a>() const noexcept</h4>
-<p>Line exponentiation</p>
-<p>The line can be exponentiated to produce a motor that posesses this line as its axis. This routine will be used most often when this line is produced as the logarithm of an existing rotor, then scaled to subdivide or accelerate the motor's action.</p>
+<h4 id="structkln_1_1origin_1a28d4f7e2065c6e9e48789b2e825f982a"><a href="#structkln_1_1origin_1a28d4f7e2065c6e9e48789b2e825f982a">operator entity&lt; 0b1000 &gt;</a>() const noexcept</h4>
+<p>On its own, the origin occupies no memory, but it can be casted as an entity at any point, at which point it is represented as <span class="arithmatex">\(\mathbf{e}_{123}\)</span>.</p>
                 
                   
                 
@@ -847,8 +706,8 @@
 
         <!-- Link to previous page -->
         
-          <a href="../kln::plane/"
-              title="Plane"
+          <a href="../kln_mat4x4/"
+              title="Mat4x4"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -861,7 +720,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Plane
+                Mat4x4
               </span>
             </div>
           </a>
@@ -869,8 +728,8 @@
 
         <!-- Link to next page -->
         
-          <a href="../kln::point/"
-              title="Point"
+          <a href="../../tutorial/intro/"
+              title="Introduction"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -879,7 +738,7 @@
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Point
+                Introduction
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
