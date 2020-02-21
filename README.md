@@ -1,8 +1,8 @@
-# Klein
+# [Klein](https://jeremyong.com/klein)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/236777729.svg)](https://zenodo.org/badge/latestdoi/236777729)
-[![Build Status](https://travis-ci.org/jeremyong/Klein.svg?branch=master)](https://travis-ci.org/jeremyong/Klein)
+[![Build Status](https://travis-ci.org/jeremyong/klein.svg?branch=master)](https://travis-ci.org/jeremyong/klein)
 [![Build Status](https://ci.appveyor.com/api/projects/status/w3ug2ad08jyved8o?svg=true)](https://ci.appveyor.com/project/jeremyong/klein)
 [![Coverity Status](https://img.shields.io/coverity/scan/20402.svg)](https://scan.coverity.com/projects/jeremyong-klein)
 
@@ -29,7 +29,7 @@ target.
 
 In your code, there is a single header to include via `#include <klein/klein.hpp>`, at which point
 you can create planes, points, lines, ideal lines, bivectors, motors, directions, and use their
-operations. Please refer to the [project site](https://jeremyong.com/Klein) for the most up-to-date
+operations. Please refer to the [project site](https://jeremyong.com/klein) for the most up-to-date
 documentation.
 
 ## Motivation

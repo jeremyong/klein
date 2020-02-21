@@ -36,7 +36,12 @@
             if (typeof katex !== "undefined") {
                 katexMath();
             }
+
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({
+                    theme: 'neutral'
+                });
+            }
         });
     })();
-
 }());

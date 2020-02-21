@@ -2,13 +2,13 @@
 
 Working with Klein is designed to be as simple as it is efficient. To "grok" the API, the main thing
 to understand is that everything that has an underlying multivector representation is an
-[`entity`](../api/kln::entity) which means that all operations supported by the entity will be
+[`entity`](../api/kln_entity) which means that all operations supported by the entity will be
 inherited.
 
-The entities provided are Euclidean objects ([`points`](../api/kln::point), [`lines`](../api/kln::line), [`planes`](../api/kln::plane)), objects that arise in
-Projective space ([`directions`](../api/kln::direction), [`ideal lines`](../api/kln::ideal_line)),
-and geometric actions ([`rotors`](../api/kln::rotor), [`translators`](../api/kln::translator),
-[`motors`](../api/kln::motor), and [`planes`](../api/kln::plane)).
+The entities provided are Euclidean objects ([`points`](../api/kln_point), [`lines`](../api/kln_line), [`planes`](../api/kln_plane)), objects that arise in
+Projective space ([`directions`](../api/kln_direction), [`ideal lines`](../api/kln_ideal_line)),
+and geometric actions ([`rotors`](../api/kln_rotor), [`translators`](../api/kln_translator),
+[`motors`](../api/kln_motor), and [`planes`](../api/kln_plane)).
 
 !!! note
 

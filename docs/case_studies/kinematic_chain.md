@@ -6,7 +6,7 @@ One of the most direct applications of Geometric Algebra is to model a hierarchy
 chains, also referred to as a skeleton. Let's breakdown how we might model a skeleton and its
 animation data with Klein.
 
-First, let's model the data in a `joint` structure. A joint represents a degree of freedom in our
+First, let's model the data in a `joint` structure. A joint is an individually controllable set of degrees of freedom in our
 skeleton (your elbow or shoulder is a good example), and we'll assume for the moment that all joints
 in our skeleton can rotate the attached bone but not extend it or twist it in place (these are known
 as "prismatic" and "cylindrical joints" respectively).
@@ -26,9 +26,11 @@ struct joint
 
 Typically, when an animator rigs a character, it's done when the character is positioned in what is
 known as a "bind pose" or "T-pose." After all, associating vertices of a skinned mesh with nearby
-joints isn't very practical if all the joints of the skeleton are collapsed to the origin.
-As a result, its common to cache on the joint itself a means to transform the joint out of the bind
+joints isn't very practical if all the joints are collapsed to the origin.
+As a result, it's common to cache on the joint itself, a means to transform the joint out of the bind
 pose. In our case, we'll use a motor called the `inv_bind_pose`.
+
+![tpose](../../img/tpose.png){: style="width:50%;height:50%;text-align:center"}
 
 !!! tip "What are motors again?"
 
