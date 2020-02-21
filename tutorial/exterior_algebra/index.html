@@ -474,6 +474,42 @@
       
 
 
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Case Studies
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Case Studies
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../case_studies/kinematic_chain/" title="Basic Skeletal Animation" class="md-nav__link">
+      Basic Skeletal Animation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item">
     <a href="../../shell/" title="Klein Shell" class="md-nav__link">
       Klein Shell
@@ -547,7 +583,47 @@ a name, say <span class="arithmatex">\(\ee_{12}\)</span>. It seems reasonable th
 But wait! Our choice of of index order seems a bit arbitrary. What about <span class="arithmatex">\(\ee_{21}\)</span>,
 <span class="arithmatex">\(\ee_{31}\)</span> and <span class="arithmatex">\(\ee_{32}\)</span>. If we follow our nose a bit, it seems reasonable that the
 area represented by <span class="arithmatex">\(\ee_{12}\)</span> should equal <span class="arithmatex">\(-\ee_{21}\)</span>. After all, they possess opposite
-orientations from one another. What about elements with two repeated indices? Like <span class="arithmatex">\(\ee_{11}\)</span>
+orientations from one another. </p>
+<DIV ID="bivector"></DIV>
+
+<SCRIPT>
+window.addEventListener('load',()=>{
+    Algebra(3,0,1,()=>{
+    // rotation helper and Lathe function.     
+    var rot = (a,P)=>Math.cos(a)+Math.sin(a)*P.Normalized,
+        lathe=(X,n,P,m)=>[...Array(n+1)].map((x,i)=>rot(i/n*Math.PI*(m||1),P)>>>X),
+
+    // wrap takes X, a double array of points, and generates triangles.    
+        wrap=(X)=>{ 
+          var u=X.length-1,v=X[0].length-1; X=[].concat.apply([],X);
+          var P=[],vp=v+1; for(var i=0;i<u*vp;i+=vp)for(var j=0;j<v;j++)P.push([i+j,i+j+1,vp+i+j],[i+j+1,vp+i+j,vp+i+j+1]);
+          return P.map(x=>x.map(x=>X[x]));
+        },
+
+    // Basic primitives constructed by Lathing points, line segments, etc.    
+        cylinder = (r=1,h=1,x=32)=>wrap(lathe([!1e0,!(1e0+r*1e3),!(1e0+r*1e3+h*1e1),!(1e0+h*1e1)],x,1e23)),
+        torus    = (r=.3,r2=.25,x=32,y=16)=>wrap(lathe((1+r*.5e03)>>>lathe(!(1e0+r2*(1e1+1e3)/2**.5),y,1e13),x,1e23)),
+        sphere   = (r=1,x=32,y=16)=>wrap(lathe(lathe(!(1e0+r*1e1),y,1e13,.5),x,1e23)),
+        cone     = (r=1,h=1,x=64)=>wrap(lathe([!1e0,!(1e0+r*1e3),!(1e0+h*1e1)],x,1e23)),
+        arrow    = ()=>[/*...cone(.075,0),*/...cone(.075,.2),...cylinder(.03,-1)],
+
+    // A selection of these objects.     
+        objs=[arrow(),arrow()].map(x=>({data:x}));
+
+    // Render and rotate them using the webGL2 previewer.      
+      var c=document.getElementById('bivector').appendChild( this.graph(()=>{
+        var time = Math.PI/2+-.5*Math.sin(performance.now()/1000);
+        var time2 = Math.PI/2+-.5*Math.sin(performance.now()/2134);
+        var t1 = objs[0].transform = rot(time,1e13)*rot(-0.1,1e12)*(1-.5e01);
+        var t2 = objs[1].transform = rot(time2,1e12+.5e23)*rot(-0.1,1e12)*(1-.5e01);
+        return [0xbbaaffaa,...objs, 0xff0000, [1e123,t1>>>1e123,t2>>>1e123]] 
+      },{gl:1,alpha:1,animate:1,camera:(1-.7e03)*Math.E**(Math.PI/4*1e13),grid:1}));    
+      c.style.width='100%'; c.style.height='250px'; c.style.background='transparent';
+    });                         
+});
+</SCRIPT>
+
+<p>What about elements with two repeated indices? Like <span class="arithmatex">\(\ee_{11}\)</span>
 or <span class="arithmatex">\(\ee_{33}\)</span>? Well, such elements can't reasonably span any area, so let's get back to
 how we should handle those in a moment. Like the unit vectors, it seems sensible to allow
 us to scale these area-elements with a weight (like <span class="arithmatex">\(3\ee_{12}\)</span>) and add them together
@@ -609,8 +685,8 @@ and the three-index elements <em>trivectors</em>.</p>
 
         <!-- Link to next page -->
         
-          <a href="../../shell/"
-              title="Klein Shell"
+          <a href="../../case_studies/kinematic_chain/"
+              title="Basic Skeletal Animation"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -619,7 +695,7 @@ and the three-index elements <em>trivectors</em>.</p>
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Klein Shell
+                Basic Skeletal Animation
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -673,6 +749,8 @@ and the three-index elements <em>trivectors</em>.</p>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/ganja.js@1.0.169"></script>
       
     
   </body>

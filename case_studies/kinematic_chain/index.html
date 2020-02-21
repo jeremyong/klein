@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/Klein/tutorial/intro/">
+        <link rel="canonical" href="https://jeremyong.com/Klein/case_studies/kinematic_chain/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Introduction - Klein</title>
+        <title>Basic Skeletal Animation - Klein</title>
       
     
     
@@ -140,7 +140,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Introduction
+                Basic Skeletal Animation
               
             </span>
           
@@ -416,12 +416,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
     
     <label class="md-nav__link" for="nav-4">
       Tutorial
@@ -429,6 +427,56 @@
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
       <label class="md-nav__title" for="nav-4">
         Tutorial
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/intro/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/exterior_algebra/" title="Exterior Algebra" class="md-nav__link">
+      Exterior Algebra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Case Studies
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Case Studies
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
@@ -445,58 +493,10 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
-    <a href="./" title="Introduction" class="md-nav__link md-nav__link--active">
-      Introduction
-    </a>
-    
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../exterior_algebra/" title="Exterior Algebra" class="md-nav__link">
-      Exterior Algebra
-    </a>
-  </li>
-
-        
-      </ul>
-    </nav>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item md-nav__item--nested">
-    
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
-    
-    <label class="md-nav__link" for="nav-5">
-      Case Studies
-    </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
-        Case Studies
-      </label>
-      <ul class="md-nav__list" data-md-scrollfix>
-        
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../case_studies/kinematic_chain/" title="Basic Skeletal Animation" class="md-nav__link">
+    <a href="./" title="Basic Skeletal Animation" class="md-nav__link md-nav__link--active">
       Basic Skeletal Animation
     </a>
+    
   </li>
 
         
@@ -566,107 +566,141 @@
               
                 
                 
-                  <h1>Introduction</h1>
+                  <h1>Basic Skeletal Animation</h1>
                 
                 <div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>You are currently reading a DRAFT that is available publicly to facilitate collaboration</p>
+<p class="admonition-title">DRAFT</p>
+<p>This case study is a WIP</p>
 </div>
-<script src="../../js/tutorial.js"></script>
+<p>One of the most direct applications of Geometric Algebra is to model a hierarchy of kinematic
+chains, also referred to as a skeleton. Let's breakdown how we might model a skeleton and its
+animation data with Klein.</p>
+<p>First, let's model the data in a <code>joint</code> structure. A joint represents a degree of freedom in our
+skeleton (your elbow or shoulder is a good example), and we'll assume for the moment that all joints
+in our skeleton can rotate the attached bone but not extend it or twist it in place (these are known
+as "prismatic" and "cylindrical joints" respectively).</p>
+<div class="codehilite"><pre><span></span><code><span class="k">struct</span> <span class="n">joint</span>
+<span class="p">{</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">motor</span>  <span class="n">inv_bind_pose</span><span class="p">;</span>
+    <span class="kt">uint8_t</span>     <span class="n">parent_offset</span><span class="p">;</span>
+    <span class="kt">uint8_t</span>     <span class="n">group_size</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
 
-<p>This guide is meant to be a gentle intro to Projective Geometric Algebra,
-also referred to as <span class="arithmatex">\(\mathbf{P}(\mathbb{R}^*_{3, 0, 1})\)</span>. It assumes no
-knowledge of quaternions and dual-quaternions, but if you have some familiarity
-with either, you may find yourself armed with new insights and appreciation. Also not assumed
-is any knowledge of abstract algebra, or any specific algebra closely related to Geometric
-Algebra (e.g. exterior algebra, Clifford Algebra, etc.).</p>
-<p>The emphasis first is on just getting familiar with the notation, the various
-operations and what they do. The <a href="../../references">references</a> page on the left contains
-some excellent material if you prefer a bottom up approach. Here though, the goal will
-be to build your intuition primarily through examples, and then introduce the formalism
-afterwards.</p>
+<details class="info"><summary>Joints! Not Bones!</summary><p>Often in the industry, you may hear people say "bones" but this is honestly a misnomer. The transforms applied during animation act on joints, and the bones are just occupying the space between the joints as it were.</p>
+</details>
+<p>Typically, when an animator rigs a character, it's done when the character is positioned in what is
+known as a "bind pose" or "T-pose." After all, associating vertices of a skinned mesh with nearby
+joints isn't very practical if all the joints of the skeleton are collapsed to the origin.
+As a result, its common to cache on the joint itself a means to transform the joint out of the bind
+pose. In our case, we'll use a motor called the <code>inv_bind_pose</code>.</p>
 <div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Grab a pen and paper! You are expected to work out a number of expressions by hand
-and <em>see</em> for yourself that the formulae behave as advertised. Further, drawing pictures
-is <em>very</em> important to maintain the linkage between the algebra and the geometry.</p>
+<p class="admonition-title">What are motors again?</p>
+<p>If you're used to working primarily with matrices, quaternions, and dual quaternions
+don't be too put off by the terminology. A <em>motor</em> is isomorphic to the dual quaternions
+but embedded in a "fuller" algebra with a richer structure. In practice, anywhere you
+would have needed a rotation plus a translation, or a dual quaternion, a motor is often
+a suitable choice.</p>
 </div>
-<p>We're going to go straight to 3D, so hang on tight. Let's start with three perfectly
-ordinary basis vectors, <span class="arithmatex">\(\ee_1\)</span>, <span class="arithmatex">\(\ee_2\)</span> and <span class="arithmatex">\(\ee_3\)</span>. Now, normally when we think about
-vectors, we imagine that they have some length and direction. In this case, let's have
-<span class="arithmatex">\(\ee_1\)</span> point in the x-direction, <span class="arithmatex">\(\ee_2\)</span> point in the y-direction, <span class="arithmatex">\(\ee_3\)</span> point in the
-z-direction, and give all of them unit length. Each one of these basis vectors can be
-scaled by a weight, and we can take linear combinations of them to create any vector
-in our 3D space. So far, everything behaves just like your good ol' 3D vector space.</p>
-<DIV ID="vector"></DIV>
+<p>As we mentioned, joints are part of
+a skeletal hierarchy, so we need a way to reference the parent joint. The representation I prefer is
+to store a negative offset to the parent joint, so given a joint <code>j</code>, its parent would be <code>*(&amp;j - parent_offset)</code>. We can easily identify the root bone as having an offset of zero when encoded this
+way. Another trick used here is to use the additional padding we have left in the structure to store
+the size of the joint's "group" which includes itself and all of its children. A joint that is a
+leaf of the skeletal hierarchy will have a <code>group_size</code> of 1.</p>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<p>Illustrate this data structure</p>
+</div>
+<p>The joints themselves reside in a skeleton, so let's just use the simplest arrangement we can think of.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">struct</span> <span class="n">skeleton</span>
+<span class="p">{</span>
+    <span class="n">joint</span><span class="o">*</span>       <span class="n">joints</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="k">const</span><span class="o">**</span> <span class="n">joint_names</span><span class="p">;</span>
+    <span class="kt">uint16_t</span>     <span class="n">size</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
 
-<SCRIPT>
-window.addEventListener('load',()=>{
-    Algebra(3,0,1,()=>{
-    // rotation helper and Lathe function.     
-    var rot = (a,P)=>Math.cos(a)+Math.sin(a)*P.Normalized,
-        lathe=(X,n,P,m)=>[...Array(n+1)].map((x,i)=>rot(i/n*Math.PI*(m||1),P)>>>X),
+<p>Here, joints are stored on the skeleton as a single allocation with <code>size</code> elements. Its common to
+refer to joints by name for both debugging and authorship, but since the joint names aren't needed
+at runtime, we'll store them in a separately allocated array.</p>
+<p>Now, all we've done is established a nice representation of the skeletal hierarchy, but we haven't
+done any animation yet! To do this, we're going to need to store a sequence of <em>poses</em> (also known
+as an animation clip). Each pose
+will encode a transform for every joint in our skeleton. Then, by interpolating from pose to pose,
+we'll have our first rudimentary animation system. Here's what our <code>pose</code> structure could be modeled
+as:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">struct</span> <span class="n">pose</span>
+<span class="p">{</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">motor</span><span class="o">*</span> <span class="n">joint_poses</span><span class="p">;</span> <span class="c1">// Array of poses for each joint</span>
+    <span class="c1">// NOTE: some engines allow animators to include scale data with each joint</span>
+    <span class="c1">// pose, but we&#39;ll ignore that for the time being.</span>
+<span class="p">};</span>
 
-    // wrap takes X, a double array of points, and generates triangles.    
-        wrap=(X)=>{ 
-          var u=X.length-1,v=X[0].length-1; X=[].concat.apply([],X);
-          var P=[],vp=v+1; for(var i=0;i<u*vp;i+=vp)for(var j=0;j<v;j++)P.push([i+j,i+j+1,vp+i+j],[i+j+1,vp+i+j,vp+i+j+1]);
-          return P.map(x=>x.map(x=>X[x]));
-        },
+<span class="k">struct</span> <span class="n">clip</span>
+<span class="p">{</span>
+    <span class="n">pose</span><span class="o">*</span>    <span class="n">poses</span><span class="p">;</span>        <span class="c1">// Array of poses</span>
+    <span class="kt">uint16_t</span> <span class="n">size</span><span class="p">;</span>         <span class="c1">// Number of poses in the animation clip</span>
+    <span class="kt">uint16_t</span> <span class="n">timestamps</span><span class="p">;</span>   <span class="c1">// Array of timestamps for each skeletal pose</span>
+    <span class="kt">uint32_t</span> <span class="n">timestamp_us</span><span class="p">;</span> <span class="c1">// Conversion from timestamp to microseconds</span>
+<span class="p">};</span>
+</code></pre></div>
 
-    // Basic primitives constructed by Lathing points, line segments, etc.    
-        cylinder = (r=1,h=1,x=32)=>wrap(lathe([!1e0,!(1e0+r*1e3),!(1e0+r*1e3+h*1e1),!(1e0+h*1e1)],x,1e23)),
-        torus    = (r=.3,r2=.25,x=32,y=16)=>wrap(lathe((1+r*.5e03)>>>lathe(!(1e0+r2*(1e1+1e3)/2**.5),y,1e13),x,1e23)),
-        sphere   = (r=1,x=32,y=16)=>wrap(lathe(lathe(!(1e0+r*1e1),y,1e13,.5),x,1e23)),
-        cone     = (r=1,h=1,x=64)=>wrap(lathe([!1e0,!(1e0+r*1e3),!(1e0+h*1e1)],x,1e23)),
-        arrow    = ()=>[...cone(.075,.2),...cone(.075,0),...cylinder(.03,-1)],
+<p>Again, we use the <code>kln::motor</code> to model the position of a joint. Typically, the rotation/translation
+of each joint in a pose is encoded <em>relative to the parent joint</em>. Why? Because the relative
+encoding allows us to mix and match animations on different parts of the skeleton, or perturb
+various joint transforms depending on gameplay. For example, suppose we want to allow a character to
+play its reload animation, while adding an additional twist at the hip as the player turns the
+camera. This type of emergent pose is much easier to tackle when we can use the joint poses of the
+reload animation clip directly, and simply apply the additional transform of the hip rotation.</p>
+<p>Now that we have our <code>clip</code> containing an array of <code>pose</code> objects, we can now animate an instance of
+our skeleton! First, let's do this without any interpolation.</p>
+<p>At a given pose (keyframe), we start at the root joint, apply its transform to itself, then to all
+its children, and then we repeat this process for all the other joints.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">struct</span> <span class="n">skeleton_instance</span>
+<span class="p">{</span>
+    <span class="c1">// All positions here are in world coordinate space</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span><span class="o">*</span> <span class="n">joint_positions</span><span class="p">;</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span>  <span class="n">world_location</span><span class="p">;</span>
+<span class="p">};</span>
 
-    // A selection of these objects.     
-        objs=[arrow()].map(x=>({data:x}));
+<span class="kt">void</span> <span class="nf">animate_keyframe</span><span class="p">(</span><span class="n">skeleton</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">parent</span><span class="p">,</span>
+                      <span class="n">skeleton_instance</span><span class="o">&amp;</span> <span class="n">instance</span><span class="p">,</span>
+                      <span class="n">pose</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// We need to write out the final transforms to the instance of the parent</span>
+    <span class="c1">// skeleton. The clip is the set of joint poses we need to apply.</span>
 
-    // Render and rotate them using the webGL2 previewer.      
-      var c=document.getElementById('vector').appendChild( this.graph(()=>{
-        var time = Math.PI/2+-.5*Math.sin(performance.now()/1000);
-        objs.forEach((obj,i)=>obj.transform = rot(time,1e13)*rot(-0.1,1e12)*(1-.5e01));
-        return [0x00ff88,...objs]
-      },{gl:1,alpha:1,animate:1,camera:(1-.7e03)*Math.E**(Math.PI/4*1e13),grid:1}));    
-      c.style.width='100%'; c.style.height='250px'; c.style.background='transparent';
-    });                         
-});
-</SCRIPT>
+    <span class="c1">// First, initialize the position of every joint to the world location</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">parent</span><span class="p">.</span><span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">joint_positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="p">.</span><span class="n">world_location</span><span class="p">;</span>
+    <span class="p">}</span>
 
-<p>Now, let's pause and consider for a moment what our vector space might be lacking. With
-vectors alone, we can certainly come up with ways to represent all sorts of things.
-Sometimes, vectors are arrows from the origin. Other times, we use vectors to mean the
-point terminated at by that arrow. Still other times, a vector is used to represent a
-plane through the origin by encoding the normal to the plane. In a way, vectors are
-somewhat encumbered due to the need to represent <em>all</em> the various entities in geometry
-one way or another. But even if we try, we'll find that there are still aspects of geometry
-that we can't reasonably or easily represent with vectors. For example, what if the
-plane didn't go through the origin? I suppose we could use two vectors, one for the normal,
-and one to describe a point in the plane. What about a rotation? Maybe we use a vector
-for the axis, and the length includes the angle. Translations? Maybe the vector points in the
-direction of the translation and the length encodes the displacement. Do you see
-an issue with the way things are going with this thought exercise? All of these
-interpretations of what a "vector" is are not mutually compatible with one another! We
-certainly can't add a vector intended to be used as a rotation axis and a vector intended
-to be used as a plane normal and expect to have a consistent interpretation of the result.
-All of them need to be treated distinctly and live "in their own space" as it were, with
-very delicate code to keep the invisible boundaries between them uncrossed.</p>
-<p>Needless to say, mathematically, the situation described above leaves much to be desired.
-What we'd like is an algebra (aka the Geometric Algebra) that could describe all the entities
-we need (points, lines, planes, rotations, translations, to name a few) in a <em>unifying</em>
-framework glued by an operation which has a sensible meaning when its operands are any
-of the listed entities (aka the geometric product). To make this a reality though, we're
-going to need to move past our vector space and limited set of operations to an algebra
-that is much richer. This algebra (the Geometric Algebra) will have more operations than
-you're used to, and more "things" than you're used to, but that's to be expected. After all,
-geometry is far richer than just arrows emanating from the origin. Embracing the additional
-structure is in some sense, akin to embracing the reality that is geometry itself, and
-acknowledge that the algebra is going to need to play some catch up to describe the
-geometry more aptly. So, then, aside from vectors, what else do we need? In the next
-section, we'll describe the exterior algebra as a stepping stone to geometric algebra,
-so see you there!</p>
+    <span class="c1">// Locomoting the world location of the instance according to the animation</span>
+    <span class="c1">// clip is known as &quot;root motion&quot; animation and is a relatively common</span>
+    <span class="c1">// technique, although it does have some tradeoffs outside the scope of this</span>
+    <span class="c1">// tutorial.</span>
+
+    <span class="c1">// For each joint, apply its corresponding joint pose motor to every</span>
+    <span class="c1">// position in its group.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">parent</span><span class="p">.</span><span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// To apply the joint pose motor, we use the call operator. Here, we</span>
+        <span class="c1">// use the overload that is efficient when applying the same motor to</span>
+        <span class="c1">// a set of different positions.</span>
+        <span class="n">target</span><span class="p">.</span><span class="n">joint_poses</span><span class="p">[</span><span class="n">i</span><span class="p">](</span>
+            <span class="o">&amp;</span><span class="n">instances</span><span class="p">.</span><span class="n">joint_positions</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="c1">// Position input</span>
+            <span class="o">&amp;</span><span class="n">instances</span><span class="p">.</span><span class="n">joint_positions</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="c1">// Position output</span>
+            <span class="n">parent</span><span class="p">.</span><span class="n">joints</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">group_size</span><span class="p">);</span>  <span class="c1">// Count</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>And in just a few lines of code, we have a "stepping" version of our animation system. Of course,
+there's a big problem with what we have so far. To get smooth animations, we'd need more keyframes
+than is reasonable.</p>
+<p>// TODO: keyframe blending</p>
                 
                   
                 
@@ -695,8 +729,8 @@ so see you there!</p>
 
         <!-- Link to previous page -->
         
-          <a href="../../api/kln_origin/"
-              title="Origin"
+          <a href="../../tutorial/exterior_algebra/"
+              title="Exterior Algebra"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -709,7 +743,7 @@ so see you there!</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Origin
+                Exterior Algebra
               </span>
             </div>
           </a>
@@ -717,8 +751,8 @@ so see you there!</p>
 
         <!-- Link to next page -->
         
-          <a href="../exterior_algebra/"
-              title="Exterior Algebra"
+          <a href="../../shell/"
+              title="Klein Shell"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -727,7 +761,7 @@ so see you there!</p>
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Exterior Algebra
+                Klein Shell
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
