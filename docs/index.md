@@ -1,3 +1,5 @@
+![Klein](./img/android-chrome-192x192.png)
+
 # Klein
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
@@ -6,7 +8,7 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/w3ug2ad08jyved8o?svg=true)](https://ci.appveyor.com/project/jeremyong/klein)
 [![Coverity Status](https://img.shields.io/coverity/scan/20402.svg)](https://scan.coverity.com/projects/jeremyong-klein)
 
-## Summary
+## Feature Summary
 
 [Klein](https://github.com/jeremyong/Klein) is an implementation of $\mathbf{P}(\mathbb{R}^*_{3, 0, 1})$, aka 3D Projective Geometric Algebra.
 It is designed for applications that demand high-throughput (animation libraries,
@@ -29,7 +31,7 @@ art kinematic and math libraries built with traditional vector and quaternion fo
 - Requires no third-party dependencies
 - Permissively licensed
 
-### Frequently tested compilers:
+## Frequently tested compilers
 
 - GCC 9.2.1 on Linux
 - Clang 9.0.1 on Linux
