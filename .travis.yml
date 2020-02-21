@@ -74,9 +74,6 @@ jobs:
         - CC=gcc
         - BUILD_TYPE=Debug
         - ENABLE_GCOV=1
-      cache:
-        directories:
-          - ${TRAVIS_BUILD_DIR}/tools/cmake
       addons:
         apt:
           sources:
@@ -90,9 +87,6 @@ jobs:
         - CXX=g++-9
         - CC=gcc
         - BUILD_TYPE=Release
-      cache:
-        directories:
-          - ${TRAVIS_BUILD_DIR}/tools/cmake
       addons:
         apt:
           sources:
@@ -111,7 +105,7 @@ install:
     else
       mkdir -p ${TRAVIS_BUILD_DIR}/tools
       travis_retry wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.16.4/cmake-3.16.4-Linux-x86_64.tar.gz
-      tar -xvf cmake-3.16.4-Linux-x86_64.tar.gz
+      tar -xf cmake-3.16.4-Linux-x86_64.tar.gz
       mv cmake-3.16.4-Linux-x86_64 ${TRAVIS_BUILD_DIR}/tools/cmake
       export PATH=${TRAVIS_BUILD_DIR}/tools/cmake/bin:$PATH
       export CMAKE=${TRAVIS_BUILD_DIR}/tools/cmake/bin/cmake
