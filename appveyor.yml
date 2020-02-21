@@ -30,4 +30,4 @@ build_script:
   - cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=%configuration%
   - cmake --build .
   - dir
-  - ./klein_test.exe
+  - ./%configuration%/klein_test.exe
