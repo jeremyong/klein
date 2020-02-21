@@ -15,6 +15,9 @@ skip_commits:
     - theme/*
     - bench/*
 
+init:
+  - set PATH=C:\cygwin\bin;%PATH%
+
 image:
   - Visual Studio 2019
 

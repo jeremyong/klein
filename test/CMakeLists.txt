@@ -33,8 +33,6 @@ if (NOT MSVC)
         -fno-omit-frame-pointer
         -fsanitize=address
         -Wall
-        -Wextra
-        -Wno-unused-but-set-parameter
         -Wno-comment # Needed for doxygen
         -Wno-unused-but-set-variable # This is needed in several entity operations
     )

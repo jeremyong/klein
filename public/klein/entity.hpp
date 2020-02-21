@@ -62,7 +62,7 @@ template <uint8_t PMask /* Partition Mask */>
 struct entity
 {
     template <uint8_t P>
-    friend class entity;
+    friend struct entity;
 
     constexpr static uint8_t partition_count
         = (PMask & 1) + ((PMask >> 1) & 0b1) + ((PMask >> 2) & 1)
