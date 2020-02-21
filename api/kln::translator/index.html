@@ -407,6 +407,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb" class="md-nav__link">
+    translator( entity&lt; 0b110 &gt; const &amp; other)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7" class="md-nav__link">
     void  load_normalized(float * data) noexcept
   </a>
@@ -416,6 +423,13 @@
           <li class="md-nav__item">
   <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59" class="md-nav__link">
     plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7" class="md-nav__link">
+    line KLN_VEC_CALL  operator()( line const &amp; l) const noexcept
   </a>
   
 </li>
@@ -579,6 +593,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../discord/" title="Discord" class="md-nav__link">
+      Discord
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../roadmap/" title="Roadmap" class="md-nav__link">
       Roadmap
     </a>
@@ -653,6 +679,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb" class="md-nav__link">
+    translator( entity&lt; 0b110 &gt; const &amp; other)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7" class="md-nav__link">
     void  load_normalized(float * data) noexcept
   </a>
@@ -662,6 +695,13 @@
           <li class="md-nav__item">
   <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59" class="md-nav__link">
     plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7" class="md-nav__link">
+    line KLN_VEC_CALL  operator()( line const &amp; l) const noexcept
   </a>
   
 </li>
@@ -753,12 +793,20 @@ operator.</p>
 <td></td>
 </tr>
 <tr>
+<td><code>public</code> <a href="#structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb"><code>translator</code></a><code>(</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; other)</code></td>
+<td></td>
+</tr>
+<tr>
 <td><code>public void</code> <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7"><code>load_normalized</code></a><code>(float * data) noexcept</code></td>
 <td>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(0.f, a, b, c)</code>  corresponding to the multivector <span class="arithmatex">\(a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03}\)</span>.</td>
 </tr>
 <tr>
 <td><code>public</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this translator and returns the result <span class="arithmatex">\(tp\widetilde{t}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::line#structkln_1_1line"><code>line</code></a><code>const &amp; l) const noexcept</code></td>
+<td>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this translator and returns the result <span class="arithmatex">\(t\ell\widetilde{t}\)</span>.</td>
 </tr>
 <tr>
 <td><code>public</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5"><code>operator()</code></a><code>(</code> <a href="/Klein/api/kln::point#structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
@@ -769,15 +817,19 @@ operator.</p>
 <h3 id="members">Members</h3>
 <h4 id="structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1"><a href="#structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1">translator</a>() = default</h4>
 <h4 id="structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2"><a href="#structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2">translator</a>(float delta,float x,float y,float z)</h4>
+<h4 id="structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb"><a href="#structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb">translator</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; other)</h4>
 <h4 id="structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7">void  <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7">load_normalized</a>(float * data) noexcept</h4>
 <p>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(0.f, a, b, c)</code>  corresponding to the multivector <span class="arithmatex">\(a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03}\)</span>.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
-<p>The rotor data loaded this way <em>must</em> be normalized. That is, the
-quantity <span class="arithmatex">\(a^2 + b^2 + c^2\)</span> must be 1.</p>
+<p>The translator data loaded this way <em>must</em> be normalized. That is,
+the quantity <span class="arithmatex">\(-\sqrt{a^2 + b^2 + c^2}\)</span> must be half the desired
+displacement.</p>
 </div>
 <h4 id="structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59"><a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59">operator()</a>( <a href="/Klein/api/kln::plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this translator and returns the result <span class="arithmatex">\(tp\widetilde{t}\)</span>.</p>
+<h4 id="structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7"><a href="/Klein/api/kln::line#structkln_1_1line">line</a> KLN_VEC_CALL  <a href="#structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7">operator()</a>( <a href="/Klein/api/kln::line#structkln_1_1line">line</a> const &amp; l) const noexcept</h4>
+<p>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this translator and returns the result <span class="arithmatex">\(t\ell\widetilde{t}\)</span>.</p>
 <h4 id="structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5"><a href="/Klein/api/kln::point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5">operator()</a>( <a href="/Klein/api/kln::point#structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a point <span class="arithmatex">\(p\)</span> with this translator and returns the result <span class="arithmatex">\(tp\widetilde{t}\)</span>.</p>
                 

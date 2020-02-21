@@ -392,6 +392,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8" class="md-nav__link">
+    float  squared_norm()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c" class="md-nav__link">
+    float  norm()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1" class="md-nav__link">
     entity&lt; 0b110 &gt;  exp() const noexcept
   </a>
@@ -586,6 +600,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../discord/" title="Discord" class="md-nav__link">
+      Discord
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
     <a href="../../roadmap/" title="Roadmap" class="md-nav__link">
       Roadmap
     </a>
@@ -681,6 +707,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8" class="md-nav__link">
+    float  squared_norm()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c" class="md-nav__link">
+    float  norm()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1" class="md-nav__link">
     entity&lt; 0b110 &gt;  exp() const noexcept
   </a>
@@ -751,6 +791,14 @@
 <td></td>
 </tr>
 <tr>
+<td><code>public float</code> <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8"><code>squared_norm</code></a><code>()</code></td>
+<td>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c"><code>norm</code></a><code>()</code></td>
+<td>Returns the square root of the quantity produced by <code>squared_norm</code> .</td>
+</tr>
+<tr>
 <td><code>public</code> <a href="/Klein/api/kln::entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt;</code> <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1"><code>exp</code></a><code>() const noexcept</code></td>
 <td>Line exponentiation</td>
 </tr>
@@ -764,6 +812,10 @@
 <h4 id="structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe"><a href="#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe">line</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e)</h4>
 <h4 id="structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0"><a href="#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0">line</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b100 &gt; const &amp; e)</h4>
 <h4 id="structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be"><a href="#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be">line</a>( <a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; e)</h4>
+<h4 id="structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8">float  <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8">squared_norm</a>()</h4>
+<p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
+<h4 id="structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c">float  <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c">norm</a>()</h4>
+<p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
 <h4 id="structkln_1_1line_1ab81feed09b9c02934914071206bf54d1"><a href="/Klein/api/kln::entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1">exp</a>() const noexcept</h4>
 <p>Line exponentiation</p>
 <p>The line can be exponentiated to produce a motor that posesses this line as its axis. This routine will be used most often when this line is produced as the logarithm of an existing rotor, then scaled to subdivide or accelerate the motor's action.</p>

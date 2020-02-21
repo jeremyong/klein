@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/Klein/overview/">
+        <link rel="canonical" href="https://jeremyong.com/Klein/discord/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Overview - Klein</title>
+        <title>Discord - Klein</title>
       
     
     
@@ -118,10 +118,6 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#api-overview" tabindex="0" class="md-skip">
-        Skip to content
-      </a>
-    
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
@@ -144,7 +140,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Overview
+                Discord
               
             </span>
           
@@ -252,12 +248,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
     
     <label class="md-nav__link" for="nav-3">
       API
@@ -273,20 +267,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" title="Overview" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../overview/" title="Overview" class="md-nav__link">
       Overview
     </a>
-    
   </li>
 
         
@@ -491,11 +476,18 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../discord/" title="Discord" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+    <a href="./" title="Discord" class="md-nav__link md-nav__link--active">
       Discord
     </a>
+    
   </li>
 
     
@@ -530,93 +522,15 @@
               </div>
             
             
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
                 
                 
-                <h1 id="api-overview">API Overview</h1>
-<p>Working with Klein is designed to be as simple as it is efficient. To "grok" the API, the main thing
-to understand is that everything that has an underlying multivector representation is an
-<a href="../api/kln::entity"><code>entity</code></a> which means that all operations supported by the entity will be
-inherited.</p>
-<p>The entities provided are Euclidean objects (<a href="../api/kln::point"><code>points</code></a>, <a href="../api/kln::line"><code>lines</code></a>, <a href="../api/kln::plane"><code>planes</code></a>), objects that arise in
-Projective space (<a href="../api/kln::direction"><code>directions</code></a>, <a href="../api/kln::ideal_line"><code>ideal lines</code></a>),
-and geometric actions (<a href="../api/kln::rotor"><code>rotors</code></a>, <a href="../api/kln::translator"><code>translators</code></a>,
-<a href="../api/kln::motor"><code>motors</code></a>, and <a href="../api/kln::plane"><code>planes</code></a>).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The call operator on a plane performs a <em>reflection</em> of the passed entity through the plane. The call operator on a rotor performs a <em>rotation</em> of the entity. The translator
-translates, and the motor performs a combination of a rotation and a translation.</p>
-</div>
-<p>The multivector operations such as the geometric product, exterior product, regressive product, etc.
-are supported for all the listed entities above via the following operator table:</p>
-<table>
-<thead>
-<tr>
-<th>Operator</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>+</code></td>
-<td>Addition</td>
-</tr>
-<tr>
-<td><code>-</code></td>
-<td>Subtraction</td>
-</tr>
-<tr>
-<td><code>*</code></td>
-<td>Geometric Product</td>
-</tr>
-<tr>
-<td><code>^</code></td>
-<td>Exterior Product</td>
-</tr>
-<tr>
-<td><code>&amp;</code></td>
-<td>Regressive Product</td>
-</tr>
-<tr>
-<td><code>|</code></td>
-<td>Symmetric Inner Product</td>
-</tr>
-<tr>
-<td><code>!</code></td>
-<td>Poincaré Dual</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>For the geometric actions (implemented via the conjugation operator <span class="arithmatex">\(xP\widetilde{x}\)</span>), the call
-operator should be used on the action itself as this will invoke a more optimized routine than
-invoking <code>x * P * ~x</code> manually. For example, given a rotor <code>r</code> and a point <code>p</code>, applying the rotor
-to <code>p</code> as <code>r(p)</code> will be faster with equivalent results to <code>r * p * ~r</code>.</p>
-<p>Similarly, while the regressive product between two entities <code>a</code> and <code>b</code> can be computed as
-<code>!(!a ^ !b)</code>, the explicit <code>a &amp; b</code> should be preferred for efficiency.</p>
-</div>
-<p>In some cases, entities may have specialized routines that will live on the child class. For
-example, the exponential map makes sense to apply to bivector entities and thus lives on the <code>line</code>
-struct. Each child entity also provides convenient constructors that accept Cartesian coordinates.</p>
+                  <h1>Discord</h1>
+                
+                <iframe src="https://discordapp.com/widget?id=680201841362862080&theme=dark" width="100%" height="700" allowtransparency="true" frameborder="0"></iframe>
                 
                   
                 
@@ -645,8 +559,8 @@ struct. Each child entity also provides convenient constructors that accept Cart
 
         <!-- Link to previous page -->
         
-          <a href="../quickstart/"
-              title="Quick Start"
+          <a href="../shell/"
+              title="Klein Shell"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -659,7 +573,7 @@ struct. Each child entity also provides convenient constructors that accept Cart
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Quick Start
+                Klein Shell
               </span>
             </div>
           </a>
@@ -667,8 +581,8 @@ struct. Each child entity also provides convenient constructors that accept Cart
 
         <!-- Link to next page -->
         
-          <a href="../api/kln::entity/"
-              title="Entity"
+          <a href="../roadmap/"
+              title="Roadmap"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -677,7 +591,7 @@ struct. Each child entity also provides convenient constructors that accept Cart
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Entity
+                Roadmap
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
