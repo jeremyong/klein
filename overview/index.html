@@ -69,6 +69,8 @@
     <link rel="stylesheet" href="../assets/fonts/material-icons.css">
     
     
+      <link rel="stylesheet" href="../css/extra.css">
+    
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
     
     
@@ -590,12 +592,12 @@
                 <h1 id="api-overview">API Overview</h1>
 <p>Working with Klein is designed to be as simple as it is efficient. To "grok" the API, the main thing
 to understand is that everything that has an underlying multivector representation is an
-<a href="../api/kln::entity"><code>entity</code></a> which means that all operations supported by the entity will be
+<a href="../api/kln_entity"><code>entity</code></a> which means that all operations supported by the entity will be
 inherited.</p>
-<p>The entities provided are Euclidean objects (<a href="../api/kln::point"><code>points</code></a>, <a href="../api/kln::line"><code>lines</code></a>, <a href="../api/kln::plane"><code>planes</code></a>), objects that arise in
-Projective space (<a href="../api/kln::direction"><code>directions</code></a>, <a href="../api/kln::ideal_line"><code>ideal lines</code></a>),
-and geometric actions (<a href="../api/kln::rotor"><code>rotors</code></a>, <a href="../api/kln::translator"><code>translators</code></a>,
-<a href="../api/kln::motor"><code>motors</code></a>, and <a href="../api/kln::plane"><code>planes</code></a>).</p>
+<p>The entities provided are Euclidean objects (<a href="../api/kln_point"><code>points</code></a>, <a href="../api/kln_line"><code>lines</code></a>, <a href="../api/kln_plane"><code>planes</code></a>), objects that arise in
+Projective space (<a href="../api/kln_direction"><code>directions</code></a>, <a href="../api/kln_ideal_line"><code>ideal lines</code></a>),
+and geometric actions (<a href="../api/kln_rotor"><code>rotors</code></a>, <a href="../api/kln_translator"><code>translators</code></a>,
+<a href="../api/kln_motor"><code>motors</code></a>, and <a href="../api/kln_plane"><code>planes</code></a>).</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The call operator on a plane performs a <em>reflection</em> of the passed entity through the plane. The call operator on a rotor performs a <em>rotation</em> of the entity. The translator
@@ -767,6 +769,8 @@ struct. Each child entity also provides convenient constructors that accept Cart
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/ganja.js@1.0.169"></script>
       

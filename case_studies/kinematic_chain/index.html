@@ -69,6 +69,8 @@
     <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
     
     
+      <link rel="stylesheet" href="../../css/extra.css">
+    
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
     
     
@@ -575,7 +577,7 @@
 <p>One of the most direct applications of Geometric Algebra is to model a hierarchy of kinematic
 chains, also referred to as a skeleton. Let's breakdown how we might model a skeleton and its
 animation data with Klein.</p>
-<p>First, let's model the data in a <code>joint</code> structure. A joint represents a degree of freedom in our
+<p>First, let's model the data in a <code>joint</code> structure. A joint is an individually controllable set of degrees of freedom in our
 skeleton (your elbow or shoulder is a good example), and we'll assume for the moment that all joints
 in our skeleton can rotate the attached bone but not extend it or twist it in place (these are known
 as "prismatic" and "cylindrical joints" respectively).</p>
@@ -591,9 +593,10 @@ as "prismatic" and "cylindrical joints" respectively).</p>
 </details>
 <p>Typically, when an animator rigs a character, it's done when the character is positioned in what is
 known as a "bind pose" or "T-pose." After all, associating vertices of a skinned mesh with nearby
-joints isn't very practical if all the joints of the skeleton are collapsed to the origin.
-As a result, its common to cache on the joint itself a means to transform the joint out of the bind
+joints isn't very practical if all the joints are collapsed to the origin.
+As a result, it's common to cache on the joint itself, a means to transform the joint out of the bind
 pose. In our case, we'll use a motor called the <code>inv_bind_pose</code>.</p>
+<p><img alt="tpose" src="../../img/tpose.png" style="width:50%;height:50%;text-align:center" /></p>
 <div class="admonition tip">
 <p class="admonition-title">What are motors again?</p>
 <p>If you're used to working primarily with matrices, quaternions, and dual quaternions
@@ -815,6 +818,8 @@ than is reasonable.</p>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@8.4.8/dist/mermaid.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/ganja.js@1.0.169"></script>
       
