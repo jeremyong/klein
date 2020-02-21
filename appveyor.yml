@@ -4,7 +4,6 @@ branches:
 
 configuration:
   - Debug
-  - Release
 
 clone_depth: 1
 
