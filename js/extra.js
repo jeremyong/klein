@@ -3,6 +3,7 @@
 
     var macros = {
         '\\ee': '\\mathbf{e}',
+        '\\JJ': '\\mathbf{J}',
     };
 
     var katexMath = (function () {

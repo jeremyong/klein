@@ -1,0 +1,1019 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
+      
+      
+        <link rel="canonical" href="https://jeremyong.com/klein/case_studies/geometry-potpourri/">
+      
+      
+        <meta name="author" content="Jeremy Ong">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>Geometry potpourri - klein</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.adb8469c.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009688">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-10576233-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="teal" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#multivectors" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://jeremyong.com/klein/" title="klein" aria-label="klein" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">flip</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              klein
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Geometry potpourri
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jeremyong/klein/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://jeremyong.com/klein/" title="klein" class="md-nav__button md-logo">
+      
+        <i class="md-icon">flip</i>
+      
+    </a>
+    klein
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jeremyong/klein/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../quickstart/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_entity/" title="Entity" class="md-nav__link">
+      Entity
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_plane/" title="Plane" class="md-nav__link">
+      Plane
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_line/" title="Line" class="md-nav__link">
+      Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_point/" title="Point" class="md-nav__link">
+      Point
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_rotor/" title="Rotor" class="md-nav__link">
+      Rotor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_translator/" title="Translator" class="md-nav__link">
+      Translator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_motor/" title="Motor" class="md-nav__link">
+      Motor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_ideal_line/" title="Ideal Line" class="md-nav__link">
+      Ideal Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_direction/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_mat4x4/" title="Mat4x4" class="md-nav__link">
+      Mat4x4
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_origin/" title="Origin" class="md-nav__link">
+      Origin
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Tutorial
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Tutorial
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/intro/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/exterior_algebra/" title="Exterior Algebra" class="md-nav__link">
+      Exterior Algebra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Case Studies
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Case Studies
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ga_skeletal_animation/" title="Basic Skeletal Animation" class="md-nav__link">
+      Basic Skeletal Animation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../shell/" title="Klein Shell" class="md-nav__link">
+      Klein Shell
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../discord/" title="Discord" class="md-nav__link">
+      Discord
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../roadmap/" title="Roadmap" class="md-nav__link">
+      Roadmap
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../references/" title="References" class="md-nav__link">
+      References
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#multivectors" class="md-nav__link">
+    Multivectors
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pga-basis-and-geometric-product" class="md-nav__link">
+    PGA Basis and Geometric Product
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-symmetric-inner-product" class="md-nav__link">
+    The Symmetric Inner Product
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-exterior-product" class="md-nav__link">
+    The Exterior Product
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-poincare-dual-map" class="md-nav__link">
+    The Poincaré Dual Map
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regressive-product" class="md-nav__link">
+    Regressive Product
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planes" class="md-nav__link">
+    Planes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    Examples
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planes-through-the-origin" class="md-nav__link">
+    Planes through the origin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#planes-away-from-the-origin" class="md-nav__link">
+    Planes away from the origin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#angles-between-planes" class="md-nav__link">
+    Angles between planes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Geometry potpourri</h1>
+                
+                <p>In this miniature article, we're going to walk through a number of common geometric tasks
+such as finding intersections, computing distances, performing rotations, etc. For each task, we'll
+showcase not only the Klein code that would produce the desired result, but also show mathematically
+how it can be computed by hand.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>In this article, I make very little effort to explain why an operation is defined a certain way or explain some of the deeper underlying mathematics. This article was written because it's often helpful to see how computation is done first, and perform some calculations by hande as well gain some intuition before taking a closer look at the theory.</p>
+</div>
+<h2 id="multivectors">Multivectors</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><a href="../../api/kln_entity">kln::entity</a></p>
+</div>
+<h3 id="pga-basis-and-geometric-product">PGA Basis and Geometric Product</h3>
+<p>Let's get used to some basis elements and operations first.
+In <span class="arithmatex">\(\mathbf{P}(\mathbb{R}^*_{3, 0, 1})\)</span> (also known as PGA), we have four grade-1 vector basis
+elements, <span class="arithmatex">\(\ee_0\)</span>, <span class="arithmatex">\(\ee_1\)</span>, <span class="arithmatex">\(\ee_2\)</span>, and <span class="arithmatex">\(\ee_3\)</span>.
+Let's define the square of these vectors in the following manner.
+The first element squares to <span class="arithmatex">\(0\)</span> (<span class="arithmatex">\(\ee_0 \ee_0 =
+0\)</span>) while the latter 3 elements square to <span class="arithmatex">\(1\)</span> (<span class="arithmatex">\(\ee_1\ee_1 = \ee_2\ee_2 = \ee_3\ee_3 = 1\)</span>).
+As we now immediately have a means to create <span class="arithmatex">\(1\)</span>, we can generate all the numbers this way,
+so let's declare <span class="arithmatex">\(1\)</span> as our grade-0 basis element.
+When we write elements adjacent to one another as in <span class="arithmatex">\(\ee_1\ee_1\)</span>, the operation being represented
+here is the <em>geometric product</em>. In code, the geometric product is expressed as the multiplication
+(<code>*</code>) operator. So far, we've written down what the geometric product does when the
+elements multiply against themselves. Next, we need to describe what happens when we take the
+geometric product between different elements.</p>
+<p>Mixed products of the basis vectors produce the basis bivectors, which can themselves be used in
+linear combinations to produce general bivectors. Bivectors that can be written as the product of
+two vectors may be referred to as <em>blades</em> or <em>simple bivectors</em>. The products between basis vectors
+are all blades by definition. As shorthand, we combine subscripts as shown
+below:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\ee_1\ee_0 &amp;= \ee_{10} \\
+\ee_1\ee_2 &amp;= \ee_{12} \\
+\ee_3\ee_0 &amp;= \ee_{30} \\
+&amp;\dots
+\end{aligned}
+\]</div>
+<p>At the moment, we would have <span class="arithmatex">\(4\times 3 = 12\)</span> basis bivectors if defined this way, but we impose a
+relation on them that relates basis bivectors that contain the same subscripts. Namely, the product
+of two vectors is minus the product of the two vectors with the order interchanged.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\ee_{01} &amp;= -\ee_{10} \\
+\ee_{02} &amp;= -\ee_{20} \\
+\ee_{03} &amp;= -\ee_{30} \\
+\ee_{12} &amp;= -\ee_{21} \\
+\ee_{31} &amp;= -\ee_{13} \\
+\ee_{23} &amp;= -\ee_{32} \tag{1}
+\end{aligned}
+\]</div>
+<p>For reasons that will become clear in a future writeup, we'll select the blades on the left hand side of <span class="arithmatex">\((1)\)</span> to be the
+<em>canonical 2-blades</em> in PGA. There is some choice index order selection as will be explained later,
+but the order here is used to match existing literature and so that computations later are made more
+convenient.</p>
+<p>Now that we know we can swap the order of the multiplication by basis vectors by introducing a sign,
+we can compute things like <span class="arithmatex">\(\ee_{01}\ee_0\)</span>.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\ee_{01}\ee_0 &amp;= \ee_0\ee_1\ee_0 \\
+&amp;= -\ee_0\ee_0\ee_1 \\
+&amp;= 0
+\end{aligned}
+\]</div>
+<p>Another example (that doesn't vanish):</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\ee_{20}\ee_2 &amp;= \ee_2\ee_0\ee_2 \\
+&amp;= -\ee_2\ee_2\ee_0 \\
+&amp;= -\ee_0
+\end{aligned}
+\]</div>
+<p>The same algorithm can be used to produce the 4 trivectors:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+\ee_{123} &amp;= \ee_{12}\ee_3 = -\ee_{132} = \ee_{312} \\
+\ee_{021} &amp;= \ee_{02}\ee_1 = -\ee_{201} = \ee_{210} \\
+\ee_{013} &amp;= \ee_{01}\ee_3 = -\ee_{031} = \ee_{301} \\
+\ee_{032} &amp;= \ee_{03}\ee_2 = -\ee_{302} = \ee_{320}
+\end{aligned}
+\]</div>
+<p>Not all permutations were listed, but just a few so you can gain familiarity with swapping indices
+and introducing signs or removing them as ncessary. The last element we haven't touched on is the
+pseudoscalar <span class="arithmatex">\(\ee_{0123}\)</span>. The pseudoscalar is so named because while it does not have grade zero,
+it is uniquely identified within its grade to within a permutation of its indices (compared to, say,
+the grade-2 elements of which there are six distinct members).
+Note that there is no way in which we can introduce an element with grade
+higher than this, and so our <span class="arithmatex">\(16\)</span> algebra elements (1 scalar, 4 vector, 6 bivector, 4 trivector, and
+1 pseudoscalar) are fully described. Linear combinations can be made from all of these elements to
+produce a general multivector. To take the geometric product between general multivectors, we
+leverage the fact that the geometric product obeys the distributive law.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+(4\ee_1 - 2\ee_{32})(3\ee_{012} + \ee_{10}) &amp;= 4\ee_1(3\ee_{012} + \ee_{10}) - 2\ee_{32}(3\ee_{012}
++ \ee_{10}) \\
+&amp;= 12\ee_1\ee_{012} + 4\ee_1\ee_{10} - 6\ee_{32}\ee_{012} - 2\ee_{32}\ee_{10} \\
+&amp;= -12\ee_{02} + 4\ee_0 - 6\ee_{301} - 2\ee_{3210} \\
+&amp;= 4\ee_0 - 12\ee_{02} - 6\ee_{013} - 2\ee_{0123}
+\end{aligned}
+\]</div>
+<p>In the last step, we simply took the time to sort the resulting terms by grade and also performed
+swaps as necessary to write terms with the canonical subscript ordering.</p>
+<div class="admonition tip">
+<p class="admonition-title">Exercises</p>
+<ol>
+<li>Write down two vectors whose product is <span class="arithmatex">\(-\ee_{01} + 2\ee_{13}\)</span>.</li>
+<li>The geometric product is neither commutative, nor anticommutative. Find examples that demonstrate this fact.</li>
+<li>Not every bivector can be written down as the product of two vectors. Find an example that demonstrates this fact.</li>
+</ol>
+</div>
+<h3 id="the-symmetric-inner-product">The Symmetric Inner Product</h3>
+<p>The <em>symmetric inner product</em> (inner product for short) is similar to the geometric product except
+it <em>is always grade decreasing</em> such that the final grade is the absolute value of the difference of
+the operand grades. If the grade of the element resulting from a geometric product
+would have been greater than this difference, the inner product extinguishes it to zero. In other
+words, all indices must contract for the inner product to produce a non-zero value (note that if the
+degenerate element contracts, a zero is produced anyways).
+Before, we
+saw that the geometric product can decrease the grade in
+the event that indices match (which contracts the result to <span class="arithmatex">\(1\)</span> or <span class="arithmatex">\(0\)</span> depending). The easy way to
+perform a symmetric product is to perform the geometric product as normal but discard terms produced
+that produce the undesired grade. For example, <span class="arithmatex">\(\ee_1\cdot \ee_1 = 1\)</span> but <span class="arithmatex">\(\ee_1\cdot
+\ee_2 = 0\)</span>.
+For a more nuanced example, <span class="arithmatex">\(\ee_{12}\cdot\ee_{02}\)</span> is <em>also</em> <span class="arithmatex">\(0\)</span> because the <span class="arithmatex">\(1\)</span> index did not contract.
+Note that we write the symmetric inner product as <span class="arithmatex">\(\cdot\)</span> in equation form, but in code,
+it is expressed via the pipe (<code>|</code>) operator. As with the geometric product, the symmetric inner
+product obeys the distributive law. Here's an example mirroring an example above but using the inner
+product instead of the geometric product:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+(4\ee_1 - 2\ee_{32})\cdot (3\ee_{012} + \ee_{10}) &amp;= 4\ee_1\cdot(3\ee_{012} + \ee_{10}) -
+2\ee_{32}\cdot (3\ee_{012} + \ee_{10}) \\
+&amp;= -12 \ee_{02} + 4\ee_0 \\
+&amp;= 4\ee_0 - 12\ee_{02}
+\end{aligned}
+\]</div>
+<p>In addition, because of our "rule" that the inner product can only decrease grade, the inner product
+between any quantity and a scalar quantity must be zero.</p>
+<div class="admonition tip">
+<p class="admonition-title">Exercises</p>
+<ol>
+<li>Can the symmetric inner product ever produce the pseudoscalar? Why or why not?</li>
+<li>Explain why <span class="arithmatex">\(\ee_0 \cdot \ee_{012}\)</span> is <span class="arithmatex">\(0\)</span> and not <span class="arithmatex">\(\ee_{12}\)</span>.</li>
+<li>The "symmetric" inner product lives up to its name by being a commutative operation. Can you justify that this is so?</li>
+</ol>
+</div>
+<h3 id="the-exterior-product">The Exterior Product</h3>
+<p>The <em>exterior product</em> (also known as the <em>wedge</em> product or the <em>outer</em> product) is similar to the
+geometric product except it always extinguishes results upon contraction.
+Thus, the result of an exterior product either has grade equal to the sum of the grades of its operands, or it
+is exactly zero. The exterior product is represented in equations with a <span class="arithmatex">\(\wedge\)</span> symbol, and in
+code, is represented with a caret (<code>^</code>) operator. The exterior product obeys the laws of distributivity as with the other products,
+so let's return to our familiar example:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+(4\ee_1 - 2\ee_{32})\wedge (3\ee_{012} + \ee_{10}) &amp;= 4\ee_1\wedge(3\ee_{012} + \ee_{10}) -
+2\ee_{32}\wedge (3\ee_{012} + \ee_{10}) \\
+&amp;= -2\ee_{3210} \\
+&amp;= -2\ee_{0123}
+\end{aligned}
+\]</div>
+<div class="admonition tip">
+<p class="admonition-title">Exercises</p>
+<ol>
+<li>The geometric product <strong>between vectors</strong> (grade-1) is the sum of the inner product and the exterior product. Prove this by explicitly expanding out the geometric product between two general vectors.</li>
+<li>The geometric product is <strong>not</strong> generally the sum of the inner product and the exterior product. Why is that?</li>
+</ol>
+</div>
+<h3 id="the-poincare-dual-map">The Poincaré Dual Map</h3>
+<p>To perform the regressive product in the next section, we need a map that is <em>grade-reversing</em>. That
+is, we need a map that takes multivectors <span class="arithmatex">\(v\)</span> to multivectors <span class="arithmatex">\(v^*\)</span> such that the grade of <span class="arithmatex">\(v\)</span> is
+equal to <span class="arithmatex">\(4\)</span> minus the grade of <span class="arithmatex">\(v^*\)</span> (and vice versa). For example, vectors should be mapped to
+trivectors, bivectors to bivectors, and the scalar to the pseudoscalar. In addition, this map needs
+to be an involution (two application of the map is the identity). Here, a map is provided but note
+that several such maps are possible. The nice property of the map provided here is that the
+application of the map is just a coordinate tuple reversal without any sign changes. The mechanism for how this basis
+was chosen is elegant but will be the subject of a different article. By convention, the dual
+map is written as <span class="arithmatex">\(\JJ\)</span> in expressions.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    \JJ(1) = \ee_{0123}&amp;,\quad \JJ(\ee_{0123}) = 1 \\
+    \JJ(\ee_0) = \ee_{123}&amp;,\quad \JJ(\ee_{123}) = \ee_0 \\
+    \JJ(\ee_1) = \ee_{032}&amp;,\quad \JJ(\ee_{032}) = \ee_1 \\
+    \JJ(\ee_2) = \ee_{013}&amp;,\quad \JJ(\ee_{013}) = \ee_2 \\
+    \JJ(\ee_3) = \ee_{021}&amp;,\quad \JJ(\ee_{021}) = \ee_3 \\
+    \JJ(\ee_{01}) = \ee_{23}&amp;,\quad \JJ(\ee_{23}) = \ee_{01} \\
+    \JJ(\ee_{02}) = \ee_{31}&amp;,\quad \JJ(\ee_{31}) = \ee_{02} \\
+    \JJ(\ee_{03}) = \ee_{12}&amp;,\quad \JJ(\ee_{12}) = \ee_{03}
+\end{aligned}
+\]</div>
+<div class="admonition tip">
+<p class="admonition-title">Exerices</p>
+<ol>
+<li>Double check that all elements in the algebra are accounted for above.</li>
+<li>The dual map is a unary operator that can be distributed across each term in a multivector sum. For example, <span class="arithmatex">\(\JJ(\ee_1 + 2\ee_{02}) = \ee_{032} + 2\ee_{31}\)</span>. Verify that the map is still an involution (that is, two applications of <span class="arithmatex">\(\JJ\)</span> should map back to the original argument).</li>
+</ol>
+</div>
+<h3 id="regressive-product">Regressive Product</h3>
+<p>The <em>regressive product</em> (written as <span class="arithmatex">\(\vee\)</span> and expressed as the <code>&amp;</code> operator in code) is defined in
+terms of the dual map and the exterior product like so:</p>
+<div class="arithmatex">\[
+a \vee b = \JJ(\JJ(a)\wedge\JJ(b))
+\]</div>
+<div class="admonition danger">
+<p class="admonition-title">TODO: provide examples/exercises</p>
+</div>
+<h2 id="planes">Planes</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><a href="../../api/kln_plane">kln::plane</a></p>
+</div>
+<p>A plane <span class="arithmatex">\(p\)</span> <em>is the manifestation of a reflection</em>. It is often helpful not to think of a plane as a
+"set of points" in PGA as will be evident when we look at rotations and translations later.</p>
+<h3 id="examples">Examples</h3>
+<p>Let's look at some simple examples first.</p>
+<h4 id="planes-through-the-origin">Planes through the origin</h4>
+<p>The plane represented implicitly by <span class="arithmatex">\(x = 0\)</span> appears in PGA simply as the vector <span class="arithmatex">\(\ee_1\)</span>. Similarly,
+the planes <span class="arithmatex">\(y = 0\)</span> and <span class="arithmatex">\(3z = 0\)</span> correspond to <span class="arithmatex">\(\ee_2\)</span> and <span class="arithmatex">\(3\ee_3\)</span> respectively. It's easy to see that
+planes like <span class="arithmatex">\(x + 3y - z = 0\)</span> can be represented by taking linear combinations of <span class="arithmatex">\(\ee_1\)</span>, <span class="arithmatex">\(\ee_2\)</span>
+and <span class="arithmatex">\(\ee_3\)</span>. In this case, the plane we just created would be represented as <span class="arithmatex">\(\ee_1 + 3\ee_2 -
+\ee_3\)</span>.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Plane x = 0</span>
+<span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">p1</span><span class="p">{</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">};</span>
+
+<span class="c1">// Plane y = 0</span>
+<span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">p2</span><span class="p">{</span><span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">};</span>
+
+<span class="c1">// Plane 3z = 0</span>
+<span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">p3</span><span class="p">{</span><span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">3.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">};</span>
+
+<span class="c1">// Plane x + 3y - z = 0</span>
+<span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">p4</span><span class="p">{</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">3.f</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">};</span>
+
+<span class="c1">// Equivalent to p4</span>
+<span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">p5</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">+</span> <span class="mf">3.f</span> <span class="o">*</span> <span class="n">p2</span> <span class="o">-</span> <span class="n">p3</span> <span class="o">/</span> <span class="mf">3.f</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="planes-away-from-the-origin">Planes away from the origin</h4>
+<p>To shift a plane from the origin, we can add a multiple of the degenerate vector <span class="arithmatex">\(\ee_0\)</span>. This
+vector is different from the other vectors in a very important way as we will see soon.</p>
+<p>The plane <span class="arithmatex">\(2x + 1 = 0\)</span> is represented as <span class="arithmatex">\(\ee_0 + 2\ee_1\)</span>.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Plane 2x + 1 = 0</span>
+<span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">p6</span><span class="p">{</span><span class="mf">2.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
+</code></pre></div>
+
+<p>Other planes like to the one above can be constructed similarly.</p>
+<h4 id="angles-between-planes">Angles between planes</h4>
+<p>The angle between planes is given by the inner product which produces the cosine of the angle
+between them as you would expect.</p>
+<p>Suppose we have two planes <span class="arithmatex">\(3\ee_0 + \ee_1 + \ee_3\)</span> and <span class="arithmatex">\(\ee_0 + \ee_3\)</span>. The first plane we recognize as
+<span class="arithmatex">\(x + z - 3 = 0\)</span>, a plane parallel to the y-axis that passes through the points
+<span class="arithmatex">\((0, y, 3)\)</span> and <span class="arithmatex">\((3, y, 0)\)</span> for any value of <span class="arithmatex">\(y\)</span>. The second plane the plane <span class="arithmatex">\(z + 1 = 0\)</span> which is
+parallel to the <span class="arithmatex">\(xy\)</span>-plane and intercepts the <span class="arithmatex">\(z\)</span>-axis one unit below the origin. The angle between
+them is computed as:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    (3\ee_0 + \ee_1 + \ee_3) \cdot (\ee_0 + \ee_3) &amp;= 3\ee_0\cdot\ee_0 + \ee_1\cdot\ee_0 +
+     \ee_3\cdot\ee_0 + \\
+     &amp;\quad\quad 3\ee_0 \cdot \ee_3 + \ee_1\cdot\ee_3 + \ee_3 \cdot\ee_3 \\
+    &amp;= 1
+\end{aligned}
+\]</div>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Klein Copyright &copy; 2020 Jeremy Ong
+          </div>
+        
+      </div>
+
+      <!-- Social links -->
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jeremyong" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/m_ninepoints" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://www.linkedin.com/in/jeremycong" target="_blank" rel="noopener" title="linkedin" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/ganja.js@1.0.169"></script>
+      
+    
+  </body>
+</html>

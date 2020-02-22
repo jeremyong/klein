@@ -829,7 +829,7 @@ its children, and then we repeat this process for all the other joints.</p>
     <span class="c1">// First, initialize the position of every joint to the world location</span>
     <span class="k">for</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">parent</span><span class="p">.</span><span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="n">joint_positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="p">.</span><span class="n">world_location</span><span class="p">;</span>
+        <span class="n">instance</span><span class="p">.</span><span class="n">joint_positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="p">.</span><span class="n">world_location</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="c1">// Locomoting the world location of the instance according to the animation</span>
@@ -1110,7 +1110,8 @@ the slerp in half at the cost of some memory.</p>
         <span class="c1">// implementation of this slerp function was given above.</span>
         <span class="n">scratch</span><span class="p">.</span><span class="n">joint_poses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">slerp</span><span class="p">(</span>
             <span class="n">previous</span><span class="o">-&gt;</span><span class="n">joint_poses</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-            <span class="n">next</span><span class="o">-&gt;</span><span class="n">joint_poses</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span>
+            <span class="n">next</span><span class="o">-&gt;</span><span class="n">joint_poses</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="o">*</span><span class="n">t</span>
         <span class="p">);</span>
     <span class="p">}</span>
 
