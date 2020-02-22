@@ -14,9 +14,9 @@ inline namespace detail
     // Partition memory layouts
     //     LSB --> MSB
     // p0: (e0, e1, e2, e3)
-    // p1: (1, e12, e31, e23)
+    // p1: (1, e23, e31, e12)
     // p2: (e0123, e01, e02, e03)
-    // p3: (e123, e021, e013, e032)
+    // p3: (e123, e032, e013, e021)
 
     // a := p1
     // b := p2
@@ -44,19 +44,18 @@ inline namespace detail
         // NOTE: a sign flip is introduced since the square of a Euclidean
         // line is negative
         //
-        // (a1^2 + a2^2 + a3^2) - 2(a1 b3 + a2 b2 + a3 b1) e0123
+        // (a1^2 + a2^2 + a3^2) - 2(a1 b1 + a2 b2 + a3 b3) e0123
 
         // Broadcast dot(a, a) ignoring the scalar component to all components
         // of a2
         __m128 a2 = _mm_dp_ps(a, a, 0b11101111);
-        // Broadcast 2(a1 b3 + a2 b2 + a3 b1) to all components
-        __m128 ab = _mm_dp_ps(a, KLN_SWIZZLE(b, 1, 2, 3, 0), 0b11101111);
+        __m128 ab = _mm_dp_ps(a, b, 0b11101111);
 
         // Next, we need the sqrt of that quantity. Since e0123 squares to 0,
         // this has a closed form solution.
         //
         // sqrt(a1^2 + a2^2 + a3^2)
-        //  - (a1 b3 + a2 b2 + a3 b1) / sqrt(a1^2 + a2^2 + a3^2) e0123
+        //  - (a1 b1 + a2 b2 + a3 b3) / sqrt(a1^2 + a2^2 + a3^2) e0123
         //
         // (relabeling) = u + vI
         //
@@ -71,7 +70,7 @@ inline namespace detail
         // bivector.
         //
         // 1 / sqrt(a1^2 + a2^2 + a3^2)
-        //   + (a1 b3 + a2 b2 + a3 b1) / (a1^2 + a2^2 + a3^2)^(3/2) e0123
+        //   + (a1 b1 + a2 b2 + a3 b3) / (a1^2 + a2^2 + a3^2)^(3/2) e0123
         //
         // The original bivector * the inverse norm gives us a normalized
         // bivector.
@@ -83,8 +82,8 @@ inline namespace detail
         // Notice how the products above actually commute
         norm_ideal = _mm_sub_ps(
             norm_ideal,
-            _mm_mul_ps(KLN_SWIZZLE(a, 1, 2, 3, 0),
-                       _mm_mul_ps(ab, _mm_mul_ps(a2_sqrt_rcp, _mm_rcp_ps(a2)))));
+            _mm_mul_ps(
+                a, _mm_mul_ps(ab, _mm_mul_ps(a2_sqrt_rcp, _mm_rcp_ps(a2)))));
 
         // The norm * our normalized bivector is the original bivector (a + b).
         // Thus, we have:
@@ -118,8 +117,7 @@ inline namespace detail
         __m128 cosu = _mm_set_ps(sincosu[1], sincosu[1], sincosu[1], 0.f);
         __m128 minus_vcosu = _mm_mul_ps(minus_v, cosu);
         p2_out             = _mm_mul_ps(sinu, norm_ideal);
-        p2_out             = _mm_add_ps(
-            p2_out, _mm_mul_ps(minus_vcosu, KLN_SWIZZLE(norm_real, 1, 2, 3, 0)));
+        p2_out = _mm_add_ps(p2_out, _mm_mul_ps(minus_vcosu, norm_real));
         float minus_vsinu = uv[1] * sincosu[0];
         p2_out            = _mm_add_ps(_mm_set_ss(minus_vsinu), p2_out);
     }
@@ -148,8 +146,8 @@ inline namespace detail
         // Next, we need to compute the norm as in the exponential.
         __m128 a2 = _mm_dp_ps(a, a, 0b11101111);
         // TODO: handle case when a2 is 0
-        __m128 ab = _mm_dp_ps(a, KLN_SWIZZLE(b, 1, 2, 3, 0), 0b11101111);
-        __m128 s  = _mm_sqrt_ps(a2);
+        __m128 ab          = _mm_dp_ps(a, b, 0b11101111);
+        __m128 s           = _mm_sqrt_ps(a2);
         __m128 a2_sqrt_rcp = _mm_rcp_ps(s);
         __m128 minus_t     = _mm_mul_ps(ab, a2_sqrt_rcp);
         // s + t e0123 is the norm of our bivector.
@@ -183,15 +181,13 @@ inline namespace detail
         __m128 norm_ideal = _mm_mul_ps(b, a2_sqrt_rcp);
         norm_ideal        = _mm_sub_ps(
             norm_ideal,
-            _mm_mul_ps(KLN_SWIZZLE(a, 1, 2, 3, 0),
-                       _mm_mul_ps(ab, _mm_mul_ps(a2_sqrt_rcp, _mm_rcp_ps(a2)))));
+            _mm_mul_ps(
+                a, _mm_mul_ps(ab, _mm_mul_ps(a2_sqrt_rcp, _mm_rcp_ps(a2)))));
 
         __m128 uvec = _mm_set1_ps(u);
         p1_out      = _mm_mul_ps(uvec, norm_real);
         p2_out      = _mm_mul_ps(uvec, norm_ideal);
-        p2_out      = _mm_sub_ps(
-            p2_out,
-            _mm_mul_ps(_mm_set1_ps(v), KLN_SWIZZLE(norm_real, 1, 2, 3, 0)));
+        p2_out      = _mm_sub_ps(p2_out, _mm_mul_ps(_mm_set1_ps(v), norm_real));
     }
 } // namespace detail
 } // namespace kln

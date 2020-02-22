@@ -27,8 +27,8 @@ TEST_CASE("multivector-ep")
         // d*e_0 + a*e_1 + b*e_2 + c*e_3
         plane p1{1.f, 2.f, 3.f, 4.f};
 
-        // a*e01 + b*e01 + c*e02 + d*e12 + e*e31 + f*e23
-        line l1{0.f, 0.f, 1.f, -2.f, 1.f, 4.f};
+        // a*e01 + b*e01 + c*e02 + d*e23 + e*e31 + f*e12
+        line l1{0.f, 0.f, 1.f, 4.f, 1.f, -2.f};
 
         // Creates a vector/trivector union
         entity<0b1001> p1l1 = p1 ^ l1;
@@ -77,8 +77,8 @@ TEST_CASE("multivector-ep")
         // d*e_0 + a*e_1 + b*e_2 + c*e_3
         plane p1{1.f, 2.f, 3.f, 4.f};
 
-        // d*e12 + e*e31 + f*e23
-        line l1{0.f, 0.f, 1.f, -2.f, 1.f, 4.f};
+        // a*e01 + b*e01 + c*e02 + d*e23 + e*e31 + f*e12
+        line l1{0.f, 0.f, 1.f, 4.f, 1.f, -2.f};
 
         // Creates a vector/trivector union
         entity<0b1001> p1l1 = l1 ^ p1;
@@ -94,9 +94,9 @@ TEST_CASE("multivector-ep")
 
     SUBCASE("line^line")
     {
-        // a*e01 + b*e01 + c*e02 + d*e12 + e*e31 + f*e23
-        line l1{1.f, 0.f, 0.f, 1.f, 2.f, 3.f};
-        line l2{0.f, 1.f, 0.f, -2.f, 1.f, 4.f};
+        // a*e01 + b*e01 + c*e02 + d*e23 + e*e31 + f*e12
+        line l1{1.f, 0.f, 0.f, 3.f, 2.f, 1.f};
+        line l2{0.f, 1.f, 0.f, 4.f, 1.f, -2.f};
 
         entity<0b110> l1l2 = l1 ^ l2;
         CHECK_EQ(l1l2.scalar(), 0.f);
@@ -111,8 +111,8 @@ TEST_CASE("multivector-ep")
 
     SUBCASE("line^ideal-line")
     {
-        // a*e01 + b*e01 + c*e02 + d*e12 + e*e31 + f*e23
-        line l1{0.f, 0.f, 1.f, 1.f, 2.f, 3.f};
+        // a*e01 + b*e01 + c*e02 + d*e23 + e*e31 + f*e12
+        line l1{0.f, 0.f, 1.f, 3.f, 2.f, 1.f};
         // a*e01 + b*e02 + c*e03
         ideal_line l2{-2.f, 1.f, 4.f};
 
@@ -125,8 +125,8 @@ TEST_CASE("multivector-ep")
 
     SUBCASE("line^point")
     {
-        // a*e01 + b*e02 + c*e03 + d*e12 + e*e31 + f*e23
-        line l1{0.f, 0.f, 1.f, 1.f, 2.f, 3.f};
+        // a*e01 + b*e01 + c*e02 + d*e23 + e*e31 + f*e12
+        line l1{0.f, 0.f, 1.f, 3.f, 2.f, 1.f};
         // x*e_032 + y*e_013 + z*e_021 + e_123
         point p2{-2.f, 1.f, 4.f};
 
@@ -155,8 +155,8 @@ TEST_CASE("multivector-ep")
 
     SUBCASE("ideal-line^line")
     {
-        // a*e01 + b*e02 + c*e03 + d*e12 + e*e31 + f*e23
-        line l1{0.f, 0.f, 1.f, 1.f, 2.f, 3.f};
+        // a*e01 + b*e01 + c*e02 + d*e23 + e*e31 + f*e12
+        line l1{0.f, 0.f, 1.f, 3.f, 2.f, 1.f};
         // a*e01 + b*e02 + c*e03
         ideal_line l2{-2.f, 1.f, 4.f};
 
@@ -204,8 +204,8 @@ TEST_CASE("multivector-ep")
 
     SUBCASE("point^line")
     {
-        // a*e01 + b*e02 + c*e03 + d*e12 + e*e31 + f*e23
-        line l1{0.f, 0.f, 1.f, 1.f, 2.f, 3.f};
+        // a*e01 + b*e01 + c*e02 + d*e23 + e*e31 + f*e12
+        line l1{0.f, 0.f, 1.f, 3.f, 2.f, 1.f};
         // x*e_032 + y*e_013 + z*e_021 + e_123
         point p2{-2.f, 1.f, 4.f};
 

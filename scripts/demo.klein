@@ -1,52 +1,52 @@
 # Translate a point
-(1 + b1 e01 + b2 e02 + b3 e03) * (a0 e123 + a1 e021 + a2 e013 + a3 e032) * (1 - b1 e01 - b2 e02 - b3 e03)
+(1 + b1 e01 + b2 e02 + b3 e03) * (a0 e123 + a1 e032 + a2 e013 + a3 e021) * (1 - b1 e01 - b2 e02 - b3 e03)
 
 # Translate a plane
 (b0 + b1 e01 + b2 e02 + b3 e03) * (a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 - b1 e01 - b2 e02 - b3 e03)
 
 # Rotate a point
-(b0 + b1 e12 + b2 e31 + b3 e23) * (a0 e123 + a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e12 - b2 e31 - b3 e23)
+(b0 + b1 e23 + b2 e31 + b3 e12) * (a0 e123 + a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e23 - b2 e31 - b3 e12)
 
 # Rotate a plane
-(b0 + b1 e12 + b2 e31 + b3 e23) * (a3 e0 + a2 e1 + a1 e2 + a0 e3) * (b0 - b1 e12 - b2 e31 - b3 e23)
+(b0 + b1 e23 + b2 e31 + b3 e12) * (a3 e0 + a2 e1 + a1 e2 + a0 e3) * (b0 - b1 e23 - b2 e31 - b3 e12)
 
 # Conjugate point with a motor
-(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 e123 + a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
+(b0 + b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 e123 + a1 e032 + a2 e013 + a3 e021) * (b0 - b1 e23 - b2 e31 - b3 e12 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
 
 # Example (motor * point * ~motor)
-(1 + 2 e12 + 3 e31 + 4 e23 + 5 e01 + 6 e02 + 7 e03 + 8 e0123) * (1e123 + 2e021 + e013 - e032)* (1 - 2 e12 - 3 e31 - 4 e23 - 5 e01 - 6 e02 - 7 e03 + 8 e0123)
+(1 + 2 e23 + 3 e31 + 4 e12 + 5 e01 + 6 e02 + 7 e03 + 8 e0123) * (1e123 + 2e021 + e013 - e032)* (1 - 2 e23 - 3 e31 - 4 e12 - 5 e01 - 6 e02 - 7 e03 + 8 e0123)
 
 # Conjugate plane with a motor
-(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
+(b0 + b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 - b1 e23 - b2 e31 - b3 e12 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
 
 # Example (motor * plane * ~motor)
-(1 + 2 e12 + 3 e31 + 4 e23 + 5 e01 + 6 e02 + 7 e03 + 8 e0123) * (3e1 + 2e2 + e3 - e0)* (1 - 2 e12 - 3 e31 - 4 e23 - 5 e01 - 6 e02 - 7 e03 + 8 e0123)
+(1 + 2 e23 + 3 e31 + 4 e12 + 5 e01 + 6 e02 + 7 e03 + 8 e0123) * (3e1 + 2e2 + e3 - e0)* (1 - 2 e23 - 3 e31 - 4 e12 - 5 e01 - 6 e02 - 7 e03 + 8 e0123)
 
 # Rotor * Translator
-(a0 + a1 e12 + a2 e31 + a3 e23) * (1 + b0 e01 + b1 e02 + b2 e03)
+(a0 + a1 e23 + a2 e31 + a3 e12) * (1 + b0 e01 + b1 e02 + b2 e03)
 
 # Conjugate a line with a motor
-(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a1 e12 + a2 e31 + a3 e23) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
+(b0 + b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a1 e23 + a2 e31 + a3 e12) * (b0 - b1 e23 - b2 e31 - b3 e12 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
 
 # Example (motor * euclidean line * ~motor)
-(1 + 2 e12 + 3 e31 + 4 e23 + 5 e01 + 6 e02 + 7 e03 + 8 e0123) * (3e12 + 2e31 + e23 + 1e01 - 2e02)* (1 - 2 e12 - 3 e31 - 4 e23 - 5 e01 - 6 e02 - 7 e03 + 8 e0123)
+(1 + 2 e23 + 3 e31 + 4 e12 + 5 e01 + 6 e02 + 7 e03 + 8 e0123) * (3e23 + 2e31 + e12 + 1e01 - 2e02)* (1 - 2 e23 - 3 e31 - 4 e12 - 5 e01 - 6 e02 - 7 e03 + 8 e0123)
 
 # Conjugate origin with motor
-(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * e123 * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
+(b0 + b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * e123 * (b0 - b1 e23 - b2 e31 - b3 e12 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
 
 # motor * ~motor
-(b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (b0 - b1 e12 - b2 e31 - b3 e23 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
+(b0 + b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (b0 - b1 e23 - b2 e31 - b3 e12 - c1 e01 - c2 e02 - c3 e03 + c0 e0123)
 
 # Inverse norm * motor
-(s + t e0123) * (b0 + b1 e12 + b2 e31 + b3 e23 + c1 e01 + c2 e02 + c3 e03 + c0 e0123)
+(s + t e0123) * (b0 + b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03 + c0 e0123)
 
 # Bivector squared norm
-(a1 e12 + a2 e31 + a3 e23 + b1 e01 + b2 e02 + b3 e03) * (a1 e12 + a2 e31 + a3 e23 + b1 e01 + b2 e02 + b3 e03)
+(a1 e23 + a2 e31 + a3 e12 + b1 e01 + b2 e02 + b3 e03) * (a1 e23 + a2 e31 + a3 e12 + b1 e01 + b2 e02 + b3 e03)
 
 # Bivector times its ideal axis and vice versa (note that it commutes)
-(a1 e12 + a2 e31 + a3 e23 + b1 e01 + b2 e02 + b3 e03) * (a1 e12 + a2 e31 + a3 e23 + b1 e01 + b2 e02 + b3 e03) * e0123
+(a1 e23 + a2 e31 + a3 e12 + b1 e01 + b2 e02 + b3 e03) * (a1 e23 + a2 e31 + a3 e12 + b1 e01 + b2 e02 + b3 e03) * e0123
 
-(a1 e12 + a2 e31 + a3 e23 + b1 e01 + b2 e02 + b3 e03) * e0123 * (a1 e12 + a2 e31 + a3 e23 + b1 e01 + b2 e02 + b3 e03)
+(a1 e23 + a2 e31 + a3 e12 + b1 e01 + b2 e02 + b3 e03) * e0123 * (a1 e23 + a2 e31 + a3 e12 + b1 e01 + b2 e02 + b3 e03)
 
 # rotor * ~rotor
-(b0 + b1 e12 + b2 e31 + b3 e23) * (b0 - b1 e12 - b2 e31 - b3 e23)
+(b0 + b1 e23 + b2 e31 + b3 e12) * (b0 - b1 e23 - b2 e31 - b3 e12)

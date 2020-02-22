@@ -38,8 +38,7 @@ int32_t algebra::mul(uint32_t lhs, uint32_t rhs) const noexcept
         return lhs + 1;
     }
 
-    int factor     = 1;
-    int32_t result = 0;
+    int factor = 1;
 
     for (uint32_t i = 0; i != dim_; ++i)
     {

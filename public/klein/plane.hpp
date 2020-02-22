@@ -28,7 +28,7 @@ struct plane final : public entity<0b1>
 
     /// Data should point to four floats with memory layout `(d, a, b, c)` where
     /// `d` occupies the lowest address in memory.
-    plane(float* data) noexcept
+    explicit plane(float* data) noexcept
     {
         parts[0].reg = _mm_loadu_ps(data);
     }

@@ -2,6 +2,10 @@
 
 #include "entity.hpp"
 
+#ifdef KLEIN_VALIDATE
+#    include <cassert>
+#endif
+
 namespace kln
 {
 /// Directions in $\mathbf{P}(\mathbb{R}^3_{3, 0, 1})$ are represented using
@@ -14,7 +18,7 @@ struct direction final : public entity<0b1000>
     /// Create a normalized direction
     direction(float x, float y, float z) noexcept
     {
-        parts[0].reg = _mm_set_ps(x, y, z, 0.f);
+        parts[0].reg = _mm_set_ps(z, y, x, 0.f);
         normalize();
     }
 
@@ -26,6 +30,18 @@ struct direction final : public entity<0b1000>
         assert(parts[0].data[0] < 1e-7 && parts[0].data[0] > -1e-7
                && "Cannot initialize direction from non-ideal point");
 #endif
+    }
+
+    /// Data should point to four floats with memory layout `(0.f, x, y, z)`
+    /// where the zero occupies the lowest address in memory.
+    explicit direction(float* data) noexcept
+    {
+#ifdef KLEIN_VALIDATE
+        assert(data[0] == 0.f
+            && "Homogeneous coordinate of point data used to initialize a"
+               "direction must be exactly zero");
+#endif
+        parts[0].reg = _mm_loadu_ps(data);
     }
 
     constexpr float operator[](size_t i) const noexcept
@@ -74,7 +90,7 @@ struct direction final : public entity<0b1000>
     /// !!! tip
     ///
     ///     Direction normalization divides the coordinates by the quantity
-    ///     a^2 + b^2 + c^2. This is done using the `rcpps` instruction with a
+    ///     x^2 + y^2 + z^2. This is done using the `rcpps` instruction with a
     ///     maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {

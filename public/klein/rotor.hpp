@@ -70,9 +70,9 @@ struct rotor final : public entity<0b10>
         buf[0]        = std::cos(half);
         float sin_ang = std::sin(half);
         float scale   = sin_ang * inv_norm;
-        buf[1]        = z * scale;
+        buf[1]        = x * scale;
         buf[2]        = y * scale;
-        buf[3]        = x * scale;
+        buf[3]        = z * scale;
         parts[0].reg  = _mm_loadu_ps(buf);
     }
 
@@ -204,5 +204,7 @@ struct rotor final : public entity<0b10>
     {
         sw312<true, false>(&in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
+
+    // TODO: provide rotor exp/log
 };
 } // namespace kln

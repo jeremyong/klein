@@ -4,9 +4,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/236777729.svg)](https://zenodo.org/badge/latestdoi/236777729)
+
 [![Build Status](https://travis-ci.org/jeremyong/Klein.svg?branch=master)](https://travis-ci.org/jeremyong/Klein)
 [![Build Status](https://ci.appveyor.com/api/projects/status/w3ug2ad08jyved8o?svg=true)](https://ci.appveyor.com/project/jeremyong/klein)
 [![Coverity Status](https://img.shields.io/coverity/scan/20402.svg)](https://scan.coverity.com/projects/jeremyong-klein)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5908bd446f3d4bb0bb1fd2e0808cb8a1)](https://www.codacy.com/manual/jeremyong/klein?utm_source=github.com&utm_medium=referral&utm_content=jeremyong/klein&utm_campaign=Badge_Grade)
 
 ## Feature Summary
 

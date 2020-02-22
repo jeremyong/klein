@@ -2,9 +2,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/236777729.svg)](https://zenodo.org/badge/latestdoi/236777729)
+
 [![Build Status](https://travis-ci.org/jeremyong/klein.svg?branch=master)](https://travis-ci.org/jeremyong/klein)
 [![Build Status](https://ci.appveyor.com/api/projects/status/w3ug2ad08jyved8o?svg=true)](https://ci.appveyor.com/project/jeremyong/klein)
 [![Coverity Status](https://img.shields.io/coverity/scan/20402.svg)](https://scan.coverity.com/projects/jeremyong-klein)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5908bd446f3d4bb0bb1fd2e0808cb8a1)](https://www.codacy.com/manual/jeremyong/klein?utm_source=github.com&utm_medium=referral&utm_content=jeremyong/klein&utm_campaign=Badge_Grade)
 
 ## Description
 
@@ -37,7 +39,9 @@ documentation.
 PGA fully streamlines traditionally used quaternions, and dual-quaternions in a single algebra.
 Normally, the onus is on the user to perform appropriate casts and ensure signs and memory layout
 are accounted for. Here, all types are unified within the geometric algebra,
-and operations such as quaternion _ dual-quat (rotor _ motor) compositions make sense.
+and operations such as applying quaternion or dual-quaternions (rotor/motor) to planes, points,
+and lines make sense. There is a surprising amount of uniformity in the algebra, which enables
+efficient implementation, a simple API, and reduced code size.
 
 ## Performance Considerations
 
@@ -47,7 +51,7 @@ a given PGA multivector has a natural decomposition into 4 blocks of 4 floating-
 For the even sub-algebra (isomorphic to the space of dual-quaternions) also known as the _motor
 algebra_, the geometric product can be densely packed and implemented efficiently using SSE.
 
-# References
+## References
 
 Klein is deeply indebted to several members of the GA community and their work. Beyond the works
 cited here, the author stands of the shoulders of giants (Felix _Klein_, Sophus Lie, Arthur Cayley,

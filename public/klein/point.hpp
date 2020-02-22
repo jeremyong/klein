@@ -19,7 +19,7 @@ struct point final : public entity<0b1000>
     /// initialized to 1)
     point(float x, float y, float z) noexcept
     {
-        parts[0].reg = _mm_set_ps(x, y, z, 1.f);
+        parts[0].reg = _mm_set_ps(z, y, x, 1.f);
     }
 
     point(entity<0b1000> const& e) noexcept
@@ -34,7 +34,7 @@ struct point final : public entity<0b1000>
     }
 
     /// Fast load from a pointer to an array of four floats with layout
-    /// `(w, z, y, x)` where `w` occupies the lowest address in memory.
+    /// `(w, x, y, z)` where `w` occupies the lowest address in memory.
     ///
     /// !!! tip
     ///
@@ -53,12 +53,12 @@ struct point final : public entity<0b1000>
 
     float x() const noexcept
     {
-        return parts[0].data[3];
+        return parts[0].data[1];
     }
 
     float& x() noexcept
     {
-        return parts[0].data[3];
+        return parts[0].data[1];
     }
 
     float y() const noexcept
@@ -73,12 +73,12 @@ struct point final : public entity<0b1000>
 
     float z() const noexcept
     {
-        return parts[0].data[1];
+        return parts[0].data[3];
     }
 
     float& z() noexcept
     {
-        return parts[0].data[1];
+        return parts[0].data[3];
     }
 
     /// The homogeneous coordinate `w` is exactly $1$ when normalized.

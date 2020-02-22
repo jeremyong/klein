@@ -36,7 +36,7 @@ struct line final : public entity<0b110>
     /// multivector:
     ///
     /// $$a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\
-    /// d\mathbf{e}_{12} + e\mathbf{e}_{31} + f\mathbf{e}_{23}$$
+    /// d\mathbf{e}_{23} + e\mathbf{e}_{31} + f\mathbf{e}_{12}$$
     line(float a, float b, float c, float d, float e, float f) noexcept
     {
         parts[0].reg = _mm_set_ps(f, e, d, 0.f);

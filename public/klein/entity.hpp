@@ -31,9 +31,9 @@ namespace kln
 /// ```
 ///     LSB --> MSB
 /// p0: (e_0, e_1, e_2, e_3)
-/// p1: (1, e_12, e_31, e_23)
+/// p1: (1, e_23, e_31, e_12)
 /// p2: (e_0123, e_01, e_02, e_03)
-/// p3: (e_123, e_021, e_013, e_032)
+/// p3: (e_123, e_032, e_013, e_021)
 /// ```
 ///
 /// The scalar and pseudoscalar are packed in partitions $p_1$ and $p_2$ along
@@ -202,15 +202,15 @@ struct entity
 
         if constexpr ((PMask & 0b10) > 0)
         {
-            out.p1() = _mm_mul_ps(p1(), _mm_set_ps(-1.f, -1.f, -1.f, 1.f));
+            out.p1() = _mm_xor_ps(p1(), _mm_set_ps(-0.f, -0.f, -0.f, 0.f));
         }
         if constexpr ((PMask & 0b100) > 0)
         {
-            out.p2() = _mm_mul_ps(p2(), _mm_set_ps(-1.f, -1.f, -1.f, 1.f));
+            out.p2() = _mm_xor_ps(p2(), _mm_set_ps(-0.f, -0.f, -0.f, 0.f));
         }
         if constexpr ((PMask & 0b1000) > 0)
         {
-            out.p3() = _mm_mul_ps(p3(), _mm_set1_ps(-1.f));
+            out.p3() = _mm_xor_ps(p3(), _mm_set1_ps(-0.f));
         }
 
         return out;
@@ -233,10 +233,10 @@ struct entity
     template <uint8_t PMask2>
     auto operator|(entity<PMask2> const& rhs) const noexcept
     {
-        __m128 p0_ = _mm_set1_ps(0.f); // (e3, e2, e1, e0)
-        __m128 p1_ = _mm_set1_ps(0.f); // (1, e12, e31, e23)
+        __m128 p0_ = _mm_set1_ps(0.f); // (e0, e1, e2, e3)
+        __m128 p1_ = _mm_set1_ps(0.f); // (1, e23, e31, e12)
         __m128 p2_ = _mm_set1_ps(0.f); // (e0123, e01, e02, e03)
-        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e021, e013, e032)
+        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e032, e013, e021)
 
         if constexpr ((PMask & 1) > 0)
         {
@@ -379,11 +379,11 @@ struct entity
                               || ((PMask & 0b10) && (PMask2 & 0b1001))
                               || (PMask2 & 0b1))
                 {
-                    p0_ = _mm_add_ps(p0_, p0_tmp);
+                    p0_ = _mm_sub_ps(p0_, p0_tmp);
                 }
                 else
                 {
-                    p0_ = p0_tmp;
+                    p0_ = _mm_xor_ps(_mm_set_ss(-0.f), p0_tmp);
                 }
             }
         }
@@ -439,11 +439,11 @@ struct entity
                               || ((PMask & 0b100) & (PMask2 & 0b1001))
                               || (PMask2 & 0b10))
                 {
-                    p0_ = _mm_sub_ps(p0_, p0_tmp);
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
                 }
                 else
                 {
-                    p0_ = _mm_xor_ps(_mm_set_ss(-0.f), p0_tmp);
+                    p0_ = p0_tmp;
                 }
             }
             if constexpr ((PMask2 & 0b1000) > 0)
@@ -515,10 +515,10 @@ struct entity
     template <uint8_t PMask2>
     auto operator^(entity<PMask2> const& rhs) const noexcept
     {
-        __m128 p0_ = _mm_set1_ps(0.f); // (e3, e2, e1, e0)
-        __m128 p1_ = _mm_set1_ps(0.f); // (1, e12, e31, e23)
+        __m128 p0_ = _mm_set1_ps(0.f); // (e0, e1, e2, e3)
+        __m128 p1_ = _mm_set1_ps(0.f); // (1, e23, e31, e12)
         __m128 p2_ = _mm_set1_ps(0.f); // (e0123, e01, e02, e03)
-        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e021, e013, e032)
+        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e032, e013, e021)
 
         if constexpr ((PMask & 1) > 0)
         {
@@ -668,22 +668,22 @@ struct entity
 
         if constexpr ((PMask & 1) > 0)
         {
-            out.p3() = KLN_SWIZZLE(p0(), 1, 2, 3, 0);
+            out.p3() = p0();
         }
 
         if constexpr ((PMask & 0b10) > 0)
         {
-            out.p2() = KLN_SWIZZLE(p1(), 1, 2, 3, 0);
+            out.p2() = p1();
         }
 
         if constexpr ((PMask & 0b100) > 0)
         {
-            out.p1() = KLN_SWIZZLE(p2(), 1, 2, 3, 0);
+            out.p1() = p2();
         }
 
         if constexpr ((PMask & 0b1000) > 0)
         {
-            out.p0() = KLN_SWIZZLE(p3(), 1, 2, 3, 0);
+            out.p0() = p3();
         }
 
         return out;
@@ -720,10 +720,10 @@ struct entity
         // (Keeping e0 away from the least significant slot is an optimization
         // which allows us to avoid a shuffle in certain circumstances)
 
-        __m128 p0_ = _mm_set1_ps(0.f); // (e3, e2, e1, e0)
-        __m128 p1_ = _mm_set1_ps(0.f); // (1, e12, e31, e23)
+        __m128 p0_ = _mm_set1_ps(0.f); // (e0, e1, e2, e3)
+        __m128 p1_ = _mm_set1_ps(0.f); // (1, e23, e31, e12)
         __m128 p2_ = _mm_set1_ps(0.f); // (e0123, e01, e02, e03)
-        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e021, e013, e032)
+        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e032, e013, e021)
 
         if constexpr ((PMask & 1) > 0)
         {
@@ -740,7 +740,7 @@ struct entity
                 __m128 p0_tmp;
                 __m128 p3_tmp;
                 gp02<false>(p0(), rhs.p2(), p0_tmp, p3_tmp);
-                if constexpr ((PMask2 & 0b10) || (PMask2 & 0b10))
+                if constexpr ((PMask2 & 0b10))
                 {
                     p0_ = _mm_add_ps(p0_, p0_tmp);
                 }
@@ -795,7 +795,8 @@ struct entity
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                __m128 p1_tmp = gp11(p1(), rhs.p1());
+                __m128 p1_tmp;
+                gp11(p1(), rhs.p1(), p1_tmp);
                 if constexpr ((PMask & 1) && (PMask2 & 0b1001))
                 {
                     p1_ = _mm_add_ps(p1_, p1_tmp);
@@ -807,7 +808,8 @@ struct entity
             }
             if constexpr ((PMask2 & 0b100) > 0)
             {
-                __m128 p2_tmp = gp12(p1(), rhs.p2());
+                __m128 p2_tmp;
+                gp12<false>(p1(), rhs.p2(), p2_tmp);
                 if constexpr ((PMask & 1) && (PMask2 & 0b1001))
                 {
                     p2_ = _mm_add_ps(p2_, p2_tmp);
@@ -856,7 +858,8 @@ struct entity
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                __m128 p2_tmp = gp21(p2(), rhs.p1());
+                __m128 p2_tmp;
+                gp12<true>(p2(), rhs.p1(), p2_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b1001))
                               || ((PMask & 0b10) && (PMask2 & 0b100)))
                 {
@@ -1018,9 +1021,9 @@ struct entity
     // provided here as a convenience for testing and debugging.
 
     // p0: (e0, e1, e2, e3)
-    // p1: (1, e12, e31, e23)
+    // p1: (1, e23, e31, e12)
     // p2: (e0123, e01, e02, e03)
-    // p3: (e123, e021, e013, e032)
+    // p3: (e123, e032, e013, e021)
     constexpr float scalar() const noexcept
     {
         if constexpr ((PMask & 0b10) > 0)
@@ -1085,7 +1088,7 @@ struct entity
     {
         if constexpr ((PMask & 0b10) > 0)
         {
-            return parts[partition_offsets[1]].data[1];
+            return parts[partition_offsets[1]].data[3];
         }
         else
         {
@@ -1097,7 +1100,7 @@ struct entity
     {
         if constexpr ((PMask & 0b10) > 0)
         {
-            return -parts[partition_offsets[1]].data[1];
+            return -parts[partition_offsets[1]].data[3];
         }
         else
         {
@@ -1133,7 +1136,7 @@ struct entity
     {
         if constexpr ((PMask & 0b10) > 0)
         {
-            return parts[partition_offsets[1]].data[3];
+            return parts[partition_offsets[1]].data[1];
         }
         else
         {
@@ -1145,7 +1148,7 @@ struct entity
     {
         if constexpr ((PMask & 0b10) > 0)
         {
-            return -parts[partition_offsets[1]].data[3];
+            return -parts[partition_offsets[1]].data[1];
         }
         else
         {
@@ -1241,7 +1244,7 @@ struct entity
     {
         if constexpr ((PMask & 0b1000) > 0)
         {
-            return parts[partition_offsets[3]].data[1];
+            return parts[partition_offsets[3]].data[3];
         }
         else
         {
@@ -1265,7 +1268,7 @@ struct entity
     {
         if constexpr ((PMask & 0b1000) > 0)
         {
-            return parts[partition_offsets[3]].data[3];
+            return parts[partition_offsets[3]].data[1];
         }
         else
         {

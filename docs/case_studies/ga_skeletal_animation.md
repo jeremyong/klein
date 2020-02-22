@@ -130,7 +130,7 @@ void animate_keyframe(skeleton const& parent,
     // First, initialize the position of every joint to the world location
     for (uint16_t i = 0; i != parent.size; ++i)
     {
-        joint_positions[i] = instance.world_location;
+        instance.joint_positions[i] = instance.world_location;
     }
 
     // Locomoting the world location of the instance according to the animation
@@ -464,7 +464,8 @@ void animate_sample(skeleton const& parent,
         // implementation of this slerp function was given above.
         scratch.joint_poses[i] = slerp(
             previous->joint_poses[i],
-            next->joint_poses[i], i
+            next->joint_poses[i],
+            *t
         );
     }
 
