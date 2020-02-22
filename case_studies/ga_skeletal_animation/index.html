@@ -1,0 +1,1256 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
+      
+      
+        <link rel="canonical" href="https://jeremyong.com/klein/case_studies/ga_skeletal_animation/">
+      
+      
+        <meta name="author" content="Jeremy Ong">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>Basic Skeletal Animation - klein</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.adb8469c.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009688">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-10576233-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="teal" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#basic-skeletal-animation-with-geometric-algebra" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://jeremyong.com/klein/" title="klein" aria-label="klein" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">flip</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              klein
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Basic Skeletal Animation
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jeremyong/klein/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://jeremyong.com/klein/" title="klein" class="md-nav__button md-logo">
+      
+        <i class="md-icon">flip</i>
+      
+    </a>
+    klein
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jeremyong/klein/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../quickstart/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_entity/" title="Entity" class="md-nav__link">
+      Entity
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_plane/" title="Plane" class="md-nav__link">
+      Plane
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_line/" title="Line" class="md-nav__link">
+      Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_point/" title="Point" class="md-nav__link">
+      Point
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_rotor/" title="Rotor" class="md-nav__link">
+      Rotor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_translator/" title="Translator" class="md-nav__link">
+      Translator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_motor/" title="Motor" class="md-nav__link">
+      Motor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_ideal_line/" title="Ideal Line" class="md-nav__link">
+      Ideal Line
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_direction/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_mat4x4/" title="Mat4x4" class="md-nav__link">
+      Mat4x4
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api/kln_origin/" title="Origin" class="md-nav__link">
+      Origin
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Tutorial
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Tutorial
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/intro/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/exterior_algebra/" title="Exterior Algebra" class="md-nav__link">
+      Exterior Algebra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Case Studies
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Case Studies
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Basic Skeletal Animation
+      </label>
+    
+    <a href="./" title="Basic Skeletal Animation" class="md-nav__link md-nav__link--active">
+      Basic Skeletal Animation
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intro" class="md-nav__link">
+    Intro
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-modeling" class="md-nav__link">
+    Data Modeling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forward-kinematics" class="md-nav__link">
+    Forward Kinematics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normalized-interpolation" class="md-nav__link">
+    Normalized Interpolation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-exp-and-log-map" class="md-nav__link">
+    The Exp and Log Map
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spherical-interpolation" class="md-nav__link">
+    Spherical Interpolation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../shell/" title="Klein Shell" class="md-nav__link">
+      Klein Shell
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../discord/" title="Discord" class="md-nav__link">
+      Discord
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../roadmap/" title="Roadmap" class="md-nav__link">
+      Roadmap
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../references/" title="References" class="md-nav__link">
+      References
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#intro" class="md-nav__link">
+    Intro
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-modeling" class="md-nav__link">
+    Data Modeling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forward-kinematics" class="md-nav__link">
+    Forward Kinematics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normalized-interpolation" class="md-nav__link">
+    Normalized Interpolation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-exp-and-log-map" class="md-nav__link">
+    The Exp and Log Map
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spherical-interpolation" class="md-nav__link">
+    Spherical Interpolation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="basic-skeletal-animation-with-geometric-algebra">Basic Skeletal Animation with Geometric Algebra</h1>
+<h2 id="intro">Intro</h2>
+<p>One of the most direct applications of Geometric Algebra is to model a hierarchy of kinematic
+chains, also referred to as a skeleton. Most tutorials and material you'll find in books and online
+for this subject matter will be expressed in terms of the quaternion and dual-quaternion algebra. So
+here, let's break down how we might model a skeleton and its
+animation data with Geometric Algebra with simple code snippets using <a href="https://www.github.com/jeremyong/klein">Klein</a>.</p>
+<h2 id="data-modeling">Data Modeling</h2>
+<p>First, let's model the data in a <code>joint</code> structure. A joint is an individually controllable set of degrees of freedom in our
+skeleton (your elbow or shoulder is a good example), and we'll assume for the moment that all joints
+in our skeleton can rotate the attached bone but not extend it or twist it in place (these are known
+as "prismatic" and "cylindrical joints" respectively).</p>
+<div class="codehilite"><pre><span></span><code><span class="k">struct</span> <span class="n">joint</span>
+<span class="p">{</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">motor</span>  <span class="n">inv_bind_pose</span><span class="p">;</span>
+    <span class="kt">uint8_t</span>     <span class="n">parent_offset</span><span class="p">;</span>
+    <span class="kt">uint8_t</span>     <span class="n">group_size</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<details class="info"><summary>Joints! Not Bones!</summary><p>Often in the industry, you may hear people say "bones" but this is honestly a misnomer. The transforms applied during animation act on joints, and the bones are just occupying the space between the joints as it were.</p>
+</details>
+<p>Typically, when an animator rigs a character, it's done when the character is positioned in what is
+known as a "bind pose" or "T-pose." After all, associating vertices of a skinned mesh with nearby
+joints isn't very practical if all the joints are collapsed to the origin.
+As a result, it's common to cache on the joint itself, a means to transform the joint out of the bind
+pose. In our case, we'll use a motor called the <code>inv_bind_pose</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">A familiar face rocking the T-pose</p>
+<p><figure style="text-align:center">
+    <img src="../../img/tpose.png" style="width:50%;height:50%" alt="T-Pose">
+</figure></p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">What are motors again?</p>
+<p>If you're used to working primarily with matrices, quaternions, and dual quaternions
+don't be too put off by the terminology. A <em>motor</em> is isomorphic to the dual quaternions
+but embedded in a "fuller" algebra with a richer structure. In practice, anywhere you
+would have needed a rotation plus a translation, or a dual quaternion, a motor is often
+a suitable choice.</p>
+<p>If you have rotation data and translation data from an external data source, you can easily convert it to a motor by constructing a <a href="http://localhost:8000/api/kln_rotor/#structkln_1_1rotor">rotor</a> and a <a href="http://localhost:8000/api/kln_translator/#structkln_1_1translator">translator</a> and taking the product to produce a <a href="http://localhost:8000/api/kln_motor/">motor</a>.</p>
+</div>
+<p>As we mentioned, joints are part of
+a skeletal hierarchy, so we need a way to reference the parent joint. The representation I prefer is
+to store a negative offset to the parent joint, so given a joint <code>j</code>, its parent would be <code>*(&amp;j - parent_offset)</code>. We can easily identify the root bone as having an offset of zero when encoded this
+way. Another trick used here is to use the additional padding we have left in the structure to store
+the size of the joint's "group" which includes itself and all of its children. A joint that is a
+leaf of the skeletal hierarchy will have a <code>group_size</code> of 1.</p>
+<p>The joints themselves reside in a skeleton, so let's just use the simplest arrangement we can think of.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">struct</span> <span class="n">skeleton</span>
+<span class="p">{</span>
+    <span class="n">joint</span><span class="o">*</span>       <span class="n">joints</span><span class="p">;</span>
+    <span class="kt">char</span> <span class="k">const</span><span class="o">**</span> <span class="n">joint_names</span><span class="p">;</span>
+    <span class="kt">uint16_t</span>     <span class="n">size</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>Here, joints are stored on the skeleton as a single allocation with <code>size</code> elements. Its common to
+refer to joints by name for both debugging and authorship, but since the joint names aren't needed
+at runtime, we'll store them in a separately allocated array.</p>
+<p>Now, all we've done is established a nice representation of the skeletal hierarchy, but we haven't
+done any animation yet! To do this, we're going to need to store a sequence of <em>poses</em> (also known
+as an animation clip). Each pose
+will encode a transform for every joint in our skeleton. Then, by interpolating from pose to pose,
+we'll have our first rudimentary animation system. Here's what our <code>pose</code> structure could be modeled
+as:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">struct</span> <span class="n">pose</span>
+<span class="p">{</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">motor</span><span class="o">*</span> <span class="n">joint_poses</span><span class="p">;</span> <span class="c1">// Array of poses for each joint</span>
+    <span class="c1">// NOTE: some engines allow animators to include scale data with each joint</span>
+    <span class="c1">// pose, but we&#39;ll ignore that for the time being.</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">clip</span>
+<span class="p">{</span>
+    <span class="n">pose</span><span class="o">*</span>    <span class="n">poses</span><span class="p">;</span>        <span class="c1">// Array of poses</span>
+    <span class="kt">uint16_t</span> <span class="n">size</span><span class="p">;</span>         <span class="c1">// Number of poses in the animation clip</span>
+    <span class="kt">uint16_t</span> <span class="n">timestamps</span><span class="p">;</span>   <span class="c1">// Array of timestamps for each skeletal pose</span>
+    <span class="kt">uint32_t</span> <span class="n">timestamp_us</span><span class="p">;</span> <span class="c1">// Conversion from timestamp to microseconds</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>Again, we use the <code>kln::motor</code> to model the position of a joint. Typically, the rotation/translation
+of each joint in a pose is encoded <em>relative to the parent joint</em>. Why? Because the relative
+encoding allows us to mix and match animations on different parts of the skeleton, or perturb
+various joint transforms depending on gameplay. For example, suppose we want to allow a character to
+play its reload animation, while adding an additional twist at the hip as the player turns the
+camera. This type of emergent pose is much easier to tackle when we can use the joint poses of the
+reload animation clip directly, and simply apply the additional transform of the hip rotation.</p>
+<h2 id="forward-kinematics">Forward Kinematics</h2>
+<p>Now that we have our <code>clip</code> containing an array of <code>pose</code> objects, we can now animate an instance of
+our skeleton! First, let's do this without any interpolation.</p>
+<p>At a given pose (keyframe), we start at the root joint, apply its transform to itself, then to all
+its children, and then we repeat this process for all the other joints.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">struct</span> <span class="n">skeleton_instance</span>
+<span class="p">{</span>
+    <span class="c1">// All positions here are in world coordinate space</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span><span class="o">*</span> <span class="n">joint_positions</span><span class="p">;</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span>  <span class="n">world_location</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">void</span> <span class="nf">animate_keyframe</span><span class="p">(</span><span class="n">skeleton</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">parent</span><span class="p">,</span>
+                      <span class="n">skeleton_instance</span><span class="o">&amp;</span> <span class="n">instance</span><span class="p">,</span>
+                      <span class="n">pose</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">target</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// We need to write out the final transforms to the instance of the parent</span>
+    <span class="c1">// skeleton. The clip is the set of joint poses we need to apply.</span>
+
+    <span class="c1">// First, initialize the position of every joint to the world location</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">parent</span><span class="p">.</span><span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">joint_positions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">instance</span><span class="p">.</span><span class="n">world_location</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Locomoting the world location of the instance according to the animation</span>
+    <span class="c1">// clip is known as &quot;root motion&quot; animation and is a relatively common</span>
+    <span class="c1">// technique, although it does have some tradeoffs outside the scope of this</span>
+    <span class="c1">// tutorial.</span>
+
+    <span class="c1">// For each joint, apply its corresponding joint pose motor to every</span>
+    <span class="c1">// position in its group.</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">parent</span><span class="p">.</span><span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// To apply the joint pose motor, we use the call operator. Here, we</span>
+        <span class="c1">// use the overload that is efficient when applying the same motor to</span>
+        <span class="c1">// a set of different positions.</span>
+        <span class="n">target</span><span class="p">.</span><span class="n">joint_poses</span><span class="p">[</span><span class="n">i</span><span class="p">](</span>
+            <span class="o">&amp;</span><span class="n">instances</span><span class="p">.</span><span class="n">joint_positions</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="c1">// Position input</span>
+            <span class="o">&amp;</span><span class="n">instances</span><span class="p">.</span><span class="n">joint_positions</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="c1">// Position output</span>
+            <span class="n">parent</span><span class="p">.</span><span class="n">joints</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">group_size</span><span class="p">);</span>  <span class="c1">// Count</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>And in just a few lines of code, we have a "stepping" version of our animation system. Of course,
+there's a big problem with what we have so far. To get smooth animations, we'd need more keyframes
+than is reasonable. Before getting to that though, let's consider why we opted to apply a joint pose
+motor <span class="arithmatex">\(N\)</span> times across <span class="arithmatex">\(N\)</span> joint positions in a single call as opposed to <span class="arithmatex">\(N\)</span> separate calls.
+To see why, we'll need to look at the expanded motor conjugation operation <span class="arithmatex">\(mP\widetilde{m}\)</span> for
+some motor <span class="arithmatex">\(m\)</span> and point <span class="arithmatex">\(P\)</span>.</p>
+<details class="question"><summary>Conjugation?</summary><p>Often, you may hear the term "conjugate" used as a noun. For example, the complex conjugate of <span class="arithmatex">\(a + bi\mkern1mu\)</span> is <span class="arithmatex">\(a - bi\mkern1mu\)</span>.
+However, the term is also used frequently to mean a "sandwich multiplication" such as <span class="arithmatex">\(pq\widetilde{p}\)</span>.
+Those familiar with quaternions will recognize this as the application of a quaternion <span class="arithmatex">\(q\)</span> to a point <span class="arithmatex">\(p\)</span>.
+Conjugation is used through Geometric Algebra because the fundamental action is reflection through a plane (produced by a conjugation with a vector quantity).
+Rotations and translations are modeled as two reflections, and so their action manifests itself as a conjugation by a bivector quantity.</p>
+</details>
+<p>First, let's give variable names to all the coordinates of a point <span class="arithmatex">\(P\)</span>:</p>
+<div class="arithmatex">\[P \equiv a_0\ee_{123} + a_1\ee_{021} + a_2\ee_{013} + a_3\ee_{023}\]</div>
+<p>and the motor <span class="arithmatex">\(m\)</span>:</p>
+<div class="arithmatex">\[
+    \begin{aligned}
+        m \equiv b_0 &amp;+ b_1 \ee_{12} + b_2 \ee_{31} + b_3 \ee_{23} \\
+        &amp;+ c_1 \ee_{01} + c_2 \ee_{02} + c_3 \ee_{03} + c_0 \ee_{0123}
+    \end{aligned}
+\]</div>
+<p>Here, we've labeled the coefficients with prefixes <span class="arithmatex">\(b\)</span> and <span class="arithmatex">\(c\)</span> to distinguish between
+elements that contain the degenerate <span class="arithmatex">\(\ee_0\)</span> from those that don't. With these definitions,
+the group action of the motor is performed via conjugation as follows:</p>
+<div class="arithmatex">\[
+    \begin{aligned}
+        mP\widetilde{m} = &amp;a_0 (b_0^2 + b_1^2 + b_2^2 + b_3^2) \ee_{123} + \\
+        \\
+        + (2&amp;a_0(b_3 c_2 - b_0 c_3 - b_2 c_1 - b_1 c_0) + \\
+        2&amp;a_2(b_1 b_2 - b_0 b_3) + \\
+        2&amp;a_3(b_0 b_2 + b_1 b_3) + \\
+        &amp;a_1(b_0^2 + b_1^2 - b_2^2 - b_3^2)) \ee_{021} + \\
+        \\
+        + (2&amp;a_0(b_1 c_1 - b_0 c_2 - b_3 c_3 - b_2 c_0) + \\
+         2&amp;a_3(b_2 b_3 - b_0 b_1) + \\
+         2&amp;a_1(b_0 b_3 + b_1 b_2) + \\
+         &amp;a_2(b_0^2 + b_2^2 - b_1^2 - b_3^2)) \ee_{013} + \\
+        \\
+        + (2&amp;a_0(b_2 c_3 - b_0 c_1 - b_1 c_2 - b_3 c_0) + \\
+         2&amp;a_1(b_1 b_3 - b_0 b_2) + \\
+         2&amp;a_2(b_0 b_1 +  b_2 b_3) + \\
+         &amp;a_3(b_0^2 + b_3^2 - b_1^2 - b_2^2)) \ee_{032}
+    \end{aligned}
+\]</div>
+<p>Now, this is admittedly a mouthful, but if you stare at it long enough, some patterns should emerge.
+First, note that the result could be factorized in such a way that <span class="arithmatex">\(a_0\)</span>, <span class="arithmatex">\(a_1\)</span>, <span class="arithmatex">\(a_2\)</span>, and <span class="arithmatex">\(a_3\)</span>
+don't need to participate in the computation until the very end. This is an optimization
+opportunity! All the arithmetic for the terms involving factors of <span class="arithmatex">\(b\)</span> and <span class="arithmatex">\(c\)</span> can be computed once
+and reused for each point <span class="arithmatex">\(P\)</span>.</p>
+<p>Internally, Klein uses a template variable to determine if it should loop over an array of entities
+when applying the motor and this optimization is done automatically, provided the code is written as
+above. If the motor is applied to a single entity (as in <code>m(p)</code>), that will be equivalent to the
+application of a dual-quaternion, so still not slow by any means, but still, the optimization
+mentioned above is often too good to pass up. To see the exact SSE code where this is optimization is
+made, feel free to refer to the Klein code
+<a href="https://github.com/jeremyong/klein/blob/master/public/klein/detail/sandwich.hpp">here</a> (search for
+the function <code>sw312</code> which means "sandwich partition 3 with partitions 1 and 2").</p>
+<details class="question"><summary>Why did you label the motor coefficients with <span class="arithmatex">\(b\)</span>s and <span class="arithmatex">\(c\)</span>s</summary><p>The answer to this is that the <span class="arithmatex">\(c\)</span> coefficients which were attached to basis elements with an ideal component <span class="arithmatex">\(\ee_0\)</span> produce a <em>translational</em> effect. If you look at the expanded motor conjugation above and set <span class="arithmatex">\(c_0 = c_1 = c_2 = c_3 = 0\)</span>, a number of terms drop out and you'll be left with a purely rotational action. A rotor (aka a quaternion)! In fact, the code internally shares a bunch of code this way and the extraneous code when no translation is desired is optimized out at compile time.</p>
+</details>
+<p>OK, now we have code that will apply compute the joint pose positions in a global coordinate space
+given a specified pose. In practice though, an arbitrary time sample in our animation clip could be
+requested. In particular, we may need to render a pose <em>between</em> two keyframes. How should we go
+about doing this?</p>
+<h2 id="normalized-interpolation">Normalized Interpolation</h2>
+<p>What we need is a mechanism for interpolating between two motors, say, <span class="arithmatex">\(m_1\)</span> and <span class="arithmatex">\(m_2\)</span>.
+There are at least two ways of performing this interpolation, a fast and moderately accurate way,
+and a slower but truly accurate way. By "accurate" here, what we mean is that given a parameter <span class="arithmatex">\(t
+\in [0, 1]\)</span> that maps <span class="arithmatex">\(m\)</span> to <span class="arithmatex">\(m_1\)</span> when <span class="arithmatex">\(t = 0\)</span> and maps <span class="arithmatex">\(m\)</span> to <span class="arithmatex">\(m_2\)</span> when <span class="arithmatex">\(t = 1\)</span>,
+the speed of a particle moving along the path taken by <span class="arithmatex">\(m\)</span> is constant.</p>
+<p>The reason why a simple linear interpolation such as <span class="arithmatex">\(m = m_1 (1 - t) + m_2 t\)</span> doesn't work
+is because the norm of <span class="arithmatex">\(m\)</span> must be <span class="arithmatex">\(1\)</span> to represent a rigid-body transform. It's easy to prove that
+the norm of an <span class="arithmatex">\(m\)</span> produced this way from two normalized motors isn't normalized in general.
+Let's compute the norm directly:</p>
+<div class="arithmatex">\[
+    \begin{aligned}
+        m &amp;\equiv m_1 (1 - t) + m_2 t \\
+        \\
+        m\widetilde{m} &amp;= \left(m_1 (1 - t) + m_2 t\right) \left(\widetilde{m}_1 (1 - t) + \widetilde{m}_2 t\right) \\
+        &amp;= m_1\widetilde{m}_1 (1-t)^2 + (m_2\widetilde{m}_1 + m_1\widetilde{m}_2)t(1-t) + m_2\widetilde{m}_2t \\
+        &amp;= 1 - t + t^2 + (m_2\widetilde{m}_1 + m_1\widetilde{m}_2)t(1-t)
+    \end{aligned}
+\]</div>
+<p>If <span class="arithmatex">\(t = 0\)</span> or <span class="arithmatex">\(t = 1\)</span>, then no interpolation happened at all, and we can see that the expression
+above works out to <span class="arithmatex">\(1\)</span> as we'd expect.
+Otherwise, we can see that the norm of a linearly interpolated motor is
+<span class="arithmatex">\(1\)</span> if and only if <span class="arithmatex">\(m_2\widetilde{m}_1 + m_1\widetilde{m}_2 = 1\)</span> which is not true in general.</p>
+<p>To correct for this, a "fast and dirty" approach is to just linearly interpolate anyways, but then
+normalize the result so that we at least we're guaranteed to end up with a rigid body transform.
+This is commonly referred to as <code>nlerp</code>, and a function that does this might look like the
+following:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// NOTE: t is expected to be between 0 and 1</span>
+<span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="n">nlerp</span><span class="p">(</span><span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">m1</span><span class="p">,</span> <span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">m2</span><span class="p">,</span> <span class="kt">float</span> <span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">m1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">m2</span><span class="p">).</span><span class="n">normalize</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Not much to it! The main benefit of something like nlerp is that it is fast and requires no
+transcendental functions except a single fast Newton-Raphson square root to normalize the result.</p>
+<h2 id="the-exp-and-log-map">The Exp and Log Map</h2>
+<details class="warning"><summary>Math Alert</summary><p>The contents of this section are slightly more math heavy and less programming heavy. It's useful knowledge to know, but if its a bit much and you just want a smooth constant speed interpolation, you can safely skip to the next section where we simply apply the techniques learned here in a provided API. Don't be intimidated though! I, the author, sincerely wish that the material here is presented in a way that can be grasped even if unfamiliar given a little bit of patience.</p>
+</details>
+<p>What if we wanted to maintain constant velocity around the curve? We can accomplish this by
+linearizing the transition motor. Let's step back for a second. Motors <em>are</em> the result of
+an exponential map, but to see why this might be plausible, let's look at complex numbers first as
+they are likely more familiar. Recall Euler's formula:</p>
+<div class="arithmatex">\[ e^{i\mkern1mu \theta} = \cos \theta + i\mkern1mu \sin \theta \]</div>
+<p>The reason this works is because if we Taylor expand the LHS:</p>
+<div class="arithmatex">\[
+e^{i\mkern1mu \theta} = 1 + i\mkern1mu\theta - \frac{\theta^2}{2} - \frac{i\mkern1mu \theta^3}{6} + \dots = \left(1 - \frac{\theta^2}{2} + \dots\right) + i\mkern1mu\left(\theta - \frac{\theta^3}{6} + \dots\right)
+\]</div>
+<p>we seemingly miraculously end up with a well defined rotation, recognized on the RHS of Euler's formula. The <span class="arithmatex">\(i\mkern1mu\)</span> is the key
+ingredient. Because the square of <span class="arithmatex">\(i\mkern1mu\)</span> is <span class="arithmatex">\(-1\)</span>, repeated multiplication of <span class="arithmatex">\(i\mkern1mu\)</span>
+doesn't grow to infinity. Instead, it "rotates" with a well-defined periodicity. Suppose I had two
+rotations <span class="arithmatex">\(r_1\)</span> and <span class="arithmatex">\(r_2\)</span> as below:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    r_1 &amp;\equiv \cos{\theta_1} + i\mkern1mu \sin{\theta_1} \\
+    r_2 &amp;\equiv \cos{\theta_2} + i\mkern1mu \sin{\theta_2}
+\end{aligned}
+\]</div>
+<p>and suppose I want a rotation that takes me halfway between <span class="arithmatex">\(r_1\)</span> to <span class="arithmatex">\(r_2\)</span>. How would we produce such a rotation?
+The answer is obvious. We simply produce a rotation that's the average of <span class="arithmatex">\(\theta_2\)</span> and <span class="arithmatex">\(\theta_1\)</span>
+(assuming that we bisect the shorter arc between them). Then, the desired rotation is simply given
+as</p>
+<div class="arithmatex">\[ \cos{\frac{\theta_1 + \theta_2}{2}} + i\mkern1mu\sin{\frac{\theta_1 + \theta_2}{2}} \]</div>
+<p>This was easy because of the <em>form</em> I expressed <span class="arithmatex">\(r_1\)</span> and <span class="arithmatex">\(r_2\)</span> to you. The angles we needed to
+blend between was in plain sight! What if the rotation was given as <span class="arithmatex">\(\alpha + i\mkern1mu \beta\)</span>
+instead? Well, in this case, we can retrieve the angle by taking the <em>logarithm</em> of the rotation.
+Let's do this precisely. Suppose now that the rotations are given as follows:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    r_1 &amp;\equiv \alpha_1 + i\mkern1mu \beta_1 \\
+    r_2 &amp;\equiv \alpha_2 + i\mkern1mu \beta_2
+\end{aligned}
+\]</div>
+<p>and again we are asked to find the rotation <span class="arithmatex">\(r\)</span> halfway between <span class="arithmatex">\(r_1\)</span> and <span class="arithmatex">\(r_2\)</span>. The first thing we
+can realize is identify a new quantity I'm just going to call <span class="arithmatex">\(r_\delta\)</span>. Suppose that <span class="arithmatex">\(r_\delta\)</span>
+represents the rotation halfway <em>between</em> <span class="arithmatex">\(r_1\)</span> and <span class="arithmatex">\(r_2\)</span>. That is:</p>
+<div class="arithmatex">\[ r_\delta^2 r_1 = r_2 \]</div>
+<p>Then, we can multiply both sides by <span class="arithmatex">\(r_1^\dagger\)</span> (the complex conjugate of <span class="arithmatex">\(r_1\)</span>) to isolate
+<span class="arithmatex">\(r_\delta\)</span> on the LHS. Solving for <span class="arithmatex">\(r_\delta\)</span> can proceed as follows:</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    r_\delta^2 r_1 &amp;= r_2 \\
+    r_\delta^2 r_1 r_1^\dagger &amp;= r_2 r_1^\dagger \\
+    2 \ln\left|r_\delta\right| &amp;= \ln\left|r_2 r_1^\dagger\right| \tag{1} \\
+    r_\delta &amp;= \exp{\left(\frac{1}{2}\ln\left|r_2 r_1^\dagger\right|\right)}
+\end{aligned}
+\]</div>
+<div class="arithmatex">\[
+    r_\delta r_1 = \exp{\left(\frac{1}{2}\ln\left|r_2 r_1^\dagger\right|\right)} r_1 \tag{2}
+\]</div>
+<p>In the last step, we right multiplied by <span class="arithmatex">\(r_1\)</span> (our starting rotation) since <span class="arithmatex">\(r_\delta\)</span> was the
+halfway rotation <em>between</em> <span class="arithmatex">\(r_1\)</span> and <span class="arithmatex">\(r_2\)</span>. Hopefully, taking the natural logarithm of a complex
+number isn't two scary. After all, we know that <span class="arithmatex">\(r_1\)</span> and <span class="arithmatex">\(r_2\)</span> have corresonding angles <span class="arithmatex">\(\theta_1\)</span>
+and <span class="arithmatex">\(\theta_2\)</span> (defined as the arctangents of their <span class="arithmatex">\(\alpha\)</span> and <span class="arithmatex">\(\beta\)</span> components) along with polar forms that make simplifying the RHS above easy.</p>
+<div class="arithmatex">\[
+\begin{aligned}
+    r_\delta r_1 &amp;= \exp{\left(\frac{1}{2}\ln\left|r_2 r_1^\dagger\right|\right)} r_1 \\
+    &amp;= \exp{\left(\frac{1}{2}\ln\left|e^{i\mkern1mu \theta_2}\right|\ln\left|e^{-i\mkern1mu \theta_1}\right|\right)} r_1 \\
+    &amp;= \exp{\left(\frac{i\mkern1mu (\theta_2 - \theta_1)}{2}\right)} \exp{(i\mkern1mu \theta_1)} \\
+&amp;= \cos{\frac{\theta_1 + \theta_2}{2}} + i\mkern1mu\sin{\frac{\theta_1 + \theta_2}{2}}
+\end{aligned}
+\]</div>
+<p>Different path but same result! Now, this might seem needlessly complicated to achieve what could
+have been done more easily by reading off the angles, but this is only because converting complex
+numbers to their polar representations is relatively easy. The angle can be determined by taking the
+arctangent of the ratio of the imaginary and real component. The <em>most important step</em> to appreciate
+in the second method we used above, is the part where we divide both sides by <span class="arithmatex">\(2\)</span> (see the equation
+marked <span class="arithmatex">\((1)\)</span> above). The exponent there was our desired subdivision (we wanted
+to split the arc in two, so the incremental rotation ended up being squared to take us from <span class="arithmatex">\(r_1\)</span> to
+<span class="arithmatex">\(r_2\)</span>). If we wanted to subdivide the arc into <span class="arithmatex">\(n\)</span> segments, we would have needed a power of <span class="arithmatex">\(n\)</span>. By
+taking the logarithm of both sides, we <em>linearized</em> the rotation so that we could simply <em>divide</em>
+our arc in the correct number of subdivisions.</p>
+<p>For a motor in 3D projective geometric algebra, there <strong>is</strong> a closed-form solution for the
+logarithm which means we can apply the same trick as above!
+In fact, we technically also don't yet know how to exponentiate the logarithm of a motor, but Klein
+provides implementations of both the exp and log functions taking bivectors to motors and vice versa
+that we can use.
+The derivation for both is a bit involved
+to flesh out here, but code demonstrating how this is done can be referred to
+<a href="https://github.com/jeremyong/klein/blob/master/public/klein/detail/exp_log.hpp">here</a> (a fuller
+derivation will be the subject of a future post).
+Taking the journey above as inspiration, given two motors <span class="arithmatex">\(m_1\)</span> and <span class="arithmatex">\(m_2\)</span>, we have a recipe for blending
+between them smoothly. First, we multiply <span class="arithmatex">\(m_2\)</span> by <span class="arithmatex">\(\widetilde{m}_1\)</span> (the reversion operator is the
+Geometric Algebra analogue of the complex conjugate). This gives us <span class="arithmatex">\(m_2\widetilde{m}_1\)</span> which is
+the motor that takes <span class="arithmatex">\(m_1\)</span> to <span class="arithmatex">\(m_2\)</span>. Next we take the logarithm of <span class="arithmatex">\(m_2\widetilde{m}_1\)</span>, divide the
+logarithm by the number of segments in our interpolation, re-exponentiate, and finally multiply by
+<span class="arithmatex">\(m_1\)</span> to produce the interpolated result. If this was difficult to follow, feel free to refer again
+to the process we went through for complex numbers above. The RHS of equation <span class="arithmatex">\((2)\)</span> is <em>precisely</em>
+what we want after substituting <span class="arithmatex">\(r\)</span>s for <span class="arithmatex">\(m\)</span>s.</p>
+<div class="admonition question">
+<p class="admonition-title">Huh? This doesn't look like the slerp I'm familiar with</p>
+<p>Chances are, you're used to seeing slerp in the following form (credit: <a href="https://en.wikipedia.org/wiki/Slerp">wikipedia</a>):</p>
+<div class="arithmatex">\[\frac{[\sin{(1 - t)\phi]}}{\sin\phi}p_1 + \frac{\sin{[t\phi]}}{\sin\phi}p_2\]</div>
+<p>The derivation used with exponentials and logarithms is completely equivalent but it might take some staring (or pencil and paper) to work out why that is so. The key lies in realizing that the formula given here uses <span class="arithmatex">\(\phi\)</span> which is angle of the arc subtended by the two points of the arc
+(computed by the inner product <span class="arithmatex">\(p_1 \cdot p_2\)</span>). This angle <em>already</em> captures the information provided by the logarithm and the sine ratios after reconstitute the non-linearized map as opposed to exponentiation.</p>
+<p>The issue with this formula is that it doesn't generalize well to dual-quaternions or motors because the angle of the subtended arc isn't quite as easy to compute.</p>
+</div>
+<h2 id="spherical-interpolation">Spherical Interpolation</h2>
+<p>We can now implement our motor blend function as follows:</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Blend between two motors with a parameter t in the range [0, 1]</span>
+<span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="n">slerp</span><span class="p">(</span><span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">b</span><span class="p">,</span> <span class="kt">float</span> <span class="n">t</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Starting from a, the motor needed to get to b is b * ~a.</span>
+    <span class="c1">// To perform this motion continuously, we can take the principal</span>
+    <span class="c1">// branch of the logarithm of b * ~a, and subdivide it before</span>
+    <span class="c1">// re-exponentiating it to produce a motor again.</span>
+
+    <span class="c1">// In practice, this should be cached whenever possible.</span>
+    <span class="n">line</span> <span class="n">motor_step</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="o">~</span><span class="n">a</span><span class="p">).</span><span class="n">log</span><span class="p">();</span>
+
+    <span class="c1">// exp(log(m)) = exp(t*log(m) + (1 - t)*log(m))</span>
+    <span class="c1">// = exp(t*(log(m))) * exp((1 - t)*log(m))</span>
+    <span class="n">motor_step</span> <span class="o">*=</span> <span class="n">t</span><span class="p">;</span>
+
+    <span class="c1">// The exponential of the step here can be cached if the blend occurs</span>
+    <span class="c1">// with fixed steps toward the final motor. Compose the interpolated</span>
+    <span class="c1">// result with the start motor to produce the intermediate blended</span>
+    <span class="c1">// motor.</span>
+    <span class="k">return</span> <span class="n">motor_step</span><span class="p">.</span><span class="n">exp</span><span class="p">()</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Voilà. A motor slerp, also known as a "dual quaternion slerp." Now, you may be thinking, isn't this
+slower? The answer is yes, <code>log</code> and <code>exp</code> both require transcendentals after all. However, the
+choice between slerp and nlerp isn't necessarily as cut and dry as you may think. First, higher
+quality interpolation can mean that fewer keyframes are needed to produce the
+desired result. Second, as is evident in the code snippet above, the logarithm (called <code>motor_step</code>)
+can be <em>cached</em> if the motors do not change from frame to frame. This effectively cuts the cost of
+the slerp in half at the cost of some memory.</p>
+<p>With this blend function, we can now sample our animation clip at any time.</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">// Given a skeleton, an instance of the skeleton, a clip, and a timestamp,</span>
+<span class="c1">// transform the instance to the correct pose sampled from the clip.</span>
+<span class="kt">void</span> <span class="nf">animate_sample</span><span class="p">(</span><span class="n">skeleton</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">parent</span><span class="p">,</span>
+                    <span class="n">skeleton_instance</span><span class="o">&amp;</span> <span class="n">instance</span><span class="p">,</span>
+                    <span class="n">clip</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">active_clip</span><span class="p">,</span>
+                    <span class="n">skeleton_instance</span> <span class="k">const</span><span class="o">&amp;</span> <span class="n">instance</span><span class="p">,</span>
+                    <span class="kt">int32_t</span> <span class="n">timestamp_ms</span><span class="p">,</span>
+                    <span class="c1">// scratch is a mutable pose with sufficient memory</span>
+                    <span class="c1">// to hold our interpolated joint poses.</span>
+                    <span class="n">pose</span><span class="o">&amp;</span> <span class="n">scratch</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">pose</span><span class="o">*</span>  <span class="n">previous</span><span class="p">;</span>
+    <span class="n">pose</span><span class="o">*</span>  <span class="n">next</span><span class="p">;</span>
+    <span class="kt">float</span><span class="o">*</span> <span class="n">t</span><span class="p">;</span>
+    <span class="c1">// This function isn&#39;t provided, but it takes a clip and timestamp</span>
+    <span class="c1">// and produces the poses that straddle the requested time and the</span>
+    <span class="c1">// interpolation parameter.</span>
+    <span class="n">query_pose_endpoints</span><span class="p">(</span><span class="n">clip</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">previous</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">next</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">uint16_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">parent</span><span class="p">.</span><span class="n">size</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// This could use slerp or nlerp if we wanted. A possible</span>
+        <span class="c1">// implementation of this slerp function was given above.</span>
+        <span class="n">scratch</span><span class="p">.</span><span class="n">joint_poses</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">slerp</span><span class="p">(</span>
+            <span class="n">previous</span><span class="o">-&gt;</span><span class="n">joint_poses</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">next</span><span class="o">-&gt;</span><span class="n">joint_poses</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Reuse our keyframe forward kinematic routine from above</span>
+    <span class="n">animate_keyframe</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">scratch</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Of course, there are myriad optimizations that should jump out to us from the implementation
+given here, but as a starting point and considering how few lines of code we used, it's not bad in
+my opinion! Example optimizations include caching the logarithms from the previous frame, or
+reworking the code above so that all the temporary interpolated results do not need to reside in
+memory at once. The code provided here was written thusly in the interest of remaining terse.</p>
+<details class="question"><summary>What about <code>inv_bind_pose</code>??</summary><p>We defined this <code>kln::motor</code> on our <code>joint</code> and never used it. "What gives?" you might ask. Well, we didn't use it because we didn't need to transform to the joint's local coordinate space. This will be needed for skinning which will be the subject of a future tutorial. I'm impressed you noticed this (if you did)!</p>
+</details>
+<h2 id="conclusion">Conclusion</h2>
+<p>We have developed from the ground up the barebones making of an animation library. To be anything
+close to resembly a production library, it would need animation blending, vertex skinning/morphing,
+animation retargeting, and a whole host of other features, but at the very least, it should have
+been illustrative in the basic underpinnings of modeling kinematic motion with Geometric Algebra and
+Klein. Of course, there's much more to geometry than rigid motion, so stay tuned for future
+write-ups on collision detection and a whole host of other topics!</p>
+<p>Feedback? Questions? Comments? Suggestions on what you'd like to see next? Feel free to drop by our <a href="https://discord.gg/gkbfnNy">discord</a> and say hi!</p>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+
+        <!-- Link to previous page -->
+        
+          <a href="../../tutorial/exterior_algebra/"
+              title="Exterior Algebra"
+              class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+              rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back
+                    md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch
+                  md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Exterior Algebra
+              </span>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          <a href="../../shell/"
+              title="Klein Shell"
+              class="md-flex md-footer-nav__link md-footer-nav__link--next"
+              rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch
+                  md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Klein Shell
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward
+                    md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Klein Copyright &copy; 2020 Jeremy Ong
+          </div>
+        
+      </div>
+
+      <!-- Social links -->
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jeremyong" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/m_ninepoints" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://www.linkedin.com/in/jeremycong" target="_blank" rel="noopener" title="linkedin" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/ganja.js@1.0.169"></script>
+      
+    
+  </body>
+</html>
