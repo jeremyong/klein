@@ -247,7 +247,7 @@ inline namespace detail
     template <bool Variadic = false, bool Translate = true>
     KLN_INLINE void KLN_VEC_CALL swMM(__m128 const* in,
                                       __m128 const& b,
-                                      __m128 const* c,
+                                      [[maybe_unused]] __m128 const* c,
                                       __m128* out,
                                       size_t count = 0) noexcept
     {
@@ -330,9 +330,10 @@ inline namespace detail
         tmp6 = _mm_mul_ps(tmp6, scale);
 
         // Translation
-        __m128 tmp7; // scaled by a and added to p2
-        __m128 tmp8; // scaled by (a0, a3, a1, a2) and added to p2
-        __m128 tmp9; // scaled by (a0, a2, a3, a1) and added to p2
+        [[maybe_unused]] __m128 tmp7; // scaled by a and added to p2
+        [[maybe_unused]] __m128 tmp8; // scaled by (a0, a3, a1, a2), added to p2
+        [[maybe_unused]] __m128 tmp9; // scaled by (a0, a2, a3, a1), added to p2
+
         if constexpr (Translate)
         {
             __m128 czero = KLN_SWIZZLE(*c, 0, 0, 0, 0);
@@ -408,7 +409,7 @@ inline namespace detail
     template <bool Variadic = false, bool Translate = true>
     KLN_INLINE void KLN_VEC_CALL sw012(__m128 const* a,
                                        __m128 const& b,
-                                       __m128 const* c,
+                                       [[maybe_unused]] __m128 const* c,
                                        __m128* out,
                                        size_t count = 0)
     {
@@ -477,7 +478,7 @@ inline namespace detail
         // 2a3(b0 c3 + b1 c2 + b3 c0 - b2 c1)
         // by decomposing into four vectors, factoring out the a components
 
-        __m128 tmp4;
+        [[maybe_unused]] __m128 tmp4;
         if constexpr (Translate)
         {
             tmp4 = _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 0), *c);
@@ -535,7 +536,7 @@ inline namespace detail
     template <bool Variadic = false, bool Translate = true>
     KLN_INLINE void KLN_VEC_CALL sw312(__m128 const* a,
                                        __m128 const& b,
-                                       __m128 const* c,
+                                       [[maybe_unused]] __m128 const* c,
                                        __m128* out,
                                        size_t count = 0) noexcept
     {
