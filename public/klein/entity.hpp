@@ -740,20 +740,14 @@ struct entity
                 __m128 p0_tmp;
                 __m128 p3_tmp;
                 gp02<false>(p0(), rhs.p2(), p0_tmp, p3_tmp);
-                if constexpr ((PMask2 & 0b10))
-                {
-                    p0_ = _mm_add_ps(p0_, p0_tmp);
-                }
-                else
-                {
-                    p0_ = p0_tmp;
-                }
                 if constexpr ((PMask2 & 0b10) > 0)
                 {
+                    p0_ = _mm_add_ps(p0_, p0_tmp);
                     p3_ = _mm_add_ps(p3_, p3_tmp);
                 }
                 else
                 {
+                    p0_ = p0_tmp;
                     p3_ = p3_tmp;
                 }
             }
