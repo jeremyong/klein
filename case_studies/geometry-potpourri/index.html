@@ -693,9 +693,23 @@ how it can be computed by hand.</p>
 <h2 id="multivectors">Multivectors</h2>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p><a href="../../api/kln_entity">kln::entity</a></p>
+<p>Klein API: <a href="../../api/kln_entity">kln::entity</a></p>
 </div>
+<p>In this section, we look at all the various operations and elements that show up in <span class="arithmatex">\(\PGA\)</span>.
+A common question that people run into when getting exposed to GA for the first time is, "why are
+their so many operations?" The best answer is that, well, geometry has a lot of operations! More
+than can be captured easily with just the dot product and cross product you're likely familiar with.
+This section just gets you acquainted with the mechanics of <span class="arithmatex">\(\PGA\)</span>, but to glean more geometric
+intuition, <em>all</em> the sections afteward will focus on concrete examples (plane distance to point,
+meeting to points to make a line, projecting a line onto a plane, rotating a point about a line,
+reflecting a point through a plane, etc). You'll find that for a bit of upfront complexity presented
+here, what's gained is a satisfying degree of uniformity in all the geometry that comes later.</p>
 <h3 id="pga-basis-and-geometric-product">PGA Basis and Geometric Product</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Klein API: <code>operator*</code></p>
+<p>Written as two elements adjacent to each other (<span class="arithmatex">\(ab\)</span>).</p>
+</div>
 <p>Let's get used to some basis elements and operations first.
 In <span class="arithmatex">\(\mathbf{P}(\mathbb{R}^*_{3, 0, 1})\)</span> (also known as PGA), we have four grade-1 vector basis
 elements, <span class="arithmatex">\(\ee_0\)</span>, <span class="arithmatex">\(\ee_1\)</span>, <span class="arithmatex">\(\ee_2\)</span>, and <span class="arithmatex">\(\ee_3\)</span>.
@@ -795,6 +809,11 @@ swaps as necessary to write terms with the canonical subscript ordering.</p>
 </ol>
 </div>
 <h3 id="the-symmetric-inner-product">The Symmetric Inner Product</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Klein API: <code>operator|</code></p>
+<p>Written as <span class="arithmatex">\(a \cdot b\)</span>.</p>
+</div>
 <p>The <em>symmetric inner product</em> (inner product for short) is similar to the geometric product except
 it <em>is always grade decreasing</em> such that the final grade is the absolute value of the difference of
 the operand grades. If the grade of the element resulting from a geometric product
@@ -827,10 +846,15 @@ between any quantity and a scalar quantity must be zero.</p>
 <ol>
 <li>Can the symmetric inner product ever produce the pseudoscalar? Why or why not?</li>
 <li>Explain why <span class="arithmatex">\(\ee_0 \cdot \ee_{012}\)</span> is <span class="arithmatex">\(0\)</span> and not <span class="arithmatex">\(\ee_{12}\)</span>.</li>
-<li>The "symmetric" inner product lives up to its name by being a commutative operation. Can you justify that this is so?</li>
+<li>The symmetric inner product not always commutative! Provide a counterexample for the inner product between other grades. When is it commutative?</li>
 </ol>
 </div>
 <h3 id="the-exterior-product">The Exterior Product</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Klein API: <code>operator^</code></p>
+<p>Written as <span class="arithmatex">\(a\wedge b\)</span>.</p>
+</div>
 <p>The <em>exterior product</em> (also known as the <em>wedge</em> product or the <em>outer</em> product) is similar to the
 geometric product except it always extinguishes results upon contraction.
 Thus, the result of an exterior product either has grade equal to the sum of the grades of its operands, or it
@@ -848,11 +872,18 @@ so let's return to our familiar example:</p>
 <div class="admonition tip">
 <p class="admonition-title">Exercises</p>
 <ol>
-<li>The geometric product <strong>between vectors</strong> (grade-1) is the sum of the inner product and the exterior product. Prove this by explicitly expanding out the geometric product between two general vectors.</li>
+<li>The geometric product <strong>between vectors</strong> (grade-1) is the sum of the inner product and the exterior product.
+   Prove this by explicitly expanding out the geometric product between two general vectors.</li>
 <li>The geometric product is <strong>not</strong> generally the sum of the inner product and the exterior product. Why is that?</li>
+<li>The exterior product isn't generally anti-commutative! Find counterexamples demonstrating this fact.</li>
 </ol>
 </div>
 <h3 id="the-poincare-dual-map">The Poincaré Dual Map</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Klein API: <code>operator!</code></p>
+<p>Written as <span class="arithmatex">\(\JJ(a)\)</span>.</p>
+</div>
 <p>To perform the regressive product in the next section, we need a map that is <em>grade-reversing</em>. That
 is, we need a map that takes multivectors <span class="arithmatex">\(v\)</span> to multivectors <span class="arithmatex">\(v^*\)</span> such that the grade of <span class="arithmatex">\(v\)</span> is
 equal to <span class="arithmatex">\(4\)</span> minus the grade of <span class="arithmatex">\(v^*\)</span> (and vice versa). For example, vectors should be mapped to
@@ -882,6 +913,11 @@ map is written as <span class="arithmatex">\(\JJ\)</span> in expressions.</p>
 </ol>
 </div>
 <h3 id="regressive-product">Regressive Product</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Klein API: <code>operator&amp;</code></p>
+<p>Written as <span class="arithmatex">\(a\vee b\)</span>.</p>
+</div>
 <p>The <em>regressive product</em> (written as <span class="arithmatex">\(\vee\)</span> and expressed as the <code>&amp;</code> operator in code) is defined in
 terms of the dual map and the exterior product like so:</p>
 <div class="arithmatex">\[

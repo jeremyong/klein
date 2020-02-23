@@ -452,6 +452,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1direction_1a42ce139ace571176acabbce21d6c64b2" class="md-nav__link">
+    explicit  direction(float * data) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1direction_1a8fa09342bff2583a7f29d04adf6dd3c2" class="md-nav__link">
     float  operator[](size_t i) const noexcept
   </a>
@@ -759,6 +766,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1direction_1a42ce139ace571176acabbce21d6c64b2" class="md-nav__link">
+    explicit  direction(float * data) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1direction_1a8fa09342bff2583a7f29d04adf6dd3c2" class="md-nav__link">
     float  operator[](size_t i) const noexcept
   </a>
@@ -878,6 +892,10 @@
 <td></td>
 </tr>
 <tr>
+<td><code>public  explicit</code> <a href="#structkln_1_1direction_1a42ce139ace571176acabbce21d6c64b2"><code>direction</code></a><code>(float * data) noexcept</code></td>
+<td>Data should point to four floats with memory layout <code>(0.f, x, y, z)</code>  where the zero occupies the lowest address in memory.</td>
+</tr>
+<tr>
 <td><code>public constexpr float</code> <a href="#structkln_1_1direction_1a8fa09342bff2583a7f29d04adf6dd3c2"><code>operator[]</code></a><code>(size_t i) const noexcept</code></td>
 <td></td>
 </tr>
@@ -920,6 +938,8 @@
 <h4 id="structkln_1_1direction_1a8fc796733d32a69230136b8376003fca"><a href="#structkln_1_1direction_1a8fc796733d32a69230136b8376003fca">direction</a>(float x,float y,float z) noexcept</h4>
 <p>Create a normalized direction.</p>
 <h4 id="structkln_1_1direction_1a81cd76b26d928f02e830d8c0175157d6"><a href="#structkln_1_1direction_1a81cd76b26d928f02e830d8c0175157d6">direction</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b1000 &gt; const &amp; e) noexcept</h4>
+<h4 id="structkln_1_1direction_1a42ce139ace571176acabbce21d6c64b2">explicit  <a href="#structkln_1_1direction_1a42ce139ace571176acabbce21d6c64b2">direction</a>(float * data) noexcept</h4>
+<p>Data should point to four floats with memory layout <code>(0.f, x, y, z)</code>  where the zero occupies the lowest address in memory.</p>
 <h4 id="structkln_1_1direction_1a8fa09342bff2583a7f29d04adf6dd3c2">float  <a href="#structkln_1_1direction_1a8fa09342bff2583a7f29d04adf6dd3c2">operator[]</a>(size_t i) const noexcept</h4>
 <h4 id="structkln_1_1direction_1a67a82ca405563ca75b7f8a84842e42c0">float &amp;  <a href="#structkln_1_1direction_1a67a82ca405563ca75b7f8a84842e42c0">operator[]</a>(size_t i) noexcept</h4>
 <h4 id="structkln_1_1direction_1a721087c2056a33cd780c678ae0ec39dd">float  <a href="#structkln_1_1direction_1a721087c2056a33cd780c678ae0ec39dd">x</a>() const noexcept</h4>
@@ -933,7 +953,7 @@
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Direction normalization divides the coordinates by the quantity
-a^2 + b^2 + c^2. This is done using the <code>rcpps</code> instruction with a
+x^2 + y^2 + z^2. This is done using the <code>rcpps</code> instruction with a
 maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
 </div>
                 

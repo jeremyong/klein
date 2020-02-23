@@ -911,7 +911,7 @@
 </tr>
 <tr>
 <td><code>public void</code> <a href="#structkln_1_1point_1a805739dde6d772f5b228cce5b95ef13f"><code>load</code></a><code>(float * data) noexcept</code></td>
-<td>Fast load from a pointer to an array of four floats with layout <code>(w, z, y, x)</code>  where <code>w</code>  occupies the lowest address in memory.</td>
+<td>Fast load from a pointer to an array of four floats with layout <code>(w, x, y, z)</code>  where <code>w</code>  occupies the lowest address in memory.</td>
 </tr>
 <tr>
 <td><code>public float</code> <a href="#structkln_1_1point_1a0c100888d1b7edc3fdb81f8b7c22feb1"><code>x</code></a><code>() const noexcept</code></td>
@@ -960,7 +960,7 @@
 <h4 id="structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0">explicit  <a href="#structkln_1_1point_1ad149cbbf9e9a7e77fc680b808e971ee0">point</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b1001 &gt; const &amp; e) noexcept</h4>
 <p>A point projected onto a line will have an extinguished partition-0, which necessitates this explicit cast when it is known to be safe.</p>
 <h4 id="structkln_1_1point_1a805739dde6d772f5b228cce5b95ef13f">void  <a href="#structkln_1_1point_1a805739dde6d772f5b228cce5b95ef13f">load</a>(float * data) noexcept</h4>
-<p>Fast load from a pointer to an array of four floats with layout <code>(w, z, y, x)</code>  where <code>w</code>  occupies the lowest address in memory.</p>
+<p>Fast load from a pointer to an array of four floats with layout <code>(w, x, y, z)</code>  where <code>w</code>  occupies the lowest address in memory.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>This load operation is more efficient that modifying individual

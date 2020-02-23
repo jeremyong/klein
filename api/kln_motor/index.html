@@ -962,7 +962,7 @@
 </tr>
 <tr>
 <td><code>public</code> <a href="#structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5"><code>motor</code></a><code>(float a,float b,float c,float d,float e,float f,float g,float h) noexcept</code></td>
-<td>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span></td>
+<td>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span>.</td>
 </tr>
 <tr>
 <td><code>public</code> <a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><code>motor</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; e) noexcept</code></td>
@@ -1025,7 +1025,7 @@
 <h3 id="members">Members</h3>
 <h4 id="structkln_1_1motor_1af185a86b951973e31cd16398845f73bf"><a href="#structkln_1_1motor_1af185a86b951973e31cd16398845f73bf">motor</a>() = default</h4>
 <h4 id="structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5"><a href="#structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5">motor</a>(float a,float b,float c,float d,float e,float f,float g,float h) noexcept</h4>
-<p>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span></p>
+<p>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span>.</p>
 <h4 id="structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8"><a href="#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8">motor</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e) noexcept</h4>
 <h4 id="structkln_1_1motor_1a3a048b8d0f35322259f8f1cbaad88cab">void  <a href="#structkln_1_1motor_1a3a048b8d0f35322259f8f1cbaad88cab">load</a>(float * in) noexcept</h4>
 <p>Load motor data using two unaligned loads. This routine does <em>not</em> assume the data passed in this way is normalized.</p>
