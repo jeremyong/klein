@@ -70,4 +70,14 @@ TEST_CASE("multivector-sum")
         CHECK_EQ(p6.y(), 2.f + 3.f);
         CHECK_EQ(p6.z(), 3.f + -1.f);
     }
+
+    SUBCASE("planes")
+    {
+        plane p{1.f, 3.f, 4.f, -5.f};
+        auto p_norm = p | p;
+        CHECK_NE(p_norm.scalar(), 1.f);
+        p.normalize();
+        p_norm = p | p;
+        CHECK_EQ(p_norm.scalar(), doctest::Approx(1.f).epsilon(0.001));
+    }
 }

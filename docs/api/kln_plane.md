@@ -15,9 +15,10 @@ The plane multivector in PGA looks like $d\mathbf{e}_0 + a\mathbf{e}_1 + b\mathb
 --------------------------------|---------------------------------------------
 `public  ` [`plane`](#structkln_1_1plane_1a0ab245bca0c1ad3aca86b9ceeab3fe42)`() = default`  | The default constructor leaves memory uninitialized.
 `public  ` [`plane`](#structkln_1_1plane_1a51933d8d8853797034621ce41ad34a8e)`(float a,float b,float c,float d) noexcept`  | The constructor performs the rearrangement so the plane can be specified in the familiar form: ax + by + cz + d
-`public  ` [`plane`](#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc)`(float * data) noexcept`  | Data should point to four floats with memory layout `(d, a, b, c)`  where `d`  occupies the lowest address in memory.
+`public  explicit ` [`plane`](#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc)`(float * data) noexcept`  | Data should point to four floats with memory layout `(d, a, b, c)`  where `d`  occupies the lowest address in memory.
 `public  explicit ` [`plane`](#structkln_1_1plane_1a4fe52a0426bc881947909d0d9b1745d0)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b1001 > const & other) noexcept`  | Line to plane cast.
 `public void ` [`load`](#structkln_1_1plane_1a5a00871dbe19d7658b7e8cda71b326f2)`(float * data) noexcept`  | Unaligned load of data. The `data`  argument should point to 4 floats corresponding to the `(d, a, b, c)`  components of the plane multivector where `d`  occupies the lowest address in memory.
+`public void ` [`normalize`](#structkln_1_1plane_1ae5e1e0af05e84799d27d7b8782fe5f22)`() noexcept`  | Normalize this plane $p$ such that $p \cdot p = 1$.
 `public ` [`plane`](#structkln_1_1plane)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9)`(` [`plane`](#structkln_1_1plane)` const & p) const noexcept`  | Reflect another plane $p_2$ through this plane $p_1$. The operation performed via this call operator is an optimized routine equivalent to the expression $p_1 p_2 p_1$.
 `public ` [`line`](../../api/kln_line#structkln_1_1line)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1plane_1a782e4e0b1b93ab5bffb2c972f6d7acfa)`(` [`line`](../../api/kln_line#structkln_1_1line)` const & l) const noexcept`  | Reflect line $\ell$ through this plane $p$. The operation performed via this call operator is an optimized routine equivalent to the expression $p \ell p$.
 `public ` [`point`](../../api/kln_point#structkln_1_1point)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1plane_1a20b6577f6d1717e1ec086314d3ebd497)`(` [`point`](../../api/kln_point#structkln_1_1point)` const & p) const noexcept`  | Reflect the point $P$ through this plane $p$. The operation performed via this call operator is an optimized routine equivalent to the expression $p P p$.
@@ -40,7 +41,7 @@ The default constructor leaves memory uninitialized.
 
 The constructor performs the rearrangement so the plane can be specified in the familiar form: ax + by + cz + d
 
-####   [plane](#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc)(float * data) noexcept  {#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc}
+####  explicit  [plane](#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc)(float * data) noexcept  {#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc}
 
 Data should point to four floats with memory layout `(d, a, b, c)`  where `d`  occupies the lowest address in memory.
 
@@ -66,6 +67,12 @@ Unaligned load of data. The `data`  argument should point to 4 floats correspond
 !!! tip 
     This is a faster mechanism for setting data compared to setting
     components one at a time.
+
+#### void  [normalize](#structkln_1_1plane_1ae5e1e0af05e84799d27d7b8782fe5f22)() noexcept  {#structkln_1_1plane_1ae5e1e0af05e84799d27d7b8782fe5f22}
+
+Normalize this plane $p$ such that $p \cdot p = 1$.
+
+In order to compute the cosine of the angle between planes via the inner product operator `|` , the planes must be normalized. Producing a normalized rotor between two planes with the geometric product `*`  also requires that the planes are normalized.
 
 ####  [plane](#structkln_1_1plane) KLN_VEC_CALL  [operator()](#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9)( [plane](#structkln_1_1plane) const & p) const noexcept  {#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9}
 

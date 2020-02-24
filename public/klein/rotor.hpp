@@ -53,6 +53,53 @@ namespace kln
 /// translators and motors.
 struct rotor final : public entity<0b10>
 {
+    /// The `rotor::branch` is the principal branch of the logarithm of a rotor.
+    ///
+    /// The rotor branch will be most commonly constructed by taking the
+    /// logarithm of a normalized rotor. The branch may then be linearily scaled
+    /// to adjust the "strength" of the rotor, and subsequently re-exponentiated
+    /// to create the adjusted rotor.
+    ///
+    /// !!! example
+    ///
+    ///     Suppose we have a rotor $r$ and we wish to produce a rotor
+    ///     $\sqrt{4}{r}$ which performs a quarter of the rotation produced by
+    ///     $r$. We can construct it like so:
+    ///
+    ///     ```c++
+    ///         rotor_branch branch = r.log();
+    ///         rotor r_4 = (0.25f * branch).exp();
+    ///     ```
+    ///
+    /// !!! note
+    ///
+    ///     The branch of a rotor is technically a `line`, but because there are
+    ///     no translational components, the branch is given its own type for
+    ///     efficiency.
+    struct branch : public entity<0b10>
+    {
+        branch() = default;
+
+        branch(entity const& other)
+            : entity{other}
+        {}
+
+        /// Exponentiate this branch to produce a rotor.
+        [[nodiscard]] rotor exp() const noexcept
+        {
+            // Compute the rotor angle
+            float ang;
+            _mm_store_ss(&ang, _mm_sqrt_ps(_mm_dp_ps(p1(), p1(), 0b11100001)));
+            float cos_ang = std::cos(ang);
+            float sin_ang = std::sin(ang) / ang;
+
+            rotor out;
+            out.p1() = _mm_mul_ps(_mm_set1_ps(sin_ang), p1());
+            out.p1() = _mm_add_ps(out.p1(), _mm_set_ss(cos_ang));
+            return out;
+        }
+    };
+
     /// Default constructor leaves memory uninitialized.
     rotor() = default;
 
@@ -66,14 +113,10 @@ struct rotor final : public entity<0b10>
         float half = 0.5f * ang_rad;
         // Rely on compiler to coalesce these two assignments into a single
         // sincos call at instruction selection time
-        float buf[4];
-        buf[0]        = std::cos(half);
         float sin_ang = std::sin(half);
         float scale   = sin_ang * inv_norm;
-        buf[1]        = x * scale;
-        buf[2]        = y * scale;
-        buf[3]        = z * scale;
-        parts[0].reg  = _mm_loadu_ps(buf);
+        p1()          = _mm_set_ps(z, y, x, std::cos(half));
+        p1()          = _mm_mul_ps(p1(), _mm_set_ps(scale, scale, scale, 1.f));
     }
 
     rotor(entity<0b10> const& other)
@@ -83,7 +126,7 @@ struct rotor final : public entity<0b10>
     /// Fast load operation for packed data that is already normalized. The
     /// argument `data` should point to a set of 4 float values with layout `(a,
     /// b, c, d)` corresponding to the multivector
-    /// $a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23}$.
+    /// $a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12}$.
     ///
     /// !!! danger
     ///
@@ -107,6 +150,26 @@ struct rotor final : public entity<0b10>
     {
         mat4x4 out;
         mat4x4_12<false>(parts[0].reg, nullptr, out.cols);
+        return out;
+    }
+
+    /// Returns the principal branch of this rotor's logarithm. Invoking
+    /// `exp` on the returned result maps back to this rotor.
+    ///
+    /// Given a rotor $\cos\alpha + \sin\alpha\left[a\ee_{23} + b\ee_{31} +\
+    /// c\ee_{23}\right]$, the log is computed as simply
+    /// $\alpha\left[a\ee_{23} + b\ee_{31} + c\ee_{23}\right]$.
+    /// This map is only well-defined if the
+    /// rotor is normalized such that $a^2 + b^2 + c^2 = 1$.
+    [[nodiscard]] branch log() const noexcept
+    {
+        float ang     = std::acos(parts[0].data[0]);
+        float sin_ang = std::sin(ang);
+
+        branch out;
+        out.p1() = _mm_mul_ps(p1(), _mm_rcp_ps(_mm_set1_ps(sin_ang)));
+        out.p1() = _mm_mul_ps(out.p1(), _mm_set1_ps(ang));
+        out.p1() = _mm_blend_ps(out.p1(), _mm_setzero_ps(), 1);
         return out;
     }
 
@@ -204,7 +267,5 @@ struct rotor final : public entity<0b10>
     {
         sw312<true, false>(&in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
-
-    // TODO: provide rotor exp/log
 };
 } // namespace kln

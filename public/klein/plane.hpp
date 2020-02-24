@@ -65,6 +65,20 @@ struct plane final : public entity<0b1>
         parts[0].reg = _mm_loadu_ps(data);
     }
 
+    /// Normalize this plane $p$ such that $p \cdot p = 1$.
+    ///
+    /// In order to compute the cosine of the angle between planes via the
+    /// inner product operator `|`, the planes must be normalized. Producing a
+    /// normalized rotor between two planes with the geometric product `*` also
+    /// requires that the planes are normalized.
+    void normalize() noexcept
+    {
+        __m128 inv_norm
+            = _mm_rcp_ps(_mm_sqrt_ps(_mm_dp_ps(p0(), p0(), 0b11101111)));
+        inv_norm = _mm_blend_ps(inv_norm, _mm_set_ss(1.f), 1);
+        p0()     = _mm_mul_ps(inv_norm, p0());
+    }
+
     /// Reflect another plane $p_2$ through this plane $p_1$. The operation
     /// performed via this call operator is an optimized routine equivalent to
     /// the expression $p_1 p_2 p_1$.

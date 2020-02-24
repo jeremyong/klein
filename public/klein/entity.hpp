@@ -233,10 +233,10 @@ struct entity
     template <uint8_t PMask2>
     auto operator|(entity<PMask2> const& rhs) const noexcept
     {
-        __m128 p0_ = _mm_set1_ps(0.f); // (e0, e1, e2, e3)
-        __m128 p1_ = _mm_set1_ps(0.f); // (1, e23, e31, e12)
-        __m128 p2_ = _mm_set1_ps(0.f); // (e0123, e01, e02, e03)
-        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e032, e013, e021)
+        [[maybe_unused]] __m128 p0_; // (e0, e1, e2, e3)
+        [[maybe_unused]] __m128 p1_; // (1, e23, e31, e12)
+        [[maybe_unused]] __m128 p2_; // (e0123, e01, e02, e03)
+        [[maybe_unused]] __m128 p3_; // (e123, e032, e013, e021)
 
         if constexpr ((PMask & 1) > 0)
         {
@@ -515,10 +515,10 @@ struct entity
     template <uint8_t PMask2>
     auto operator^(entity<PMask2> const& rhs) const noexcept
     {
-        __m128 p0_ = _mm_set1_ps(0.f); // (e0, e1, e2, e3)
-        __m128 p1_ = _mm_set1_ps(0.f); // (1, e23, e31, e12)
-        __m128 p2_ = _mm_set1_ps(0.f); // (e0123, e01, e02, e03)
-        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e032, e013, e021)
+        [[maybe_unused]] __m128 p0_; // (e0, e1, e2, e3)
+        [[maybe_unused]] __m128 p1_; // (1, e23, e31, e12)
+        [[maybe_unused]] __m128 p2_; // (e0123, e01, e02, e03)
+        [[maybe_unused]] __m128 p3_; // (e123, e032, e013, e021)
 
         if constexpr ((PMask & 1) > 0)
         {
@@ -528,21 +528,43 @@ struct entity
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                __m128 tmp;
-                ext01(p0(), rhs.p1(), tmp, p3_);
-                p0_ = _mm_add_ps(tmp, p0_);
+                __m128 p0_tmp;
+                ext01(p0(), rhs.p1(), p0_tmp, p3_);
+                if constexpr ((PMask2 & 1) > 0)
+                {
+                    p0_ = _mm_add_ps(p0_tmp, p0_);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b100) > 0)
             {
-                __m128 tmp;
-                ext02(p0(), rhs.p2(), tmp);
-                p3_ = _mm_add_ps(tmp, p3_);
+                __m128 p3_tmp;
+                ext02(p0(), rhs.p2(), p3_tmp);
+
+                if constexpr ((PMask2 & 0b10))
+                {
+                    p3_ = _mm_add_ps(p3_tmp, p3_);
+                }
+                else
+                {
+                    p3_ = p3_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
-                __m128 tmp;
-                ext03<false>(p0(), rhs.p3(), tmp);
-                p2_ = _mm_add_ps(tmp, p2_);
+                __m128 p2_tmp;
+                ext03<false>(p0(), rhs.p3(), p2_tmp);
+                if constexpr ((PMask2 & 1) > 0)
+                {
+                    p2_ = _mm_add_ps(p2_tmp, p2_);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
             }
         }
 
@@ -550,29 +572,64 @@ struct entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                __m128 tmp1;
-                __m128 tmp2;
-                ext01(rhs.p0(), p1(), tmp1, tmp2);
-                p0_ = _mm_add_ps(tmp1, p0_);
-                p3_ = _mm_add_ps(tmp2, p3_);
+                __m128 p0_tmp;
+                __m128 p3_tmp;
+                ext01(rhs.p0(), p1(), p0_tmp, p3_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b10)))
+                {
+                    p0_ = _mm_add_ps(p0_tmp, p0_);
+                }
+                else
+                {
+                    p0_ = p0_tmp;
+                }
+                if constexpr (((PMask & 1) && (PMask2 & 0b100)))
+                {
+                    p3_ = _mm_add_ps(p3_tmp, p3_);
+                }
+                else
+                {
+                    p3_ = p3_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                __m128 tmp;
-                ext11(p1(), rhs.p1(), tmp);
-                p1_ = _mm_add_ps(p1_, tmp);
+                __m128 p1_tmp;
+                ext11(p1(), rhs.p1(), p1_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 1)))
+                {
+                    p1_ = _mm_add_ps(p1_, p1_tmp);
+                }
+                else
+                {
+                    p1_ = p1_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b100) > 0)
             {
-                __m128 tmp;
-                ext12(p1(), rhs.p2(), tmp);
-                p2_ = _mm_add_ps(p2_, tmp);
+                __m128 p2_tmp;
+                ext12(p1(), rhs.p2(), p2_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b1001)))
+                {
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b1000) > 0)
             {
-                __m128 tmp;
-                ext13(p1(), rhs.p3(), tmp);
-                p3_ = _mm_add_ps(tmp, p3_);
+                __m128 p3_tmp;
+                ext13(p1(), rhs.p3(), p3_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b110)) || (PMask2 & 1))
+                {
+                    p3_ = _mm_add_ps(p3_tmp, p3_);
+                }
+                else
+                {
+                    p3_ = p3_tmp;
+                }
             }
         }
 
@@ -580,15 +637,31 @@ struct entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                __m128 tmp;
-                ext02(rhs.p0(), p2(), tmp);
-                p3_ = _mm_add_ps(tmp, p3_);
+                __m128 p3_tmp;
+                ext02(rhs.p0(), p2(), p3_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001)))
+                {
+                    p3_ = _mm_add_ps(p3_tmp, p3_);
+                }
+                else
+                {
+                    p3_ = p3_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                __m128 tmp;
-                ext12(rhs.p1(), p2(), tmp);
-                p2_ = _mm_add_ps(p2_, tmp);
+                __m128 p2_tmp;
+                ext12(rhs.p1(), p2(), p2_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b1001))
+                              || ((PMask & 0b10) && (PMask2 & 0b100)))
+                {
+                    p2_ = _mm_add_ps(p2_, p2_tmp);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
             }
         }
 
@@ -596,15 +669,33 @@ struct entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                __m128 tmp;
-                ext03<true>(rhs.p0(), p2(), tmp);
-                p2_ = _mm_add_ps(tmp, p2_);
+                __m128 p2_tmp;
+                ext03<true>(rhs.p0(), p2(), p2_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b1001))
+                              || ((PMask & 0b10) && (PMask2 & 0b100))
+                              || ((PMask & 0b100) && (PMask2 & 0b10)))
+                {
+                    p2_ = _mm_add_ps(p2_tmp, p2_);
+                }
+                else
+                {
+                    p2_ = p2_tmp;
+                }
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                __m128 tmp;
-                ext13(rhs.p1(), p3(), tmp);
-                p3_ = _mm_add_ps(tmp, p3_);
+                __m128 p3_tmp;
+                ext13(rhs.p1(), p3(), p3_tmp);
+                if constexpr (((PMask & 1) && (PMask2 & 0b110))
+                              || ((PMask & 0b10) && (PMask2 & 0b1001))
+                              || ((PMask & 0b100) && (PMask2 & 1)))
+                {
+                    p3_ = _mm_add_ps(p3_tmp, p3_);
+                }
+                else
+                {
+                    p3_ = p3_tmp;
+                }
             }
         }
 
@@ -720,10 +811,10 @@ struct entity
         // (Keeping e0 away from the least significant slot is an optimization
         // which allows us to avoid a shuffle in certain circumstances)
 
-        __m128 p0_ = _mm_set1_ps(0.f); // (e0, e1, e2, e3)
-        __m128 p1_ = _mm_set1_ps(0.f); // (1, e23, e31, e12)
-        __m128 p2_ = _mm_set1_ps(0.f); // (e0123, e01, e02, e03)
-        __m128 p3_ = _mm_set1_ps(0.f); // (e123, e032, e013, e021)
+        [[maybe_unused]] __m128 p0_; // (e0, e1, e2, e3)
+        [[maybe_unused]] __m128 p1_; // (1, e23, e31, e12)
+        [[maybe_unused]] __m128 p2_; // (e0123, e01, e02, e03)
+        [[maybe_unused]] __m128 p3_; // (e123, e032, e013, e021)
 
         if constexpr ((PMask & 1) > 0)
         {

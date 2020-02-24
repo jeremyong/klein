@@ -50,7 +50,7 @@ A demonstration of using the exponential and logarithmic map to blend between tw
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
 `public  ` [`motor`](#structkln_1_1motor_1af185a86b951973e31cd16398845f73bf)`() = default`  | 
-`public  ` [`motor`](#structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5)`(float a,float b,float c,float d,float e,float f,float g,float h) noexcept`  | Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector $a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}$
+`public  ` [`motor`](#structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5)`(float a,float b,float c,float d,float e,float f,float g,float h) noexcept`  | Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector $a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}$.
 `public  ` [`motor`](#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b110 > const & e) noexcept`  | 
 `public void ` [`load`](#structkln_1_1motor_1a3a048b8d0f35322259f8f1cbaad88cab)`(float * in) noexcept`  | Load motor data using two unaligned loads. This routine does *not* assume the data passed in this way is normalized.
 `public void ` [`normalize`](#structkln_1_1motor_1a8af12b78c4e98b84c51f605b47dbc0a1)`() noexcept`  | Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
@@ -72,7 +72,7 @@ A demonstration of using the exponential and logarithmic map to blend between tw
 
 ####   [motor](#structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5)(float a,float b,float c,float d,float e,float f,float g,float h) noexcept  {#structkln_1_1motor_1a0fc9829b8e6323e3ae2cc583361ce3d5}
 
-Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector $a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}$
+Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector $a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}$.
 
 ####   [motor](#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8)( [entity](../../api/kln_entity#structkln_1_1entity)< 0b110 > const & e) noexcept  {#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8}
 

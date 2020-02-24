@@ -26,7 +26,7 @@ struct kln::line
 
 A line is specifed by 6 coordinates which correspond to the line's [Plücker coordinates](https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates). The coordinates specified in this way correspond to the following multivector:
 
-$$a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\ d\mathbf{e}_{12} + e\mathbf{e}_{31} + f\mathbf{e}_{23}$$
+$$a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\ d\mathbf{e}_{23} + e\mathbf{e}_{31} + f\mathbf{e}_{12}$$
 
 ####   [line](#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe)( [entity](../../api/kln_entity#structkln_1_1entity)< 0b110 > const & e)  {#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe}
 

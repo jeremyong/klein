@@ -9,9 +9,9 @@ To compute PGA elements using SSE, we partition the basis into four partitions c
 ```cpp
     LSB --> MSB
 p0: (e_0, e_1, e_2, e_3)
-p1: (1, e_12, e_31, e_23)
+p1: (1, e_23, e_31, e_12)
 p2: (e_0123, e_01, e_02, e_03)
-p3: (e_123, e_021, e_013, e_032)
+p3: (e_123, e_032, e_013, e_021)
 ```
 
 The scalar and pseudoscalar are packed in partitions $p_1$ and $p_2$ along with the 6 bivector elements. The scheme groups, for the most part, elements of similar grade and the presence of the degenerate generator. When non-uniformity exists within a partition (mixed degenerate and non-degenerate components, or mixed grade), the "exception" is housed in the first component so that the same swizzle masks can be used.

@@ -1,9 +1,11 @@
-In this miniature article, we're going to walk through a number of common geometric tasks
+!!! danger "ARTICLE CURRENTLY BEING DRAFTED"
+
+In this workshop, we're going to walk through a number of common geometric tasks
 such as finding intersections, computing distances, performing rotations, etc. For each task, we'll
 showcase not only the Klein code that would produce the desired result, but also show mathematically
 how it can be computed by hand.
 
-!!! danger
+!!! danger "Lack of rigor ahead!"
 
     In this article, I make very little effort to explain why an operation is defined a certain way or explain some of the deeper underlying mathematics. This article was written because it's often helpful to see how computation is done first, and perform some calculations by hande as well gain some intuition before taking a closer look at the theory.
 
@@ -212,7 +214,8 @@ $$
 
 !!! tip "Exercises"
 
-    1. The geometric product **between vectors** (grade-1) is the sum of the inner product and the exterior product. Prove this by explicitly expanding out the geometric product between two general vectors.
+    1. The geometric product **between vectors** (grade-1) is the sum of the inner product and the exterior product.
+       Prove this by explicitly expanding out the geometric product between two general vectors.
     2. The geometric product is **not** generally the sum of the inner product and the exterior product. Why is that?
     3. The exterior product isn't generally anti-commutative! Find counterexamples demonstrating this fact.
 
@@ -247,7 +250,7 @@ $$
 \end{aligned}
 $$
 
-!!! tip "Exerices"
+!!! tip "Exercises"
 
     1. Double check that all elements in the algebra are accounted for above.
     2. The dual map is a unary operator that can be distributed across each term in a multivector sum. For example, $\JJ(\ee_1 + 2\ee_{02}) = \ee_{032} + 2\ee_{31}$. Verify that the map is still an involution (that is, two applications of $\JJ$ should map back to the original argument).
@@ -267,20 +270,38 @@ $$
 a \vee b = \JJ(\JJ(a)\wedge\JJ(b))
 $$
 
-!!! danger "TODO: provide examples/exercises"
+Here's a worked example of the regressive product, again using a familiar operands:
 
-## Planes
+$$
+\begin{aligned}
+(4\ee_1 - 2\ee_{32})\vee (3\ee_{012} + \ee_{10}) &= \JJ(\JJ(4\ee_1 - 2\ee_{32})\wedge \JJ(3\ee_{012}
++ \ee_{10})) \\
+&= \JJ((4\ee_{032} + 2\ee_{01}) \wedge (-3\ee_3 - \ee_{23})) \\
+&= \JJ(-6\ee_{013} - 2\ee_{0123}) \\
+&= -2 - 6\ee_2
+\end{aligned}
+$$
+
+If you're working out the example above yourself and finding some disagreement in the signs,
+remember that to use the dual map given above, the indices must match exactly. Thus, in this
+example, the dual $\JJ(3\ee_{012})$ is $-\JJ(3\ee_{021}) = -3\ee_3$.
+
+!!! tip "Exercises"
+
+    1. If the exterior product is zero, will the regressive product be zero? Why or why not?
+    2. By the same token, if the regressive product is zero, will the exterior product be zero?
+
+## Construction
+
+### Planes
 
 !!! info
 
     [kln::plane](../../api/kln_plane)
 
 A plane $p$ _is the manifestation of a reflection_. It is often helpful not to think of a plane as a
-"set of points" in PGA as will be evident when we look at rotations and translations later.
-
-### Examples
-
-Let's look at some simple examples first.
+"set of points" in PGA as will be evident when we look at rotations and translations later. Let's
+look at some simple examples first.
 
 #### Planes through the origin
 
@@ -324,19 +345,242 @@ Other planes like to the one above can be constructed similarly.
 #### Angles between planes
 
 The angle between planes is given by the inner product which produces the cosine of the angle
-between them as you would expect.
+between them as you would expect. The planes must be normalized first for this to work, and the
+norm of a plane $p$ can be calculated as $\sqrt{p\cdot p}$.
 
-Suppose we have two planes $3\ee_0 + \ee_1 + \ee_3$ and $\ee_0 + \ee_3$. The first plane we recognize as
+Suppose we have two planes $p_1 = 3\ee_0 + \ee_1 + \ee_3$ and $p_2 = \ee_0 + \ee_3$. The first plane we recognize as
 $x + z - 3 = 0$, a plane parallel to the y-axis that passes through the points
 $(0, y, 3)$ and $(3, y, 0)$ for any value of $y$. The second plane the plane $z + 1 = 0$ which is
-parallel to the $xy$-plane and intercepts the $z$-axis one unit below the origin. The angle between
-them is computed as:
+parallel to the $xy$-plane and intercepts the $z$-axis one unit below the origin. We expect the
+angle between these planes to be $\frac{\pi}{4}$ radians, so let's quickly verify this with the
+inner product. First though, we must normalize them by dividing by the norm. This gives:
 
 $$
 \begin{aligned}
-    (3\ee_0 + \ee_1 + \ee_3) \cdot (\ee_0 + \ee_3) &= 3\ee_0\cdot\ee_0 + \ee_1\cdot\ee_0 +
-     \ee_3\cdot\ee_0 + \\
-     &\quad\quad 3\ee_0 \cdot \ee_3 + \ee_1\cdot\ee_3 + \ee_3 \cdot\ee_3 \\
-    &= 1
+p_1 &= \frac{3\sqrt{2}}{2}\ee_0 + \frac{\sqrt{2}}{2}\ee_1 + \frac{\sqrt{2}}{2}\ee_3 \\
+p_2 &= \ee_0 + \ee_3
 \end{aligned}
 $$
+
+Remember that when computing the norm, because $\ee_0^2 = 0$, the $\ee_0$ component does not
+participate in the computaiton. The angle between them is then computed as:
+
+$$
+\begin{aligned}
+    p_1 \cdot p_2  &= \left(\frac{3\sqrt{2}}{2}\ee_0 + \frac{\sqrt{2}}{2}\ee_1 +
+    \frac{\sqrt{2}}{2}\ee_3\right) \cdot (\ee_0 + \ee_3) \\
+    &= \frac{\sqrt{2}}{2}\ee_3\cdot\ee_3 \\
+    &= \frac{\sqrt{2}}{2}
+\end{aligned}
+$$
+
+indicating that the angle between $p_1$ and $p_2$ is $\cos^{-1}{\frac{\sqrt{2}}{2}} = \frac{\pi}{4}$ radians. The Klein code to
+compute the angle between planes is shown below:
+
+```c++
+float plane_angle_rad(kln::plane p1, kln::plane p2)
+{
+    p1.normalize(); // Normalizes p1 in place
+    p2.normalize(); // Normalizes p2 in place
+    return std::acos((p1 | p2).scalar());
+}
+```
+
+!!! tip "Exercises"
+
+    1. The angle calculation above is a great example to demonstrate why the degenerate element $\ee_0$ is so important. Consider what would have happened if instead $\ee_0 \cdot \ee_0 \neq 0$.
+    2. Now, suppose we made the "choice" of representing planes with trivector coordinates instead of vector coordinates. Repeat the above calculation using the duals of each plane. Does the computation still work?
+
+### Lines
+
+!!! info
+
+    [kln::line](../../api/kln_line)
+
+#### Intersecting planes to create lines
+
+The "meet" operation in $\PGA$ is defined in terms of the exterior product ($\wedge$). Given two
+planes, $p_1 = 3\ee_0 + \ee_1 + \ee_3$ and $p_2 = \ee_0 + \ee_3$, we can compute the exterior
+product like so:
+
+$$
+\begin{aligned}
+p_1\wedge p_2 &= (3\ee_0 + \ee_1 + \ee_3) \wedge (\ee_0 + \ee_3) \\
+&= 3\ee_{03} + \ee_{10} + \ee_{13} + \ee_{30} \\
+&= -\ee_{01} + 2\ee_{03} - \ee_{31}
+\end{aligned}
+$$
+
+How can we verify that this is correct? Well, let's first try to calculate the equation of this line
+using more traditional means. In classical Euclidean geometry, the six degrees of freedom of a line
+are often represented using Plücker coordinates. Let's express our planes using the implicit
+equation form:
+
+$$
+\begin{aligned}
+0 &= 3 + x + z \\
+0 &= 1 + z
+\end{aligned}
+$$
+
+The Plücker displacement is determined by the cross product of the plane normals, which in this case
+is the cross product $(\mathbf{i} + \mathbf{k})\times\mathbf{k} = \mathbf{i}\times\mathbf{k} =
+-\mathbf{j}$. Meanwhile, the Plücker moment of the line is given as $3\mathbf{k} - (\mathbf{i} +
+\mathbf{k}) = -\mathbf{i} + 2\mathbf{k}$. Putting it together, the Plücker coordinate tuple of our
+line is $(d_1:d_2:d_3:m_1:m_2:m_3) = (0: -1: 0:-1:0:2)$, in exact accordance with the calculation
+above.
+
+Observe that the coordinates associated with $\ee_{21}$, $\ee_{13}$, and $\ee_{32}$ capture the
+information about the orientation of the line, while the coordinates associated with $\ee_{01}$,
+$\ee_{02}$, and $\ee_{03}$ work in tandem to impart a translational element as well.
+
+What happens if the planes are parallel? Let's try our meet between planes $-2\ee_0 + 2\ee_1$ and
+$\ee_1$ to see what happens.
+
+$$ (-2\ee_0 + 2\ee_1) \wedge \ee_1 = -2\ee_{01} $$
+
+We ended up with a bivector all the same! Quantities that have no direction components like the
+above are referred to as _ideal lines_, also known as _lines at infinity_. What's important about
+concepts like lines and points at infinity is that their existence allows our algebra to have
+_closure_ without needing to introduce vague notions of $\infty$. Another way to word this is to say
+that planes _always_ intersect, even when parallel, and the algebra does not need to make any
+special exceptions for them. Furthermore, these entities at infinity have uses! We'll see later that
+rotations about ideal lines can be used to generate translations.
+
+The code that produces the line above is the following snippet:
+
+```c++
+// plane 1: 3 + x + z = 0;
+kln::plane p1{1.f, 0.f, 1.f, 3.f};
+
+// plane 2: 1 + z = 0;
+kln::plane p2{0.f, 0.f, 1.f, 1.f};
+
+// line intersection of planes 1 and 2
+kln::line intersection = p1 ^ p2;
+```
+
+!!! tip "Exercises"
+
+    1. Match up the Plücker coordinates above with the coefficients of the meet operation above. Do you see how the element indices matter in determining the sign?
+    2. Lines at infinity have 3 degrees of freedom. Is there an analogous plane at infinity? How many degrees of freedom does it have?
+    3. What happens when you evaluate $p_2\wedge p_1$ instead of $p_1\wedge p_2$? Is the change justified?
+
+### Points
+
+!!! info
+
+    [kln::point](../../api/kln_point)
+
+#### Meet a line and a plane
+
+With the same meet operation ($\wedge$) we used to intersect two planes to construct a line, we can
+intersect a line and a plane to construct a point. Let's use the line $\ell = -\ee_{01} + 2\ee_{03} -
+\ee_{31}$ from the previous example and the plane $\ee_1 + \ee_2$.
+
+$$
+\begin{aligned}
+    (-\ee_{01} + 2\ee_{03} - \ee_{31}) \wedge (\ee_1 + \ee_2) &= -\ee_{012} + 2\ee_{031} + 2\ee_{032} - \ee_{312}\\
+    &= -\ee_{123} + 2\ee_{032} + 2\ee_{031} + \ee_{021} \\
+    &\rightarrow \;\; \ee_{123} - 2\ee_{032} + 2\ee_{013} - \ee_{021}
+\end{aligned}
+$$
+
+In the last step, we divided the expression by $-1$ so that the weight of $\ee_{123}$ is exactly one.
+For points, this weight is the homogeneous coordinate, and when it is unity, there is a direct
+association between the point's Cartesian coordinates and the other trivector weights. For $\PGA$,
+given a normalized point with $\ee_{123}$ weight $1$, the $x$ coordinate is the weight of the
+$\ee_{032}$ trivector, the $y$ coordinate is the weight of the $\ee_{013}$ trivector, and the $z$
+coordinate is the weight of the $\ee_{021}$ trivector.
+
+!!! tip "Projective equivalence"
+
+    In projective geometry, all geometric entities (planes, lines, points) exhibit a property known as
+    projective equivalence. For any such entity $X$, the entity $aX$ represents the same entity for any
+    non-zero real scalar $a$. To compare weights from one entity to another meaningfully however, we
+    tend to use this projective equivalence to keep things normalized in the same way. For example, it
+    doesn't make sense to compare the $\ee_{021}$ weight (the $z$-coordinate) between two points unless
+    they are both normalized in the same manner.
+
+In this case, the trivector is associated with the point at $(-2, 2, -1)$. How can we verify that
+this point is the intersection we're seeking?
+Let's represent our plane and line as a system of equations. Recalling that $\ell$ was
+constructed as the intersection from two planes from before, this means that we can form the
+following system of three equations:
+
+$$
+\begin{aligned}
+0 &= 3 + x + z \\
+0 &= 1 + z \\
+0 &= x + y
+\end{aligned}
+$$
+
+Subtracting the second equation from the first yields $x = -2$. Substituting in the third equation
+yields $y = 2$. Finally, the second equation immediately gives $z = -1$.
+
+In code, the intersection of the plane and the line to construct a point can be done as follows:
+
+```c++
+kln::line l(-1.f, 0.f, 2.f, 0.f, -1.f, 0.f);
+kln::plane p{0.f, 1.f, 1.f, 0.f};
+kln::point intersection = l ^ p;
+```
+
+!!! tip "Exercises"
+
+    1. As mentioned previously, the exterior product is only anticommutative in certain situations. This isn't one of them!
+       In fact, it would be somewhat concerning if the point intersection depended on the order $\ell \wedge p$ vs $p \wedge \ell$.
+       Evaluate $p \wedge \ell$ for the above example and verify that you get the same result.
+    2. Seeing points as trivectors might feel a bit confusing at first. This isn't so much an exercise, but a request for
+       you, the reader, to reserve any doubts that the representation makes sense until we look at the geometric product
+       in view of symmetric actions.
+    3. Here, we met a line and a plane to get the point of intersection point. Three planes can be met with the same operator $\wedge$
+       to produce the intersection point as well. Can you see why?
+
+### Joins
+
+In the constructions above, we used the exterior product to _meet_ entities to elegantly construct
+intersections. The $\wedge$ operator is a grade-increasing operation that allowed us to go from
+planes to lines to points. What about going the other direction? Well, there's a handy tool for
+that! Earlier, we learned about the [Regressive Product](#regressive-product), defined _in terms_ of
+the exterior product on the duals of the operands. As a result, it should be evident that the
+regressive product is a _grade decreasing_ operation that allows us to _join_ entities to go in the
+other direction, from points to lines to planes.
+
+Sure enough, this works exactly as you'd expect. Two points can be joined to construct a line, and
+a line and a point (or equivalently three points) can be joined to create a plane. Here's a code
+snippet doing exactly this.
+
+```c++
+kln::point p1{x1, y1, z1};
+kln::point p2{x2, y2, z2};
+
+kln::line p1_to_p2 = p1 & p2;
+
+kln::point p3{x3, y3, z3};
+
+/// Equivalent to p1 & p2 & p3;
+kln::plane p1_p2_p3 = p1_to_p2 & p3;
+```
+
+!!! tip "Exercises"
+
+    1. Try to perform the computation above by hand given sufficiently simple initialization values of the three points.
+       Do the results agree with what you expect?
+    2. Explain why the Poincaré dual map we introduced earlier needed to be an involution for our join to work so
+       conveniently.
+
+## Reflections
+
+So far, we've seen how the exterior product and regressive product can be used to construct planes,
+lines, and points. We also saw how the symmetric inner product can be used to measure angles between
+planes. However, we haven't yet encountered the usage of the geometric product, and this is where
+we'll fully appreciate the decision of using the representation we have.
+
+### Reflection through a plane
+
+A reflection of an entity $X$ through a plane $p$ is given by $pXp$. This is true regardless of
+whether $X$ is another plane, a line, or a point!
+
+!!! danger "ARTICLE CURRENTLY BEING DRAFTED"

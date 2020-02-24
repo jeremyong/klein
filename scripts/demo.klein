@@ -50,3 +50,13 @@
 
 # rotor * ~rotor
 (b0 + b1 e23 + b2 e31 + b3 e12) * (b0 - b1 e23 - b2 e31 - b3 e12)
+
+# Regressive product
+(4e1 - 2e32) & (3e012 + e10)
+
+# Plane-plane intersection
+(3e0 + e1 + e3) ^ (e0 + e3)
+
+# Plane-line intersection
+(-e01 + 2e03 - e31) ^ (e1 + e3)
+(e1 + e3) ^ (-e01 + 2e03 - e31)
