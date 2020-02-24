@@ -154,6 +154,31 @@
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
         
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
       </div>
       
         <div class="md-flex__cell md-flex__cell--shrink">
@@ -425,6 +450,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81" class="md-nav__link">
+    branch  log() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec" class="md-nav__link">
     plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
   </a>
@@ -651,6 +683,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../case_studies/geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
+      Geometry Potpourri
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../case_studies/ga_skeletal_animation/" title="Basic Skeletal Animation" class="md-nav__link">
       Basic Skeletal Animation
     </a>
@@ -789,6 +833,13 @@
           <li class="md-nav__item">
   <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11" class="md-nav__link">
     mat4x4  as_matrix() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81" class="md-nav__link">
+    branch  log() const noexcept
   </a>
   
 </li>
@@ -940,7 +991,7 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 </tr>
 <tr>
 <td><code>public void</code> <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da"><code>load_normalized</code></a><code>(float * data) noexcept</code></td>
-<td>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23}\)</span>.</td>
+<td>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12}\)</span>.</td>
 </tr>
 <tr>
 <td><code>public void</code> <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4"><code>normalize</code></a><code>() noexcept</code></td>
@@ -949,6 +1000,10 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <tr>
 <td><code>public</code> <a href="../../api/kln_mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><code>as_matrix</code></a><code>() const noexcept</code></td>
 <td>Converts the rotor to a 4x4 column-major matrix.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="../../api/kln_rotor::branch#structkln_1_1rotor_1_1branch"><code>branch</code></a><code></code> <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81"><code>log</code></a><code>() const noexcept</code></td>
+<td>Returns the principal branch of this rotor's logarithm. Invoking <code>exp</code>  on the returned result maps back to this rotor.</td>
 </tr>
 <tr>
 <td><code>public</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><code>operator()</code></a><code>(</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
@@ -991,7 +1046,7 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <p>Convenience constructor. Computes transcendentals and normalizes rotation axis.</p>
 <h4 id="structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298">rotor</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; other)</h4>
 <h4 id="structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">void  <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">load_normalized</a>(float * data) noexcept</h4>
-<p>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{12} + c\mathbf{e}_{31} + d\mathbf{e}_{23}\)</span>.</p>
+<p>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12}\)</span>.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>The rotor data loaded this way <em>must</em> be normalized. That is, the
@@ -1001,6 +1056,9 @@ rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex
 <p>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</p>
 <h4 id="structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11">as_matrix</a>() const noexcept</h4>
 <p>Converts the rotor to a 4x4 column-major matrix.</p>
+<h4 id="structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81"><a href="../../api/kln_rotor::branch#structkln_1_1rotor_1_1branch">branch</a>  <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81">log</a>() const noexcept</h4>
+<p>Returns the principal branch of this rotor's logarithm. Invoking <code>exp</code>  on the returned result maps back to this rotor.</p>
+<p>Given a rotor <span class="arithmatex">\(\cos\alpha + \sin\alpha\left[a\ee_{23} + b\ee_{31} +\ c\ee_{23}\right]\)</span>, the log is computed as simply <span class="arithmatex">\(\alpha\left[a\ee_{23} + b\ee_{31} + c\ee_{23}\right]\)</span>. This map is only well-defined if the rotor is normalized such that <span class="arithmatex">\(a^2 + b^2 + c^2 = 1\)</span>.</p>
 <h4 id="structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><a href="../../api/kln_plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
 <h4 id="structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> * in, <a href="../../api/kln_plane#structkln_1_1plane">plane</a> * out,size_t count) const noexcept</h4>
@@ -1151,8 +1209,6 @@ each direction individually.</p>
       <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
       
         <script src="../../js/extra.js"></script>
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
       
