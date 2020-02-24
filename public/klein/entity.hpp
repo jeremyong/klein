@@ -544,7 +544,7 @@ struct entity
                 __m128 p3_tmp;
                 ext02(p0(), rhs.p2(), p3_tmp);
 
-                if constexpr ((PMask2 & 0b10))
+                if constexpr ((PMask2 & 0b10) > 0)
                 {
                     p3_ = _mm_add_ps(p3_tmp, p3_);
                 }
