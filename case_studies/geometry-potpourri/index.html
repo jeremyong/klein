@@ -1027,8 +1027,14 @@ Let's define the square of these vectors in the following manner.
 The first element squares to <span class="arithmatex">\(0\)</span> (<span class="arithmatex">\(\ee_0 \ee_0 =
 0\)</span>) while the latter 3 elements square to <span class="arithmatex">\(1\)</span> (<span class="arithmatex">\(\ee_1\ee_1 = \ee_2\ee_2 = \ee_3\ee_3 = 1\)</span>).
 As we now immediately have a means to create <span class="arithmatex">\(1\)</span>, we can generate all the numbers this way,
-so let's declare <span class="arithmatex">\(1\)</span> as our grade-0 basis element.
-When we write elements adjacent to one another as in <span class="arithmatex">\(\ee_1\ee_1\)</span>, the operation being represented
+so let's declare <span class="arithmatex">\(1\)</span> as our grade-0 basis element.</p>
+<div class="admonition question">
+<p class="admonition-title">Grade?</p>
+<p>Very non-mathematically, the "grade" of an element is the number of subscripts it possesses.
+Soon, you should get a good feel of what grades result from what operations, and what information
+the grades present in a multivector quantity conveys.</p>
+</div>
+<p>When we write elements adjacent to one another as in <span class="arithmatex">\(\ee_1\ee_1\)</span>, the operation being represented
 here is the <em>geometric product</em>. In code, the geometric product is expressed as the multiplication
 (<code>*</code>) operator. So far, we've written down what the geometric product does when the
 elements multiply against themselves. Next, we need to describe what happens when we take the
@@ -1124,7 +1130,8 @@ swaps as necessary to write terms with the canonical subscript ordering.</p>
 <p>Klein API: <code>operator|</code></p>
 <p>Written as <span class="arithmatex">\(a \cdot b\)</span>.</p>
 </div>
-<p>The <em>symmetric inner product</em> (inner product for short) is similar to the geometric product except
+<p>The <em>symmetric inner product</em> (inner product for short) is a bilinear binary operation like the
+geometric product except
 it <em>is always grade decreasing</em> such that the final grade is the absolute value of the difference of
 the operand grades. If the grade of the element resulting from a geometric product
 would have been greater than this difference, the inner product extinguishes it to zero. In other
