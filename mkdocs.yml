@@ -45,7 +45,7 @@ nav:
       - 'Geometry Potpourri': 'case_studies/geometry-potpourri.md'
       - 'Basic Skeletal Animation': 'case_studies/ga_skeletal_animation.md'
   - 'Klein Shell': 'shell.md'
-  # - 'Benchmarks': 'benchmarks.md'
+  - 'Performance': 'perf.md'
   - 'Discord': 'discord.md'
   - 'Roadmap': 'roadmap.md'
   - 'References': 'references.md'
