@@ -119,7 +119,7 @@ install:
   - ninja --version
 
 before_script:
-  - ${CMAKE} -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DKLEIN_ENABLE_BENCH=OFF
+  - ${CMAKE} -G Ninja -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DKLEIN_ENABLE_PERF=OFF
   - ${CMAKE} --build .
 
 script:

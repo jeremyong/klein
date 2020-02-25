@@ -41,6 +41,13 @@ The first element squares to $0$ ($\ee_0 \ee_0 =
 0$) while the latter 3 elements square to $1$ ($\ee_1\ee_1 = \ee_2\ee_2 = \ee_3\ee_3 = 1$).
 As we now immediately have a means to create $1$, we can generate all the numbers this way,
 so let's declare $1$ as our grade-0 basis element.
+
+!!! question "Grade?"
+
+    Very non-mathematically, the "grade" of an element is the number of subscripts it possesses.
+    Soon, you should get a good feel of what grades result from what operations, and what information
+    the grades present in a multivector quantity conveys.
+
 When we write elements adjacent to one another as in $\ee_1\ee_1$, the operation being represented
 here is the _geometric product_. In code, the geometric product is expressed as the multiplication
 (`*`) operator. So far, we've written down what the geometric product does when the
@@ -152,7 +159,8 @@ swaps as necessary to write terms with the canonical subscript ordering.
 
     Written as $a \cdot b$.
 
-The _symmetric inner product_ (inner product for short) is similar to the geometric product except
+The _symmetric inner product_ (inner product for short) is a bilinear binary operation like the
+geometric product except
 it _is always grade decreasing_ such that the final grade is the absolute value of the difference of
 the operand grades. If the grade of the element resulting from a geometric product
 would have been greater than this difference, the inner product extinguishes it to zero. In other
