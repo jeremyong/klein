@@ -398,36 +398,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe" class="md-nav__link">
-    line( entity&lt; 0b110 &gt; const &amp; e)
+  <a href="#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c" class="md-nav__link">
+    line( entity&lt; 0b110 &gt; const &amp; e) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0" class="md-nav__link">
-    line( entity&lt; 0b100 &gt; const &amp; e)
+  <a href="#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072" class="md-nav__link">
+    line( entity&lt; 0b100 &gt; const &amp; e) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be" class="md-nav__link">
-    line( entity&lt; 0b10 &gt; const &amp; e)
+  <a href="#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef" class="md-nav__link">
+    line( entity&lt; 0b10 &gt; const &amp; e) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8" class="md-nav__link">
-    float  squared_norm()
+  <a href="#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
+    float  squared_norm() noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c" class="md-nav__link">
-    float  norm()
+  <a href="#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
+    float  norm() noexcept
   </a>
   
 </li>
@@ -480,6 +480,18 @@
   <li class="md-nav__item">
     <a href="../kln_rotor/" title="Rotor" class="md-nav__link">
       Rotor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_branch/" title="Branch" class="md-nav__link">
+      Branch
     </a>
   </li>
 
@@ -699,18 +711,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../roadmap/" title="Roadmap" class="md-nav__link">
-      Roadmap
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../../references/" title="References" class="md-nav__link">
       References
     </a>
@@ -773,36 +773,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe" class="md-nav__link">
-    line( entity&lt; 0b110 &gt; const &amp; e)
+  <a href="#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c" class="md-nav__link">
+    line( entity&lt; 0b110 &gt; const &amp; e) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0" class="md-nav__link">
-    line( entity&lt; 0b100 &gt; const &amp; e)
+  <a href="#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072" class="md-nav__link">
+    line( entity&lt; 0b100 &gt; const &amp; e) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be" class="md-nav__link">
-    line( entity&lt; 0b10 &gt; const &amp; e)
+  <a href="#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef" class="md-nav__link">
+    line( entity&lt; 0b10 &gt; const &amp; e) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8" class="md-nav__link">
-    float  squared_norm()
+  <a href="#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
+    float  squared_norm() noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c" class="md-nav__link">
-    float  norm()
+  <a href="#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
+    float  norm() noexcept
   </a>
   
 </li>
@@ -848,6 +848,7 @@
 <span class="err">  : public kln::entity&lt; 0b110 &gt;</span>
 </code></pre></div>
 
+<p>A general line in <span class="arithmatex">\(\PGA\)</span> is given as a 6-coordinate bivector with a direct correspondence to Plücker coordinates. All lines can be exponentiated using the <code>exp</code>  method to generate a motor.</p>
 <h3 id="summary">Summary</h3>
 <table>
 <thead>
@@ -866,23 +867,23 @@
 <td>A line is specifed by 6 coordinates which correspond to the line's <a href="https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates">Plücker coordinates</a>. The coordinates specified in this way correspond to the following multivector:</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe"><code>line</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; e)</code></td>
+<td><code>public</code> <a href="#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c"><code>line</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; e) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0"><code>line</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b100 &gt; const &amp; e)</code></td>
+<td><code>public</code> <a href="#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072"><code>line</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b100 &gt; const &amp; e) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be"><code>line</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; e)</code></td>
+<td><code>public</code> <a href="#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef"><code>line</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; e) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public float</code> <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8"><code>squared_norm</code></a><code>()</code></td>
+<td><code>public float</code> <a href="#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b"><code>squared_norm</code></a><code>() noexcept</code></td>
 <td>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</td>
 </tr>
 <tr>
-<td><code>public float</code> <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c"><code>norm</code></a><code>()</code></td>
+<td><code>public float</code> <a href="#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22"><code>norm</code></a><code>() noexcept</code></td>
 <td>Returns the square root of the quantity produced by <code>squared_norm</code> .</td>
 </tr>
 <tr>
@@ -896,12 +897,12 @@
 <h4 id="structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7"><a href="#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7">line</a>(float a,float b,float c,float d,float e,float f) noexcept</h4>
 <p>A line is specifed by 6 coordinates which correspond to the line's <a href="https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates">Plücker coordinates</a>. The coordinates specified in this way correspond to the following multivector:</p>
 <div class="arithmatex">\[a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\ d\mathbf{e}_{23} + e\mathbf{e}_{31} + f\mathbf{e}_{12}\]</div>
-<h4 id="structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe"><a href="#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe">line</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e)</h4>
-<h4 id="structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0"><a href="#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0">line</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b100 &gt; const &amp; e)</h4>
-<h4 id="structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be"><a href="#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be">line</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; e)</h4>
-<h4 id="structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8">float  <a href="#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8">squared_norm</a>()</h4>
+<h4 id="structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c"><a href="#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c">line</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e) noexcept</h4>
+<h4 id="structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072"><a href="#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072">line</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b100 &gt; const &amp; e) noexcept</h4>
+<h4 id="structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef"><a href="#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef">line</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; e) noexcept</h4>
+<h4 id="structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b">float  <a href="#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b">squared_norm</a>() noexcept</h4>
 <p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
-<h4 id="structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c">float  <a href="#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c">norm</a>()</h4>
+<h4 id="structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22">float  <a href="#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22">norm</a>() noexcept</h4>
 <p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
 <h4 id="structkln_1_1line_1ab81feed09b9c02934914071206bf54d1"><a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1">exp</a>() const noexcept</h4>
 <p>Line exponentiation</p>

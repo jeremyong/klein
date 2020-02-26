@@ -41,6 +41,11 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://jeremyong.com/klein/api/kln_branch/</loc>
+     <lastmod>2020-02-25</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://jeremyong.com/klein/api/kln_translator/</loc>
      <lastmod>2020-02-25</lastmod>
      <changefreq>daily</changefreq>
@@ -102,11 +107,6 @@
     </url>
     <url>
      <loc>https://jeremyong.com/klein/discord/</loc>
-     <lastmod>2020-02-25</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://jeremyong.com/klein/roadmap/</loc>
      <lastmod>2020-02-25</lastmod>
      <changefreq>daily</changefreq>
     </url>

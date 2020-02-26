@@ -372,6 +372,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../kln_branch/" title="Branch" class="md-nav__link">
+      Branch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -443,6 +455,20 @@
           <li class="md-nav__item">
   <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7" class="md-nav__link">
     void  load_normalized(float * data) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a" class="md-nav__link">
+    ideal_line  log() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5" class="md-nav__link">
+    ideal_line &amp;  log() noexcept
   </a>
   
 </li>
@@ -692,18 +718,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../roadmap/" title="Roadmap" class="md-nav__link">
-      Roadmap
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
     <a href="../../references/" title="References" class="md-nav__link">
       References
     </a>
@@ -775,6 +789,20 @@
           <li class="md-nav__item">
   <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7" class="md-nav__link">
     void  load_normalized(float * data) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a" class="md-nav__link">
+    ideal_line  log() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5" class="md-nav__link">
+    ideal_line &amp;  log() noexcept
   </a>
   
 </li>
@@ -888,6 +916,14 @@ operator.</p>
 <td>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(0.f, a, b, c)</code>  corresponding to the multivector <span class="arithmatex">\(a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03}\)</span>.</td>
 </tr>
 <tr>
+<td><code>public</code> <a href="../../api/kln_ideal_line#structkln_1_1ideal__line"><code>ideal_line</code></a><code></code> <a href="#structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a"><code>log</code></a><code>() const noexcept</code></td>
+<td>Compute the logarithm of the translator, producing an ideal line axis. In practice, the logarithm of a translator is simply the ideal partition (without the scalar <span class="arithmatex">\(1\)</span>).</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="../../api/kln_ideal_line#structkln_1_1ideal__line"><code>ideal_line</code></a><code>&amp;</code> <a href="#structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5"><code>log</code></a><code>() noexcept</code></td>
+<td>Retrieve the ideal line axis of this translator which can be directly manipulated to augment or diminish the weight of this translator.</td>
+</tr>
+<tr>
 <td><code>public</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59"><code>operator()</code></a><code>(</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
 <td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this translator and returns the result <span class="arithmatex">\(tp\widetilde{t}\)</span>.</td>
 </tr>
@@ -913,6 +949,10 @@ operator.</p>
 the quantity <span class="arithmatex">\(-\sqrt{a^2 + b^2 + c^2}\)</span> must be half the desired
 displacement.</p>
 </div>
+<h4 id="structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a"><a href="../../api/kln_ideal_line#structkln_1_1ideal__line">ideal_line</a>  <a href="#structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a">log</a>() const noexcept</h4>
+<p>Compute the logarithm of the translator, producing an ideal line axis. In practice, the logarithm of a translator is simply the ideal partition (without the scalar <span class="arithmatex">\(1\)</span>).</p>
+<h4 id="structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5"><a href="../../api/kln_ideal_line#structkln_1_1ideal__line">ideal_line</a> &amp;  <a href="#structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5">log</a>() noexcept</h4>
+<p>Retrieve the ideal line axis of this translator which can be directly manipulated to augment or diminish the weight of this translator.</p>
 <h4 id="structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59"><a href="../../api/kln_plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
 <p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this translator and returns the result <span class="arithmatex">\(tp\widetilde{t}\)</span>.</p>
 <h4 id="structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7"><a href="../../api/kln_line#structkln_1_1line">line</a> KLN_VEC_CALL  <a href="#structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7">operator()</a>( <a href="../../api/kln_line#structkln_1_1line">line</a> const &amp; l) const noexcept</h4>
@@ -947,8 +987,8 @@ displacement.</p>
 
         <!-- Link to previous page -->
         
-          <a href="../kln_rotor/"
-              title="Rotor"
+          <a href="../kln_branch/"
+              title="Branch"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -961,7 +1001,7 @@ displacement.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Rotor
+                Branch
               </span>
             </div>
           </a>

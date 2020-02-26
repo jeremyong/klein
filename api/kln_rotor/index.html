@@ -539,6 +539,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../kln_branch/" title="Branch" class="md-nav__link">
+      Branch
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../kln_translator/" title="Translator" class="md-nav__link">
       Translator
     </a>
@@ -738,18 +750,6 @@
   <li class="md-nav__item">
     <a href="../../discord/" title="Discord" class="md-nav__link">
       Discord
-    </a>
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../../roadmap/" title="Roadmap" class="md-nav__link">
-      Roadmap
     </a>
   </li>
 
@@ -1014,7 +1014,7 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <td>Converts the rotor to a 4x4 column-major matrix.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_rotor::branch#structkln_1_1rotor_1_1branch"><code>branch</code></a><code></code> <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81"><code>log</code></a><code>() const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_branch#structkln_1_1branch"><code>branch</code></a><code></code> <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81"><code>log</code></a><code>() const noexcept</code></td>
 <td>Returns the principal branch of this rotor's logarithm. Invoking <code>exp</code>  on the returned result maps back to this rotor.</td>
 </tr>
 <tr>
@@ -1068,7 +1068,7 @@ rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex
 <p>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</p>
 <h4 id="structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11">as_matrix</a>() const noexcept</h4>
 <p>Converts the rotor to a 4x4 column-major matrix.</p>
-<h4 id="structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81"><a href="../../api/kln_rotor::branch#structkln_1_1rotor_1_1branch">branch</a>  <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81">log</a>() const noexcept</h4>
+<h4 id="structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81"><a href="../../api/kln_branch#structkln_1_1branch">branch</a>  <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81">log</a>() const noexcept</h4>
 <p>Returns the principal branch of this rotor's logarithm. Invoking <code>exp</code>  on the returned result maps back to this rotor.</p>
 <p>Given a rotor <span class="arithmatex">\(\cos\alpha + \sin\alpha\left[a\ee_{23} + b\ee_{31} +\ c\ee_{23}\right]\)</span>, the log is computed as simply <span class="arithmatex">\(\alpha\left[a\ee_{23} + b\ee_{31} + c\ee_{23}\right]\)</span>. This map is only well-defined if the rotor is normalized such that <span class="arithmatex">\(a^2 + b^2 + c^2 = 1\)</span>.</p>
 <h4 id="structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><a href="../../api/kln_plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
@@ -1161,8 +1161,8 @@ each direction individually.</p>
 
         <!-- Link to next page -->
         
-          <a href="../kln_translator/"
-              title="Translator"
+          <a href="../kln_branch/"
+              title="Branch"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -1171,7 +1171,7 @@ each direction individually.</p>
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Translator
+                Branch
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
