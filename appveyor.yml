@@ -11,6 +11,7 @@ skip_commits:
   files:
     - scripts/*
     - docs/*
+    - glsl/*
     - theme/*
     - bench/*
     - '*.md'
