@@ -30,7 +30,7 @@ struct rotor
 struct translator
 {
     vec4 p2;
-}
+};
 
 struct motor
 {
