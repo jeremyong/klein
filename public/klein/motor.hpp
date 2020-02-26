@@ -154,7 +154,7 @@ struct motor final : public entity<0b110>
 
     /// Conjugates a plane $p$ with this motor and returns the result
     /// $mp\widetilde{m}$.
-    plane KLN_VEC_CALL operator()(plane const& p) const noexcept
+    [[nodiscard]] plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
         sw012<false, true>(&p.p0(), parts[0].reg, &parts[1].reg, &out.p0());
@@ -179,7 +179,7 @@ struct motor final : public entity<0b110>
 
     /// Conjugates a line $\ell$ with this motor and returns the result
     /// $m\ell \widetilde{m}$.
-    line KLN_VEC_CALL operator()(line const& l) const noexcept
+    [[nodiscard]] line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
         swMM<false, true>(&l.p1(), p1(), &p2(), &out.p1());
@@ -203,7 +203,7 @@ struct motor final : public entity<0b110>
 
     /// Conjugates a point $p$ with this motor and returns the result
     /// $mp\widetilde{m}$.
-    point KLN_VEC_CALL operator()(point const& p) const noexcept
+    [[nodiscard]] point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
         sw312<false, true>(&p.p3(), parts[0].reg, &parts[1].reg, &out.p3());
@@ -228,7 +228,7 @@ struct motor final : public entity<0b110>
 
     /// Conjugates the origin $O$ with this motor and returns the result
     /// $mO\widetilde{m}$.
-    point KLN_VEC_CALL operator()(origin) const noexcept
+    [[nodiscard]] point KLN_VEC_CALL operator()(origin) const noexcept
     {
         point out;
         out.p3() = swo12(parts[0].reg, parts[1].reg);

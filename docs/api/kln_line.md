@@ -5,17 +5,19 @@ struct kln::line
   : public kln::entity< 0b110 >
 ```  
 
+A general line in $\PGA$ is given as a 6-coordinate bivector with a direct correspondence to Plücker coordinates. All lines can be exponentiated using the `exp`  method to generate a motor.
+
 ### Summary
 
  Members                        | Descriptions                                
 --------------------------------|---------------------------------------------
 `public  ` [`line`](#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a)`()`  | 
 `public  ` [`line`](#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7)`(float a,float b,float c,float d,float e,float f) noexcept`  | A line is specifed by 6 coordinates which correspond to the line's [Plücker coordinates](https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates). The coordinates specified in this way correspond to the following multivector:
-`public  ` [`line`](#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b110 > const & e)`  | 
-`public  ` [`line`](#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b100 > const & e)`  | 
-`public  ` [`line`](#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b10 > const & e)`  | 
-`public float ` [`squared_norm`](#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8)`()`  | If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
-`public float ` [`norm`](#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c)`()`  | Returns the square root of the quantity produced by `squared_norm` .
+`public  ` [`line`](#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b110 > const & e) noexcept`  | 
+`public  ` [`line`](#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b100 > const & e) noexcept`  | 
+`public  ` [`line`](#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b10 > const & e) noexcept`  | 
+`public float ` [`squared_norm`](#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b)`() noexcept`  | If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
+`public float ` [`norm`](#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22)`() noexcept`  | Returns the square root of the quantity produced by `squared_norm` .
 `public ` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b110 > ` [`exp`](#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1)`() const noexcept`  | Line exponentiation
 
 ### Members
@@ -28,17 +30,17 @@ A line is specifed by 6 coordinates which correspond to the line's [Plücker coo
 
 $$a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\ d\mathbf{e}_{23} + e\mathbf{e}_{31} + f\mathbf{e}_{12}$$
 
-####   [line](#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe)( [entity](../../api/kln_entity#structkln_1_1entity)< 0b110 > const & e)  {#structkln_1_1line_1af9e56edfe5fe537ef21dd76c1927c5fe}
+####   [line](#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c)( [entity](../../api/kln_entity#structkln_1_1entity)< 0b110 > const & e) noexcept  {#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c}
 
-####   [line](#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0)( [entity](../../api/kln_entity#structkln_1_1entity)< 0b100 > const & e)  {#structkln_1_1line_1a020bc12c8cf7e73c7f440a3ce4c7edb0}
+####   [line](#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072)( [entity](../../api/kln_entity#structkln_1_1entity)< 0b100 > const & e) noexcept  {#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072}
 
-####   [line](#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be)( [entity](../../api/kln_entity#structkln_1_1entity)< 0b10 > const & e)  {#structkln_1_1line_1a36115e3464ff63cb869dfc09d876d1be}
+####   [line](#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef)( [entity](../../api/kln_entity#structkln_1_1entity)< 0b10 > const & e) noexcept  {#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef}
 
-#### float  [squared_norm](#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8)()  {#structkln_1_1line_1af9fdfa8ac229420aa1649100ee573bf8}
+#### float  [squared_norm](#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b)() noexcept  {#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b}
 
 If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
 
-#### float  [norm](#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c)()  {#structkln_1_1line_1acbce68119eab96bcc0ec3918dfa4691c}
+#### float  [norm](#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22)() noexcept  {#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22}
 
 Returns the square root of the quantity produced by `squared_norm` .
 

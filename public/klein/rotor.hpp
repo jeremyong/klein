@@ -53,53 +53,6 @@ namespace kln
 /// translators and motors.
 struct rotor final : public entity<0b10>
 {
-    /// The `rotor::branch` is the principal branch of the logarithm of a rotor.
-    ///
-    /// The rotor branch will be most commonly constructed by taking the
-    /// logarithm of a normalized rotor. The branch may then be linearily scaled
-    /// to adjust the "strength" of the rotor, and subsequently re-exponentiated
-    /// to create the adjusted rotor.
-    ///
-    /// !!! example
-    ///
-    ///     Suppose we have a rotor $r$ and we wish to produce a rotor
-    ///     $\sqrt{4}{r}$ which performs a quarter of the rotation produced by
-    ///     $r$. We can construct it like so:
-    ///
-    ///     ```c++
-    ///         rotor_branch branch = r.log();
-    ///         rotor r_4 = (0.25f * branch).exp();
-    ///     ```
-    ///
-    /// !!! note
-    ///
-    ///     The branch of a rotor is technically a `line`, but because there are
-    ///     no translational components, the branch is given its own type for
-    ///     efficiency.
-    struct branch : public entity<0b10>
-    {
-        branch() = default;
-
-        branch(entity const& other)
-            : entity{other}
-        {}
-
-        /// Exponentiate this branch to produce a rotor.
-        [[nodiscard]] rotor exp() const noexcept
-        {
-            // Compute the rotor angle
-            float ang;
-            _mm_store_ss(&ang, _mm_sqrt_ps(_mm_dp_ps(p1(), p1(), 0b11100001)));
-            float cos_ang = std::cos(ang);
-            float sin_ang = std::sin(ang) / ang;
-
-            rotor out;
-            out.p1() = _mm_mul_ps(_mm_set1_ps(sin_ang), p1());
-            out.p1() = _mm_add_ps(out.p1(), _mm_set_ss(cos_ang));
-            return out;
-        }
-    };
-
     /// Default constructor leaves memory uninitialized.
     rotor() = default;
 

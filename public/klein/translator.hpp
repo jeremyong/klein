@@ -2,6 +2,7 @@
 
 #include "detail/matrix.hpp"
 #include "entity.hpp"
+#include "line.hpp"
 #include "mat4x4.hpp"
 #include "plane.hpp"
 #include "point.hpp"
@@ -78,6 +79,23 @@ struct translator final : public entity<0b110>
     {
         parts[0].reg = _mm_set_ss(1.f);
         parts[1].reg = _mm_loadu_ps(data);
+    }
+
+    /// Compute the logarithm of the translator, producing an ideal line axis.
+    /// In practice, the logarithm of a translator is simply the ideal partition
+    /// (without the scalar $1$).
+    ideal_line log() const noexcept
+    {
+        ideal_line out;
+        out.p2() = p2();
+        return out;
+    }
+
+    /// Retrieve the ideal line axis of this translator which can be directly
+    /// manipulated to augment or diminish the weight of this translator.
+    ideal_line& log() noexcept
+    {
+        return reinterpret_cast<ideal_line&>(p2());
     }
 
     /// Conjugates a plane $p$ with this translator and returns the result

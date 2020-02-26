@@ -14,7 +14,7 @@ endif()
 FetchContent_Declare(
     rtm
     GIT_REPOSITORY git@github.com:nfrechette/rtm.git
-    GIT_TAG master
+    GIT_TAG origin/master
 )
 if(NOT rtm_POPULATED)
     FetchContent_Populate(rtm)

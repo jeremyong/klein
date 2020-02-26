@@ -82,7 +82,7 @@ struct plane final : public entity<0b1>
     /// Reflect another plane $p_2$ through this plane $p_1$. The operation
     /// performed via this call operator is an optimized routine equivalent to
     /// the expression $p_1 p_2 p_1$.
-    plane KLN_VEC_CALL operator()(plane const& p) const noexcept
+    [[nodiscard]] plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
         sw00(p0(), p.p0(), out.p0());
@@ -92,7 +92,7 @@ struct plane final : public entity<0b1>
     /// Reflect line $\ell$ through this plane $p$. The operation
     /// performed via this call operator is an optimized routine equivalent to
     /// the expression $p \ell p$.
-    line KLN_VEC_CALL operator()(line const& l) const noexcept
+    [[nodiscard]] line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
         sw10(p0(), l.p1(), out.p1(), out.p2());
@@ -105,49 +105,49 @@ struct plane final : public entity<0b1>
     /// Reflect the point $P$ through this plane $p$. The operation
     /// performed via this call operator is an optimized routine equivalent to
     /// the expression $p P p$.
-    point KLN_VEC_CALL operator()(point const& p) const noexcept
+    [[nodiscard]] point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
         sw30(p0(), p.p3(), out.p3());
         return out;
     }
 
-    float x() const noexcept
+    [[nodiscard]] float x() const noexcept
     {
         return parts[0].data[1];
     }
 
-    float& x() noexcept
+    [[nodiscard]] float& x() noexcept
     {
         return parts[0].data[1];
     }
 
-    float y() const noexcept
+    [[nodiscard]] float y() const noexcept
     {
         return parts[0].data[2];
     }
 
-    float& y() noexcept
+    [[nodiscard]] float& y() noexcept
     {
         return parts[0].data[2];
     }
 
-    float z() const noexcept
+    [[nodiscard]] float z() const noexcept
     {
         return parts[0].data[3];
     }
 
-    float& z() noexcept
+    [[nodiscard]] float& z() noexcept
     {
         return parts[0].data[3];
     }
 
-    float d() const noexcept
+    [[nodiscard]] float d() const noexcept
     {
         return parts[0].data[0];
     }
 
-    float& d() noexcept
+    [[nodiscard]] float& d() noexcept
     {
         return parts[0].data[0];
     }

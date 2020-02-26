@@ -8,8 +8,8 @@ using namespace kln;
 TEST_CASE("rotor-exp-log")
 {
     rotor r{M_PI * 0.5f, 0.3f, -3.f, 1.f};
-    rotor::branch b = r.log();
-    rotor r2        = b.exp();
+    branch b = r.log();
+    rotor r2 = b.exp();
 
     CHECK_EQ(r2.scalar(), doctest::Approx(r.scalar()).epsilon(0.001));
     CHECK_EQ(r2.e12(), doctest::Approx(r.e12()).epsilon(0.001));

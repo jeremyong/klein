@@ -51,43 +51,43 @@ struct point final : public entity<0b1000>
         parts[0].reg = _mm_loadu_ps(data);
     }
 
-    float x() const noexcept
+    [[nodiscard]] float x() const noexcept
     {
         return parts[0].data[1];
     }
 
-    float& x() noexcept
+    [[nodiscard]] float& x() noexcept
     {
         return parts[0].data[1];
     }
 
-    float y() const noexcept
+    [[nodiscard]] float y() const noexcept
     {
         return parts[0].data[2];
     }
 
-    float& y() noexcept
+    [[nodiscard]] float& y() noexcept
     {
         return parts[0].data[2];
     }
 
-    float z() const noexcept
+    [[nodiscard]] float z() const noexcept
     {
         return parts[0].data[3];
     }
 
-    float& z() noexcept
+    [[nodiscard]] float& z() noexcept
     {
         return parts[0].data[3];
     }
 
     /// The homogeneous coordinate `w` is exactly $1$ when normalized.
-    float w() const noexcept
+    [[nodiscard]] float w() const noexcept
     {
         return parts[0].data[0];
     }
 
-    float& w() noexcept
+    [[nodiscard]] float& w() noexcept
     {
         return parts[0].data[0];
     }

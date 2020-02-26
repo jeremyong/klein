@@ -27,4 +27,4 @@ struct mat4x4
 
     // TODO: provide a transpose function
 };
-}
+} // namespace kln

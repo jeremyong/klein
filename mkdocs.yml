@@ -32,6 +32,7 @@ nav:
       - 'Line': 'api/kln_line.md'
       - 'Point': 'api/kln_point.md'
       - 'Rotor': 'api/kln_rotor.md'
+      - 'Branch': 'api/kln_branch.md'
       - 'Translator': 'api/kln_translator.md'
       - 'Motor': 'api/kln_motor.md'
       - 'Ideal Line': 'api/kln_ideal_line.md'
@@ -47,7 +48,6 @@ nav:
   - 'Klein Shell': 'shell.md'
   - 'Performance': 'perf.md'
   - 'Discord': 'discord.md'
-  - 'Roadmap': 'roadmap.md'
   - 'References': 'references.md'
 
 extra_css:

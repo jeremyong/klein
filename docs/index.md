@@ -59,8 +59,10 @@ art kinematic and math libraries built with traditional vector and quaternion fo
 - Conjugation (aka "sandwich") operators (defined via the call operator on planes, rotors, translators, and motors)
 - Inner product (used for metric measurements and to project entities)
 - Standard arithmetic operations
-- Line exponentiation to generate motors
 - Motor logarithm to compute the motor axis
+- Line exponentiation to generate motors
+- Rotor logarithm to compute the rotor axis (also referred to as a `branch`)
+- Branch exponentiation to generate rotors
 
-The latter two operators can be used to efficiently implement what is traditionally
-known as the spherical lerp.
+The "spherical interpolation" operator slerp can be implemented easily in terms of the rotor or
+motor logarithm, depending on what is needed.
