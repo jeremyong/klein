@@ -2,17 +2,18 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/dual_quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>
+#include <mc_ruler.h>
 
-// Run to generate llvm analysis
-// clang++ glm_bench.cpp -std=c++17 -O2 -I../public -src/includes -msse4.2
-// -march=native -S -o - | llvm-mca -mcpu=btver2 | xclip
-
-// glm::quat rotor_composition(glm::quat const& a, glm::quat const& b)
-// {
-//     return a * b;
-// }
+glm::quat rotor_composition(glm::quat const& a, glm::quat const& b)
+{
+    MC_MEASURE_BEGIN(rotor_composition);
+    return a * b;
+    MC_MEASURE_END();
+}
 
 glm::vec4 motor_application(glm::dualquat const& a, glm::vec4 const& b)
 {
+    MC_MEASURE_BEGIN(motor_application);
     return glm::mat3x4_cast(a) * b;
+    MC_MEASURE_END();
 }

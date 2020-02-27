@@ -1,19 +1,10 @@
+#include <mc_ruler.h>
 #include <rtm/quatf.h>
 #include <rtm/qvvf.h>
 
-// Run to generate llvm analysis
-// clang++ rtm_bench.cpp -std=c++17 -O2 -I../public
-// -I../build/_deps/rtm-src/includes -msse4.2 -march=native -S -o - | llvm-mca
-// -mcpu=btver2 | xclip
-
-/*
 rtm::quatf rotor_composition(rtm::quatf const& a, rtm::quatf const& b)
 {
+    MC_MEASURE_BEGIN(rotor_composition);
     return rtm::quat_mul(a, b);
-}
-*/
-
-rtm::vector4f motor_application(rtm::qvvf const& a, rtm::vector4f const& b)
-{
-    return rtm::qvv_mul_point3(b, a);
+    MC_MEASURE_END();
 }
