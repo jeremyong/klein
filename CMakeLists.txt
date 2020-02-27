@@ -28,6 +28,7 @@ option(KLEIN_BUILD_SYM "Enable compilation of symbolic Klein utility" ON)
 option(KLEIN_BUILD_C_BINDINGS "Enable compilation of the Klein C bindings" ON)
 
 add_library(klein INTERFACE)
+add_library(klein::klein ALIAS klein)
 target_include_directories(klein INTERFACE public)
 target_compile_features(klein INTERFACE cxx_std_17)
 # SSE4.2 has > 96% market penetration according to the Steam hardware survey

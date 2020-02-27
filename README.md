@@ -26,7 +26,7 @@ SIMD Extensions) for maximum throughput.
 
 You have two options to use Klein in your codebase. First, you can simply copy the contents of the
 `public` folder somewhere in your include path. Alternatively, you can include this entire project
-in your source tree, and using cmake, `add_subdirectory(Klein)` and link the `klein` interface
+in your source tree, and using cmake, `add_subdirectory(Klein)` and link the `klein::klein` interface
 target.
 
 In your code, there is a single header to include via `#include <klein/klein.hpp>`, at which point

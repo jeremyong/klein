@@ -16,7 +16,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(klein)
 
-# Now, you can use target_link_libraries(your_lib PUBLIC klein)
+# Now, you can use target_link_libraries(your_lib PUBLIC klein::klein)
 ```
 
 The primary "catch-all" header provided can be included using `#include <klein/klein.hpp>`.

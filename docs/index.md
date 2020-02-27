@@ -64,5 +64,5 @@ art kinematic and math libraries built with traditional vector and quaternion fo
 - Rotor logarithm to compute the rotor axis (also referred to as a `branch`)
 - Branch exponentiation to generate rotors
 
-The "spherical interpolation" operator slerp can be implemented easily in terms of the rotor or
+The spherical interpolation operation "slerp" can be implemented easily in terms of the rotor or
 motor logarithm, depending on what is needed.
