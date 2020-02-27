@@ -5,6 +5,7 @@
 rtm::quatf rotor_composition(rtm::quatf const& a, rtm::quatf const& b)
 {
     MC_MEASURE_BEGIN(rotor_composition);
-    return rtm::quat_mul(a, b);
+    auto out = rtm::quat_mul(a, b);
     MC_MEASURE_END();
+    return out;
 }
