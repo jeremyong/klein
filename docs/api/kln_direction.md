@@ -23,7 +23,7 @@ Directions in $\mathbf{P}(\mathbb{R}^3_{3, 0, 1})$ are represented using points 
 `public float & ` [`y`](#structkln_1_1direction_1a582345212cc5165ac7f3b1c5483dd17c)`() noexcept`  | 
 `public float ` [`z`](#structkln_1_1direction_1a1e16d3ed0ff945d0d1cbf1e6458d334b)`() const noexcept`  | 
 `public float & ` [`z`](#structkln_1_1direction_1aff096710eaf0b26832f00b5313bdac75)`() noexcept`  | 
-`public void ` [`normalize`](#structkln_1_1direction_1a143cd2cfeb94860ce1d47b9735064802)`() noexcept`  | Normalize this direction by dividing all components by the square magnitude
+`public void ` [`normalize`](#structkln_1_1direction_1a143cd2cfeb94860ce1d47b9735064802)`() noexcept`  | Normalize this direction by dividing all components by the magnitude
 
 ### Members
 
@@ -57,10 +57,10 @@ Data should point to four floats with memory layout `(0.f, x, y, z)`  where the 
 
 #### void  [normalize](#structkln_1_1direction_1a143cd2cfeb94860ce1d47b9735064802)() noexcept  {#structkln_1_1direction_1a143cd2cfeb94860ce1d47b9735064802}
 
-Normalize this direction by dividing all components by the square magnitude
+Normalize this direction by dividing all components by the magnitude
 
 !!! tip 
     Direction normalization divides the coordinates by the quantity
-    x^2 + y^2 + z^2. This is done using the `rcpps` instruction with a
-    maximum relative error of $1.5\times 2^{-12}$.
+    $\sqrt{x^2 + y^2 + z^2}$. This is done using the `rsqrtps`
+    instruction with a maximum relative error of $1.5\times 2^{-12}$.
 

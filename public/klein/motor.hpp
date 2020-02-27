@@ -95,6 +95,11 @@ struct motor final : public entity<0b110>
     }
 
     /// Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
+    ///
+    /// !!! tip
+    ///
+    ///     Normalization here is done using the `rsqrtps`
+    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
         // m = b + c where b is p1 and c is p2
@@ -109,9 +114,8 @@ struct motor final : public entity<0b110>
         //
         // Multiplying our original motor by this inverse will give us a
         // normalized motor.
-        __m128 b2     = _mm_dp_ps(p1(), p1(), 0xff);
-        __m128 b_norm = _mm_sqrt_ps(b2);
-        __m128 s      = _mm_rcp_ps(b_norm);
+        __m128 b2 = _mm_dp_ps(p1(), p1(), 0xff);
+        __m128 s  = _mm_rsqrt_ps(b2);
         __m128 bc = _mm_dp_ps(_mm_mul_ss(p1(), _mm_set_ss(-1.f)), p2(), 0xff);
         __m128 t  = _mm_mul_ps(_mm_mul_ps(bc, _mm_rcp_ps(b2)), s);
 

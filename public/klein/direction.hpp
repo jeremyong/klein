@@ -84,19 +84,19 @@ struct direction final : public entity<0b1000>
         return parts[0].data[1];
     }
 
-    /// Normalize this direction by dividing all components by the square
+    /// Normalize this direction by dividing all components by the
     /// magnitude
     ///
     /// !!! tip
     ///
     ///     Direction normalization divides the coordinates by the quantity
-    ///     x^2 + y^2 + z^2. This is done using the `rcpps` instruction with a
-    ///     maximum relative error of $1.5\times 2^{-12}$.
+    ///     $\sqrt{x^2 + y^2 + z^2}$. This is done using the `rsqrtps`
+    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
         // Fast reciprocal operation to divide by a^2 + b^2 + c^2. The maximum
         // relative error for the rcp approximation is 1.5*2^-12 (~.00036621)
-        __m128 tmp   = _mm_rcp_ps(_mm_dp_ps(p3(), p3(), 0b11101110));
+        __m128 tmp   = _mm_rsqrt_ps(_mm_dp_ps(p3(), p3(), 0b11101110));
         parts[0].reg = _mm_mul_ps(parts[0].reg, tmp);
     }
 };

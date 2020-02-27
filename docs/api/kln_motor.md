@@ -84,6 +84,10 @@ Load motor data using two unaligned loads. This routine does *not* assume the da
 
 Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
 
+!!! tip 
+    Normalization here is done using the `rsqrtps`
+    instruction with a maximum relative error of $1.5\times 2^{-12}$.
+
 ####  [mat4x4](../../api/kln_mat4x4#structkln_1_1mat4x4)  [as_matrix](#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab)() const noexcept  {#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab}
 
 Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.

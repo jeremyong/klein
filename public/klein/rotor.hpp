@@ -91,10 +91,15 @@ struct rotor final : public entity<0b10>
     }
 
     /// Normalize a rotor such that $\mathbf{r}\widetilde{\mathbf{r}} = 1$.
+    ///
+    /// !!! tip
+    ///
+    ///     Normalization here is done using the `rsqrtps`
+    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
         // A rotor is normalized if r * ~r is unity.
-        __m128 inv_norm = _mm_rcp_ps(_mm_sqrt_ps(_mm_dp_ps(p1(), p1(), 0xff)));
+        __m128 inv_norm = _mm_rsqrt_ps(_mm_dp_ps(p1(), p1(), 0xff));
         p1()            = _mm_mul_ps(p1(), inv_norm);
     }
 

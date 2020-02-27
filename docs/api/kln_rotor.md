@@ -87,6 +87,10 @@ Fast load operation for packed data that is already normalized. The argument `da
 
 Normalize a rotor such that $\mathbf{r}\widetilde{\mathbf{r}} = 1$.
 
+!!! tip 
+    Normalization here is done using the `rsqrtps`
+    instruction with a maximum relative error of $1.5\times 2^{-12}$.
+
 ####  [mat4x4](../../api/kln_mat4x4#structkln_1_1mat4x4)  [as_matrix](#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11)() const noexcept  {#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11}
 
 Converts the rotor to a 4x4 column-major matrix.

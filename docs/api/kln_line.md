@@ -18,6 +18,7 @@ A general line in $\PGA$ is given as a 6-coordinate bivector with a direct corre
 `public  ` [`line`](#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b10 > const & e) noexcept`  | 
 `public float ` [`squared_norm`](#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b)`() noexcept`  | If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
 `public float ` [`norm`](#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22)`() noexcept`  | Returns the square root of the quantity produced by `squared_norm` .
+`public void ` [`normalize`](#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3)`() noexcept`  | Normalize a line such that $\ell^2 = 1$.
 `public ` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b110 > ` [`exp`](#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1)`() const noexcept`  | Line exponentiation
 
 ### Members
@@ -43,6 +44,14 @@ If a line is constructed as the regressive product (join) of two points, the squ
 #### float  [norm](#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22)() noexcept  {#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22}
 
 Returns the square root of the quantity produced by `squared_norm` .
+
+#### void  [normalize](#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3)() noexcept  {#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3}
+
+Normalize a line such that $\ell^2 = 1$.
+
+!!! tip 
+    Normalization here is done using the `rsqrtps`
+    instruction with a maximum relative error of $1.5\times 2^{-12}$.
 
 ####  [entity](../../api/kln_entity#structkln_1_1entity)< 0b110 >  [exp](#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1)() const noexcept  {#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1}
 

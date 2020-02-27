@@ -1,9 +1,8 @@
-!!! danger "ARTICLE CURRENTLY BEING DRAFTED"
-
-In this workshop, we're going to walk through a number of common geometric tasks
+In this workbook, we're going to walk through a number of common geometric tasks
 such as finding intersections, computing distances, performing rotations, etc. For each task, we'll
 showcase not only the Klein code that would produce the desired result, but also show mathematically
-how it can be computed by hand.
+how it can be computed by hand. Pen and paper is not only encouraged, it is likely a requirement to
+get the most out of this workbook.
 
 !!! danger "Lack of rigor ahead!"
 
@@ -579,11 +578,237 @@ kln::plane p1_p2_p3 = p1_to_p2 & p3;
     2. Explain why the Poincaré dual map we introduced earlier needed to be an involution for our join to work so
        conveniently.
 
+## Projection, Rejection, Containment
+
+A common question is how to compute whether a point lies on a line or plane, or whether a line lies on a plane.
+When examining the implicit forms of lines and planes, the answer is obvious. For example, given a
+plane $0 = ax + by + cz + d$, points that lie on the plane are simply coordinate tuples that satisfy
+the implicit equation. In GA, coordinates are "substituted" in this manner, and we need a way to
+express projection/rejection/containment in terms of the algebraic operations available to us. The
+key is to use the symmetric inner product to perform metric "measurements". Let's consider the
+various cases separately.
+
+### Point to plane
+
+Let's consider a point $P = \ee_{123} + 2\ee_{032} + \ee_{013}$ and a plane $p = 3\ee_0 + \ee_1$. The inner
+product between them is computed as:
+
+$$
+\begin{aligned}
+P \cdot p &= (\ee_{123} + 2\ee_{032} + \ee_{013}) \cdot (3\ee_0 + \ee_1) \\
+&= \ee_{23} - \ee_{03}
+\end{aligned}
+$$
+
+This is the line perpendicular to the plane through the point. A way to intuitively see why this is
+so is to observe the fact that the inner product contracts indices, leaving only the parts that are
+not in common between the two. As a result, not only does the inner product produce a bivector, each
+corresponding term in the bivector produced contains indices not present in the plane. Can we now
+compute the distance between the point and the plane?
+
+The answer is _no_. Notice how in the above expression, the weight of $\ee_0$ of the plane didn't
+participate in the calculation at all. This means that translating the plane towards or away from
+the origin doesn't effect its inner product with a point, indicating that the line cannot be used to
+compute the distance between a point and a plane. Note that whether or not the plane was normalized
+made no difference.
+
+Before continuing, let's quickly see what would have happened if we computed $p \cdot P$ instead of
+$P \cdot p$.
+
+$$
+\begin{aligned}
+p \cdot P &= (3\ee_0 + \ee_1) \cdot (\ee_{123} + 2\ee_{032} + \ee_{013}) \\
+    &= \ee_{23} - \ee_{03}
+\end{aligned}
+$$
+
+Conveniently, the results match!
+
+!!! tip "Exercises"
+
+    1. Can you justify the equality between $p\cdot P$ and $P \cdot p$?
+    2. In the example above, the line produced by the inner product has a translational component. Where did that component come from?
+    3. Can you see how the translational component of the produced line changes when we shift the position of the point?
+
+To compute the distance from the point to the plane, we need to use an operator that doesn't
+annihilate the translational component of the plane. The answer is to use the _either_ the join
+($\vee$) or meet ($\wedge$) operator to construct the metric-free quantity from which we can extract the
+distance by inspecting the magnitudes. Let's compute both to see what we come up with:
+
+$$
+\begin{aligned}
+P \wedge p &= (\ee_{123} + 2\ee_{032} + \ee_{013}) \wedge (3\ee_0 + \ee_1) \\
+&= -3\ee_{0123} - 2\ee_{0123} \\
+&= -5\ee_{0123}
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+P \vee p &= (\ee_{123} + 2\ee_{032} + \ee_{013}) \vee (3\ee_0 + \ee_1) \\
+&= \JJ\left((\ee_0 + 2\ee_1 + \ee_2) \wedge (3\ee_{123} + \ee_{032})\right) \\
+&= \JJ\left(3\ee_{0123} + 2\ee_{0123}\right) \\
+&= \JJ\left(5 \ee_{0123}\right) \\
+&= 5
+\end{aligned}
+$$
+
+The _ideal norm_ (norm computed with only elements containing subscript $0$) of the meet matches the
+norm of the join which encodes the distance from the point to the plane.
+As an equation, we'd express the ideal norm as $||P\wedge p||_\infty$.
+Let's check if this is right! The plane $p$ corresponds to $0 = x + 3$ and the point $P$ corresponds
+to the coordinate tuple $(2, 1, 0)$. The
+[point-to-plane distance](https://en.wikipedia.org/wiki/Distance_from_a_point_to_a_plane) formula
+tells us that the distance between $P$ and $p$ is, in fact, $5$, in agreement with our point-plane
+meet and join calculation. To understand why this works, pay attention to which terms survived the
+meet and the join. The point's homogeneous component paired with the plane's translational
+component, and all the plane's direction components paired with the point's positional components.
+Geometrically, we've projected the point onto the normal direction of the plane and subsequently
+taken the norm which included the plane's translation from the origin.
+
+To compute this distance in Klein, given a point `P` and plane `p`, we'd simply do
+`std::abs((p ^ P).e0123())`. Alternatively, we could do `std::abs((p & P).scalar())`.
+Of course, you _must_ normalize the plane with `p.normalize()` for this computation to work.
+
+!!! tip "Exercises"
+
+    1. The above computation worked because the plane $p$ was normalized such that $p^2 = 1$. Change the normalization factor or change $p$ itself and verify that normalization is required for the distance measure above to work.
+    2. Considering the meet and join operators, does it make sense that the meet and join of a point and plane produced the pseudoscalar and scalar respectively?
+
+What about the line perpendicular to the plane through the point $P\cdot p$? It can't be used to
+measure the distance to the plane as we pointed out before, but it _can_ be used to project the
+point to the plane. The succinct formula for this projection is $(p \cdot P)P$.
+
+$$
+\begin{aligned}
+(p\cdot P)P &= (\ee_{23} - \ee_{03})(3\ee_0 + \ee_1) \\
+&= 3\ee_{023} + \ee_{123} - \ee_{031} \\
+&= \ee_{123} - 3\ee_{032} + \ee_{013}
+\end{aligned}
+$$
+
+which corresponds to the point $(-3, 1, 0)$. That this point lies on the plane is immediate. Also,
+this point is $5$ units away from $P$ and the line between them is parallel to the $x$ axis,
+indicating that we have indeed projected the point to the plane. Klein code that computes this
+projection is shown below:
+
+```c++
+kln::plane p{1, 0, 0, 3};
+kln::point P{2, 0, 1};
+kln::point P_on_p{(p|P) * p}; // Equivalent to (P|p) * p
+```
+
+### Line to plane
+
+Another potential projection we should consider is projecting a line to a plane. Without proof,
+the equation projecting $\ell$ onto $p$ is $(p\cdot \ell)p$. Before trying this out, let's check the
+dimensionality first. The expression $p\cdot\ell$ will produce a vector quantity, but the geometric
+product of two vectors doesn't necessarily produce a bivector (there could be scalar components).
+The "trick" is to realize that because the inner product contracts all subscripts, the vector
+produced by $p\cdot \ell$ will be completely orthogonal to both $\ell$ and $p$, so we are justified
+in claiming that the final result $(p\cdot \ell)p$ is a bivector, meaning that this formula does, in
+fact, produce a line.
+
+Let's consider the line $\ell = \ee_{32} + \ee_{13}$ (you should recognize this line as a line
+through the origin between the $x$ and $y$ axes). The projection onto the plane
+$p = 3\ee_0 + \ee_1$ should clearly be the $y$ axis shifted $3$ units so let's verify that this is
+the case:
+
+$$
+\begin{aligned}
+(p \cdot \ell)p &= \left((3\ee_0 + \ee_1)\cdot(\ee_{32} + \ee_{13})\right) p \\
+&= \ee_{3}(3\ee_0 + \ee_1) \\
+&= -3\ee_{03} - \ee_{13}
+\end{aligned}
+$$
+
+At first glance, this doesn't seem like the line that we want, but we must remember that
+projectively, the lines $3\ee_{03} + \ee_{13}$ and $-3\ee_{03} - \ee_{13}$ are projectively
+equivalent. In Klein, we can produce this projection as follows:
+
+```c++
+kln::plane p{1, 0, 0, 3};
+kln::branch l{1, 1, 0};
+// A branch is a line through the origin
+// This calculation works the same with `kln::line l{0, 0, 0, 1, 1, 0}` but
+// is more efficient using a branch since a branch uses half the storage.
+kln::line l_on_p{(p | l) * p};
+```
+
+!!! tip "Exercies"
+
+    1. Repeat the projection above using $(\ell \cdot p)p$ instead of $(p\cdot \ell)p$. You should find that you get a negated result that remains projectively equivalent.
+
+### Point to line
+
+With the point and a line, two reasonable questions to ask are, as with the plane, how to compute
+the distance to the line, and how to project the point onto the line. Before continuing, guess what
+the formulae should be!
+
+??? tip "Guess! Then click to reveal spoilers"
+
+    If you thought the distance between the point and the line is $||P\vee \ell||$ and the projection is $(P\cdot \ell)\ell$, you'd be right! The uniformity between this equation and all the others we've seen should be quite satisfying. Note that the point must be normalized so that the weight of $\ee_{123} = 1$ and the line must be normalized so that the square norm of the directional components is unity for these formulae to work.
+
+    In Klein, given a point `P` and line `l`, the projection is `kln::point P_on_l{(P|l) * l}` as you would expect.
+
+The projection is somewhat straightforward, but perhaps the distance formula may take some
+additional processing. First, let's consider the join $P\vee\ell$. What type of quantity does this
+produce? Well, from the section detailing the [regressive product](#regressive-product) above, we
+know that his is a plane containing both the point and the line. It turns out that the norm of this
+plane will encode the distance between the point and the line.
+Let's see how this works for the line $\ell = \ee_{02} + \ee_{23}$ and point
+$P = \ee_{123} + \ee_{013} + \ee_{021}$ (we expect the distance to be $1$).
+
+$$
+\begin{aligned}
+||P\vee \ell|| &= ||(\ee_{123} + \ee_{013} + \ee_{021})\vee (\ee_{02} + \ee_{23})|| \\
+&= ||\JJ\left((\ee_0 + \ee_2 + \ee_3)\wedge(\ee_{31} + \ee_{01})\right)|| \\
+&= ||\JJ\left(-\ee_{013} -\ee_{021} + \ee_{123} + \ee_{013}\right)|| \\
+&= ||\JJ\left(-\ee_{021} + \ee_{123}\right)|| \\
+&= ||-\ee_3 + \ee_0|| \\
+&= 1
+\end{aligned}
+$$
+
+If you have trouble remembering how lines are defined, remember that terms containing a $0$ in the
+subscript are translational components (the moment of the line) and the remaining terms determine
+the line's direction. The line $\ee_{02} + \ee_{23}$ can be decomposed as the meet of two
+planes $\ee_0 - \ee_3$ and $\ee_2$ so we can intuit that the line is the $x$ axis shifted a unit in
+the $+z$ direction. The norm of a point is just the homogeneous coordinate. Code computing the
+distance between a point and a line looks like:
+
+```c++
+kln::line l{0, 1, 0, 1, 0, 0};
+kln::point p{0, 1, 1};
+float distance = kln::plane{l & p}.norm();
+```
+
+For completeness, we can project the point on the line with the following snippet:
+
+```c++
+kln::line l{0, 1, 0, 1, 0, 0};
+kln::point p{0, 1, 1};
+
+// Note that for this calculation to work, if the line l and point p were
+// not normalized, we would need to invoke l.normalize() and p.normalize()
+// first before proceeding.
+
+kln::point p_on_l{(p | l) * p};
+```
+
+!!! tip "Exercises"
+
+    1. The weight of $\ee_{013}$ in the point above should correspond directly with its distance from the line. Verify that this is so.
+    2. Try shifting the point in a different direction (say along $x$). Does the distance stay unaffected as you'd expect? What about shifting the point in the $z$ direction?
+
 ## Reflections
 
 So far, we've seen how the exterior product and regressive product can be used to construct planes,
 lines, and points. We also saw how the symmetric inner product can be used to measure angles between
-planes. However, we haven't yet encountered the usage of the geometric product, and this is where
+planes. Furthermore, we used the ideal norm in conjunction with the exterior and regressive products
+to compute distances between entities. Already, $\PGA$ has yielded many fruitful results which has
+consequently led to a compact and elegant API. However, we haven't yet encountered a primary usage of the geometric
+product, and this is where
 we'll fully appreciate the decision of using the representation we have.
 
 ### Reflection through a plane

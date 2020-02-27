@@ -39,11 +39,11 @@ nav:
       - 'Direction': 'api/kln_direction.md'
       - 'Mat4x4': 'api/kln_mat4x4.md'
       - 'Origin': 'api/kln_origin.md'
+  - 'Geometry Potpourri': 'geometry-potpourri.md'
   - 'Tutorial':
       - 'Introduction': 'tutorial/intro.md'
       - 'Exterior Algebra': 'tutorial/exterior_algebra.md'
   - 'Case Studies':
-      - 'Geometry Potpourri': 'case_studies/geometry-potpourri.md'
       - 'Basic Skeletal Animation': 'case_studies/ga_skeletal_animation.md'
   - 'Klein Shell': 'shell.md'
   - 'Performance': 'perf.md'

@@ -60,9 +60,9 @@ inline namespace detail
         // (relabeling) = u + vI
         //
         // (square the above quantity yourself to quickly verify the claim)
-        __m128 u = _mm_sqrt_ps(a2);
         // Maximum relative error < 1.5*2e-12
-        __m128 a2_sqrt_rcp = _mm_rcp_ps(u);
+        __m128 a2_sqrt_rcp = _mm_rsqrt_ps(a2);
+        __m128 u           = _mm_rcp_ps(a2_sqrt_rcp);
         // Don't forget the minus later!
         __m128 minus_v = _mm_mul_ps(ab, a2_sqrt_rcp);
 

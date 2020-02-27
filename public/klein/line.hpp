@@ -95,6 +95,23 @@ struct branch final : public entity<0b10>
         : entity{std::move(other)}
     {}
 
+    /// If a line is constructed as the regressive product (join) of two points,
+    /// the squared norm provided here is the squared distance between the two
+    /// points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
+    [[nodiscard]] float squared_norm() noexcept
+    {
+        float out;
+        __m128 dp = _mm_dp_ps(p1(), p1(), 0b11100001);
+        _mm_store_ss(&out, dp);
+        return out;
+    }
+
+    /// Returns the square root of the quantity produced by `squared_norm`.
+    [[nodiscard]] float norm() noexcept
+    {
+        return std::sqrt(squared_norm());
+    }
+
     /// Exponentiate this branch to produce a rotor. To avoid a circular
     /// dependency, an `entity<0b10>` is returned but this can be implicitly
     /// cast to a rotor.
@@ -158,7 +175,7 @@ struct line final : public entity<0b110>
     /// If a line is constructed as the regressive product (join) of two points,
     /// the squared norm provided here is the squared distance between the two
     /// points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
-    float squared_norm() noexcept
+    [[nodiscard]] float squared_norm() noexcept
     {
         float out;
         __m128 dp = _mm_dp_ps(p1(), p1(), 0b11100001);
@@ -167,9 +184,22 @@ struct line final : public entity<0b110>
     }
 
     /// Returns the square root of the quantity produced by `squared_norm`.
-    float norm() noexcept
+    [[nodiscard]] float norm() noexcept
     {
         return std::sqrt(squared_norm());
+    }
+
+    /// Normalize a line such that $\ell^2 = 1$.
+    ///
+    /// !!! tip
+    ///
+    ///     Normalization here is done using the `rsqrtps`
+    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
+    void normalize() noexcept
+    {
+        __m128 inv_norm = _mm_rsqrt_ps(_mm_dp_ps(p1(), p1(), 0b11101111));
+        p1()            = _mm_mul_ps(inv_norm, p1());
+        p2()            = _mm_mul_ps(inv_norm, p2());
     }
 
     /// Line exponentiation
@@ -178,7 +208,7 @@ struct line final : public entity<0b110>
     /// as its axis. This routine will be used most often when this line is
     /// produced as the logarithm of an existing rotor, then scaled to subdivide
     /// or accelerate the motor's action.
-    entity<0b110> exp() const noexcept
+    [[nodiscard]] entity<0b110> exp() const noexcept
     {
         entity<0b110> out;
         detail::exp(p1(), p2(), out.p1(), out.p2());

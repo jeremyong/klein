@@ -33,7 +33,7 @@ struct plane final : public entity<0b1>
         parts[0].reg = _mm_loadu_ps(data);
     }
 
-    /// Line to plane cast.
+    /// Point/plane to plane cast.
     ///
     /// !!! danger
     ///
@@ -71,12 +71,30 @@ struct plane final : public entity<0b1>
     /// inner product operator `|`, the planes must be normalized. Producing a
     /// normalized rotor between two planes with the geometric product `*` also
     /// requires that the planes are normalized.
+    ///
+    /// !!! tip
+    ///
+    ///     Normalization here is done using the `rsqrtps`
+    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
-        __m128 inv_norm
-            = _mm_rcp_ps(_mm_sqrt_ps(_mm_dp_ps(p0(), p0(), 0b11101111)));
-        inv_norm = _mm_blend_ps(inv_norm, _mm_set_ss(1.f), 1);
-        p0()     = _mm_mul_ps(inv_norm, p0());
+        __m128 inv_norm = _mm_rsqrt_ps(_mm_dp_ps(p0(), p0(), 0b11101111));
+        inv_norm        = _mm_blend_ps(inv_norm, _mm_set_ss(1.f), 1);
+        p0()            = _mm_mul_ps(inv_norm, p0());
+    }
+
+    /// Compute the plane norm, which is often used to compute distances
+    /// between points and lines.
+    ///
+    /// Given a normalized point $P$ and normalized line $\ell$, the plane
+    /// $P\vee\ell$ containing both $\ell$ and $P$ will have a norm equivalent
+    /// to the distance between $P$ and $\ell$.
+    [[nodiscard]] float norm() const noexcept
+    {
+        float out;
+        _mm_store_ss(
+            &out, _mm_rcp_ss(_mm_rsqrt_ss(_mm_dp_ps(p0(), p0(), 0b11100001))));
+        return out;
     }
 
     /// Reflect another plane $p_2$ through this plane $p_1$. The operation

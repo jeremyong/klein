@@ -25,10 +25,20 @@ TEST_CASE("measure-point-to-plane")
 
     // (2, 0, 0)
     point p1{2.f, 0.f, 0.f};
-    // Plane x + y = 0
+    // Plane x - y = 0
     plane p2{1.f, -1.f, 0.f, 0.f};
-    // Line through (2, 0, 0) perpendicular to the plane
-    line l = p1 | p2;
+    p2.normalize();
     // Distance from point p1 to plane p2
-    CHECK_EQ(l.squared_norm(), 2.f);
+    auto root_two = doctest::Approx(std::sqrt(2.f)).epsilon(0.001);
+    CHECK_EQ(std::abs((p1 & p2).scalar()), root_two);
+    CHECK_EQ(std::abs((p1 ^ p2).e0123()), root_two);
+}
+
+TEST_CASE("measure-point-to-line")
+{
+    line l{0, 1, 0, 1, 0, 0};
+    point p{0, 1, 2};
+    point l_p{l & p};
+    float distance = plane{l & p}.norm();
+    CHECK_EQ(distance, doctest::Approx(std::sqrt(2.f)).epsilon(0.001));
 }
