@@ -448,6 +448,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1branch_1a0c6c16090b660c63df26aacf985c6f0c" class="md-nav__link">
+    float  squared_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1branch_1a6174cbd24d0189e3f5f9b893d63f5086" class="md-nav__link">
+    float  norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1branch_1a341d43c4152ba03b8001134962900799" class="md-nav__link">
     entity  exp() const noexcept
   </a>
@@ -557,15 +571,27 @@
       
 
 
+  <li class="md-nav__item">
+    <a href="../../geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
+      Geometry Potpourri
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
-    <label class="md-nav__link" for="nav-4">
+    <label class="md-nav__link" for="nav-5">
       Tutorial
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
+      <label class="md-nav__title" for="nav-5">
         Tutorial
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -607,29 +633,17 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-5">
+    <label class="md-nav__link" for="nav-6">
       Case Studies
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
+      <label class="md-nav__title" for="nav-6">
         Case Studies
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../case_studies/geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
-      Geometry Potpourri
-    </a>
-  </li>
-
         
           
           
@@ -766,6 +780,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1branch_1a0c6c16090b660c63df26aacf985c6f0c" class="md-nav__link">
+    float  squared_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1branch_1a6174cbd24d0189e3f5f9b893d63f5086" class="md-nav__link">
+    float  norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1branch_1a341d43c4152ba03b8001134962900799" class="md-nav__link">
     entity  exp() const noexcept
   </a>
@@ -850,6 +878,14 @@ efficiency.</p>
 <td></td>
 </tr>
 <tr>
+<td><code>public float</code> <a href="#structkln_1_1branch_1a0c6c16090b660c63df26aacf985c6f0c"><code>squared_norm</code></a><code>() noexcept</code></td>
+<td>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#structkln_1_1branch_1a6174cbd24d0189e3f5f9b893d63f5086"><code>norm</code></a><code>() noexcept</code></td>
+<td>Returns the square root of the quantity produced by <code>squared_norm</code> .</td>
+</tr>
+<tr>
 <td><code>public</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code></code> <a href="#structkln_1_1branch_1a341d43c4152ba03b8001134962900799"><code>exp</code></a><code>() const noexcept</code></td>
 <td>Exponentiate this branch to produce a rotor. To avoid a circular dependency, an <code>entity&lt;0b10&gt;</code>  is returned but this can be implicitly cast to a rotor.</td>
 </tr>
@@ -863,6 +899,10 @@ efficiency.</p>
 <p>To convince yourself this is a line through the origin, remember that such a line can be generated using the geometric product of two planes through the origin.</p>
 <h4 id="structkln_1_1branch_1a870f4e065425fe5f13bbed7bab1813f5"><a href="#structkln_1_1branch_1a870f4e065425fe5f13bbed7bab1813f5">branch</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a> const &amp; other) noexcept</h4>
 <h4 id="structkln_1_1branch_1ab521b26d8ec73aff3695456573964d77"><a href="#structkln_1_1branch_1ab521b26d8ec73aff3695456573964d77">branch</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a> &amp;&amp; other) noexcept</h4>
+<h4 id="structkln_1_1branch_1a0c6c16090b660c63df26aacf985c6f0c">float  <a href="#structkln_1_1branch_1a0c6c16090b660c63df26aacf985c6f0c">squared_norm</a>() noexcept</h4>
+<p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
+<h4 id="structkln_1_1branch_1a6174cbd24d0189e3f5f9b893d63f5086">float  <a href="#structkln_1_1branch_1a6174cbd24d0189e3f5f9b893d63f5086">norm</a>() noexcept</h4>
+<p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
 <h4 id="structkln_1_1branch_1a341d43c4152ba03b8001134962900799"><a href="../../api/kln_entity#structkln_1_1entity">entity</a>  <a href="#structkln_1_1branch_1a341d43c4152ba03b8001134962900799">exp</a>() const noexcept</h4>
 <p>Exponentiate this branch to produce a rotor. To avoid a circular dependency, an <code>entity&lt;0b10&gt;</code>  is returned but this can be implicitly cast to a rotor.</p>
                 

@@ -433,6 +433,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3" class="md-nav__link">
+    void  normalize() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1" class="md-nav__link">
     entity&lt; 0b110 &gt;  exp() const noexcept
   </a>
@@ -578,15 +585,27 @@
       
 
 
+  <li class="md-nav__item">
+    <a href="../../geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
+      Geometry Potpourri
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
-    <label class="md-nav__link" for="nav-4">
+    <label class="md-nav__link" for="nav-5">
       Tutorial
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
+      <label class="md-nav__title" for="nav-5">
         Tutorial
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -628,29 +647,17 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-5">
+    <label class="md-nav__link" for="nav-6">
       Case Studies
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
+      <label class="md-nav__title" for="nav-6">
         Case Studies
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../case_studies/geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
-      Geometry Potpourri
-    </a>
-  </li>
-
         
           
           
@@ -808,6 +815,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3" class="md-nav__link">
+    void  normalize() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1" class="md-nav__link">
     entity&lt; 0b110 &gt;  exp() const noexcept
   </a>
@@ -887,6 +901,10 @@
 <td>Returns the square root of the quantity produced by <code>squared_norm</code> .</td>
 </tr>
 <tr>
+<td><code>public void</code> <a href="#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3"><code>normalize</code></a><code>() noexcept</code></td>
+<td>Normalize a line such that <span class="arithmatex">\(\ell^2 = 1\)</span>.</td>
+</tr>
+<tr>
 <td><code>public</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt;</code> <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1"><code>exp</code></a><code>() const noexcept</code></td>
 <td>Line exponentiation</td>
 </tr>
@@ -904,6 +922,13 @@
 <p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
 <h4 id="structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22">float  <a href="#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22">norm</a>() noexcept</h4>
 <p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
+<h4 id="structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3">void  <a href="#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3">normalize</a>() noexcept</h4>
+<p>Normalize a line such that <span class="arithmatex">\(\ell^2 = 1\)</span>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Normalization here is done using the <code>rsqrtps</code>
+instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
+</div>
 <h4 id="structkln_1_1line_1ab81feed09b9c02934914071206bf54d1"><a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1">exp</a>() const noexcept</h4>
 <p>Line exponentiation</p>
 <p>The line can be exponentiated to produce a motor that posesses this line as its axis. This routine will be used most often when this line is produced as the logarithm of an existing rotor, then scaled to subdivide or accelerate the motor's action.</p>

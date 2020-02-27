@@ -634,15 +634,27 @@
       
 
 
+  <li class="md-nav__item">
+    <a href="../../geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
+      Geometry Potpourri
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
-    <label class="md-nav__link" for="nav-4">
+    <label class="md-nav__link" for="nav-5">
       Tutorial
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
+      <label class="md-nav__title" for="nav-5">
         Tutorial
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -684,29 +696,17 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-5">
+    <label class="md-nav__link" for="nav-6">
       Case Studies
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
+      <label class="md-nav__title" for="nav-6">
         Case Studies
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../case_studies/geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
-      Geometry Potpourri
-    </a>
-  </li>
-
         
           
           
@@ -1080,6 +1080,11 @@
 <p>Load motor data using two unaligned loads. This routine does <em>not</em> assume the data passed in this way is normalized.</p>
 <h4 id="structkln_1_1motor_1a8af12b78c4e98b84c51f605b47dbc0a1">void  <a href="#structkln_1_1motor_1a8af12b78c4e98b84c51f605b47dbc0a1">normalize</a>() noexcept</h4>
 <p>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Normalization here is done using the <code>rsqrtps</code>
+instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
+</div>
 <h4 id="structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab">as_matrix</a>() const noexcept</h4>
 <p>Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.</p>
 <h4 id="structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374">log</a>() const noexcept</h4>

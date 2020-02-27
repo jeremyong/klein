@@ -414,6 +414,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1plane_1a2f86598e6a327c72201e68615bd10384" class="md-nav__link">
+    float  norm() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9" class="md-nav__link">
     plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
   </a>
@@ -641,15 +648,27 @@
       
 
 
+  <li class="md-nav__item">
+    <a href="../../geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
+      Geometry Potpourri
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
     
-    <label class="md-nav__link" for="nav-4">
+    <label class="md-nav__link" for="nav-5">
       Tutorial
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-4">
+      <label class="md-nav__title" for="nav-5">
         Tutorial
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -691,29 +710,17 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
     
-    <label class="md-nav__link" for="nav-5">
+    <label class="md-nav__link" for="nav-6">
       Case Studies
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
-      <label class="md-nav__title" for="nav-5">
+      <label class="md-nav__title" for="nav-6">
         Case Studies
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
         
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../case_studies/geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
-      Geometry Potpourri
-    </a>
-  </li>
-
         
           
           
@@ -864,6 +871,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#structkln_1_1plane_1a2f86598e6a327c72201e68615bd10384" class="md-nav__link">
+    float  norm() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9" class="md-nav__link">
     plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
   </a>
@@ -999,7 +1013,7 @@
 </tr>
 <tr>
 <td><code>public  explicit</code> <a href="#structkln_1_1plane_1a4fe52a0426bc881947909d0d9b1745d0"><code>plane</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b1001 &gt; const &amp; other) noexcept</code></td>
-<td>Line to plane cast.</td>
+<td>Point/plane to plane cast.</td>
 </tr>
 <tr>
 <td><code>public void</code> <a href="#structkln_1_1plane_1a5a00871dbe19d7658b7e8cda71b326f2"><code>load</code></a><code>(float * data) noexcept</code></td>
@@ -1008,6 +1022,10 @@
 <tr>
 <td><code>public void</code> <a href="#structkln_1_1plane_1ae5e1e0af05e84799d27d7b8782fe5f22"><code>normalize</code></a><code>() noexcept</code></td>
 <td>Normalize this plane <span class="arithmatex">\(p\)</span> such that <span class="arithmatex">\(p \cdot p = 1\)</span>.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#structkln_1_1plane_1a2f86598e6a327c72201e68615bd10384"><code>norm</code></a><code>() const noexcept</code></td>
+<td>Compute the plane norm, which is often used to compute distances between points and lines.</td>
 </tr>
 <tr>
 <td><code>public</code> <a href="#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9"><code>operator()</code></a><code>(</code> <a href="#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
@@ -1063,7 +1081,7 @@
 <h4 id="structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc">explicit  <a href="#structkln_1_1plane_1a29dbb1804fa3ec402f901ca8049d60bc">plane</a>(float * data) noexcept</h4>
 <p>Data should point to four floats with memory layout <code>(d, a, b, c)</code>  where <code>d</code>  occupies the lowest address in memory.</p>
 <h4 id="structkln_1_1plane_1a4fe52a0426bc881947909d0d9b1745d0">explicit  <a href="#structkln_1_1plane_1a4fe52a0426bc881947909d0d9b1745d0">plane</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b1001 &gt; const &amp; other) noexcept</h4>
-<p>Line to plane cast.</p>
+<p>Point/plane to plane cast.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>When constructing a plane with points using the regressive product,
@@ -1085,6 +1103,14 @@ components one at a time.</p>
 <h4 id="structkln_1_1plane_1ae5e1e0af05e84799d27d7b8782fe5f22">void  <a href="#structkln_1_1plane_1ae5e1e0af05e84799d27d7b8782fe5f22">normalize</a>() noexcept</h4>
 <p>Normalize this plane <span class="arithmatex">\(p\)</span> such that <span class="arithmatex">\(p \cdot p = 1\)</span>.</p>
 <p>In order to compute the cosine of the angle between planes via the inner product operator <code>|</code> , the planes must be normalized. Producing a normalized rotor between two planes with the geometric product <code>*</code>  also requires that the planes are normalized.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Normalization here is done using the <code>rsqrtps</code>
+instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
+</div>
+<h4 id="structkln_1_1plane_1a2f86598e6a327c72201e68615bd10384">float  <a href="#structkln_1_1plane_1a2f86598e6a327c72201e68615bd10384">norm</a>() const noexcept</h4>
+<p>Compute the plane norm, which is often used to compute distances between points and lines.</p>
+<p>Given a normalized point <span class="arithmatex">\(P\)</span> and normalized line <span class="arithmatex">\(\ell\)</span>, the plane <span class="arithmatex">\(P\vee\ell\)</span> containing both <span class="arithmatex">\(\ell\)</span> and <span class="arithmatex">\(P\)</span> will have a norm equivalent to the distance between <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(\ell\)</span>.</p>
 <h4 id="structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9"><a href="#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1plane_1a1c7a11e35d91c2aee88a4152b1799ca9">operator()</a>( <a href="#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
 <p>Reflect another plane <span class="arithmatex">\(p_2\)</span> through this plane <span class="arithmatex">\(p_1\)</span>. The operation performed via this call operator is an optimized routine equivalent to the expression <span class="arithmatex">\(p_1 p_2 p_1\)</span>.</p>
 <h4 id="structkln_1_1plane_1a782e4e0b1b93ab5bffb2c972f6d7acfa"><a href="../../api/kln_line#structkln_1_1line">line</a> KLN_VEC_CALL  <a href="#structkln_1_1plane_1a782e4e0b1b93ab5bffb2c972f6d7acfa">operator()</a>( <a href="../../api/kln_line#structkln_1_1line">line</a> const &amp; l) const noexcept</h4>
