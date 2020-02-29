@@ -3,6 +3,7 @@
 #include "detail/exp_log.hpp"
 #include "detail/matrix.hpp"
 #include "entity.hpp"
+#include "mat3x4.hpp"
 #include "mat4x4.hpp"
 #include "plane.hpp"
 #include "point.hpp"
@@ -135,9 +136,20 @@ struct motor final : public entity<0b110>
         p1() = _mm_mul_ps(p1(), s);
     }
 
+    /// Convert this motor to a 3x4 column-major matrix representing this
+    /// motor's action as a linear transformation. The motor must be normalized
+    /// for this conversion to produce well-defined results, but is more
+    /// efficient than a 4x4 matrix conversion.
+    [[nodiscard]] mat3x4 as_mat3x4() const noexcept
+    {
+        mat3x4 out;
+        mat4x4_12<true, true>(parts[0].reg, &parts[1].reg, out.cols);
+        return out;
+    }
+
     /// Convert this motor to a 4x4 column-major matrix representing this
     /// motor's action as a linear transformation.
-    [[nodiscard]] mat4x4 as_matrix() const noexcept
+    [[nodiscard]] mat4x4 as_mat4x4() const noexcept
     {
         mat4x4 out;
         mat4x4_12<true>(parts[0].reg, &parts[1].reg, out.cols);

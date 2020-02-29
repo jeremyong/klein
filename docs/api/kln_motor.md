@@ -54,7 +54,8 @@ A demonstration of using the exponential and logarithmic map to blend between tw
 `public  ` [`motor`](#structkln_1_1motor_1a3c24baaa74a00bbc2cf64729916498b8)`(` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b110 > const & e) noexcept`  | 
 `public void ` [`load`](#structkln_1_1motor_1a3a048b8d0f35322259f8f1cbaad88cab)`(float * in) noexcept`  | Load motor data using two unaligned loads. This routine does *not* assume the data passed in this way is normalized.
 `public void ` [`normalize`](#structkln_1_1motor_1a8af12b78c4e98b84c51f605b47dbc0a1)`() noexcept`  | Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
-`public ` [`mat4x4`](../../api/kln_mat4x4#structkln_1_1mat4x4)` ` [`as_matrix`](#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab)`() const noexcept`  | Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.
+`public ` [`mat3x4`](../../api/kln_mat3x4#structkln_1_1mat3x4)` ` [`as_mat3x4`](#structkln_1_1motor_1ae07a4ac9001f3afe4e1200e114ccf4c6)`() const noexcept`  | Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.
+`public ` [`mat4x4`](../../api/kln_mat4x4#structkln_1_1mat4x4)` ` [`as_mat4x4`](#structkln_1_1motor_1aa84cd8df11fc906888dff2fd20fa6e7b)`() const noexcept`  | Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.
 `public ` [`entity`](../../api/kln_entity#structkln_1_1entity)`< 0b110 > ` [`log`](#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374)`() const noexcept`  | Takes the principal branch of the logarithm of the motor, returning a bivector. Exponentiation of that bivector without any changes produces this motor again. Scaling that bivector by $\frac{1}{n}$, re-exponentiating, and taking the result to the $n$th power will also produce this motor again.
 `public ` [`plane`](../../api/kln_plane#structkln_1_1plane)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1aa0a1d879d7716f962c1c18a0d8483196)`(` [`plane`](../../api/kln_plane#structkln_1_1plane)` const & p) const noexcept`  | Conjugates a plane $p$ with this motor and returns the result $mp\widetilde{m}$.
 `public void KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1aff16ea8f993f2c7ddb7e64aa5fd089ad)`(` [`plane`](../../api/kln_plane#structkln_1_1plane)` * in,` [`plane`](../../api/kln_plane#structkln_1_1plane)` * out,size_t count) const noexcept`  | Conjugates an array of planes with this motor in the input array and stores the result in the output array. Aliasing is only permitted when `in == out`  (in place motor application).
@@ -88,7 +89,11 @@ Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
     Normalization here is done using the `rsqrtps`
     instruction with a maximum relative error of $1.5\times 2^{-12}$.
 
-####  [mat4x4](../../api/kln_mat4x4#structkln_1_1mat4x4)  [as_matrix](#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab)() const noexcept  {#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab}
+####  [mat3x4](../../api/kln_mat3x4#structkln_1_1mat3x4)  [as_mat3x4](#structkln_1_1motor_1ae07a4ac9001f3afe4e1200e114ccf4c6)() const noexcept  {#structkln_1_1motor_1ae07a4ac9001f3afe4e1200e114ccf4c6}
+
+Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.
+
+####  [mat4x4](../../api/kln_mat4x4#structkln_1_1mat4x4)  [as_mat4x4](#structkln_1_1motor_1aa84cd8df11fc906888dff2fd20fa6e7b)() const noexcept  {#structkln_1_1motor_1aa84cd8df11fc906888dff2fd20fa6e7b}
 
 Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.
 

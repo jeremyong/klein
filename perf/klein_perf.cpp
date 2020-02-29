@@ -17,10 +17,18 @@ kln::point motor_application(kln::motor const& m, kln::point const& p)
     return out;
 }
 
-kln::mat4x4 motor_to_mat(kln::motor const& m)
+kln::mat3x4 motor_to_mat3x4(kln::motor const& m)
 {
-    MC_MEASURE_BEGIN(motor_to_mat);
-    auto out = m.as_matrix();
+    MC_MEASURE_BEGIN(motor_to_mat3x4);
+    auto out = m.as_mat3x4();
+    MC_MEASURE_END();
+    return out;
+}
+
+kln::mat4x4 motor_to_mat4x4(kln::motor const& m)
+{
+    MC_MEASURE_BEGIN(motor_to_mat4x4);
+    auto out = m.as_mat4x4();
     MC_MEASURE_END();
     return out;
 }

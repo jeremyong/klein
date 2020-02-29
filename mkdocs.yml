@@ -37,6 +37,7 @@ nav:
       - 'Motor': 'api/kln_motor.md'
       - 'Ideal Line': 'api/kln_ideal_line.md'
       - 'Direction': 'api/kln_direction.md'
+      - 'Mat3x4': 'api/kln_mat3x4.md'
       - 'Mat4x4': 'api/kln_mat4x4.md'
       - 'Origin': 'api/kln_origin.md'
   - 'Geometry Potpourri': 'geometry-potpourri.md'

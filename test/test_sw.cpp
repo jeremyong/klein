@@ -171,7 +171,7 @@ TEST_CASE("motor-to-matrix")
 {
     motor m{1.f, 4.f, 3.f, 2.f, 5.f, 6.f, 7.f, 8.f};
     __m128 p1    = _mm_set_ps(1.f, 2.f, 1.f, -1.f);
-    mat4x4 m_mat = m.as_matrix();
+    mat4x4 m_mat = m.as_mat4x4();
     __m128 p2    = m_mat(p1);
     float buf[4];
     _mm_storeu_ps(buf, p2);
@@ -180,6 +180,22 @@ TEST_CASE("motor-to-matrix")
     CHECK_EQ(buf[1], -86.f);
     CHECK_EQ(buf[2], -86.f);
     CHECK_EQ(buf[3], 30.f);
+}
+
+TEST_CASE("motor-to-matrix-3x4")
+{
+    motor m{1.f, 4.f, 3.f, 2.f, 5.f, 6.f, 7.f, 8.f};
+    m.normalize();
+    __m128 p1    = _mm_set_ps(1.f, 2.f, 1.f, -1.f);
+    mat3x4 m_mat = m.as_mat3x4();
+    __m128 p2    = m_mat(p1);
+    float buf[4];
+    _mm_storeu_ps(buf, p2);
+
+    CHECK_EQ(buf[0], doctest::Approx(-12.f / 30.f).epsilon(0.001f));
+    CHECK_EQ(buf[1], doctest::Approx(-86.f / 30.f).epsilon(0.001f));
+    CHECK_EQ(buf[2], doctest::Approx(-86.f / 30.f).epsilon(0.001f));
+    CHECK_EQ(buf[3], 1.f);
 }
 
 TEST_CASE("normalize-motor")

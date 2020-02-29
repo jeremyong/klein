@@ -20,7 +20,7 @@ namespace kln
 // p3: (e123, e032, e013, e021)
 
 // Convert a motor to a column-major 4x4
-template <bool Translate = true>
+template <bool Translate = true, bool Normalized = false>
 KLN_INLINE void KLN_VEC_CALL mat4x4_12(__m128 const& b,
                                        [[maybe_unused]] __m128 const* c,
                                        __m128* out) noexcept
@@ -116,11 +116,27 @@ KLN_INLINE void KLN_VEC_CALL mat4x4_12(__m128 const& b,
             _mm_mul_ps(KLN_SWIZZLE(b, 0, 3, 2, 1), KLN_SWIZZLE(*c, 0, 0, 0, 0)));
         tmp = _mm_mul_ps(KLN_SWIZZLE(b, 0, 1, 3, 2), KLN_SWIZZLE(*c, 0, 2, 1, 3));
         c3 = _mm_mul_ps(_mm_set_ps(0.f, 2.f, 2.f, 2.f), _mm_sub_ps(tmp, c3));
-        c3 = _mm_add_ps(_mm_set_ps(b0_2 + b1_2 + b2_2 + b3_2, 0.f, 0.f, 0.f), c3);
+        if constexpr (Normalized)
+        {
+            c3 = _mm_blend_ps(c3, _mm_set_ps(1.f, 0.f, 0.f, 0.f), 0b1000);
+        }
+        else
+        {
+            c3 = _mm_blend_ps(
+                c3, _mm_set_ps(b0_2 + b1_2 + b2_2 + b3_2, 0.f, 0.f, 0.f), 0b1000);
+        }
     }
     else
     {
-        c3 = _mm_set_ps(b0_2 + b1_2 + b2_2 + b3_2, 0.f, 0.f, 0.f);
+        if constexpr (Normalized)
+        {
+            c3 = _mm_blend_ps(c3, _mm_set_ps(1.f, 0.f, 0.f, 0.f), 0b1000);
+        }
+        else
+        {
+            c3 = _mm_blend_ps(
+                c3, _mm_set_ps(b0_2 + b1_2 + b2_2 + b3_2, 0.f, 0.f, 0.f), 0b1000);
+        }
     }
 }
 } // namespace kln

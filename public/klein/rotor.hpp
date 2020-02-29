@@ -103,8 +103,18 @@ struct rotor final : public entity<0b10>
         p1()            = _mm_mul_ps(p1(), inv_norm);
     }
 
+    /// Converts the rotor to a 3x4 column-major matrix. The results of this
+    /// conversion are only defined if the rotor is normalized, and this
+    /// conversion is preferable if so.
+    mat3x4 as_mat3x4() const noexcept
+    {
+        mat3x4 out;
+        mat4x4_12<false, true>(parts[0].reg, nullptr, out.cols);
+        return out;
+    }
+
     /// Converts the rotor to a 4x4 column-major matrix.
-    mat4x4 as_matrix() const noexcept
+    mat4x4 as_mat4x4() const noexcept
     {
         mat4x4 out;
         mat4x4_12<false>(parts[0].reg, nullptr, out.cols);
