@@ -78,9 +78,13 @@ struct plane final : public entity<0b1>
     ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
-        __m128 inv_norm = _mm_rsqrt_ps(_mm_dp_ps(p0(), p0(), 0b11101111));
-        inv_norm        = _mm_blend_ps(inv_norm, _mm_set_ss(1.f), 1);
-        p0()            = _mm_mul_ps(inv_norm, p0());
+        __m128 inv_norm = _mm_rsqrt_ps(detail::hi_dp_bc(p0(), p0()));
+#ifdef KLEIN_SSE_4_1
+        inv_norm = _mm_blend_ps(inv_norm, _mm_set_ss(1.f), 1);
+#else
+        inv_norm = _mm_add_ps(inv_norm, _mm_set_ss(1.f));
+#endif
+        p0() = _mm_mul_ps(inv_norm, p0());
     }
 
     /// Compute the plane norm, which is often used to compute distances
@@ -92,8 +96,7 @@ struct plane final : public entity<0b1>
     [[nodiscard]] float norm() const noexcept
     {
         float out;
-        _mm_store_ss(
-            &out, _mm_rcp_ss(_mm_rsqrt_ss(_mm_dp_ps(p0(), p0(), 0b11100001))));
+        _mm_store_ss(&out, _mm_rcp_ss(_mm_rsqrt_ss(detail::hi_dp(p0(), p0()))));
         return out;
     }
 
@@ -103,7 +106,7 @@ struct plane final : public entity<0b1>
     [[nodiscard]] plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
-        sw00(p0(), p.p0(), out.p0());
+        detail::sw00(p0(), p.p0(), out.p0());
         return out;
     }
 
@@ -113,9 +116,9 @@ struct plane final : public entity<0b1>
     [[nodiscard]] line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
-        sw10(p0(), l.p1(), out.p1(), out.p2());
+        detail::sw10(p0(), l.p1(), out.p1(), out.p2());
         __m128 p2_tmp;
-        sw20(p0(), l.p2(), p2_tmp);
+        detail::sw20(p0(), l.p2(), p2_tmp);
         out.p2() = _mm_add_ps(out.p2(), p2_tmp);
         return out;
     }
@@ -126,7 +129,7 @@ struct plane final : public entity<0b1>
     [[nodiscard]] point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
-        sw30(p0(), p.p3(), out.p3());
+        detail::sw30(p0(), p.p3(), out.p3());
         return out;
     }
 

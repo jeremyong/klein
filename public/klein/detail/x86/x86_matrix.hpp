@@ -118,24 +118,42 @@ KLN_INLINE void KLN_VEC_CALL mat4x4_12(__m128 const& b,
         c3 = _mm_mul_ps(_mm_set_ps(0.f, 2.f, 2.f, 2.f), _mm_sub_ps(tmp, c3));
         if constexpr (Normalized)
         {
+#ifdef KLEIN_SSE_4_1
             c3 = _mm_blend_ps(c3, _mm_set_ps(1.f, 0.f, 0.f, 0.f), 0b1000);
+#else
+            c3 = _mm_add_ps(c3, _mm_set_ps(1.f, 0.f, 0.f, 0.f));
+#endif
         }
         else
         {
+#ifdef KLEIN_SSE_4_1
             c3 = _mm_blend_ps(
                 c3, _mm_set_ps(b0_2 + b1_2 + b2_2 + b3_2, 0.f, 0.f, 0.f), 0b1000);
+#else
+            c3 = _mm_add_ps(
+                c3, _mm_set_ps(b0_2 + b1_2 + b2_2 + b3_2, 0.f, 0.f, 0.f));
+#endif
         }
     }
     else
     {
         if constexpr (Normalized)
         {
+#ifdef KLEIN_SSE_4_1
             c3 = _mm_blend_ps(c3, _mm_set_ps(1.f, 0.f, 0.f, 0.f), 0b1000);
+#else
+            c3 = _mm_add_ps(c3, _mm_set_ps(1.f, 0.f, 0.f, 0.f));
+#endif
         }
         else
         {
+#ifdef KLEIN_SSE_4_1
             c3 = _mm_blend_ps(
                 c3, _mm_set_ps(b0_2 + b1_2 + b2_2 + b3_2, 0.f, 0.f, 0.f), 0b1000);
+#else
+            c3 = _mm_add_ps(
+                c3, _mm_set_ps(b0_2 + b1_2 + b2_2 + b3_2, 0.f, 0.f, 0.f));
+#endif
         }
     }
 }

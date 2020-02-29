@@ -28,7 +28,7 @@ art kinematic and math libraries built with traditional vector and quaternion fo
 
 - Geometric computing library suitable for use with realtime graphics and animation applications
 - Header-only core libary with an optional lightweight symbolic computer algebra system
-- SSE4.2-optimized implementation (SSE2 fallback on the way)
+- SSE3 or SSE4.1-optimized implementations
 - Tested on Linux, MacOS, and Windows
 - Requires no third-party dependencies
 - Permissively licensed

@@ -2,6 +2,7 @@
 
 #include "detail/exp_log.hpp"
 #include "detail/matrix.hpp"
+#include "detail/sse.hpp"
 #include "entity.hpp"
 #include "mat3x4.hpp"
 #include "mat4x4.hpp"
@@ -115,9 +116,9 @@ struct motor final : public entity<0b110>
         //
         // Multiplying our original motor by this inverse will give us a
         // normalized motor.
-        __m128 b2 = _mm_dp_ps(p1(), p1(), 0xff);
+        __m128 b2 = detail::dp_bc(p1(), p1());
         __m128 s  = _mm_rsqrt_ps(b2);
-        __m128 bc = _mm_dp_ps(_mm_mul_ss(p1(), _mm_set_ss(-1.f)), p2(), 0xff);
+        __m128 bc = detail::dp_bc(_mm_mul_ss(p1(), _mm_set_ss(-1.f)), p2());
         __m128 t  = _mm_mul_ps(_mm_mul_ps(bc, _mm_rcp_ps(b2)), s);
 
         // (s + t e0123) * motor =
@@ -173,7 +174,8 @@ struct motor final : public entity<0b110>
     [[nodiscard]] plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
-        sw012<false, true>(&p.p0(), parts[0].reg, &parts[1].reg, &out.p0());
+        detail::sw012<false, true>(
+            &p.p0(), parts[0].reg, &parts[1].reg, &out.p0());
         return out;
     }
 
@@ -189,7 +191,7 @@ struct motor final : public entity<0b110>
     void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const
         noexcept
     {
-        sw012<true, true>(
+        detail::sw012<true, true>(
             &in->p0(), parts[0].reg, &parts[1].reg, &out->p0(), count);
     }
 
@@ -198,7 +200,7 @@ struct motor final : public entity<0b110>
     [[nodiscard]] line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
-        swMM<false, true>(&l.p1(), p1(), &p2(), &out.p1());
+        detail::swMM<false, true>(&l.p1(), p1(), &p2(), &out.p1());
         return out;
     }
 
@@ -213,7 +215,7 @@ struct motor final : public entity<0b110>
     ///     each line individually.
     void KLN_VEC_CALL operator()(line* in, line* out, size_t count) const noexcept
     {
-        swMM<true, true>(
+        detail::swMM<true, true>(
             &in->p1(), parts[0].reg, &parts[1].reg, &out->p1(), count);
     }
 
@@ -222,7 +224,8 @@ struct motor final : public entity<0b110>
     [[nodiscard]] point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
-        sw312<false, true>(&p.p3(), parts[0].reg, &parts[1].reg, &out.p3());
+        detail::sw312<false, true>(
+            &p.p3(), parts[0].reg, &parts[1].reg, &out.p3());
         return out;
     }
 
@@ -238,7 +241,7 @@ struct motor final : public entity<0b110>
     void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const
         noexcept
     {
-        sw312<true, true>(
+        detail::sw312<true, true>(
             &in->p3(), parts[0].reg, &parts[1].reg, &out->p3(), count);
     }
 
@@ -247,7 +250,7 @@ struct motor final : public entity<0b110>
     [[nodiscard]] point KLN_VEC_CALL operator()(origin) const noexcept
     {
         point out;
-        out.p3() = swo12(parts[0].reg, parts[1].reg);
+        out.p3() = detail::swo12(parts[0].reg, parts[1].reg);
         return out;
     }
 
@@ -259,7 +262,7 @@ struct motor final : public entity<0b110>
     direction KLN_VEC_CALL operator()(direction const& d) const noexcept
     {
         direction out;
-        sw312<false, false>(&d.p3(), parts[0].reg, nullptr, &out.p3());
+        detail::sw312<false, false>(&d.p3(), parts[0].reg, nullptr, &out.p3());
         return out;
     }
 
@@ -278,7 +281,8 @@ struct motor final : public entity<0b110>
     void KLN_VEC_CALL operator()(direction* in, direction* out, size_t count) const
         noexcept
     {
-        sw312<true, false>(&in->p3(), parts[0].reg, nullptr, &out->p3(), count);
+        detail::sw312<true, false>(
+            &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
 };
 } // namespace kln

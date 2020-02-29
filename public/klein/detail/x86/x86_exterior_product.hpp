@@ -4,7 +4,7 @@
 
 namespace kln
 {
-inline namespace detail
+namespace detail
 {
     // Partition memory layouts
     //     LSB --> MSB
@@ -60,7 +60,7 @@ inline namespace detail
         p3_out = _mm_mul_ps(_mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 1), b),
                             _mm_set_ps(-1.f, -1.f, -1.f, 0.f));
 
-        p3_out = _mm_add_ss(p3_out, _mm_dp_ps(a, b, 0b11100001));
+        p3_out = _mm_add_ss(p3_out, hi_dp(a, b));
     }
 
     // p0 ^ p2 = p2 ^ p0
@@ -86,7 +86,7 @@ inline namespace detail
                                        __m128& p2_out) noexcept
     {
         // (a0 b0 + a1 b1 + a2 b2 + a3 b3) e0123
-        p2_out = _mm_dp_ps(a, b, 0b11110001);
+        p2_out = dp(a, b);
         if constexpr (Flip)
         {
             p2_out = _mm_xor_ps(p2_out, _mm_set_ss(-0.f));
@@ -117,7 +117,7 @@ inline namespace detail
         // (a0 b2) e02 +
         // (a0 b3) e03
         p2_out = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), b);
-        p2_out = _mm_add_ps(p2_out, _mm_dp_ps(a, b, 0b11100001));
+        p2_out = _mm_add_ps(p2_out, hi_dp(a, b));
     }
 
     // p1 ^ p3 = p3 ^ p1

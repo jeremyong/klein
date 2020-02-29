@@ -2,6 +2,7 @@ add_library(symlib ga.cpp repl.cpp parser.cpp poly.cpp)
 target_compile_features(symlib PUBLIC cxx_std_17)
 
 if(NOT MSVC)
+# Needed for popcnt intrinsic
     target_compile_options(symlib PUBLIC -msse4.2)
 endif()
 

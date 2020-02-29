@@ -12,7 +12,7 @@
 
 namespace kln
 {
-inline namespace detail
+namespace detail
 {
     // Partition memory layouts
     //     LSB --> MSB
@@ -126,8 +126,7 @@ inline namespace detail
                                    _mm_set_ps(-0.f, -0.f, -0.f, 0.f));
 
         // Interchange low components
-        p0_out = _mm_blend_ps(p0_tmp, p3_tmp, 1);
-        p3_out = _mm_blend_ps(p3_tmp, p0_tmp, 1);
+        exchange_ss(p0_tmp, p3_tmp, p0_out, p3_out);
     }
 
     // p0: (e0, e1, e2, e3)
@@ -182,11 +181,16 @@ inline namespace detail
             p3_tmp = _mm_xor_ps(p3_tmp, _mm_set_ss(-0.f));
         }
 
+#ifdef KLEIN_SSE_4_1
         // Take the low component
         p0_out = _mm_blend_ps(_mm_setzero_ps(), p3_tmp, 1);
-
         // Mask the low component
         p3_out = _mm_blend_ps(p3_tmp, _mm_setzero_ps(), 1);
+#else
+        p0_out = _mm_and_ps(p3_tmp, _mm_castsi128_ps(_mm_set_epi32(0, 0, 0, -1)));
+        p3_out
+            = _mm_and_ps(p3_tmp, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
+#endif
     }
 
     // p0: (e0, e1, e2, e3)
@@ -217,8 +221,13 @@ inline namespace detail
         // (a1 b3 - a3 b1) e02 +
         // (a2 b1 - a1 b2) e03
 
-        p1_out = _mm_blend_ps(
-            _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0)), _mm_setzero_ps(), 1);
+        p1_out = _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0));
+#ifdef KLEIN_SSE_4_1
+        p1_out = _mm_blend_ps(p1_out, _mm_setzero_ps(), 1);
+#else
+        p1_out
+            = _mm_and_ps(p1_out, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
+#endif
 
         // (_, a3 b2, a1 b3, a2 b1)
         p2_out
@@ -229,14 +238,14 @@ inline namespace detail
 
         // Compute a0 b0 + a1 b1 + a2 b2 + a3 b3 and store it in the low
         // component
-        __m128 dp = _mm_dp_ps(a, b, 0b11110001);
+        __m128 tmp = dp(a, b);
 
         if constexpr (Flip)
         {
-            dp = _mm_xor_ps(dp, _mm_set_ss(-0.f));
+            tmp = _mm_xor_ps(tmp, _mm_set_ss(-0.f));
         }
 
-        p2_out = _mm_blend_ps(p2_out, dp, 1);
+        p2_out = _mm_add_ps(p2_out, tmp);
     }
 
     // p1: (1, e23, e31, e12)
@@ -381,8 +390,7 @@ inline namespace detail
         }
 
         // Exchange low components
-        p0_out = _mm_blend_ps(p0_tmp, p3_tmp, 1);
-        p3_out = _mm_blend_ps(p3_tmp, p0_tmp, 1);
+        exchange_ss(p0_tmp, p3_tmp, p0_out, p3_out);
     }
 
     // p2: (e0123, e01, e02, e03)
@@ -414,8 +422,13 @@ inline namespace detail
             // Negate tmp
             tmp = _mm_xor_ps(tmp, _mm_set1_ps(-0.f));
         }
+#ifdef KLEIN_SSE_4_1
         p0_out = _mm_blend_ps(_mm_setzero_ps(), tmp, 1);
         p3_out = _mm_blend_ps(tmp, _mm_setzero_ps(), 1);
+#else
+        p0_out = _mm_and_ps(tmp, _mm_castsi128_ps(_mm_set_epi32(0, 0, 0, -1)));
+        p3_out = _mm_and_ps(tmp, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
+#endif
     }
 
     // p3: (e123, e021, e013, e032)
@@ -436,8 +449,13 @@ inline namespace detail
         tmp        = _mm_mul_ps(tmp, _mm_set_ps(-1.f, -1.f, -1.f, -2.f));
         tmp        = _mm_add_ps(tmp, _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0)));
 
+#ifdef KLEIN_SSE_4_1
         p1_out = _mm_blend_ps(_mm_setzero_ps(), tmp, 1);
         p2_out = _mm_blend_ps(tmp, _mm_setzero_ps(), 1);
+#else
+        p1_out = _mm_and_ps(tmp, _mm_castsi128_ps(_mm_set_epi32(0, 0, 0, -1)));
+        p2_out = _mm_and_ps(tmp, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
+#endif
     }
 } // namespace detail
 } // namespace kln

@@ -18,7 +18,7 @@
 
 namespace kln
 {
-inline namespace detail
+namespace detail
 {
     // Partition memory layouts
     //     LSB --> MSB
@@ -187,7 +187,7 @@ inline namespace detail
         // normal.
 
         // a1*b1 + a2*b2 + a3*b3 stored in the low component of tmp
-        __m128 tmp = _mm_dp_ps(a, b, 0b11100001);
+        __m128 tmp = hi_dp(a, b);
 
         // Scale by 2
         float b0;
@@ -508,7 +508,7 @@ inline namespace detail
 
             if constexpr (Translate)
             {
-                __m128 tmp5 = _mm_dp_ps(tmp4, a[i], 0b11100001);
+                __m128 tmp5 = hi_dp(tmp4, a[i]);
                 p           = _mm_add_ps(p, tmp5);
             }
         }

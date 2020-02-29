@@ -19,8 +19,9 @@ SIMD Extensions) for maximum throughput.
 
 ## Requirements
 
-- Machine with a processor that supports SSE4.2 or later (has ~97% market penetration)
+- Machine with a processor that supports SSE3 or later (Steam hardware survey reports 100% market penetration)
 - C++17 compliant compiler (tested with GCC 9.2.1, Clang 9.0.1, and Visual Studio 2019)
+- Optional SSE4.1 support
 
 ## Usage
 

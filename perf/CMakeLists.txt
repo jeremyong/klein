@@ -31,7 +31,7 @@ FetchContent_MakeAvailable(mc_ruler)
 
 include(MCRuler)
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Release")
+if(CMAKE_BUILD_TYPE EQUAL "RELEASE")
     add_library(klein_perf klein_perf.cpp)
     target_link_libraries(klein_perf PRIVATE mc_ruler::mc_ruler klein)
     mc_ruler(klein_perf SOURCES klein_perf.cpp)

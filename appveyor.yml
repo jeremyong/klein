@@ -30,3 +30,4 @@ build_script:
   - cmake --build .
   - dir
   - C:\projects\klein\%configuration%\klein_test.exe
+  - C:\projects\klein\%configuration%\klein_test_sse42.exe

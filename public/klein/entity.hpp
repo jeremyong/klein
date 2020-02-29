@@ -242,16 +242,16 @@ struct entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                dot00(p0(), rhs.p0(), p1_);
+                detail::dot00(p0(), rhs.p0(), p1_);
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                dot01<false>(p0(), rhs.p1(), p0_);
+                detail::dot01<false>(p0(), rhs.p1(), p0_);
             }
             if constexpr ((PMask2 & 0b100) > 0)
             {
                 __m128 p0_tmp;
-                dot02<false>(p0(), rhs.p2(), p0_tmp, p3_);
+                detail::dot02<false>(p0(), rhs.p2(), p0_tmp, p3_);
                 if constexpr ((PMask2 & 0b10) > 0)
                 {
                     p0_ = _mm_add_ps(p0_tmp, p0_);
@@ -264,7 +264,7 @@ struct entity
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p1_tmp;
-                dot03(p0(), rhs.p3(), p1_tmp, p2_);
+                detail::dot03(p0(), rhs.p3(), p1_tmp, p2_);
                 if constexpr ((PMask2 & 0b1) > 0)
                 {
                     p1_ = _mm_add_ps(p1_tmp, p1_);
@@ -281,7 +281,7 @@ struct entity
             if constexpr ((PMask2 & 0b1) > 0)
             {
                 __m128 p0_tmp;
-                dot01<true>(rhs.p0(), p1(), p0_tmp);
+                detail::dot01<true>(rhs.p0(), p1(), p0_tmp);
                 if constexpr ((PMask & 0b1) && (PMask2 & 0b110))
                 {
                     p0_ = _mm_add_ps(p0_tmp, p0_);
@@ -294,7 +294,7 @@ struct entity
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p1_tmp;
-                dot11(p1(), rhs.p1(), p1_tmp);
+                detail::dot11(p1(), rhs.p1(), p1_tmp);
                 if constexpr ((PMask & 0b1) && (PMask2 & 0b1001))
                 {
                     p1_ = _mm_add_ps(p1_, p1_tmp);
@@ -307,7 +307,7 @@ struct entity
             if constexpr ((PMask2 & 0b100) > 0)
             {
                 __m128 p2_tmp;
-                dot12(p1(), rhs.p2(), p2_tmp);
+                detail::dot12(p1(), rhs.p2(), p2_tmp);
                 if constexpr ((PMask & 1) && (PMask2 & 0b1000))
                 {
                     p2_ = _mm_add_ps(p2_, p2_tmp);
@@ -320,7 +320,7 @@ struct entity
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p0_tmp;
-                dot13(p1(), rhs.p3(), p0_tmp);
+                detail::dot13(p1(), rhs.p3(), p0_tmp);
                 if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
                               || (PMask2 & 0b1))
                 {
@@ -339,7 +339,7 @@ struct entity
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
-                dot02<true>(rhs.p0(), p2(), p0_tmp, p3_tmp);
+                detail::dot02<true>(rhs.p0(), p2(), p0_tmp, p3_tmp);
                 if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001)))
                 {
@@ -361,7 +361,7 @@ struct entity
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p2_tmp;
-                dot12(rhs.p1(), p2(), p2_tmp);
+                detail::dot12(rhs.p1(), p2(), p2_tmp);
                 if constexpr ((PMask & 0b10) && (PMask2 & 0b100))
                 {
                     p2_ = _mm_add_ps(p2_, p2_tmp);
@@ -374,7 +374,7 @@ struct entity
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p0_tmp;
-                dot23(p2(), rhs.p3(), p0_tmp);
+                detail::dot23(p2(), rhs.p3(), p0_tmp);
                 if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001))
                               || (PMask2 & 0b1))
@@ -394,7 +394,7 @@ struct entity
             {
                 __m128 p1_tmp;
                 __m128 p2_tmp;
-                dot03(rhs.p0(), p3(), p1_tmp, p2_tmp);
+                detail::dot03(rhs.p0(), p3(), p1_tmp, p2_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b1001))
                               || ((PMask & 0b10) && (PMask2 & 0b10)))
                 {
@@ -418,7 +418,7 @@ struct entity
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p0_tmp;
-                dot13(rhs.p1(), p3(), p0_tmp);
+                detail::dot13(rhs.p1(), p3(), p0_tmp);
                 if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001))
                               || ((PMask & 0b100) & (PMask2 & 0b1001)))
@@ -433,7 +433,7 @@ struct entity
             if constexpr ((PMask2 & 0b100) > 0)
             {
                 __m128 p0_tmp;
-                dot23(rhs.p2(), p3(), p0_tmp);
+                detail::dot23(rhs.p2(), p3(), p0_tmp);
                 if constexpr (((PMask & 0b1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001))
                               || ((PMask & 0b100) & (PMask2 & 0b1001))
@@ -449,7 +449,7 @@ struct entity
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p1_tmp;
-                dot33(p3(), rhs.p3(), p1_tmp);
+                detail::dot33(p3(), rhs.p3(), p1_tmp);
                 if constexpr (((PMask & 0b1) && (PMask2 & 1001))
                               || ((PMask & 0b10) && (PMask2 & 0b10))
                               || (PMask2 & 0b1))
@@ -524,12 +524,12 @@ struct entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                ext00(p0(), rhs.p0(), p1_, p2_);
+                detail::ext00(p0(), rhs.p0(), p1_, p2_);
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p0_tmp;
-                ext01(p0(), rhs.p1(), p0_tmp, p3_);
+                detail::ext01(p0(), rhs.p1(), p0_tmp, p3_);
                 if constexpr ((PMask2 & 1) > 0)
                 {
                     p0_ = _mm_add_ps(p0_tmp, p0_);
@@ -542,7 +542,7 @@ struct entity
             if constexpr ((PMask2 & 0b100) > 0)
             {
                 __m128 p3_tmp;
-                ext02(p0(), rhs.p2(), p3_tmp);
+                detail::ext02(p0(), rhs.p2(), p3_tmp);
 
                 if constexpr ((PMask2 & 0b10) > 0)
                 {
@@ -556,7 +556,7 @@ struct entity
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p2_tmp;
-                ext03<false>(p0(), rhs.p3(), p2_tmp);
+                detail::ext03<false>(p0(), rhs.p3(), p2_tmp);
                 if constexpr ((PMask2 & 1) > 0)
                 {
                     p2_ = _mm_add_ps(p2_tmp, p2_);
@@ -574,7 +574,7 @@ struct entity
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
-                ext01(rhs.p0(), p1(), p0_tmp, p3_tmp);
+                detail::ext01(rhs.p0(), p1(), p0_tmp, p3_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b10)))
                 {
                     p0_ = _mm_add_ps(p0_tmp, p0_);
@@ -595,7 +595,7 @@ struct entity
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p1_tmp;
-                ext11(p1(), rhs.p1(), p1_tmp);
+                detail::ext11(p1(), rhs.p1(), p1_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 1)))
                 {
                     p1_ = _mm_add_ps(p1_, p1_tmp);
@@ -608,7 +608,7 @@ struct entity
             if constexpr ((PMask2 & 0b100) > 0)
             {
                 __m128 p2_tmp;
-                ext12(p1(), rhs.p2(), p2_tmp);
+                detail::ext12(p1(), rhs.p2(), p2_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b1001)))
                 {
                     p2_ = _mm_add_ps(p2_, p2_tmp);
@@ -621,7 +621,7 @@ struct entity
             if constexpr ((PMask2 & 0b1000) > 0)
             {
                 __m128 p3_tmp;
-                ext13(p1(), rhs.p3(), p3_tmp);
+                detail::ext13(p1(), rhs.p3(), p3_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b110)) || (PMask2 & 1))
                 {
                     p3_ = _mm_add_ps(p3_tmp, p3_);
@@ -638,7 +638,7 @@ struct entity
             if constexpr ((PMask2 & 1) > 0)
             {
                 __m128 p3_tmp;
-                ext02(rhs.p0(), p2(), p3_tmp);
+                detail::ext02(rhs.p0(), p2(), p3_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001)))
                 {
@@ -652,7 +652,7 @@ struct entity
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p2_tmp;
-                ext12(rhs.p1(), p2(), p2_tmp);
+                detail::ext12(rhs.p1(), p2(), p2_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b1001))
                               || ((PMask & 0b10) && (PMask2 & 0b100)))
                 {
@@ -670,7 +670,7 @@ struct entity
             if constexpr ((PMask2 & 1) > 0)
             {
                 __m128 p2_tmp;
-                ext03<true>(rhs.p0(), p2(), p2_tmp);
+                detail::ext03<true>(rhs.p0(), p2(), p2_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b1001))
                               || ((PMask & 0b10) && (PMask2 & 0b100))
                               || ((PMask & 0b100) && (PMask2 & 0b10)))
@@ -685,7 +685,7 @@ struct entity
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p3_tmp;
-                ext13(rhs.p1(), p3(), p3_tmp);
+                detail::ext13(rhs.p1(), p3(), p3_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001))
                               || ((PMask & 0b100) && (PMask2 & 1)))
@@ -820,17 +820,17 @@ struct entity
         {
             if constexpr ((PMask2 & 1) > 0)
             {
-                gp00(p0(), rhs.p0(), p1_, p2_);
+                detail::gp00(p0(), rhs.p0(), p1_, p2_);
             }
             if constexpr ((PMask2 & 0b10) > 0)
             {
-                gp01<false>(p0(), rhs.p1(), p0_, p3_);
+                detail::gp01<false>(p0(), rhs.p1(), p0_, p3_);
             }
             if constexpr ((PMask2 & 0b100) > 0)
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
-                gp02<false>(p0(), rhs.p2(), p0_tmp, p3_tmp);
+                detail::gp02<false>(p0(), rhs.p2(), p0_tmp, p3_tmp);
                 if constexpr ((PMask2 & 0b10) > 0)
                 {
                     p0_ = _mm_add_ps(p0_, p0_tmp);
@@ -846,7 +846,7 @@ struct entity
             {
                 __m128 p1_tmp;
                 __m128 p2_tmp;
-                gp03<false>(p0(), rhs.p3(), p1_tmp, p2_tmp);
+                detail::gp03<false>(p0(), rhs.p3(), p1_tmp, p2_tmp);
                 if constexpr ((PMask2 & 1) > 0)
                 {
                     p1_ = _mm_add_ps(p1_, p1_tmp);
@@ -866,7 +866,7 @@ struct entity
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
-                gp01<true>(rhs.p0(), p1(), p0_tmp, p3_tmp);
+                detail::gp01<true>(rhs.p0(), p1(), p0_tmp, p3_tmp);
                 if constexpr ((PMask & 1) && (PMask2 & 0b110))
                 {
                     p0_ = _mm_add_ps(p0_, p0_tmp);
@@ -881,7 +881,7 @@ struct entity
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p1_tmp;
-                gp11(p1(), rhs.p1(), p1_tmp);
+                detail::gp11(p1(), rhs.p1(), p1_tmp);
                 if constexpr ((PMask & 1) && (PMask2 & 0b1001))
                 {
                     p1_ = _mm_add_ps(p1_, p1_tmp);
@@ -894,7 +894,7 @@ struct entity
             if constexpr ((PMask2 & 0b100) > 0)
             {
                 __m128 p2_tmp;
-                gp12<false>(p1(), rhs.p2(), p2_tmp);
+                detail::gp12<false>(p1(), rhs.p2(), p2_tmp);
                 if constexpr ((PMask & 1) && (PMask2 & 0b1001))
                 {
                     p2_ = _mm_add_ps(p2_, p2_tmp);
@@ -908,7 +908,7 @@ struct entity
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
-                gp13<false>(p1(), rhs.p3(), p0_tmp, p3_tmp);
+                detail::gp13<false>(p1(), rhs.p3(), p0_tmp, p3_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b110)) || (PMask2 & 0b1))
                 {
                     p0_ = _mm_add_ps(p0_, p0_tmp);
@@ -928,7 +928,7 @@ struct entity
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
-                gp02<true>(rhs.p0(), p2(), p0_tmp, p3_tmp);
+                detail::gp02<true>(rhs.p0(), p2(), p0_tmp, p3_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001)))
                 {
@@ -944,7 +944,7 @@ struct entity
             if constexpr ((PMask2 & 0b10) > 0)
             {
                 __m128 p2_tmp;
-                gp12<true>(p2(), rhs.p1(), p2_tmp);
+                detail::gp12<true>(p2(), rhs.p1(), p2_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b1001))
                               || ((PMask & 0b10) && (PMask2 & 0b100)))
                 {
@@ -959,7 +959,7 @@ struct entity
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
-                gp23<false>(p2(), rhs.p3(), p0_tmp, p3_tmp);
+                detail::gp23<false>(p2(), rhs.p3(), p0_tmp, p3_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001))
                               || (PMask2 & 0b1))
@@ -981,7 +981,7 @@ struct entity
             {
                 __m128 p1_tmp;
                 __m128 p2_tmp;
-                gp03<true>(rhs.p0(), p3(), p1_tmp, p2_tmp);
+                detail::gp03<true>(rhs.p0(), p3(), p1_tmp, p2_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b1001))
                               || (PMask & PMask2 & 0b10))
                 {
@@ -1006,7 +1006,7 @@ struct entity
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
-                gp13<true>(rhs.p1(), p3(), p0_tmp, p3_tmp);
+                detail::gp13<true>(rhs.p1(), p3(), p0_tmp, p3_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001))
                               || ((PMask & 0b100) && (PMask2 & 0b1001)))
@@ -1024,7 +1024,7 @@ struct entity
             {
                 __m128 p0_tmp;
                 __m128 p3_tmp;
-                gp23<true>(rhs.p2(), p3(), p0_tmp, p3_tmp);
+                detail::gp23<true>(rhs.p2(), p3(), p0_tmp, p3_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b110))
                               || ((PMask & 0b10) && (PMask2 & 0b1001))
                               || ((PMask & 0b100) && (PMask2 & 0b1001))
@@ -1043,7 +1043,7 @@ struct entity
             {
                 __m128 p1_tmp;
                 __m128 p2_tmp;
-                gp33(p3(), rhs.p3(), p1_tmp, p2_tmp);
+                detail::gp33(p3(), rhs.p3(), p1_tmp, p2_tmp);
                 if constexpr (((PMask & 1) && (PMask2 & 0b1001))
                               || (PMask & PMask2 & 0b10) || (PMask2 & 1))
                 {

@@ -101,7 +101,7 @@ struct branch final : public entity<0b10>
     [[nodiscard]] float squared_norm() noexcept
     {
         float out;
-        __m128 dp = _mm_dp_ps(p1(), p1(), 0b11100001);
+        __m128 dp = detail::hi_dp(p1(), p1());
         _mm_store_ss(&out, dp);
         return out;
     }
@@ -119,7 +119,7 @@ struct branch final : public entity<0b10>
     {
         // Compute the rotor angle
         float ang;
-        _mm_store_ss(&ang, _mm_sqrt_ps(_mm_dp_ps(p1(), p1(), 0b11100001)));
+        _mm_store_ss(&ang, _mm_rcp_ps(_mm_rsqrt_ps(detail::hi_dp(p1(), p1()))));
         float cos_ang = std::cos(ang);
         float sin_ang = std::sin(ang) / ang;
 
@@ -178,7 +178,7 @@ struct line final : public entity<0b110>
     [[nodiscard]] float squared_norm() noexcept
     {
         float out;
-        __m128 dp = _mm_dp_ps(p1(), p1(), 0b11100001);
+        __m128 dp = detail::hi_dp(p1(), p1());
         _mm_store_ss(&out, dp);
         return out;
     }
@@ -197,7 +197,7 @@ struct line final : public entity<0b110>
     ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
-        __m128 inv_norm = _mm_rsqrt_ps(_mm_dp_ps(p1(), p1(), 0b11101111));
+        __m128 inv_norm = _mm_rsqrt_ps(detail::hi_dp_bc(p1(), p1()));
         p1()            = _mm_mul_ps(inv_norm, p1());
         p2()            = _mm_mul_ps(inv_norm, p2());
     }

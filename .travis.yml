@@ -123,5 +123,5 @@ before_script:
   - ${CMAKE} --build .
 
 script:
-  - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then ./klein_test; fi
+  - if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then ./klein_test && ./klein_test_sse42; fi
   - if [ "${ENABLE_GCOV}" = 1 ]; then bash <(curl -s https://codecov.io/bash) -x gcov-9 -a "-s `pwd`"; fi

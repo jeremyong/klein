@@ -9,7 +9,7 @@
 
 namespace kln
 {
-inline namespace detail
+namespace detail
 {
     // Partition memory layouts
     //     LSB --> MSB
@@ -48,8 +48,8 @@ inline namespace detail
 
         // Broadcast dot(a, a) ignoring the scalar component to all components
         // of a2
-        __m128 a2 = _mm_dp_ps(a, a, 0b11101111);
-        __m128 ab = _mm_dp_ps(a, b, 0b11101111);
+        __m128 a2 = hi_dp_bc(a, a);
+        __m128 ab = hi_dp_bc(a, b);
 
         // Next, we need the sqrt of that quantity. Since e0123 squares to 0,
         // this has a closed form solution.
@@ -144,9 +144,9 @@ inline namespace detail
         __m128 b       = _mm_mul_ps(bv_mask, p2);
 
         // Next, we need to compute the norm as in the exponential.
-        __m128 a2 = _mm_dp_ps(a, a, 0b11101111);
+        __m128 a2 = hi_dp_bc(a, a);
         // TODO: handle case when a2 is 0
-        __m128 ab          = _mm_dp_ps(a, b, 0b11101111);
+        __m128 ab          = hi_dp_bc(a, b);
         __m128 s           = _mm_sqrt_ps(a2);
         __m128 a2_sqrt_rcp = _mm_rcp_ps(s);
         __m128 minus_t     = _mm_mul_ps(ab, a2_sqrt_rcp);

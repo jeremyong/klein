@@ -99,7 +99,7 @@ struct rotor final : public entity<0b10>
     void normalize() noexcept
     {
         // A rotor is normalized if r * ~r is unity.
-        __m128 inv_norm = _mm_rsqrt_ps(_mm_dp_ps(p1(), p1(), 0xff));
+        __m128 inv_norm = _mm_rsqrt_ps(detail::dp_bc(p1(), p1()));
         p1()            = _mm_mul_ps(p1(), inv_norm);
     }
 
@@ -137,7 +137,12 @@ struct rotor final : public entity<0b10>
         branch out;
         out.p1() = _mm_mul_ps(p1(), _mm_rcp_ps(_mm_set1_ps(sin_ang)));
         out.p1() = _mm_mul_ps(out.p1(), _mm_set1_ps(ang));
+#ifdef KLEIN_SSE_4_1
         out.p1() = _mm_blend_ps(out.p1(), _mm_setzero_ps(), 1);
+#else
+        out.p1() = _mm_and_ps(
+            out.p1(), _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
+#endif
         return out;
     }
 
@@ -146,7 +151,7 @@ struct rotor final : public entity<0b10>
     plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
-        sw012<false, false>(&p.p0(), parts[0].reg, nullptr, &out.p0());
+        detail::sw012<false, false>(&p.p0(), parts[0].reg, nullptr, &out.p0());
         return out;
     }
 
@@ -162,7 +167,8 @@ struct rotor final : public entity<0b10>
     void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const
         noexcept
     {
-        sw012<true, false>(&in->p0(), parts[0].reg, nullptr, &out->p0(), count);
+        detail::sw012<true, false>(
+            &in->p0(), parts[0].reg, nullptr, &out->p0(), count);
     }
 
     /// Conjugates a line $\ell$ with this rotor and returns the result
@@ -170,7 +176,7 @@ struct rotor final : public entity<0b10>
     line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
-        swMM<false, false>(&l.p1(), p1(), nullptr, &out.p1());
+        detail::swMM<false, false>(&l.p1(), p1(), nullptr, &out.p1());
         return out;
     }
 
@@ -185,7 +191,8 @@ struct rotor final : public entity<0b10>
     ///     each line individually.
     void KLN_VEC_CALL operator()(line* in, line* out, size_t count) const noexcept
     {
-        swMM<true, false>(&in->p1(), parts[0].reg, nullptr, &out->p1(), count);
+        detail::swMM<true, false>(
+            &in->p1(), parts[0].reg, nullptr, &out->p1(), count);
     }
 
     /// Conjugates a point $p$ with this rotor and returns the result
@@ -193,7 +200,7 @@ struct rotor final : public entity<0b10>
     point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
-        sw312<false, false>(&p.p3(), parts[0].reg, nullptr, &out.p3());
+        detail::sw312<false, false>(&p.p3(), parts[0].reg, nullptr, &out.p3());
         return out;
     }
 
@@ -209,7 +216,8 @@ struct rotor final : public entity<0b10>
     void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const
         noexcept
     {
-        sw312<true, false>(&in->p3(), parts[0].reg, nullptr, &out->p3(), count);
+        detail::sw312<true, false>(
+            &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
 
     /// Conjugates a direction $d$ with this rotor and returns the result
@@ -217,7 +225,7 @@ struct rotor final : public entity<0b10>
     direction KLN_VEC_CALL operator()(direction const& d) const noexcept
     {
         direction out;
-        sw312<false, false>(&d.p3(), parts[0].reg, nullptr, &out.p3());
+        detail::sw312<false, false>(&d.p3(), parts[0].reg, nullptr, &out.p3());
         return out;
     }
 
@@ -233,7 +241,8 @@ struct rotor final : public entity<0b10>
     void KLN_VEC_CALL operator()(direction* in, direction* out, size_t count) const
         noexcept
     {
-        sw312<true, false>(&in->p3(), parts[0].reg, nullptr, &out->p3(), count);
+        detail::sw312<true, false>(
+            &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
 };
 } // namespace kln

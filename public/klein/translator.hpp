@@ -103,7 +103,12 @@ struct translator final : public entity<0b110>
     plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
-        out.p0() = sw02(p.p0(), _mm_blend_ps(parts[1].reg, parts[0].reg, 1));
+#ifdef KLEIN_SSE_4_1
+        __m128 tmp = _mm_blend_ps(parts[1].reg, _mm_set_ss(1.f), 1);
+#else
+        __m128 tmp = _mm_add_ps(parts[1].reg, _mm_set_ss(1.f));
+#endif
+        out.p0() = detail::sw02(p.p0(), tmp);
         return out;
     }
 
@@ -112,7 +117,7 @@ struct translator final : public entity<0b110>
     line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
-        swL2(l.p1(), l.p2(), p2(), &out.p1());
+        detail::swL2(l.p1(), l.p2(), p2(), &out.p1());
         return out;
     }
 
@@ -121,7 +126,7 @@ struct translator final : public entity<0b110>
     point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
-        out.p3() = sw32(p.p3(), parts[1].reg);
+        out.p3() = detail::sw32(p.p3(), parts[1].reg);
         return out;
     }
 };

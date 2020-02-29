@@ -96,7 +96,7 @@ struct direction final : public entity<0b1000>
     {
         // Fast reciprocal operation to divide by a^2 + b^2 + c^2. The maximum
         // relative error for the rcp approximation is 1.5*2^-12 (~.00036621)
-        __m128 tmp   = _mm_rsqrt_ps(_mm_dp_ps(p3(), p3(), 0b11101110));
+        __m128 tmp   = _mm_rsqrt_ps(detail::hi_dp_bc(p3(), p3()));
         parts[0].reg = _mm_mul_ps(parts[0].reg, tmp);
     }
 };
