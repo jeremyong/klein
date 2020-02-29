@@ -4,11 +4,21 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/236777729.svg)](https://zenodo.org/badge/latestdoi/236777729)
-
 [![Build Status](https://travis-ci.org/jeremyong/Klein.svg?branch=master)](https://travis-ci.org/jeremyong/Klein)
 [![Build Status](https://ci.appveyor.com/api/projects/status/w3ug2ad08jyved8o?svg=true)](https://ci.appveyor.com/project/jeremyong/klein)
 [![Coverity Status](https://img.shields.io/coverity/scan/20402.svg)](https://scan.coverity.com/projects/jeremyong-klein)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5908bd446f3d4bb0bb1fd2e0808cb8a1)](https://www.codacy.com/manual/jeremyong/klein?utm_source=github.com&utm_medium=referral&utm_content=jeremyong/klein&utm_campaign=Badge_Grade)
+
+Do you need to do any of the following? Quickly? _Really_ quickly even?
+
+- Projecting points onto lines, lines to planes, points to planes?
+- Measuring distances and angles between points, lines, and planes?
+- Rotate or translate points, lines, and planes?
+- Perform smooth rigid body transforms? Interpolate them smoothly?
+- Construct lines from points? Planes from points? Planes from a line and a point?
+- Intersect planes to form lines? Intersect a planes and lines to form points?
+
+If so, then Klein is the library for you!
 
 ## Feature Summary
 
