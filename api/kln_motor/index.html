@@ -479,8 +479,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab" class="md-nav__link">
-    mat4x4  as_matrix() const noexcept
+  <a href="#structkln_1_1motor_1ae07a4ac9001f3afe4e1200e114ccf4c6" class="md-nav__link">
+    mat3x4  as_mat3x4() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1motor_1aa84cd8df11fc906888dff2fd20fa6e7b" class="md-nav__link">
+    mat4x4  as_mat4x4() const noexcept
   </a>
   
 </li>
@@ -596,6 +603,18 @@
   <li class="md-nav__item">
     <a href="../kln_direction/" title="Direction" class="md-nav__link">
       Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_mat3x4/" title="Mat3x4" class="md-nav__link">
+      Mat3x4
     </a>
   </li>
 
@@ -850,8 +869,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab" class="md-nav__link">
-    mat4x4  as_matrix() const noexcept
+  <a href="#structkln_1_1motor_1ae07a4ac9001f3afe4e1200e114ccf4c6" class="md-nav__link">
+    mat3x4  as_mat3x4() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1motor_1aa84cd8df11fc906888dff2fd20fa6e7b" class="md-nav__link">
+    mat4x4  as_mat4x4() const noexcept
   </a>
   
 </li>
@@ -1026,7 +1052,11 @@
 <td>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><code>as_matrix</code></a><code>() const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_mat3x4#structkln_1_1mat3x4"><code>mat3x4</code></a><code></code> <a href="#structkln_1_1motor_1ae07a4ac9001f3afe4e1200e114ccf4c6"><code>as_mat3x4</code></a><code>() const noexcept</code></td>
+<td>Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="../../api/kln_mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1motor_1aa84cd8df11fc906888dff2fd20fa6e7b"><code>as_mat4x4</code></a><code>() const noexcept</code></td>
 <td>Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.</td>
 </tr>
 <tr>
@@ -1085,7 +1115,9 @@
 <p>Normalization here is done using the <code>rsqrtps</code>
 instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
 </div>
-<h4 id="structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1motor_1a51c1bcd6b7c6a6aa0525a8eff29974ab">as_matrix</a>() const noexcept</h4>
+<h4 id="structkln_1_1motor_1ae07a4ac9001f3afe4e1200e114ccf4c6"><a href="../../api/kln_mat3x4#structkln_1_1mat3x4">mat3x4</a>  <a href="#structkln_1_1motor_1ae07a4ac9001f3afe4e1200e114ccf4c6">as_mat3x4</a>() const noexcept</h4>
+<p>Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.</p>
+<h4 id="structkln_1_1motor_1aa84cd8df11fc906888dff2fd20fa6e7b"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1motor_1aa84cd8df11fc906888dff2fd20fa6e7b">as_mat4x4</a>() const noexcept</h4>
 <p>Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.</p>
 <h4 id="structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374"><a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1motor_1a578fe040bb8c7c9b90c9c10050549374">log</a>() const noexcept</h4>
 <p>Takes the principal branch of the logarithm of the motor, returning a bivector. Exponentiation of that bivector without any changes produces this motor again. Scaling that bivector by <span class="arithmatex">\(\frac{1}{n}\)</span>, re-exponentiating, and taking the result to the <span class="arithmatex">\(n\)</span>th power will also produce this motor again.</p>

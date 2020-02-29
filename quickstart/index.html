@@ -435,6 +435,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../api/kln_mat3x4/" title="Mat3x4" class="md-nav__link">
+      Mat3x4
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../api/kln_mat4x4/" title="Mat4x4" class="md-nav__link">
       Mat4x4
     </a>
@@ -634,6 +646,8 @@ you can use the following snippet to easily fetch Klein into your build tree:</p
 <span class="nb">FetchContent_MakeAvailable</span><span class="p">(</span><span class="s">klein</span><span class="p">)</span>
 
 <span class="c"># Now, you can use target_link_libraries(your_lib PUBLIC klein::klein)</span>
+<span class="c"># If you can target SSE4.1 (~97% market penetration), you can link against</span>
+<span class="c"># the target klein::klein_sse42 instead.</span>
 </code></pre></div>
 
 <p>The primary "catch-all" header provided can be included using <code>#include &lt;klein/klein.hpp&gt;</code>.

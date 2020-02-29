@@ -443,8 +443,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11" class="md-nav__link">
-    mat4x4  as_matrix() const noexcept
+  <a href="#structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
+    mat3x4  as_mat3x4() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8" class="md-nav__link">
+    mat4x4  as_mat4x4() const noexcept
   </a>
   
 </li>
@@ -589,6 +596,18 @@
   <li class="md-nav__item">
     <a href="../kln_direction/" title="Direction" class="md-nav__link">
       Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../kln_mat3x4/" title="Mat3x4" class="md-nav__link">
+      Mat3x4
     </a>
   </li>
 
@@ -843,8 +862,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11" class="md-nav__link">
-    mat4x4  as_matrix() const noexcept
+  <a href="#structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
+    mat3x4  as_mat3x4() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8" class="md-nav__link">
+    mat4x4  as_mat4x4() const noexcept
   </a>
   
 </li>
@@ -1010,7 +1036,11 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <td>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><code>as_matrix</code></a><code>() const noexcept</code></td>
+<td><code>public</code> <a href="../../api/kln_mat3x4#structkln_1_1mat3x4"><code>mat3x4</code></a><code></code> <a href="#structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d"><code>as_mat3x4</code></a><code>() const noexcept</code></td>
+<td>Converts the rotor to a 3x4 column-major matrix. The results of this conversion are only defined if the rotor is normalized, and this conversion is preferable if so.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="../../api/kln_mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8"><code>as_mat4x4</code></a><code>() const noexcept</code></td>
 <td>Converts the rotor to a 4x4 column-major matrix.</td>
 </tr>
 <tr>
@@ -1071,7 +1101,9 @@ rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex
 <p>Normalization here is done using the <code>rsqrtps</code>
 instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
 </div>
-<h4 id="structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a0f13d2649e679220fc79ee7bc0bbea11">as_matrix</a>() const noexcept</h4>
+<h4 id="structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d"><a href="../../api/kln_mat3x4#structkln_1_1mat3x4">mat3x4</a>  <a href="#structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d">as_mat3x4</a>() const noexcept</h4>
+<p>Converts the rotor to a 3x4 column-major matrix. The results of this conversion are only defined if the rotor is normalized, and this conversion is preferable if so.</p>
+<h4 id="structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8">as_mat4x4</a>() const noexcept</h4>
 <p>Converts the rotor to a 4x4 column-major matrix.</p>
 <h4 id="structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81"><a href="../../api/kln_branch#structkln_1_1branch">branch</a>  <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81">log</a>() const noexcept</h4>
 <p>Returns the principal branch of this rotor's logarithm. Invoking <code>exp</code>  on the returned result maps back to this rotor.</p>
