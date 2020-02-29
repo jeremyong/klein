@@ -79,7 +79,7 @@ point p2 = m(p1);
 // for upload to a shader or for interoperability with code expecting
 // matrices as part of its interface. The matrix returned in this way
 // is a column-major matrix
-mat4x4 m_matrix = m.as_matrix();
+mat4x4 m_matrix = m.as_mat4x4();
 ```
 
 The spherical interpolation (aka slerp) employed to produce smooth incremental

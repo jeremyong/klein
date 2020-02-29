@@ -30,9 +30,11 @@ namespace detail
                                       __m128& p2_out) noexcept
     {
         // (a1 b1 + a2 b2 + a3 b3) +
+        //
         // (a2 b3 - a3 b2) e23 +
         // (a3 b1 - a1 b3) e31 +
         // (a1 b2 - a2 b1) e12 +
+        //
         // (a0 b1 - a1 b0) e01 +
         // (a0 b2 - a2 b0) e02 +
         // (a0 b3 - a3 b0) e03

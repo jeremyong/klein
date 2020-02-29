@@ -76,14 +76,22 @@ namespace detail
     // Equivalent to _mm_dp_ps(a, b, 0b11100001);
     KLN_INLINE __m128 KLN_VEC_CALL hi_dp(__m128 const& a, __m128 const& b) noexcept
     {
-        // Multiply across and mask low component
-        __m128 out = _mm_castsi128_ps(
-            _mm_bsrli_si128(_mm_castps_si128(_mm_mul_ps(a, b)), 4));
+        // 0 1 2 3 -> 1 + 2 + 3, 0, 0, 0
+
+        __m128 out = _mm_mul_ps(a, b);
+
+        // 0 1 2 3 -> 1 1 3 3
         __m128 hi = _mm_movehdup_ps(out);
-        // (a1 b1, a2 b2, a3 b3, 0) + (a2 b2, a2 b2, 0, 0)
-        // = (a1 b1 + a2 b2, _, a3 b3, 0)
-        out = _mm_add_ps(hi, out);
-        out = _mm_add_ss(out, _mm_movehl_ps(hi, out));
+
+        // 0 1 2 3 + 1 1 3 3 -> (0 + 1, 1 + 1, 2 + 3, 3 + 3)
+        __m128 sum = _mm_add_ps(hi, out);
+
+        // unpacklo: 0 0 1 1
+        out = _mm_add_ps(sum, _mm_unpacklo_ps(out, out));
+
+        // (1 + 2 + 3, _, _, _)
+        out = _mm_movehl_ps(out, out);
+
         return _mm_and_ps(out, _mm_castsi128_ps(_mm_set_epi32(0, 0, 0, -1)));
     }
 
@@ -91,14 +99,18 @@ namespace detail
                                             __m128 const& b) noexcept
     {
         // Multiply across and mask low component
-        __m128 out = _mm_castsi128_ps(
-            _mm_bsrli_si128(_mm_castps_si128(_mm_mul_ps(a, b)), 4));
+        __m128 out = _mm_mul_ps(a, b);
+
+        // 0 1 2 3 -> 1 1 3 3
         __m128 hi = _mm_movehdup_ps(out);
-        // (a1 b1, a2 b2, a3 b3, 0) + (a2 b2, a2 b2, 0, 0)
-        // = (a1 b1 + a2 b2, _, a3 b3, 0)
-        out = _mm_add_ps(hi, out);
-        out = _mm_add_ss(out, _mm_movehl_ps(hi, out));
-        return KLN_SWIZZLE(out, 0, 0, 0, 0);
+
+        // 0 1 2 3 + 1 1 3 3 -> (0 + 1, 1 + 1, 2 + 3, 3 + 3)
+        __m128 sum = _mm_add_ps(hi, out);
+
+        // unpacklo: 0 0 1 1
+        out = _mm_add_ps(sum, _mm_unpacklo_ps(out, out));
+
+        return KLN_SWIZZLE(out, 2, 2, 2, 2);
     }
 
     KLN_INLINE __m128 KLN_VEC_CALL dp(__m128 const& a, __m128 const& b) noexcept

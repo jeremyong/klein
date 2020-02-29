@@ -26,28 +26,26 @@ namespace detail
                                        __m128 const& b,
                                        __m128& p0_out) noexcept
     {
+        // (a2 b1 - a1 b2) e3 +
         // (a3 b2 - a2 b3) e1 +
-        // (a1 b3 - a3 b1) e2 +
-        // (a2 b1 - a1 b2) e3
+        // (a1 b3 - a3 b1) e2
         //
         // With flip:
+        // (-a2 b1 + a1 b2) e3 +
         // (-a3 b2 + a2 b3) e1 +
-        // (-a1 b3 + a3 b1) e2 +
-        // (-a2 b1 + a1 b2) e3
+        // (-a1 b3 + a3 b1) e2
 
-        __m128 col1
-            = _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 1, 3, 2, 0));
-        __m128 col2
-            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 2, 1, 3, 0));
-
+        __m128 col1 = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), b);
+        __m128 col2 = _mm_mul_ps(a, KLN_SWIZZLE(b, 1, 3, 2, 0));
         if constexpr (Flip)
         {
-            p0_out = _mm_sub_ps(col2, col1);
+            col2 = _mm_sub_ps(col2, col1);
         }
         else
         {
-            p0_out = _mm_sub_ps(col1, col2);
+            col2 = _mm_sub_ps(col1, col2);
         }
+        p0_out = KLN_SWIZZLE(col2, 1, 3, 2, 0);
     }
 
     template <bool Flip>
@@ -96,9 +94,9 @@ namespace detail
                                        __m128& p1_out,
                                        __m128& p2_out)
     {
+        // (a2 b1 - a1 b2) e03 +
         // (a3 b2 - a2 b3) e01 +
         // (a1 b3 - a3 b1) e02 +
-        // (a2 b1 - a1 b2) e03 +
         // a1 b0 e23 +
         // a2 b0 e31 +
         // a3 b0 e12
@@ -111,9 +109,13 @@ namespace detail
             = _mm_and_ps(p1_out, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
 #endif
 
-        p2_out = _mm_sub_ps(
-            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 1, 3, 2, 0)),
-            _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 2, 1, 3, 0)));
+        p2_out
+            = KLN_SWIZZLE(_mm_sub_ps(_mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), b),
+                                     _mm_mul_ps(a, KLN_SWIZZLE(b, 1, 3, 2, 0))),
+                          1,
+                          3,
+                          2,
+                          0);
     }
 
     KLN_INLINE void KLN_VEC_CALL dot11(__m128 const& a,

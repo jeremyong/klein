@@ -18,18 +18,20 @@ namespace detail
                                        __m128& p1_out,
                                        __m128& p2_out) noexcept
     {
+        // (a1 b2 - a2 b1) e12 +
         // (a2 b3 - a3 b2) e23 +
         // (a3 b1 - a1 b3) e31 +
-        // (a1 b2 - a2 b1) e12 +
         // (a0 b1 - a1 b0) e01 +
         // (a0 b2 - a2 b0) e02 +
         // (a0 b3 - a3 b0) e03
 
-        p1_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 2, 1, 3, 0));
-        p1_out = _mm_sub_ps(
-            p1_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 1, 3, 2, 0)));
+        p1_out = _mm_mul_ps(a, KLN_SWIZZLE(b, 1, 3, 2, 0));
+        p1_out = KLN_SWIZZLE(
+            _mm_sub_ps(p1_out, _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), b)),
+            1,
+            3,
+            2,
+            0);
 
         p2_out = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), b);
         p2_out = _mm_sub_ps(p2_out, _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0)));
@@ -68,15 +70,17 @@ namespace detail
                                        __m128 const& b,
                                        __m128& p3_out) noexcept
     {
+        // (a1 b2 - a2 b1) e021
         // (a2 b3 - a3 b2) e032 +
         // (a3 b1 - a1 b3) e013 +
-        // (a1 b2 - a2 b1) e021
 
-        p3_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 2, 1, 3, 0));
-        p3_out = _mm_sub_ps(
-            p3_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 1, 3, 2, 0)));
+        p3_out = _mm_mul_ps(a, KLN_SWIZZLE(b, 1, 3, 2, 0));
+        p3_out = KLN_SWIZZLE(
+            _mm_sub_ps(p3_out, _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), b)),
+            1,
+            3,
+            2,
+            0);
     }
 
     // p0 ^ p3 = -p3 ^ p0

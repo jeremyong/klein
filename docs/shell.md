@@ -1,4 +1,4 @@
-In the [`src`](https://github.com/jeremyong/Klein/tree/master/src) directory resides
+In the [`sym`](https://github.com/jeremyong/Klein/tree/master/sym) directory resides
 code for a lightweight computer algebra system that can evaluate geometric algebra
 expressions symbolically. This tool was used to validate the implementation of
 Klein and verify various optimizations in its SSE routines (nearly every operation
