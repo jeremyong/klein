@@ -8,13 +8,13 @@
 
 TEST_CASE("rr_mul")
 {
-    rotor r1;
+    kln_rotor r1;
     r1.p1 = vec4(2, 3, 4, 5);
 
-    rotor r2;
+    kln_rotor r2;
     r2.p1 = vec4(6, 7, 8, 9);
 
-    rotor r3 = rr_mul(r1, r2);
+    kln_rotor r3 = kln_mul(r1, r2);
     CHECK_EQ(r3.p1.x, -86.f);
     CHECK_EQ(r3.p1.y, 36.f);
     CHECK_EQ(r3.p1.z, 32.f);
@@ -23,15 +23,15 @@ TEST_CASE("rr_mul")
 
 TEST_CASE("mm_mul")
 {
-    motor m1;
+    kln_motor m1;
     m1.p1 = vec4(2, 3, 4, 5);
     m1.p2 = vec4(9, 6, 7, 8);
 
-    motor m2;
+    kln_motor m2;
     m2.p1 = vec4(6, 7, 8, 9);
     m2.p2 = vec4(13, 10, 11, 12);
 
-    motor m3 = mm_mul(m1, m2);
+    kln_motor m3 = kln_mul(m1, m2);
     CHECK_EQ(m3.p1.x, -86.f);
     CHECK_EQ(m3.p1.y, 36.f);
     CHECK_EQ(m3.p1.z, 32.f);
@@ -44,11 +44,11 @@ TEST_CASE("mm_mul")
 
 TEST_CASE("rotor_plane")
 {
-    rotor r;
+    kln_rotor r;
     r.p1 = vec4(1, 4, -3, 2);
-    plane p1;
-    p1.p0    = vec4(2, 3, 4, 5);
-    plane p2 = rotor_plane(r, p1);
+    kln_plane p1;
+    p1.p0        = vec4(2, 3, 4, 5);
+    kln_plane p2 = kln_apply(r, p1);
     CHECK_EQ(p2.p0.x, 60);
     CHECK_EQ(p2.p0.y, 42);
     CHECK_EQ(p2.p0.z, -144);
@@ -57,12 +57,12 @@ TEST_CASE("rotor_plane")
 
 TEST_CASE("motor_plane")
 {
-    motor m;
+    kln_motor m;
     m.p1 = vec4(1, 4, -3, 2);
     m.p2 = vec4(8, 5, 6, 7);
-    plane p1;
-    p1.p0    = vec4(2, 3, 4, 5);
-    plane p2 = motor_plane(m, p1);
+    kln_plane p1;
+    p1.p0        = vec4(2, 3, 4, 5);
+    kln_plane p2 = kln_apply(m, p1);
     CHECK_EQ(p2.p0.x, 416);
     CHECK_EQ(p2.p0.y, 42);
     CHECK_EQ(p2.p0.z, -144);
@@ -71,11 +71,11 @@ TEST_CASE("motor_plane")
 
 TEST_CASE("rotor_point")
 {
-    rotor r;
+    kln_rotor r;
     r.p1 = vec4(1, 4, -3, 2);
-    point p1;
-    p1.p3    = vec4(2, 3, 4, 5);
-    point p2 = rotor_point(r, p1);
+    kln_point p1;
+    p1.p3        = vec4(2, 3, 4, 5);
+    kln_point p2 = kln_apply(r, p1);
     CHECK_EQ(p2.p3.x, 60);
     CHECK_EQ(p2.p3.y, 42);
     CHECK_EQ(p2.p3.z, -144);
@@ -84,12 +84,12 @@ TEST_CASE("rotor_point")
 
 TEST_CASE("motor_point")
 {
-    motor m;
+    kln_motor m;
     m.p1 = vec4(1, 4, -3, 2);
     m.p2 = vec4(8, 5, 6, 7);
-    point p1;
-    p1.p3    = vec4(2, 3, 4, 5);
-    point p2 = motor_point(m, p1);
+    kln_point p1;
+    p1.p3        = vec4(2, 3, 4, 5);
+    kln_point p2 = kln_apply(m, p1);
     CHECK_EQ(p2.p3.x, 60);
     CHECK_EQ(p2.p3.y, -238);
     CHECK_EQ(p2.p3.z, -144);
@@ -98,10 +98,10 @@ TEST_CASE("motor_point")
 
 TEST_CASE("motor_origin")
 {
-    motor m;
-    m.p1    = vec4(1, 4, -3, 2);
-    m.p2    = vec4(8, 5, 6, 7);
-    point p = motor_origin(m);
+    kln_motor m;
+    m.p1        = vec4(1, 4, -3, 2);
+    m.p2        = vec4(8, 5, 6, 7);
+    kln_point p = kln_apply(m);
     CHECK_EQ(p.p3.x, 1);
     CHECK_EQ(p.p3.y, -140);
     CHECK_EQ(p.p3.z, 0);

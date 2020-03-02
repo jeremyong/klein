@@ -6,41 +6,44 @@
 // p2 -> (e0123, e01, e02, e03)
 // p3 -> (e123, e032, e013, e021)
 
-struct plane
+struct kln_plane
 {
     vec4 p0;
 };
 
-struct line
+struct kln_line
 {
     vec4 p1;
     vec4 p2;
 };
 
-struct point
+// If integrating this library with other code, remember that the point layout
+// here has the homogeneous component in p3[0] and not p3[3]. The swizzle to
+// get the vec3 Cartesian representation is p3.yzw
+struct kln_point
 {
     vec4 p3;
 };
 
-struct rotor
+struct kln_rotor
 {
     vec4 p1;
 };
 
-struct translator
+struct kln_translator
 {
     vec4 p2;
 };
 
-struct motor
+struct kln_motor
 {
     vec4 p1;
     vec4 p2;
 };
 
-rotor rr_mul(in rotor a, in rotor b)
+kln_rotor kln_mul(in kln_rotor a, in kln_rotor b)
 {
-    rotor c;
+    kln_rotor c;
     c.p1 = a.p1.x * b.p1;
     c.p1 -= a.p1.yzwy * b.p1.ywyz;
 
@@ -52,17 +55,17 @@ rotor rr_mul(in rotor a, in rotor b)
     return c;
 }
 
-translator tt_mul(in translator a, in translator b)
+kln_translator kln_mul(in kln_translator a, in kln_translator b)
 {
     // (1 + a.p2) * (1 + b.p2) = 1 + a.p2 + b.p2
-    translator c;
+    kln_translator c;
     c.p2 = a.p2 + b.p2;
     return c;
 }
 
-motor mm_mul(in motor a, in motor b)
+kln_motor kln_mul(in kln_motor a, in kln_motor b)
 {
-    motor c;
+    kln_motor c;
     vec4 a_zyzw = a.p1.zyzw;
     vec4 a_ywyz = a.p1.ywyz;
     vec4 a_wzwy = a.p1.wzwy;
@@ -89,7 +92,7 @@ motor mm_mul(in motor a, in motor b)
     return c;
 }
 
-plane rotor_plane(in rotor r, in plane p)
+kln_plane kln_apply(in kln_rotor r, in kln_plane p)
 {
     vec4 dc_scale = vec4(1.0, 2.0, 2.0, 2.0);
     vec4 neg_low = vec4(-1.0, 1.0, 1.0, 1.0);
@@ -108,14 +111,14 @@ plane rotor_plane(in rotor r, in plane p)
     t3 -= r.p1.xzwy * r.p1.xzwy;
 
     // TODO: provide variadic rotor-plane application
-    plane q;
+    kln_plane q;
     q.p0 = t1 * p.p0.xzwy;
     q.p0 += t2 * p.p0.xwyz;
     q.p0 += t3 * p.p0;
     return q;
 }
 
-plane motor_plane(in motor m, in plane p)
+kln_plane kln_apply(in kln_motor m, in kln_plane p)
 {
     vec4 dc_scale = vec4(1.0, 2.0, 2.0, 2.0);
     vec4 neg_low = vec4(-1.0, 1.0, 1.0, 1.0);
@@ -140,7 +143,7 @@ plane motor_plane(in motor m, in plane p)
     t4 *= vec4(0.0, 2.0, 2.0, 2.0);
 
     // TODO: provide variadic motor-plane application
-    plane q;
+    kln_plane q;
     q.p0 = t1 * p.p0.xzwy;
     q.p0 += t2 * p.p0.xwyz;
     q.p0 += t3 * p.p0;
@@ -148,7 +151,7 @@ plane motor_plane(in motor m, in plane p)
     return q;
 }
 
-point rotor_point(in rotor r, in point p)
+kln_point kln_apply(in kln_rotor r, in kln_point p)
 {
     vec4 scale = vec4(0, 2, 2, 2);
 
@@ -167,14 +170,14 @@ point rotor_point(in rotor r, in point p)
     t3 -= t4 * vec4(-1.0, 1.0, 1.0, 1.0);
 
     // TODO: provide variadic rotor-point application
-    point q;
+    kln_point q;
     q.p3 = t1 * p.p3.xwyz;
     q.p3 += t2 * p.p3.xzwy;
     q.p3 += t3 * p.p3;
     return  q;
 }
 
-point motor_point(in motor m, in point p)
+kln_point kln_apply(in kln_motor m, in kln_point p)
 {
     vec4 scale = vec4(0, 2, 2, 2);
 
@@ -199,7 +202,7 @@ point motor_point(in motor m, in point p)
     t4 *= scale;
 
     // TODO: provide variadic motor-point application
-    point q;
+    kln_point q;
     q.p3 = t1 * p.p3.xwyz;
     q.p3 += t2 * p.p3.xzwy;
     q.p3 += t3 * p.p3;
@@ -207,9 +210,13 @@ point motor_point(in motor m, in point p)
     return  q;
 }
 
-point motor_origin(in motor m)
+// If no entity is provided as the second argument, the motor is
+// applied to the origin.
+// NOTE: The motor MUST be normalized for the result of this operation to be
+// well defined.
+kln_point kln_apply(in kln_motor m)
 {
-    point p;
+    kln_point p;
     p.p3 = m.p1 * m.p2.x;
     p.p3 += m.p1.x * m.p2;
     p.p3 += m.p1.xwyz * m.p2.xzwy;
