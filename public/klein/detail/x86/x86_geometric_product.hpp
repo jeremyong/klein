@@ -459,5 +459,60 @@ namespace detail
         p2_out = _mm_and_ps(tmp, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
 #endif
     }
+
+    // Optimized motor * motor operation
+    KLN_INLINE void KLN_VEC_CALL gpMM(__m128 const* m1,
+                                      __m128 const* m2,
+                                      __m128* out) noexcept
+    {
+        // (a0 c0 - a1 c1 - a2 c2 - a3 c3) +
+        // (a0 c1 + a3 c2 + a1 c0 - a2 c3) e23 +
+        // (a0 c2 + a1 c3 + a2 c0 - a3 c1) e31 +
+        // (a0 c3 + a2 c1 + a3 c0 - a1 c2) e12 +
+        //
+        // (a0 d0 + b0 c0 + a1 d1 + b1 c1 + a2 d2 + a3 d3 + b2 c2 + b3 c3)
+        //  e0123 +
+        // (a0 d1 + b1 c0 + a3 d2 + b3 c2 - a1 d0 - a2 d3 - b0 c1 - b2 c3)
+        //  e01 +
+        // (a0 d2 + b2 c0 + a1 d3 + b1 c3 - a2 d0 - a3 d1 - b0 c2 - b3 c1)
+        //  e02 +
+        // (a0 d3 + b3 c0 + a2 d1 + b2 c1 - a3 d0 - a1 d2 - b0 c3 - b1 c2)
+        //  e03
+        __m128 const& a = *m1;
+        __m128 const& b = *(m1 + 1);
+        __m128 const& c = *m2;
+        __m128 const& d = *(m2 + 1);
+
+        __m128& e = *out;
+        __m128& f = *(out + 1);
+
+        __m128 a_xxxx = KLN_SWIZZLE(a, 0, 0, 0, 0);
+        __m128 a_zyzw = KLN_SWIZZLE(a, 3, 2, 1, 2);
+        __m128 a_ywyz = KLN_SWIZZLE(a, 2, 1, 3, 1);
+        __m128 a_wzwy = KLN_SWIZZLE(a, 1, 3, 2, 3);
+        __m128 c_wwyz = KLN_SWIZZLE(c, 2, 1, 3, 3);
+        __m128 c_yzwy = KLN_SWIZZLE(c, 1, 3, 2, 1);
+        __m128 s_flip = _mm_set_ss(-0.f);
+
+        e        = _mm_mul_ps(a_xxxx, c);
+        __m128 t = _mm_mul_ps(a_ywyz, c_yzwy);
+        t = _mm_add_ps(t, _mm_mul_ps(a_zyzw, KLN_SWIZZLE(c, 0, 0, 0, 2)));
+        t = _mm_xor_ps(t, s_flip);
+        e = _mm_add_ps(e, t);
+        e = _mm_sub_ps(e, _mm_mul_ps(a_wzwy, c_wwyz));
+
+        f = _mm_mul_ps(a_xxxx, d);
+        f = _mm_add_ps(f, _mm_mul_ps(b, KLN_SWIZZLE(c, 0, 0, 0, 0)));
+        f = _mm_add_ps(f, _mm_mul_ps(a_ywyz, KLN_SWIZZLE(d, 1, 3, 2, 1)));
+        f = _mm_add_ps(f, _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 3, 1), c_yzwy));
+        t = _mm_mul_ps(a_zyzw, KLN_SWIZZLE(d, 0, 0, 0, 2));
+        t = _mm_add_ps(t, _mm_mul_ps(a_wzwy, KLN_SWIZZLE(d, 2, 1, 3, 3)));
+        t = _mm_add_ps(
+            t,
+            _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 2), KLN_SWIZZLE(c, 3, 2, 1, 2)));
+        t = _mm_add_ps(t, _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 2, 3), c_wwyz));
+        t = _mm_xor_ps(t, s_flip);
+        f = _mm_sub_ps(f, t);
+    }
 } // namespace detail
 } // namespace kln

@@ -199,8 +199,9 @@ struct rotor final : public entity<0b10>
     /// $rp\widetilde{r}$.
     point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
+        // NOTE: Conjugation of a plane and point with a rotor is identical
         point out;
-        detail::sw312<false, false>(&p.p3(), parts[0].reg, nullptr, &out.p3());
+        detail::sw012<false, false>(&p.p3(), parts[0].reg, nullptr, &out.p3());
         return out;
     }
 
@@ -216,7 +217,8 @@ struct rotor final : public entity<0b10>
     void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const
         noexcept
     {
-        detail::sw312<true, false>(
+        // NOTE: Conjugation of a plane and point with a rotor is identical
+        detail::sw012<true, false>(
             &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
 
@@ -225,7 +227,8 @@ struct rotor final : public entity<0b10>
     direction KLN_VEC_CALL operator()(direction const& d) const noexcept
     {
         direction out;
-        detail::sw312<false, false>(&d.p3(), parts[0].reg, nullptr, &out.p3());
+        // NOTE: Conjugation of a plane and point with a rotor is identical
+        detail::sw012<false, false>(&d.p3(), parts[0].reg, nullptr, &out.p3());
         return out;
     }
 
@@ -241,7 +244,8 @@ struct rotor final : public entity<0b10>
     void KLN_VEC_CALL operator()(direction* in, direction* out, size_t count) const
         noexcept
     {
-        detail::sw312<true, false>(
+        // NOTE: Conjugation of a plane and point with a rotor is identical
+        detail::sw012<true, false>(
             &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
 };

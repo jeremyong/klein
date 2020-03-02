@@ -271,6 +271,21 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(p1p2.e03(), -1.f);
     }
 
+    SUBCASE("motor*motor")
+    {
+        motor m1{2, 3, 4, 5, 6, 7, 8, 9};
+        motor m2{6, 7, 8, 9, 10, 11, 12, 13};
+        motor m3 = m1 * m2;
+        CHECK_EQ(m3.scalar(), -86.f);
+        CHECK_EQ(m3.e23(), 36.f);
+        CHECK_EQ(m3.e31(), 32.f);
+        CHECK_EQ(m3.e12(), 52.f);
+        CHECK_EQ(m3.e01(), -38.f);
+        CHECK_EQ(m3.e02(), -76.f);
+        CHECK_EQ(m3.e03(), -66.f);
+        CHECK_EQ(m3.e0123(), 384.f);
+    }
+
     SUBCASE("dense*dense")
     {
         entity<0b1111> e1;

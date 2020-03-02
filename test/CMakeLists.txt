@@ -76,3 +76,18 @@ set_target_properties(klein_test_sse42
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
 )
+
+add_executable(klein_test_glsl test_glsl.cpp)
+target_include_directories(klein_test_glsl PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../glsl)
+target_compile_features(klein_test_glsl PRIVATE cxx_std_17)
+target_compile_definitions(klein_test_glsl PRIVATE
+    DOCTEST_CONFIG_SUPER_FAST_ASSERTS # uses a function call for asserts to speed up compilation
+    DOCTEST_CONFIG_USE_STD_HEADERS # prevent non-standard overloading of std declarations
+    DOCTEST_CONFIG_INCLUDE_TYPE_TRAITS # enable doctest::Approx() to take any argument explicitly convertible to a double
+    DOCTEST_CONFIG_NO_POSIX_SIGNALS
+    DOCTEST_CONFIG_NO_EXCEPTIONS
+)
+set_target_properties(klein_test_glsl
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
+)

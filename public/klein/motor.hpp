@@ -284,5 +284,12 @@ struct motor final : public entity<0b110>
         detail::sw312<true, false>(
             &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
+
+    motor KLN_VEC_CALL operator*(motor const& other) const noexcept
+    {
+        motor out;
+        detail::gpMM(&p1(), &other.p1(), &out.p1());
+        return out;
+    }
 };
 } // namespace kln

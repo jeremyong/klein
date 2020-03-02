@@ -38,6 +38,57 @@ struct motor
     vec4 p2;
 };
 
+rotor rr_mul(in rotor a, in rotor b)
+{
+    rotor c;
+    c.p1 = a.p1.x * b.p1;
+    c.p1 -= a.p1.yzwy * b.p1.ywyz;
+
+    vec4 t = a.p1.zyzw * b.p1.zxxx;
+    t += a.p1.wwyz * b.p1.wzwy;
+    t.x = -t.x;
+
+    c.p1 += t;
+    return c;
+}
+
+translator tt_mul(in translator a, in translator b)
+{
+    // (1 + a.p2) * (1 + b.p2) = 1 + a.p2 + b.p2
+    translator c;
+    c.p2 = a.p2 + b.p2;
+    return c;
+}
+
+motor mm_mul(in motor a, in motor b)
+{
+    motor c;
+    vec4 a_zyzw = a.p1.zyzw;
+    vec4 a_ywyz = a.p1.ywyz;
+    vec4 a_wzwy = a.p1.wzwy;
+    vec4 c_wwyz = b.p1.wwyz;
+    vec4 c_yzwy = b.p1.yzwy;
+
+    c.p1 = a.p1.x * b.p1;
+    vec4 t = a_ywyz * c_yzwy;
+    t += a_zyzw * b.p1.zxxx;
+    t.x = -t.x;
+    c.p1 += t;
+    c.p1 -= a_wzwy * c_wwyz;
+
+    c.p2 = a.p1.x * b.p2;
+    c.p2 += a.p2 * b.p1.x;
+    c.p2 += a_ywyz * b.p2.yzwy;
+    c.p2 += a.p2.ywyz * c_yzwy;
+    t = a_zyzw * b.p2.zxxx;
+    t += a_wzwy * b.p2.wwyz;
+    t += a.p2.zxxx * b.p1.zyzw;
+    t += a.p2.wzwy * c_wwyz;
+    t.x = -t.x;
+    c.p2 -= t;
+    return c;
+}
+
 plane rotor_plane(in rotor r, in plane p)
 {
     vec4 dc_scale = vec4(1.0, 2.0, 2.0, 2.0);
@@ -156,16 +207,15 @@ point motor_point(in motor m, in point p)
     return  q;
 }
 
-// Returns a point in the standard xyzw form (instead of p3)
-vec4 motor_origin(in motor m)
+point motor_origin(in motor m)
 {
-    vec4 p = m.p1 * m.p2.x;
-    p += m.p1.x * m.p2;
-    p += m.p1.zywx * m.p2.ywzx;
-    p = m.p1.ywzx * m.p2.zywx - p;
-    p *= 2.0;
-    // (w, x, y, z) -> (x, y, z, 1);
-    p = vec4(p.y, p.z, p.w, 1.0);
+    point p;
+    p.p3 = m.p1 * m.p2.x;
+    p.p3 += m.p1.x * m.p2;
+    p.p3 += m.p1.xwyz * m.p2.xzwy;
+    p.p3 = m.p1.xzwy * m.p2.xwyz - p.p3;
+    p.p3 *= vec4(0.0, 2.0, 2.0, 2.0);
+    p.p3.x = 1.0;
     return p;
 }
 
