@@ -285,6 +285,8 @@ struct motor final : public entity<0b110>
             &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
     }
 
+    /// The motor composition is specialized to reduce total cycle count by
+    /// ~10% compared to `operator*(entity<0b110>, entity<0b110>)`.
     motor KLN_VEC_CALL operator*(motor const& other) const noexcept
     {
         motor out;

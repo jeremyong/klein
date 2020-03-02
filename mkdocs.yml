@@ -27,6 +27,7 @@ nav:
   - 'Quick Start': 'quickstart.md'
   - 'API':
       - 'Overview': 'overview.md'
+      - 'GPU Support': 'gpu.md'
       - 'Entity': 'api/kln_entity.md'
       - 'Plane': 'api/kln_plane.md'
       - 'Line': 'api/kln_line.md'

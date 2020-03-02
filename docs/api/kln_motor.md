@@ -66,6 +66,7 @@ A demonstration of using the exponential and logarithmic map to blend between tw
 `public ` [`point`](../../api/kln_point#structkln_1_1point)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1afa77e3a1d5a8f28bf6eee4de9e174489)`(` [`origin`](../../api/kln_origin#structkln_1_1origin)`) const noexcept`  | Conjugates the origin $O$ with this motor and returns the result $mO\widetilde{m}$.
 `public ` [`direction`](../../api/kln_direction#structkln_1_1direction)` KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1ac8debbfe23b80affa7bf9ef7e0dffc1f)`(` [`direction`](../../api/kln_direction#structkln_1_1direction)` const & d) const noexcept`  | Conjugates a direction $d$ with this motor and returns the result $md\widetilde{m}$.
 `public void KLN_VEC_CALL ` [`operator()`](#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376)`(` [`direction`](../../api/kln_direction#structkln_1_1direction)` * in,` [`direction`](../../api/kln_direction#structkln_1_1direction)` * out,size_t count) const noexcept`  | Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when `in == out`  (in place motor application).
+`public ` [`motor`](#structkln_1_1motor)` KLN_VEC_CALL ` [`operator*`](#structkln_1_1motor_1a10aa4149eff66d967caf039b2614ef12)`(` [`motor`](#structkln_1_1motor)` const & other) const noexcept`  | The motor composition is specialized to reduce total cycle count by ~10% compared to `operator*(entity<0b110>, entity<0b110>)` .
 
 ### Members
 
@@ -160,4 +161,8 @@ The cost of this operation is the same as the application of a rotor due to the 
     When applying a motor to a list of tightly packed directions, this
     routine will be *significantly faster* than applying the motor to
     each direction individually.
+
+####  [motor](#structkln_1_1motor) KLN_VEC_CALL  [operator*](#structkln_1_1motor_1a10aa4149eff66d967caf039b2614ef12)( [motor](#structkln_1_1motor) const & other) const noexcept  {#structkln_1_1motor_1a10aa4149eff66d967caf039b2614ef12}
+
+The motor composition is specialized to reduce total cycle count by ~10% compared to `operator*(entity<0b110>, entity<0b110>)` .
 
