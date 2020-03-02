@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/klein/discord/">
+        <link rel="canonical" href="https://jeremyong.com/klein/gpu/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Discord - klein</title>
+        <title>GPU Support - klein</title>
       
     
     
@@ -142,7 +142,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Discord
+                GPU Support
               
             </span>
           
@@ -275,10 +275,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
     
     <label class="md-nav__link" for="nav-3">
       API
@@ -306,11 +308,18 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../gpu/" title="GPU Support" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+    <a href="./" title="GPU Support" class="md-nav__link md-nav__link--active">
       GPU Support
     </a>
+    
   </li>
 
         
@@ -599,18 +608,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-    
-    <a href="./" title="Discord" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../discord/" title="Discord" class="md-nav__link">
       Discord
     </a>
-    
   </li>
 
     
@@ -639,12 +641,61 @@
               
                 
                 
-                  <h1>Discord</h1>
+                  <h1>GPU Support</h1>
                 
-                <p>The Klein discord is very new but anyone is welcome to drop in and offer feedback, ask for help, or
-discuss topics ranging from graphics programming, math (geometric algebra or otherwise), physics,
-and more.</p>
-<iframe src="https://discordapp.com/widget?id=680201841362862080&theme=dark" width="100%" height="700" allowtransparency="true" frameborder="0"></iframe>
+                <p>GPU support is currently provided by a single
+<a href="https://github.com/jeremyong/klein/blob/master/glsl/klein.glsl">glsl file</a>.
+This file can be pasted at the start of a shader to provide limited functionality supported by the
+full C++ Klein library. The plane, line, point, rotor, translator, and motor entity structs defined
+in this shader header are byte-for-byte identical to the entities as declared in C++.</p>
+<p>Currently, the following functions are supported:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rotor rr_mul(in rotor a, in rotor b)</code></td>
+<td>Multiplies two rotors and returns the result</td>
+</tr>
+<tr>
+<td><code>translator tt_mul(in translator a, in translator b)</code></td>
+<td>Multiplies two translators and returns the result</td>
+</tr>
+<tr>
+<td><code>motor mm_mul(in motor a, in motor b)</code></td>
+<td>Multiplies two motors and returns the result</td>
+</tr>
+<tr>
+<td><code>plane rotor_plane(in rotor r, in plane p)</code></td>
+<td>Applies a rotor to a plane</td>
+</tr>
+<tr>
+<td><code>plane motor_plane(in motor m, in plane p)</code></td>
+<td>Applies a motor to a plane</td>
+</tr>
+<tr>
+<td><code>point rotor_plane(in rotor r, in point p)</code></td>
+<td>Applies a rotor to a point</td>
+</tr>
+<tr>
+<td><code>point motor_plane(in motor m, in point p)</code></td>
+<td>Applies a motor to a point</td>
+</tr>
+<tr>
+<td><code>point motor_plane(in motor m)</code></td>
+<td>Applies a motor to the origin</td>
+</tr>
+</tbody>
+</table>
+<p>GPU support is verified with a C++ test suite powered by a
+<a href="https://github.com/jeremyong/klein/blob/master/test/glsl_shim.hpp">shim</a>
+to handle vector swizzle operations and provide implementations for GLSL built-in functions. GPU
+support is currently preliminary and achieving parity with seamless interoperability with the Klein
+C++ headers is an ongoing objective.</p>
                 
                   
                 
@@ -673,8 +724,8 @@ and more.</p>
 
         <!-- Link to previous page -->
         
-          <a href="../perf/"
-              title="Performance"
+          <a href="../overview/"
+              title="Overview"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -687,7 +738,7 @@ and more.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Performance
+                Overview
               </span>
             </div>
           </a>
@@ -695,8 +746,8 @@ and more.</p>
 
         <!-- Link to next page -->
         
-          <a href="../references/"
-              title="References"
+          <a href="../api/kln_entity/"
+              title="Entity"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -705,7 +756,7 @@ and more.</p>
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                References
+                Entity
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

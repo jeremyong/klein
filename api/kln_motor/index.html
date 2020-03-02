@@ -314,6 +314,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../gpu/" title="GPU Support" class="md-nav__link">
+      GPU Support
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../kln_entity/" title="Entity" class="md-nav__link">
       Entity
     </a>
@@ -558,6 +570,13 @@
           <li class="md-nav__item">
   <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376" class="md-nav__link">
     void KLN_VEC_CALL  operator()( direction * in, direction * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#structkln_1_1motor_1a10aa4149eff66d967caf039b2614ef12" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*( motor const &amp; other) const noexcept
   </a>
   
 </li>
@@ -952,6 +971,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#structkln_1_1motor_1a10aa4149eff66d967caf039b2614ef12" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*( motor const &amp; other) const noexcept
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1099,6 +1125,10 @@
 <td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1aff385bad1df3b7ee29439b56bec43376"><code>operator()</code></a><code>(</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>* in,</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>* out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
 </tr>
+<tr>
+<td><code>public</code> <a href="#structkln_1_1motor"><code>motor</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1motor_1a10aa4149eff66d967caf039b2614ef12"><code>operator*</code></a><code>(</code> <a href="#structkln_1_1motor"><code>motor</code></a><code>const &amp; other) const noexcept</code></td>
+<td>The motor composition is specialized to reduce total cycle count by ~10% compared to <code>operator*(entity&lt;0b110&gt;, entity&lt;0b110&gt;)</code> .</td>
+</tr>
 </tbody>
 </table>
 <h3 id="members">Members</h3>
@@ -1165,6 +1195,8 @@ each point individually.</p>
 routine will be <em>significantly faster</em> than applying the motor to
 each direction individually.</p>
 </div>
+<h4 id="structkln_1_1motor_1a10aa4149eff66d967caf039b2614ef12"><a href="#structkln_1_1motor">motor</a> KLN_VEC_CALL  <a href="#structkln_1_1motor_1a10aa4149eff66d967caf039b2614ef12">operator*</a>( <a href="#structkln_1_1motor">motor</a> const &amp; other) const noexcept</h4>
+<p>The motor composition is specialized to reduce total cycle count by ~10% compared to <code>operator*(entity&lt;0b110&gt;, entity&lt;0b110&gt;)</code> .</p>
                 
                   
                 
