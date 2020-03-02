@@ -79,6 +79,7 @@ set_target_properties(klein_test_sse42
 
 add_executable(klein_test_glsl test_glsl.cpp)
 target_include_directories(klein_test_glsl PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../glsl)
+target_link_libraries(klein_test_glsl PRIVATE doctest)
 target_compile_features(klein_test_glsl PRIVATE cxx_std_17)
 target_compile_definitions(klein_test_glsl PRIVATE
     DOCTEST_CONFIG_SUPER_FAST_ASSERTS # uses a function call for asserts to speed up compilation
