@@ -646,8 +646,8 @@
                 <p>GPU support is currently provided by a single
 <a href="https://github.com/jeremyong/klein/blob/master/glsl/klein.glsl">glsl file</a>.
 This file can be pasted at the start of a shader to provide limited functionality supported by the
-full C++ Klein library. The plane, line, point, rotor, and motor entity structs defined
-in this shader header are byte-for-byte identical to the entities as declared in C++.</p>
+full C++ Klein library. The <code>kln_plane</code>, <code>kln_line</code>, <code>kln_point</code>, <code>kln_rotor</code>, and <code>kln_motor</code> entity structs defined
+in this shader header are byte-for-byte identical to their C++ counterparts.</p>
 <p>Currently, the following functions are supported:</p>
 <table>
 <thead>
@@ -658,35 +658,35 @@ in this shader header are byte-for-byte identical to the entities as declared in
 </thead>
 <tbody>
 <tr>
-<td><code>rotor rr_mul(in rotor a, in rotor b)</code></td>
+<td><code>kln_rotor kln_mul(in kln_rotor a, in kln_rotor b)</code></td>
 <td>Multiplies two rotors and returns the result</td>
 </tr>
 <tr>
-<td><code>translator tt_mul(in translator a, in translator b)</code></td>
+<td><code>kln_translator kln_mul(in kln_translator a, in kln_translator b)</code></td>
 <td>Multiplies two translators and returns the result</td>
 </tr>
 <tr>
-<td><code>motor mm_mul(in motor a, in motor b)</code></td>
+<td><code>kln_motor kln_mul(in kln_motor a, in kln_motor b)</code></td>
 <td>Multiplies two motors and returns the result</td>
 </tr>
 <tr>
-<td><code>plane rotor_plane(in rotor r, in plane p)</code></td>
+<td><code>kln_plane kln_apply(in kln_rotor r, in kln_plane p)</code></td>
 <td>Applies a rotor to a plane</td>
 </tr>
 <tr>
-<td><code>plane motor_plane(in motor m, in plane p)</code></td>
+<td><code>kln_plane kln_apply(in kln_motor m, in kln_plane p)</code></td>
 <td>Applies a motor to a plane</td>
 </tr>
 <tr>
-<td><code>point rotor_plane(in rotor r, in point p)</code></td>
+<td><code>kln_point kln_apply(in kln_rotor r, in kln_point p)</code></td>
 <td>Applies a rotor to a point</td>
 </tr>
 <tr>
-<td><code>point motor_plane(in motor m, in point p)</code></td>
+<td><code>kln_point kln_apply(in kln_motor m, in kln_point p)</code></td>
 <td>Applies a motor to a point</td>
 </tr>
 <tr>
-<td><code>point motor_plane(in motor m)</code></td>
+<td><code>kln_point kln_apply(in kln_motor m)</code></td>
 <td>Applies a motor to the origin</td>
 </tr>
 </tbody>
