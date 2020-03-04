@@ -14,6 +14,7 @@ The plane multivector in PGA looks like $d\mathbf{e}_0 + a\mathbf{e}_1 + b\mathb
 `public  explicit ` [`plane`](#group__plane_1ga29dbb1804fa3ec402f901ca8049d60bc)`(float * data) noexcept`             | Data should point to four floats with memory layout `(d, a, b, c)`  where `d`  occupies the lowest address in memory.
 `public void ` [`load`](#group__plane_1ga5a00871dbe19d7658b7e8cda71b326f2)`(float * data) noexcept`             | Unaligned load of data. The `data`  argument should point to 4 floats corresponding to the `(d, a, b, c)`  components of the plane multivector where `d`  occupies the lowest address in memory.
 `public void ` [`normalize`](#group__plane_1gae5e1e0af05e84799d27d7b8782fe5f22)`() noexcept`             | Normalize this plane $p$ such that $p \cdot p = 1$.
+`public plane ` [`normalized`](#group__plane_1ga15ec918ecd05f7e9b21887afa590d405)`() const noexcept`             | Return a normalized copy of this plane.
 `public float ` [`norm`](#group__plane_1ga2f86598e6a327c72201e68615bd10384)`() const noexcept`             | Compute the plane norm, which is often used to compute distances between points and lines.
 `public plane KLN_VEC_CALL ` [`operator()`](#group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9)`(plane const & p) const noexcept`             | Reflect another plane $p_2$ through this plane $p_1$. The operation performed via this call operator is an optimized routine equivalent to the expression $p_1 p_2 p_1$.
 `public line KLN_VEC_CALL ` [`operator()`](#group__plane_1ga782e4e0b1b93ab5bffb2c972f6d7acfa)`(line const & l) const noexcept`             | Reflect line $\ell$ through this plane $p$. The operation performed via this call operator is an optimized routine equivalent to the expression $p \ell p$.
@@ -73,6 +74,10 @@ In order to compute the cosine of the angle between planes via the inner product
 !!! tip 
     Normalization here is done using the `rsqrtps`
     instruction with a maximum relative error of $1.5\times 2^{-12}$.
+
+#### plane  [normalized](#group__plane_1ga15ec918ecd05f7e9b21887afa590d405)() const noexcept  {#group__plane_1ga15ec918ecd05f7e9b21887afa590d405}
+
+Return a normalized copy of this plane.
 
 #### float  [norm](#group__plane_1ga2f86598e6a327c72201e68615bd10384)() const noexcept  {#group__plane_1ga2f86598e6a327c72201e68615bd10384}
 

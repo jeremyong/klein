@@ -87,10 +87,9 @@ public:
     /// e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\
     /// h\mathbf{e}_{0123}$.
     motor(float a, float b, float c, float d, float e, float f, float g, float h) noexcept
-    {
-        p1_ = _mm_set_ps(d, c, b, a);
-        p2_ = _mm_set_ps(g, f, e, h);
-    }
+        : p1_{_mm_set_ps(d, c, b, a)}
+        , p2_{_mm_set_ps(g, f, e, h)}
+    {}
 
     /// Produce a screw motion rotating and translating by given amounts along a
     /// provided Euclidean axis.
@@ -156,6 +155,14 @@ public:
         __m128 tmp = _mm_mul_ps(p2_, s);
         p2_ = _mm_sub_ps(tmp, _mm_mul_ss(_mm_mul_ps(p1_, t), _mm_set_ss(-1.f)));
         p1_ = _mm_mul_ps(p1_, s);
+    }
+
+    /// Return a normalized copy of this motor.
+    [[nodiscard]] motor normalized() const noexcept
+    {
+        motor out = *this;
+        out.normalize();
+        return out;
     }
 
     /// Convert this motor to a 3x4 column-major matrix representing this

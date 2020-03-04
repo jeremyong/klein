@@ -232,6 +232,34 @@ TEST_CASE("normalize-motor")
     CHECK_EQ(norm.e0123(), doctest::Approx(0.f).epsilon(0.001));
 }
 
+TEST_CASE("motor-sqrt")
+{
+    motor m{M_PI * 0.5f, 3.f, line{3.f, 1.f, 2.f, 4.f, -2.f, 1.f}.normalized()};
+
+    motor m2 = sqrt(m);
+    m2       = m2 * m2;
+    CHECK_EQ(m.scalar(), doctest::Approx(m2.scalar()).epsilon(0.001));
+    CHECK_EQ(m.e01(), doctest::Approx(m2.e01()).epsilon(0.001));
+    CHECK_EQ(m.e02(), doctest::Approx(m2.e02()).epsilon(0.001));
+    CHECK_EQ(m.e03(), doctest::Approx(m2.e03()).epsilon(0.001));
+    CHECK_EQ(m.e23(), doctest::Approx(m2.e23()).epsilon(0.001));
+    CHECK_EQ(m.e31(), doctest::Approx(m2.e31()).epsilon(0.001));
+    CHECK_EQ(m.e12(), doctest::Approx(m2.e12()).epsilon(0.001));
+    CHECK_EQ(m.e0123(), doctest::Approx(m2.e0123()).epsilon(0.001));
+}
+
+TEST_CASE("rotor-sqrt")
+{
+    rotor r{M_PI * 0.5f, 1, 2, 3};
+
+    rotor r2 = sqrt(r);
+    r2       = r2 * r2;
+    CHECK_EQ(r2.scalar(), doctest::Approx(r.scalar()).epsilon(0.001));
+    CHECK_EQ(r2.e23(), doctest::Approx(r.e23()).epsilon(0.001));
+    CHECK_EQ(r2.e31(), doctest::Approx(r.e31()).epsilon(0.001));
+    CHECK_EQ(r2.e12(), doctest::Approx(r.e12()).epsilon(0.001));
+}
+
 TEST_CASE("normalize-rotor")
 {
     rotor r;

@@ -118,5 +118,21 @@ namespace kln
     out.p1_ = _mm_add_ps(out.p1_, _mm_set_ss(cos_ang));
     return out;
 }
+
+/// Compute the square root of the provided rotor $r$.
+[[nodiscard]] inline rotor sqrt(rotor r) noexcept
+{
+    r.p1_ = _mm_add_ss(r.p1_, _mm_set_ss(1.f));
+    r.normalize();
+    return r;
+}
+
+/// Compute the square root of the provided motor $m$.
+[[nodiscard]] inline motor sqrt(motor m) noexcept
+{
+    m.p1_ = _mm_add_ss(m.p1_, _mm_set_ss(1.f));
+    m.normalize();
+    return m;
+}
 /// @}
 } // namespace kln

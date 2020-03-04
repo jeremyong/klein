@@ -47,6 +47,7 @@ The same `*`  operator can be used to compose the rotor's action with other tran
 `public  ` [`rotor`](#group__rotor_1gaa01cee77a321c13eb1260afbbfd1dbe2)`(__m128 p1) noexcept`             | 
 `public void ` [`load_normalized`](#group__rotor_1gab063d72ca484de581a78ebd7b49e41da)`(float * data) noexcept`             | Fast load operation for packed data that is already normalized. The argument `data`  should point to a set of 4 float values with layout `(a, b, c, d)`  corresponding to the multivector $a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12}$.
 `public void ` [`normalize`](#group__rotor_1ga4c9b04d0a4119e7d6b56b9e1478db5d4)`() noexcept`             | Normalize a rotor such that $\mathbf{r}\widetilde{\mathbf{r}} = 1$.
+`public rotor ` [`normalized`](#group__rotor_1ga26bfef944e4ae6879de054390d297bc7)`() const noexcept`             | Return a normalized copy of this rotor.
 `public mat3x4 ` [`as_mat3x4`](#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d)`() const noexcept`             | Converts the rotor to a 3x4 column-major matrix. The results of this conversion are only defined if the rotor is normalized, and this conversion is preferable if so.
 `public mat4x4 ` [`as_mat4x4`](#group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8)`() const noexcept`             | Converts the rotor to a 4x4 column-major matrix.
 `public plane KLN_VEC_CALL ` [`operator()`](#group__rotor_1gae9e58f02352f5241dd94d22353a5e9ec)`(plane const & p) const noexcept`             | Conjugates a plane $p$ with this rotor and returns the result $rp\widetilde{r}$.
@@ -105,6 +106,10 @@ Normalize a rotor such that $\mathbf{r}\widetilde{\mathbf{r}} = 1$.
 !!! tip 
     Normalization here is done using the `rsqrtps`
     instruction with a maximum relative error of $1.5\times 2^{-12}$.
+
+#### rotor  [normalized](#group__rotor_1ga26bfef944e4ae6879de054390d297bc7)() const noexcept  {#group__rotor_1ga26bfef944e4ae6879de054390d297bc7}
+
+Return a normalized copy of this rotor.
 
 #### mat3x4  [as_mat3x4](#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d)() const noexcept  {#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d}
 

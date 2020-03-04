@@ -14,6 +14,8 @@ The solution is to take the logarithm of the action which maps the action to a l
 `public translator KLN_VEC_CALL ` [`exp`](#group__exp__log_1gad82c9474f26ec967f2d28014f86df6da)`(ideal_line il) noexcept`             | Exponentiate an ideal line to produce a translation.
 `public branch ` [`log`](#group__exp__log_1gae6a2c74caa439a32c5f1dd0b44b0d7f3)`(rotor r) noexcept`             | Returns the principal branch of this rotor's logarithm. Invoking `exp`  on the returned `[kln::branch](../../api/undefined#classkln_1_1branch)`  maps back to this rotor.
 `public rotor ` [`exp`](#group__exp__log_1ga1aa5a83379532820974c7e86d4bb5a23)`(branch b) noexcept`             | Exponentiate a branch to produce a rotor.
+`public rotor ` [`sqrt`](#group__exp__log_1gaaa8057683b4825442c5e23d21cf2e8aa)`(rotor r) noexcept`             | Compute the square root of the provided rotor $r$.
+`public motor ` [`sqrt`](#group__exp__log_1ga5b01d5fc4cbc7294069626c9962f8f39)`(motor m) noexcept`             | Compute the square root of the provided motor $m$.
 
 ### Members
 
@@ -46,4 +48,12 @@ Given a rotor $\cos\alpha + \sin\alpha\left[a\ee_{23} + b\ee_{31} +\ c\ee_{23}\r
 #### rotor  [exp](#group__exp__log_1ga1aa5a83379532820974c7e86d4bb5a23)(branch b) noexcept  {#group__exp__log_1ga1aa5a83379532820974c7e86d4bb5a23}
 
 Exponentiate a branch to produce a rotor.
+
+#### rotor  [sqrt](#group__exp__log_1gaaa8057683b4825442c5e23d21cf2e8aa)(rotor r) noexcept  {#group__exp__log_1gaaa8057683b4825442c5e23d21cf2e8aa}
+
+Compute the square root of the provided rotor $r$.
+
+#### motor  [sqrt](#group__exp__log_1ga5b01d5fc4cbc7294069626c9962f8f39)(motor m) noexcept  {#group__exp__log_1ga5b01d5fc4cbc7294069626c9962f8f39}
+
+Compute the square root of the provided motor $m$.
 

@@ -106,6 +106,14 @@ public:
         p1_             = _mm_mul_ps(p1_, inv_norm);
     }
 
+    /// Return a normalized copy of this rotor
+    [[nodiscard]] rotor normalized() const noexcept
+    {
+        rotor out = *this;
+        out.normalize();
+        return out;
+    }
+
     /// Converts the rotor to a 3x4 column-major matrix. The results of this
     /// conversion are only defined if the rotor is normalized, and this
     /// conversion is preferable if so.

@@ -68,6 +68,7 @@ Klein provides three line classes: "line", "branch", and "ideal_line". The line 
 `public float ` [`squared_norm`](#group__lines_1ga941c27dc8594f947ecf718160ebb084b)`() noexcept`             | If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
 `public float ` [`norm`](#group__lines_1gad388b8d134c0c22b1f82026277e39c22)`() noexcept`             | Returns the square root of the quantity produced by `squared_norm` .
 `public void ` [`normalize`](#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3)`() noexcept`             | Normalize a line such that $\ell^2 = 1$.
+`public line ` [`normalized`](#group__lines_1ga276e9de782855e6c32560923dce491c4)`() const noexcept`             | Return a normalized copy of this line.
 `public line &KLN_VEC_CALL ` [`operator+=`](#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3)`(line b) noexcept`             | Line addition.
 `public line &KLN_VEC_CALL ` [`operator-=`](#group__lines_1ga1ab6e11021c616adfb35f5b11e478447)`(line b) noexcept`             | Line subtraction.
 `public line & ` [`operator*=`](#group__lines_1ga64128e5413f0dd3e31808c6dae6aaad6)`(float s) noexcept`             | Line uniform scale.
@@ -308,6 +309,10 @@ Normalize a line such that $\ell^2 = 1$.
 !!! tip 
     Normalization here is done using the `rsqrtps`
     instruction with a maximum relative error of $1.5\times 2^{-12}$.
+
+#### line  [normalized](#group__lines_1ga276e9de782855e6c32560923dce491c4)() const noexcept  {#group__lines_1ga276e9de782855e6c32560923dce491c4}
+
+Return a normalized copy of this line.
 
 #### line &KLN_VEC_CALL  [operator+=](#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3)(line b) noexcept  {#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3}
 

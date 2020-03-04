@@ -27,9 +27,8 @@ public:
     /// Component-wise constructor (homogeneous coordinate is automatically
     /// initialized to 1)
     point(float x, float y, float z) noexcept
-    {
-        p3_ = _mm_set_ps(z, y, x, 1.f);
-    }
+        : p3_{_mm_set_ps(z, y, x, 1.f)}
+    {}
 
     /// Fast load from a pointer to an array of four floats with layout
     /// `(w, x, y, z)` where `w` occupies the lowest address in memory.
@@ -62,6 +61,14 @@ public:
         // for the rcp approximation is 1.5*2^-12 (~.00036621)
         __m128 tmp = _mm_rcp_ps(KLN_SWIZZLE(p3_, 0, 0, 0, 0));
         p3_        = _mm_mul_ps(p3_, tmp);
+    }
+
+    /// Return a normalized copy of this point.
+    [[nodiscard]] point normalized() const noexcept
+    {
+        point out;
+        out.normalize();
+        return out;
     }
 
     [[nodiscard]] float x() const noexcept

@@ -28,9 +28,8 @@ public:
     ideal_line() noexcept = default;
 
     ideal_line(float a, float b, float c) noexcept
-    {
-        p2_ = _mm_set_ps(c, b, a, 0.f);
-    }
+        : p2_{_mm_set_ps(c, b, a, 0.f)}
+    {}
 
     ideal_line(__m128 xmm) noexcept
         : p2_{xmm}
@@ -243,9 +242,8 @@ public:
     /// such a line can be generated using the geometric product of two planes
     /// through the origin.
     branch(float a, float b, float c) noexcept
-    {
-        p1_ = _mm_set_ps(c, b, a, 0.f);
-    }
+        : p1_{_mm_set_ps(c, b, a, 0.f)}
+    {}
 
     branch(__m128 xmm) noexcept
         : p1_{xmm}
@@ -440,10 +438,9 @@ public:
     /// $$a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\
     /// d\mathbf{e}_{23} + e\mathbf{e}_{31} + f\mathbf{e}_{12}$$
     line(float a, float b, float c, float d, float e, float f) noexcept
-    {
-        p1_ = _mm_set_ps(f, e, d, 0.f);
-        p2_ = _mm_set_ps(c, b, a, 0.f);
-    }
+        : p1_{_mm_set_ps(f, e, d, 0.f)}
+        , p2_{_mm_set_ps(c, b, a, 0.f)}
+    {}
 
     line(__m128 xmm1, __m128 xmm2) noexcept
         : p1_{xmm1}
@@ -451,16 +448,14 @@ public:
     {}
 
     line(ideal_line other) noexcept
-    {
-        p1_ = _mm_setzero_ps();
-        p2_ = other.p2_;
-    }
+        : p1_{_mm_setzero_ps()}
+        , p2_{other.p2_}
+    {}
 
     line(branch other) noexcept
-    {
-        p1_ = other.p1_;
-        p2_ = _mm_setzero_ps();
-    }
+        : p1_{other.p1_}
+        , p2_{_mm_setzero_ps()}
+    {}
 
     /// If a line is constructed as the regressive product (join) of two points,
     /// the squared norm provided here is the squared distance between the two
@@ -490,6 +485,14 @@ public:
         __m128 inv_norm = _mm_rsqrt_ps(detail::hi_dp_bc(p1_, p1_));
         p1_             = _mm_mul_ps(inv_norm, p1_);
         p2_             = _mm_mul_ps(inv_norm, p2_);
+    }
+
+    /// Return a normalized copy of this line
+    [[nodiscard]] line normalized() const noexcept
+    {
+        line out = *this;
+        out.normalize();
+        return out;
     }
 
     /// Line addition

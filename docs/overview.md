@@ -68,6 +68,7 @@ There are a few additional freestanding functions to perform various tasks.
 | `project` | Projects the first argument onto the second argument and returns the result. |
 | `log`     | Takes the logarithm of the argument and returns the result.                  |
 | `exp`     | Computes the exponential of the argument and returns the result.             |
+| `sqrt`    | Computes the square root of a rotor or motor and returns the result.         |
 
 !!! note
 

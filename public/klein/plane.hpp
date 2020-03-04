@@ -33,16 +33,14 @@ public:
     /// The constructor performs the rearrangement so the plane can be specified
     /// in the familiar form: ax + by + cz + d
     plane(float a, float b, float c, float d) noexcept
-    {
-        p0_ = _mm_set_ps(c, b, a, d);
-    }
+        : p0_{_mm_set_ps(c, b, a, d)}
+    {}
 
     /// Data should point to four floats with memory layout `(d, a, b, c)` where
     /// `d` occupies the lowest address in memory.
     explicit plane(float* data) noexcept
-    {
-        p0_ = _mm_loadu_ps(data);
-    }
+        : p0_{_mm_loadu_ps(data)}
+    {}
 
     /// Unaligned load of data. The `data` argument should point to 4 floats
     /// corresponding to the
@@ -78,6 +76,14 @@ public:
         inv_norm = _mm_add_ps(inv_norm, _mm_set_ss(1.f));
 #endif
         p0_ = _mm_mul_ps(inv_norm, p0_);
+    }
+
+    /// Return a normalized copy of this plane.
+    [[nodiscard]] plane normalized() const noexcept
+    {
+        plane out;
+        out.normalize();
+        return out;
     }
 
     /// Compute the plane norm, which is often used to compute distances

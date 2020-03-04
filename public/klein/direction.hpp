@@ -22,8 +22,8 @@ public:
 
     /// Create a normalized direction
     direction(float x, float y, float z) noexcept
+        : p3_{_mm_set_ps(z, y, x, 0.f)}
     {
-        p3_ = _mm_set_ps(z, y, x, 0.f);
         normalize();
     }
 
@@ -78,6 +78,14 @@ public:
         // relative error for the rcp approximation is 1.5*2^-12 (~.00036621)
         __m128 tmp = _mm_rsqrt_ps(detail::hi_dp_bc(p3_, p3_));
         p3_        = _mm_mul_ps(p3_, tmp);
+    }
+
+    /// Return a normalized copy of this direction
+    direction normalized() const noexcept
+    {
+        direction out = *this;
+        out.normalize();
+        return out;
     }
 
     /// Direction addition
