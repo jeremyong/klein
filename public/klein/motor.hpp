@@ -1,9 +1,12 @@
 #pragma once
 
 #include "detail/exp_log.hpp"
+#include "detail/geometric_product.hpp"
 #include "detail/matrix.hpp"
+#include "detail/sandwich.hpp"
 #include "detail/sse.hpp"
-#include "entity.hpp"
+#include "direction.hpp"
+#include "line.hpp"
 #include "mat3x4.hpp"
 #include "mat4x4.hpp"
 #include "plane.hpp"
@@ -11,6 +14,8 @@
 
 namespace kln
 {
+/// \defgroup motor Motors
+///
 /// A `motor` represents a kinematic motion in our algebra. From
 /// [Chasles'
 /// theorem](https://en.wikipedia.org/wiki/Chasles%27_theorem_(kinematics)), we
@@ -66,9 +71,14 @@ namespace kln
 /// A demonstration of using the exponential and logarithmic map to blend
 /// between two motors is provided in a test case
 /// [here](https://github.com/jeremyong/Klein/blob/master/test/test_exp_log.cpp#L48).
-struct motor final : public entity<0b110>
+
+/// \addtogroup motor
+/// @{
+/// \ingroup motor
+class motor final
 {
-    motor() = default;
+public:
+    motor() noexcept = default;
 
     /// Direct initialization from components. A more common way of creating a
     /// motor is to take a product between a rotor and a translator.
@@ -78,12 +88,23 @@ struct motor final : public entity<0b110>
     /// h\mathbf{e}_{0123}$.
     motor(float a, float b, float c, float d, float e, float f, float g, float h) noexcept
     {
-        parts[0].reg = _mm_set_ps(d, c, b, a);
-        parts[1].reg = _mm_set_ps(g, f, e, h);
+        p1_ = _mm_set_ps(d, c, b, a);
+        p2_ = _mm_set_ps(g, f, e, h);
     }
 
-    motor(entity<0b110> const& e) noexcept
-        : entity{e}
+    /// Produce a screw motion rotating and translating by given amounts along a
+    /// provided Euclidean axis.
+    motor(float ang_rad, float d, line l) noexcept
+    {
+        line log_m;
+        detail::gpDL(
+            -ang_rad * 0.5f, d * 0.5f, l.p1_, l.p2_, log_m.p1_, log_m.p2_);
+        detail::exp(log_m.p1_, log_m.p2_, p1_, p2_);
+    }
+
+    motor(__m128 p1, __m128 p2) noexcept
+        : p1_{p1}
+        , p2_{p2}
     {}
 
     /// Load motor data using two unaligned loads. This routine does *not*
@@ -92,8 +113,8 @@ struct motor final : public entity<0b110>
     {
         // Aligned and unaligned loads incur the same amount of latency and have
         // identical throughput on most modern processors
-        parts[0].reg = _mm_loadu_ps(in);
-        parts[1].reg = _mm_loadu_ps(in + 4);
+        p1_ = _mm_loadu_ps(in);
+        p2_ = _mm_loadu_ps(in + 4);
     }
 
     /// Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
@@ -116,9 +137,9 @@ struct motor final : public entity<0b110>
         //
         // Multiplying our original motor by this inverse will give us a
         // normalized motor.
-        __m128 b2 = detail::dp_bc(p1(), p1());
+        __m128 b2 = detail::dp_bc(p1_, p1_);
         __m128 s  = _mm_rsqrt_ps(b2);
-        __m128 bc = detail::dp_bc(_mm_mul_ss(p1(), _mm_set_ss(-1.f)), p2());
+        __m128 bc = detail::dp_bc(_mm_mul_ss(p1_, _mm_set_ss(-1.f)), p2_);
         __m128 t  = _mm_mul_ps(_mm_mul_ps(bc, _mm_rcp_ps(b2)), s);
 
         // (s + t e0123) * motor =
@@ -132,9 +153,9 @@ struct motor final : public entity<0b110>
         // (s c2 - t b2) e02 +
         // (s c3 - t b3) e03
 
-        __m128 tmp = _mm_mul_ps(p2(), s);
-        p2() = _mm_sub_ps(tmp, _mm_mul_ss(_mm_mul_ps(p1(), t), _mm_set_ss(-1.f)));
-        p1() = _mm_mul_ps(p1(), s);
+        __m128 tmp = _mm_mul_ps(p2_, s);
+        p2_ = _mm_sub_ps(tmp, _mm_mul_ss(_mm_mul_ps(p1_, t), _mm_set_ss(-1.f)));
+        p1_ = _mm_mul_ps(p1_, s);
     }
 
     /// Convert this motor to a 3x4 column-major matrix representing this
@@ -144,7 +165,7 @@ struct motor final : public entity<0b110>
     [[nodiscard]] mat3x4 as_mat3x4() const noexcept
     {
         mat3x4 out;
-        mat4x4_12<true, true>(parts[0].reg, &parts[1].reg, out.cols);
+        mat4x4_12<true, true>(p1_, &p2_, out.cols);
         return out;
     }
 
@@ -153,19 +174,7 @@ struct motor final : public entity<0b110>
     [[nodiscard]] mat4x4 as_mat4x4() const noexcept
     {
         mat4x4 out;
-        mat4x4_12<true>(parts[0].reg, &parts[1].reg, out.cols);
-        return out;
-    }
-
-    /// Takes the principal branch of the logarithm of the motor, returning a
-    /// bivector. Exponentiation of that bivector without any changes produces
-    /// this motor again. Scaling that bivector by $\frac{1}{n}$,
-    /// re-exponentiating, and taking the result to the $n$th power will also
-    /// produce this motor again.
-    [[nodiscard]] entity<0b110> log() const noexcept
-    {
-        entity<0b110> out;
-        detail::log(p1(), p2(), out.p1(), out.p2());
+        mat4x4_12<true>(p1_, &p2_, out.cols);
         return out;
     }
 
@@ -174,8 +183,7 @@ struct motor final : public entity<0b110>
     [[nodiscard]] plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
-        detail::sw012<false, true>(
-            &p.p0(), parts[0].reg, &parts[1].reg, &out.p0());
+        detail::sw012<false, true>(&p.p0_, p1_, &p2_, &out.p0_);
         return out;
     }
 
@@ -191,8 +199,7 @@ struct motor final : public entity<0b110>
     void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const
         noexcept
     {
-        detail::sw012<true, true>(
-            &in->p0(), parts[0].reg, &parts[1].reg, &out->p0(), count);
+        detail::sw012<true, true>(&in->p0_, p1_, &p2_, &out->p0_, count);
     }
 
     /// Conjugates a line $\ell$ with this motor and returns the result
@@ -200,7 +207,7 @@ struct motor final : public entity<0b110>
     [[nodiscard]] line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
-        detail::swMM<false, true>(&l.p1(), p1(), &p2(), &out.p1());
+        detail::swMM<false, true>(&l.p1_, p1_, &p2_, &out.p1_);
         return out;
     }
 
@@ -215,8 +222,7 @@ struct motor final : public entity<0b110>
     ///     each line individually.
     void KLN_VEC_CALL operator()(line* in, line* out, size_t count) const noexcept
     {
-        detail::swMM<true, true>(
-            &in->p1(), parts[0].reg, &parts[1].reg, &out->p1(), count);
+        detail::swMM<true, true>(&in->p1_, p1_, &p2_, &out->p1_, count);
     }
 
     /// Conjugates a point $p$ with this motor and returns the result
@@ -224,8 +230,7 @@ struct motor final : public entity<0b110>
     [[nodiscard]] point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         point out;
-        detail::sw312<false, true>(
-            &p.p3(), parts[0].reg, &parts[1].reg, &out.p3());
+        detail::sw312<false, true>(&p.p3_, p1_, &p2_, &out.p3_);
         return out;
     }
 
@@ -241,8 +246,7 @@ struct motor final : public entity<0b110>
     void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const
         noexcept
     {
-        detail::sw312<true, true>(
-            &in->p3(), parts[0].reg, &parts[1].reg, &out->p3(), count);
+        detail::sw312<true, true>(&in->p3_, p1_, &p2_, &out->p3_, count);
     }
 
     /// Conjugates the origin $O$ with this motor and returns the result
@@ -250,7 +254,7 @@ struct motor final : public entity<0b110>
     [[nodiscard]] point KLN_VEC_CALL operator()(origin) const noexcept
     {
         point out;
-        out.p3() = detail::swo12(parts[0].reg, parts[1].reg);
+        out.p3_ = detail::swo12(p1_, p2_);
         return out;
     }
 
@@ -259,10 +263,11 @@ struct motor final : public entity<0b110>
     ///
     /// The cost of this operation is the same as the application of a rotor due
     /// to the translational invariance of directions (points at infinity).
-    direction KLN_VEC_CALL operator()(direction const& d) const noexcept
+    [[nodiscard]] direction KLN_VEC_CALL operator()(direction const& d) const
+        noexcept
     {
         direction out;
-        detail::sw312<false, false>(&d.p3(), parts[0].reg, nullptr, &out.p3());
+        detail::sw312<false, false>(&d.p3_, p1_, nullptr, &out.p3_);
         return out;
     }
 
@@ -281,17 +286,225 @@ struct motor final : public entity<0b110>
     void KLN_VEC_CALL operator()(direction* in, direction* out, size_t count) const
         noexcept
     {
-        detail::sw312<true, false>(
-            &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
+        detail::sw312<true, false>(&in->p3_, p1_, nullptr, &out->p3_, count);
     }
 
-    /// The motor composition is specialized to reduce total cycle count by
-    /// ~10% compared to `operator*(entity<0b110>, entity<0b110>)`.
-    motor KLN_VEC_CALL operator*(motor const& other) const noexcept
+    /// Motor addition
+    motor& KLN_VEC_CALL operator+=(motor b) noexcept
     {
-        motor out;
-        detail::gpMM(&p1(), &other.p1(), &out.p1());
+        p1_ = _mm_add_ps(p1_, b.p1_);
+        p2_ = _mm_add_ps(p2_, b.p2_);
+        return *this;
+    }
+
+    /// Motor subtraction
+    motor& KLN_VEC_CALL operator-=(motor b) noexcept
+    {
+        p1_ = _mm_sub_ps(p1_, b.p1_);
+        p2_ = _mm_sub_ps(p2_, b.p2_);
+        return *this;
+    }
+
+    /// Motor uniform scale
+    motor& operator*=(float s) noexcept
+    {
+        __m128 vs = _mm_set1_ps(s);
+        p1_       = _mm_mul_ps(p1_, vs);
+        p2_       = _mm_mul_ps(p2_, vs);
+        return *this;
+    }
+
+    /// Motor uniform scale
+    motor& operator*=(int s) noexcept
+    {
+        __m128 vs = _mm_set1_ps(static_cast<float>(s));
+        p1_       = _mm_mul_ps(p1_, vs);
+        p2_       = _mm_mul_ps(p2_, vs);
+        return *this;
+    }
+
+    /// Motor uniform inverse scale
+    motor& operator/=(float s) noexcept
+    {
+        __m128 vs = _mm_rcp_ps(_mm_set1_ps(s));
+        p1_       = _mm_mul_ps(p1_, vs);
+        p2_       = _mm_mul_ps(p2_, vs);
+        return *this;
+    }
+
+    /// Motor uniform inverse scale
+    motor& operator/=(int s) noexcept
+    {
+        __m128 vs = _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s)));
+        p1_       = _mm_mul_ps(p1_, vs);
+        p2_       = _mm_mul_ps(p2_, vs);
+        return *this;
+    }
+
+    [[nodiscard]] float scalar() const noexcept
+    {
+        float out;
+        _mm_store_ss(&out, p1_);
         return out;
     }
+
+    [[nodiscard]] float e12() const noexcept
+    {
+        float out[4];
+        _mm_store_ps(out, p1_);
+        return out[3];
+    }
+
+    [[nodiscard]] float e21() const noexcept
+    {
+        return -e12();
+    }
+
+    [[nodiscard]] float e31() const noexcept
+    {
+        float out[4];
+        _mm_store_ps(out, p1_);
+        return out[2];
+    }
+
+    [[nodiscard]] float e13() const noexcept
+    {
+        return -e31();
+    }
+
+    [[nodiscard]] float e23() const noexcept
+    {
+        float out[4];
+        _mm_store_ps(out, p1_);
+        return out[1];
+    }
+
+    [[nodiscard]] float e32() const noexcept
+    {
+        return -e23();
+    }
+
+    [[nodiscard]] float e01() const noexcept
+    {
+        float out[4];
+        _mm_store_ps(out, p2_);
+        return out[1];
+    }
+
+    [[nodiscard]] float e10() const noexcept
+    {
+        return -e01();
+    }
+
+    [[nodiscard]] float e02() const noexcept
+    {
+        float out[4];
+        _mm_store_ps(out, p2_);
+        return out[2];
+    }
+
+    [[nodiscard]] float e20() const noexcept
+    {
+        return -e02();
+    }
+
+    [[nodiscard]] float e03() const noexcept
+    {
+        float out[4];
+        _mm_store_ps(out, p2_);
+        return out[3];
+    }
+
+    [[nodiscard]] float e30() const noexcept
+    {
+        return -e03();
+    }
+
+    [[nodiscard]] float e0123() const noexcept
+    {
+        float out;
+        _mm_store_ss(&out, p2_);
+        return out;
+    }
+
+    __m128 p1_;
+    __m128 p2_;
 };
+
+/// Motor addition
+[[nodiscard]] inline motor KLN_VEC_CALL operator+(motor a, motor b) noexcept
+{
+    motor c;
+    c.p1_ = _mm_add_ps(a.p1_, b.p1_);
+    c.p2_ = _mm_add_ps(a.p2_, b.p2_);
+    return c;
+}
+
+/// Motor subtraction
+[[nodiscard]] inline motor KLN_VEC_CALL operator-(motor a, motor b) noexcept
+{
+    motor c;
+    c.p1_ = _mm_sub_ps(a.p1_, b.p1_);
+    c.p2_ = _mm_sub_ps(a.p2_, b.p2_);
+    return c;
+}
+
+/// Motor uniform scale
+[[nodiscard]] inline motor KLN_VEC_CALL operator*(motor l, float s) noexcept
+{
+    motor c;
+    __m128 vs = _mm_set1_ps(s);
+    c.p1_     = _mm_mul_ps(l.p1_, vs);
+    c.p2_     = _mm_mul_ps(l.p2_, vs);
+    return c;
+}
+
+/// Motor uniform scale
+[[nodiscard]] inline motor KLN_VEC_CALL operator*(motor l, int s) noexcept
+{
+    return l * static_cast<float>(s);
+}
+
+/// Motor uniform scale
+[[nodiscard]] inline motor KLN_VEC_CALL operator*(float s, motor l) noexcept
+{
+    return l * s;
+}
+
+/// Motor uniform scale
+[[nodiscard]] inline motor KLN_VEC_CALL operator*(int s, motor l) noexcept
+{
+    return l * static_cast<float>(s);
+}
+
+/// Motor uniform inverse scale
+[[nodiscard]] inline motor KLN_VEC_CALL operator/(motor r, float s) noexcept
+{
+    motor c;
+    __m128 vs = _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s)));
+    c.p1_     = _mm_mul_ps(r.p1_, vs);
+    c.p2_     = _mm_mul_ps(r.p2_, vs);
+    return c;
+}
+
+/// Motor uniform inverse scale
+[[nodiscard]] inline motor KLN_VEC_CALL operator/(motor r, int s) noexcept
+{
+    return r / static_cast<float>(s);
+}
+
+/// Unary minus
+[[nodiscard]] inline motor operator-(motor m) noexcept
+{
+    __m128 flip = _mm_set1_ps(-0.f);
+    return {_mm_xor_ps(m.p1_, flip), _mm_xor_ps(m.p2_, flip)};
+}
+
+/// Reversion operator
+[[nodiscard]] inline motor operator~(motor m) noexcept
+{
+    __m128 flip = _mm_set_ps(-0.f, -0.f, -0.f, 0.f);
+    return {_mm_xor_ps(m.p1_, flip), _mm_xor_ps(m.p2_, flip)};
+}
 } // namespace kln
+  /// @}

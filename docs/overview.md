@@ -1,14 +1,31 @@
 # API Overview
 
-Working with Klein is designed to be as simple as it is efficient. To "grok" the API, the main thing
-to understand is that everything that has an underlying multivector representation is an
-[`entity`](../api/kln_entity) which means that all operations supported by the entity will be
-inherited.
+<style>
+tr > td:first-child {
+  white-space: nowrap;
+}
+</style>
 
-The entities provided are Euclidean objects ([`points`](../api/kln_point), [`lines`](../api/kln_line), [`planes`](../api/kln_plane)), objects that arise in
-Projective space ([`directions`](../api/kln_direction), [`ideal lines`](../api/kln_ideal_line)),
-and geometric actions ([`rotors`](../api/kln_rotor), [`translators`](../api/kln_translator),
-[`motors`](../api/kln_motor), and [`planes`](../api/kln_plane)).
+Working with Klein is designed to be as simple as it is efficient. To "grok" the API, it suffices to
+understand the API in terms of the primary operations supported through the primary geometric entities.
+
+The entities provided are Euclidean objects ([`points`](../api/point), [`lines`](../api/lines), [`planes`](../api/plane)), objects that arise in
+Projective space ([`directions`](../api/dir), [`ideal lines`](../api/lines)),
+and geometric actions ([`rotors`](../api/rotor), [`translators`](../api/translator),
+[`motors`](../api/motor), and [`planes`](../api/plane)).
+
+| Class        | Description                                                                                                                                                                                                |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `plane`      | A plane can be thought of as either a point field spanning a 2-dimensional subspace of $\mathbf{E}^3$, or as a reflection                                                                                  |
+| `line`       | A line can be thought of as either a point field spanning a 1-dimensional subspace of $\mathbf{E}^3$ or as a rotation                                                                                      |
+| `branch`     | A branch is a line through the origin                                                                                                                                                                      |
+| `ideal_line` | An ideal line is a line at infinity                                                                                                                                                                        |
+| `point`      | A point can be thought of as either a point field spanning a 0-dimensional subspace of $\mathbf{E}^3$ or as a roto-reflection (which has a single fixed point)                                             |
+| `direction`  | A direction is modeled as a point at infinity (homogeneous weight $0$)                                                                                                                                     |
+| `rotor`      | A rotor is the product of two planes (generating a rotation)                                                                                                                                               |
+| `translator` | A translator is the product of two ideal lines (generating a translation)                                                                                                                                  |
+| `motor`      | A motor is a screw combining a rotation and translation along a screw axis                                                                                                                                 |
+| `dual`       | A dual is the sum of a scalar and pseudoscalar quantity. Dual numbers show up in a number of contexts, including the factorization of a motor axis, and as the result of several meet and join operations. |
 
 !!! note
 
@@ -18,15 +35,21 @@ and geometric actions ([`rotors`](../api/kln_rotor), [`translators`](../api/kln_
 The multivector operations such as the geometric product, exterior product, regressive product, etc.
 are supported for all the listed entities above via the following operator table:
 
-| Operator | Description             |
-| -------- | ----------------------- |
-| `+`      | Addition                |
-| `-`      | Subtraction             |
-| `*`      | Geometric Product       |
-| `^`      | Exterior Product        |
-| `&`      | Regressive Product      |
-| `|`      | Symmetric Inner Product |
-| `!`      | Poincaré Dual           |
+| Operator | Description                                   |
+| -------- | --------------------------------------------- |
+| `+`      | Addition                                      |
+| `-`      | Subtraction                                   |
+| `* s`    | Uniform scaling by a float or int `s`         |
+| `/ s`    | Uniform inverse scaling by a float or int `s` |
+| `*`      | [Geometric Product](../api/gp)                |
+| `^`      | [Exterior Product](../api/ext)                |
+| `&`      | [Regressive Product](../api/reg)              |
+| `|`      | [Symmetric Inner Product](../api/dot)         |
+| `!`      | [Poincaré Dual](../api/dual)                  |
+
+!!! note
+
+    Addition and subtraction is only supported between arguments of the same type. For example, two planes can be added together, but not a `plane` and a `rotor`.
 
 !!! tip
 
@@ -38,6 +61,14 @@ are supported for all the listed entities above via the following operator table
     Similarly, while the regressive product between two entities `a` and `b` can be computed as
     `!(!a ^ !b)`, the explicit `a & b` should be preferred for efficiency.
 
-In some cases, entities may have specialized routines that will live on the child class. For
-example, the exponential map makes sense to apply to bivector entities and thus lives on the `line`
-struct. Each child entity also provides convenient constructors that accept Cartesian coordinates.
+There are a few additional freestanding functions to perform various tasks.
+
+| Function  | Description                                                                  |
+| --------- | ---------------------------------------------------------------------------- |
+| `project` | Projects the first argument onto the second argument and returns the result. |
+| `log`     | Takes the logarithm of the argument and returns the result.                  |
+| `exp`     | Computes the exponential of the argument and returns the result.             |
+
+!!! note
+
+    Throughout the API, you may see functions and methods marked with `KLN_VEC_CALL`. This macro expands to `__vectorcall` to ensure that register passing is used on MSVC.

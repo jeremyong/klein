@@ -29,9 +29,7 @@ namespace detail
 
     // Reflect a plane through another plane
     // b * a * b
-    KLN_INLINE void KLN_VEC_CALL sw00(__m128 const& a,
-                                      __m128 const& b,
-                                      __m128& p0_out)
+    KLN_INLINE void KLN_VEC_CALL sw00(__m128 a, __m128 b, __m128& p0_out)
     {
         // (2a0(a1 b1 + a2 b2 + a3 b3) - b0(a1^2 + a2^2 + a3^2)) e0 +
         // (2a1(a2 b2 + a3 b3) + b1(a1^2 - a2^2 - a3^2)) e1 +
@@ -61,10 +59,10 @@ namespace detail
         p0_out = _mm_add_ps(tmp, tmp2);
     }
 
-    KLN_INLINE void KLN_VEC_CALL sw10(__m128 const& a,
-                                      __m128 const& b,
-                                      __m128& p1_out,
-                                      __m128& p2_out)
+    KLN_INLINE void KLN_VEC_CALL sw10(__m128 a,
+                                      __m128 b,
+                                      __m128& KLN_RESTRICT p1_out,
+                                      __m128& KLN_RESTRICT p2_out)
     {
         // b0(a1^2 + a2^2 + a3^2) +
         // (2a1(a2 b2 + a3 b3) + b1(a1^2 - a2^2 - a3^2)) e23 +
@@ -101,9 +99,7 @@ namespace detail
             p2_out, _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), two_zero));
     }
 
-    KLN_INLINE void KLN_VEC_CALL sw20(__m128 const& a,
-                                      __m128 const& b,
-                                      __m128& p2_out)
+    KLN_INLINE void KLN_VEC_CALL sw20(__m128 a, __m128 b, __m128& p2_out)
     {
         // -b0(a1^2 + a2^2 + a3^2) e0123 +
         // (-2a1(a2 b2 + a3 b3) + b1(a2^2 + a3^2 - a1^2)) e01 +
@@ -128,9 +124,7 @@ namespace detail
         p2_out = _mm_add_ps(p2_out, _mm_mul_ps(tmp, b));
     }
 
-    KLN_INLINE void KLN_VEC_CALL sw30(__m128 const& a,
-                                      __m128 const& b,
-                                      __m128& p3_out)
+    KLN_INLINE void KLN_VEC_CALL sw30(__m128 a, __m128 b, __m128& p3_out)
     {
         // b0(a1^2 + a2^2 + a3^2) e123 +
         // (-2a1(a0 b0 + a3 b3 + a2 b2) + b1(a2^2 + a3^2 - a1^2)) e032 +
@@ -165,7 +159,7 @@ namespace detail
     // p2: (e0123, e01, e02, e03)
     // b * a * ~b
     // The low component of p2 is expected to be the scalar component instead
-    KLN_INLINE auto KLN_VEC_CALL sw02(__m128 const& a, __m128 const& b)
+    KLN_INLINE auto KLN_VEC_CALL sw02(__m128 a, __m128 b)
     {
         // (a0 b0^2 + 2a1 b0 b1 + 2a2 b0 b2 + 2a3 b0 b3) e0 +
         // (a1 b0^2) e1 +
@@ -203,10 +197,7 @@ namespace detail
     // d := p2 input
     // c := p2 translator
     // out points to the start address of a line (p1, p2)
-    KLN_INLINE void KLN_VEC_CALL swL2(__m128 const& a,
-                                      __m128 const& d,
-                                      __m128 const& c,
-                                      __m128* out)
+    KLN_INLINE void KLN_VEC_CALL swL2(__m128 a, __m128 d, __m128 c, __m128* out)
     {
         // a0 +
         // a1 e23 +
@@ -245,9 +236,9 @@ namespace detail
     //
     // Note: in and out are permitted to alias iff a == out.
     template <bool Variadic = false, bool Translate = true>
-    KLN_INLINE void KLN_VEC_CALL swMM(__m128 const* in,
-                                      __m128 const& b,
-                                      [[maybe_unused]] __m128 const* c,
+    KLN_INLINE void KLN_VEC_CALL swMM(__m128 const* KLN_RESTRICT in,
+                                      __m128 const& KLN_RESTRICT b,
+                                      [[maybe_unused]] __m128 const* KLN_RESTRICT c,
                                       __m128* out,
                                       size_t count = 0) noexcept
     {
@@ -407,9 +398,9 @@ namespace detail
     // If Variadic is true, a and out must point to a contiguous block of memory
     // equivalent to __m128[count]
     template <bool Variadic = false, bool Translate = true>
-    KLN_INLINE void KLN_VEC_CALL sw012(__m128 const* a,
-                                       __m128 const& b,
-                                       [[maybe_unused]] __m128 const* c,
+    KLN_INLINE void KLN_VEC_CALL sw012(__m128 const* KLN_RESTRICT a,
+                                       __m128 b,
+                                       [[maybe_unused]] __m128 const* KLN_RESTRICT c,
                                        __m128* out,
                                        size_t count = 0)
     {
@@ -517,7 +508,7 @@ namespace detail
     // p2: (e0123, e01, e02, e03)
     // p3: (e123, e032, e013, e021)
     // b * a * ~b
-    KLN_INLINE auto KLN_VEC_CALL sw32(__m128 const& a, __m128 const& b) noexcept
+    KLN_INLINE auto KLN_VEC_CALL sw32(__m128 a, __m128 b) noexcept
     {
         // a0 e123 +
         // (a1 - 2 a0 b1) e032 +
@@ -532,9 +523,9 @@ namespace detail
 
     // Apply a motor to a point
     template <bool Variadic = false, bool Translate = true>
-    KLN_INLINE void KLN_VEC_CALL sw312(__m128 const* a,
-                                       __m128 const& b,
-                                       [[maybe_unused]] __m128 const* c,
+    KLN_INLINE void KLN_VEC_CALL sw312(__m128 const* KLN_RESTRICT a,
+                                       __m128 b,
+                                       [[maybe_unused]] __m128 const* KLN_RESTRICT c,
                                        __m128* out,
                                        size_t count = 0) noexcept
     {
@@ -620,7 +611,7 @@ namespace detail
     // Conjugate origin with motor. Unlike other operations the motor MUST be
     // normalized prior to usage b is the rotor component (p1) c is the
     // translator component (p2)
-    KLN_INLINE __m128 swo12(__m128 const& b, __m128 const& c)
+    KLN_INLINE __m128 swo12(__m128 b, __m128 c)
     {
         //  (b0^2 + b1^2 + b2^2 + b3^2) e123 +
         // 2(b2 c3 - b1 c0 - b0 c1 - b3 c2) e032 +

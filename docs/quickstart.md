@@ -22,28 +22,30 @@ FetchContent_MakeAvailable(klein)
 ```
 
 The primary "catch-all" header provided can be included using `#include <klein/klein.hpp>`.
-If you wish, individual headers in the top level `public/klein` folder may be included
-to reduce the included code footprint.
-
 The `klein.hpp` header includes the following:
 
-- `klein/direction.hpp`
-- `klein/line.hpp`
-- `klein/mat4x4.hpp`
-- `klein/motor.hpp`
-- `klein/plane.hpp`
-- `klein/point.hpp`
-- `klein/rotor.hpp`
-- `klein/translator.hpp`
+| File                    | Purpose                                                           |
+| ----------------------- | ----------------------------------------------------------------- |
+| `direction.hpp`         | Defines the `direction` class.                                    |
+| `dual.hpp`              | Defines the `dual` class.                                         |
+| `plane.hpp`             | Defines the `plane` class.                                        |
+| `point.hpp`             | Defines the `point` class.                                        |
+| `line.hpp`              | Defines the `line`, `branch`, and `ideal_line` classes.           |
+| `rotor.hpp`             | Defines the `rotor` class.                                        |
+| `translator.hpp`        | Defines the `translator` class.                                   |
+| `motor.hpp`             | Defines the `motor` class.                                        |
+| `dual.hpp`              | Defines the `dual` class.                                         |
+| `geometric_product.hpp` | Defines the geometric product between all supported entities.     |
+| `meet.hpp`              | Defines the exterior product between all supported entities.      |
+| `join.hpp`              | Defines the regressive product between all supported entities.    |
+| `inner_product.hpp`     | Defines the inner product between all supported entities.         |
+| `project.hpp`           | Defines the `project` function to project between entities.       |
+| `exp_log.hpp`           | Defines the `exp` and `log` functions between supported entities. |
 
 Here's a simple snippet to get you started:
 
 ```c++
 #include <klein/klein.hpp>
-// Minimal headers needed for this example are:
-// #include <klein/motor.hpp>
-// #include <klein/point.hpp>
-// #include <klein/rotor.hpp>
 
 // Create a rotor representing a pi/2 rotation about the z-axis
 // Normalization is done automatically
@@ -96,7 +98,7 @@ kln::motor blend_motors(kln::motor const& a, kln::motor const& b, float t)
     // re-exponentiating it to produce a motor again.
 
     // In practice, this should be cached whenever possible.
-    line motor_step = (b * ~a).log();
+    line motor_step = log(b * ~a);
 
     // exp(log(m)) = exp(t*log(m) + (1 - t)*log(m))
     // = exp(t*(log(m))) * exp((1 - t)*log(m))
@@ -106,6 +108,6 @@ kln::motor blend_motors(kln::motor const& a, kln::motor const& b, float t)
     // with fixed steps toward the final motor. Compose the interpolated
     // result with the start motor to produce the intermediate blended
     // motor.
-    return motor_step.exp() * a;
+    return exp(motor_step) * a;
 }
 ```

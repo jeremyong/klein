@@ -2,7 +2,6 @@
 
 #include "detail/matrix.hpp"
 #include "direction.hpp"
-#include "entity.hpp"
 #include "line.hpp"
 #include "mat4x4.hpp"
 #include "plane.hpp"
@@ -11,6 +10,8 @@
 
 namespace kln
 {
+/// \defgroup rotor Rotors
+///
 /// The rotor is an entity that represents a rigid rotation about an axis.
 /// To apply the rotor to a supported entity, the call operator is available.
 ///
@@ -51,14 +52,16 @@ namespace kln
 ///
 /// The same `*` operator can be used to compose the rotor's action with other
 /// translators and motors.
-struct rotor final : public entity<0b10>
+/// \addtogroup rotor
+/// @{
+class rotor final
 {
-    /// Default constructor leaves memory uninitialized.
-    rotor() = default;
+public:
+    rotor() noexcept = default;
 
     /// Convenience constructor. Computes transcendentals and normalizes
     /// rotation axis.
-    rotor(float ang_rad, float x, float y, float z)
+    rotor(float ang_rad, float x, float y, float z) noexcept
     {
         float norm     = std::sqrt(x * x + y * y + z * z);
         float inv_norm = -1.f / norm;
@@ -68,12 +71,12 @@ struct rotor final : public entity<0b10>
         // sincos call at instruction selection time
         float sin_ang = std::sin(half);
         float scale   = sin_ang * inv_norm;
-        p1()          = _mm_set_ps(z, y, x, std::cos(half));
-        p1()          = _mm_mul_ps(p1(), _mm_set_ps(scale, scale, scale, 1.f));
+        p1_           = _mm_set_ps(z, y, x, std::cos(half));
+        p1_           = _mm_mul_ps(p1_, _mm_set_ps(scale, scale, scale, 1.f));
     }
 
-    rotor(entity<0b10> const& other)
-        : entity{other}
+    rotor(__m128 p1) noexcept
+        : p1_{p1}
     {}
 
     /// Fast load operation for packed data that is already normalized. The
@@ -87,7 +90,7 @@ struct rotor final : public entity<0b10>
     ///     rotor $r$ must satisfy $r\widetilde{r} = 1$.
     void load_normalized(float* data) noexcept
     {
-        parts[0].reg = _mm_loadu_ps(data);
+        p1_ = _mm_loadu_ps(data);
     }
 
     /// Normalize a rotor such that $\mathbf{r}\widetilde{\mathbf{r}} = 1$.
@@ -99,59 +102,34 @@ struct rotor final : public entity<0b10>
     void normalize() noexcept
     {
         // A rotor is normalized if r * ~r is unity.
-        __m128 inv_norm = _mm_rsqrt_ps(detail::dp_bc(p1(), p1()));
-        p1()            = _mm_mul_ps(p1(), inv_norm);
+        __m128 inv_norm = _mm_rsqrt_ps(detail::dp_bc(p1_, p1_));
+        p1_             = _mm_mul_ps(p1_, inv_norm);
     }
 
     /// Converts the rotor to a 3x4 column-major matrix. The results of this
     /// conversion are only defined if the rotor is normalized, and this
     /// conversion is preferable if so.
-    mat3x4 as_mat3x4() const noexcept
+    [[nodiscard]] mat3x4 as_mat3x4() const noexcept
     {
         mat3x4 out;
-        mat4x4_12<false, true>(parts[0].reg, nullptr, out.cols);
+        mat4x4_12<false, true>(p1_, nullptr, out.cols);
         return out;
     }
 
     /// Converts the rotor to a 4x4 column-major matrix.
-    mat4x4 as_mat4x4() const noexcept
+    [[nodiscard]] mat4x4 as_mat4x4() const noexcept
     {
         mat4x4 out;
-        mat4x4_12<false>(parts[0].reg, nullptr, out.cols);
-        return out;
-    }
-
-    /// Returns the principal branch of this rotor's logarithm. Invoking
-    /// `exp` on the returned result maps back to this rotor.
-    ///
-    /// Given a rotor $\cos\alpha + \sin\alpha\left[a\ee_{23} + b\ee_{31} +\
-    /// c\ee_{23}\right]$, the log is computed as simply
-    /// $\alpha\left[a\ee_{23} + b\ee_{31} + c\ee_{23}\right]$.
-    /// This map is only well-defined if the
-    /// rotor is normalized such that $a^2 + b^2 + c^2 = 1$.
-    [[nodiscard]] branch log() const noexcept
-    {
-        float ang     = std::acos(parts[0].data[0]);
-        float sin_ang = std::sin(ang);
-
-        branch out;
-        out.p1() = _mm_mul_ps(p1(), _mm_rcp_ps(_mm_set1_ps(sin_ang)));
-        out.p1() = _mm_mul_ps(out.p1(), _mm_set1_ps(ang));
-#ifdef KLEIN_SSE_4_1
-        out.p1() = _mm_blend_ps(out.p1(), _mm_setzero_ps(), 1);
-#else
-        out.p1() = _mm_and_ps(
-            out.p1(), _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
-#endif
+        mat4x4_12<false>(p1_, nullptr, out.cols);
         return out;
     }
 
     /// Conjugates a plane $p$ with this rotor and returns the result
     /// $rp\widetilde{r}$.
-    plane KLN_VEC_CALL operator()(plane const& p) const noexcept
+    [[nodiscard]] plane KLN_VEC_CALL operator()(plane const& p) const noexcept
     {
         plane out;
-        detail::sw012<false, false>(&p.p0(), parts[0].reg, nullptr, &out.p0());
+        detail::sw012<false, false>(&p.p0_, p1_, nullptr, &out.p0_);
         return out;
     }
 
@@ -167,16 +145,15 @@ struct rotor final : public entity<0b10>
     void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const
         noexcept
     {
-        detail::sw012<true, false>(
-            &in->p0(), parts[0].reg, nullptr, &out->p0(), count);
+        detail::sw012<true, false>(&in->p0_, p1_, nullptr, &out->p0_, count);
     }
 
     /// Conjugates a line $\ell$ with this rotor and returns the result
     /// $r\ell \widetilde{r}$.
-    line KLN_VEC_CALL operator()(line const& l) const noexcept
+    [[nodiscard]] line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
-        detail::swMM<false, false>(&l.p1(), p1(), nullptr, &out.p1());
+        detail::swMM<false, false>(&l.p1_, p1_, nullptr, &out.p1_);
         return out;
     }
 
@@ -191,17 +168,16 @@ struct rotor final : public entity<0b10>
     ///     each line individually.
     void KLN_VEC_CALL operator()(line* in, line* out, size_t count) const noexcept
     {
-        detail::swMM<true, false>(
-            &in->p1(), parts[0].reg, nullptr, &out->p1(), count);
+        detail::swMM<true, false>(&in->p1_, p1_, nullptr, &out->p1_, count);
     }
 
     /// Conjugates a point $p$ with this rotor and returns the result
     /// $rp\widetilde{r}$.
-    point KLN_VEC_CALL operator()(point const& p) const noexcept
+    [[nodiscard]] point KLN_VEC_CALL operator()(point const& p) const noexcept
     {
         // NOTE: Conjugation of a plane and point with a rotor is identical
         point out;
-        detail::sw012<false, false>(&p.p3(), parts[0].reg, nullptr, &out.p3());
+        detail::sw012<false, false>(&p.p3_, p1_, nullptr, &out.p3_);
         return out;
     }
 
@@ -218,17 +194,17 @@ struct rotor final : public entity<0b10>
         noexcept
     {
         // NOTE: Conjugation of a plane and point with a rotor is identical
-        detail::sw012<true, false>(
-            &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
+        detail::sw012<true, false>(&in->p3_, p1_, nullptr, &out->p3_, count);
     }
 
     /// Conjugates a direction $d$ with this rotor and returns the result
     /// $rd\widetilde{r}$.
-    direction KLN_VEC_CALL operator()(direction const& d) const noexcept
+    [[nodiscard]] direction KLN_VEC_CALL operator()(direction const& d) const
+        noexcept
     {
         direction out;
         // NOTE: Conjugation of a plane and point with a rotor is identical
-        detail::sw012<false, false>(&d.p3(), parts[0].reg, nullptr, &out.p3());
+        detail::sw012<false, false>(&d.p3_, p1_, nullptr, &out.p3_);
         return out;
     }
 
@@ -245,8 +221,158 @@ struct rotor final : public entity<0b10>
         noexcept
     {
         // NOTE: Conjugation of a plane and point with a rotor is identical
-        detail::sw012<true, false>(
-            &in->p3(), parts[0].reg, nullptr, &out->p3(), count);
+        detail::sw012<true, false>(&in->p3_, p1_, nullptr, &out->p3_, count);
     }
+
+    /// Rotor addition
+    rotor& KLN_VEC_CALL operator+=(rotor b) noexcept
+    {
+        p1_ = _mm_add_ps(p1_, b.p1_);
+        return *this;
+    }
+
+    /// Rotor subtraction
+    rotor& KLN_VEC_CALL operator-=(rotor b) noexcept
+    {
+        p1_ = _mm_sub_ps(p1_, b.p1_);
+        return *this;
+    }
+
+    /// Rotor uniform scale
+    rotor& operator*=(float s) noexcept
+    {
+        p1_ = _mm_mul_ps(p1_, _mm_set1_ps(s));
+        return *this;
+    }
+
+    /// Rotor uniform scale
+    rotor& operator*=(int s) noexcept
+    {
+        p1_ = _mm_mul_ps(p1_, _mm_set1_ps(static_cast<float>(s)));
+        return *this;
+    }
+
+    /// Rotor uniform inverse scale
+    rotor& operator/=(float s) noexcept
+    {
+        p1_ = _mm_mul_ps(p1_, _mm_rcp_ps(_mm_set1_ps(s)));
+        return *this;
+    }
+
+    /// Rotor uniform inverse scale
+    rotor& operator/=(int s) noexcept
+    {
+        p1_ = _mm_mul_ps(p1_, _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s))));
+        return *this;
+    }
+
+    [[nodiscard]] float scalar() const noexcept
+    {
+        float out;
+        _mm_store_ss(&out, p1_);
+        return out;
+    }
+
+    [[nodiscard]] float e12() const noexcept
+    {
+        float out[4];
+        _mm_store_ps(out, p1_);
+        return out[1];
+    }
+
+    [[nodiscard]] float e21() const noexcept
+    {
+        return -e12();
+    }
+
+    [[nodiscard]] float e31() const noexcept
+    {
+        float out[4];
+        _mm_store_ps(out, p1_);
+        return out[2];
+    }
+
+    [[nodiscard]] float e13() const noexcept
+    {
+        return -e31();
+    }
+
+    [[nodiscard]] float e23() const noexcept
+    {
+        float out[4];
+        _mm_store_ps(out, p1_);
+        return out[3];
+    }
+
+    [[nodiscard]] float e32() const noexcept
+    {
+        return -e23();
+    }
+
+    __m128 p1_;
 };
+
+/// Rotor addition
+[[nodiscard]] inline rotor KLN_VEC_CALL operator+(rotor a, rotor b) noexcept
+{
+    rotor c;
+    c.p1_ = _mm_add_ps(a.p1_, b.p1_);
+    return c;
+}
+
+/// Rotor subtraction
+[[nodiscard]] inline rotor KLN_VEC_CALL operator-(rotor a, rotor b) noexcept
+{
+    rotor c;
+    c.p1_ = _mm_sub_ps(a.p1_, b.p1_);
+    return c;
+}
+
+/// Rotor uniform scale
+[[nodiscard]] inline rotor KLN_VEC_CALL operator*(rotor r, float s) noexcept
+{
+    rotor c;
+    c.p1_ = _mm_mul_ps(r.p1_, _mm_set1_ps(s));
+    return c;
+}
+
+/// Rotor uniform scale
+[[nodiscard]] inline rotor KLN_VEC_CALL operator*(rotor r, int s) noexcept
+{
+    return r * static_cast<float>(s);
+}
+
+/// Rotor uniform scale
+[[nodiscard]] inline rotor KLN_VEC_CALL operator*(float s, rotor r) noexcept
+{
+    return r * s;
+}
+
+/// Rotor uniform scale
+[[nodiscard]] inline rotor KLN_VEC_CALL operator*(int s, rotor r) noexcept
+{
+    return r * static_cast<float>(s);
+}
+
+/// Rotor uniform inverse scale
+[[nodiscard]] inline rotor KLN_VEC_CALL operator/(rotor r, float s) noexcept
+{
+    rotor c;
+    c.p1_ = _mm_mul_ps(r.p1_, _mm_rcp_ps(_mm_set1_ps(s)));
+    return c;
+}
+
+/// Rotor uniform inverse scale
+[[nodiscard]] inline rotor KLN_VEC_CALL operator/(rotor r, int s) noexcept
+{
+    return r / static_cast<float>(s);
+}
+
+/// Reversion operator
+[[nodiscard]] inline rotor operator~(rotor r) noexcept
+{
+    __m128 flip = _mm_set_ps(-0.f, -0.f, -0.f, 0.f);
+    return {_mm_xor_ps(r.p1_, flip)};
+}
 } // namespace kln
+/// @}

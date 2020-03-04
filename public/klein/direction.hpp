@@ -1,6 +1,6 @@
 #pragma once
 
-#include "entity.hpp"
+#include "detail/sse.hpp"
 
 #ifdef KLEIN_VALIDATE
 #    include <cassert>
@@ -8,29 +8,28 @@
 
 namespace kln
 {
+/// \defgroup dir Directions
 /// Directions in $\mathbf{P}(\mathbb{R}^3_{3, 0, 1})$ are represented using
 /// points at infinity (homogeneous coordinate 0). Having a homogeneous
 /// coordinate of zero ensures that directions are translation-invariant.
-struct direction final : public entity<0b1000>
+
+/// \addtogroup dir
+/// @{
+class direction final
 {
-    direction() = default;
+public:
+    direction() noexcept = default;
 
     /// Create a normalized direction
     direction(float x, float y, float z) noexcept
     {
-        parts[0].reg = _mm_set_ps(z, y, x, 0.f);
+        p3_ = _mm_set_ps(z, y, x, 0.f);
         normalize();
     }
 
-    // Provide conversion operator from parent class entity
-    direction(entity<0b1000> const& e) noexcept
-        : entity{e}
-    {
-#ifdef KLEIN_VALIDATE
-        assert(parts[0].data[0] < 1e-7 && parts[0].data[0] > -1e-7
-               && "Cannot initialize direction from non-ideal point");
-#endif
-    }
+    direction(__m128 p3) noexcept
+        : p3_{p3}
+    {}
 
     /// Data should point to four floats with memory layout `(0.f, x, y, z)`
     /// where the zero occupies the lowest address in memory.
@@ -41,47 +40,28 @@ struct direction final : public entity<0b1000>
             && "Homogeneous coordinate of point data used to initialize a"
                "direction must be exactly zero");
 #endif
-        parts[0].reg = _mm_loadu_ps(data);
+        p3_ = _mm_loadu_ps(data);
     }
 
-    constexpr float operator[](size_t i) const noexcept
+    [[nodiscard]] float x() const noexcept
     {
-        return parts[0].data[3 - i];
+        float out[4];
+        _mm_store_ps(out, p3_);
+        return out[1];
     }
 
-    constexpr float& operator[](size_t i) noexcept
+    [[nodiscard]] float y() const noexcept
     {
-        return parts[0].data[3 - i];
+        float out[4];
+        _mm_store_ps(out, p3_);
+        return out[2];
     }
 
-    float x() const noexcept
+    [[nodiscard]] float z() const noexcept
     {
-        return parts[0].data[3];
-    }
-
-    float& x() noexcept
-    {
-        return parts[0].data[3];
-    }
-
-    float y() const noexcept
-    {
-        return parts[0].data[2];
-    }
-
-    float& y() noexcept
-    {
-        return parts[0].data[2];
-    }
-
-    float z() const noexcept
-    {
-        return parts[0].data[1];
-    }
-
-    float& z() noexcept
-    {
-        return parts[0].data[1];
+        float out[4];
+        _mm_store_ps(out, p3_);
+        return out[3];
     }
 
     /// Normalize this direction by dividing all components by the
@@ -96,8 +76,117 @@ struct direction final : public entity<0b1000>
     {
         // Fast reciprocal operation to divide by a^2 + b^2 + c^2. The maximum
         // relative error for the rcp approximation is 1.5*2^-12 (~.00036621)
-        __m128 tmp   = _mm_rsqrt_ps(detail::hi_dp_bc(p3(), p3()));
-        parts[0].reg = _mm_mul_ps(parts[0].reg, tmp);
+        __m128 tmp = _mm_rsqrt_ps(detail::hi_dp_bc(p3_, p3_));
+        p3_        = _mm_mul_ps(p3_, tmp);
     }
+
+    /// Direction addition
+    direction& KLN_VEC_CALL operator+=(direction b) noexcept
+    {
+        p3_ = _mm_add_ps(p3_, b.p3_);
+        return *this;
+    }
+
+    /// Direction subtraction
+    direction& KLN_VEC_CALL operator-=(direction b) noexcept
+    {
+        p3_ = _mm_sub_ps(p3_, b.p3_);
+        return *this;
+    }
+
+    /// Direction uniform scale
+    direction& operator*=(float s) noexcept
+    {
+        p3_ = _mm_mul_ps(p3_, _mm_set1_ps(s));
+        return *this;
+    }
+
+    /// Direction uniform scale
+    direction& operator*=(int s) noexcept
+    {
+        p3_ = _mm_mul_ps(p3_, _mm_set1_ps(static_cast<float>(s)));
+        return *this;
+    }
+
+    /// Direction uniform inverse scale
+    direction& operator/=(float s) noexcept
+    {
+        p3_ = _mm_mul_ps(p3_, _mm_rcp_ps(_mm_set1_ps(s)));
+        return *this;
+    }
+
+    /// Direction uniform inverse scale
+    direction& operator/=(int s) noexcept
+    {
+        p3_ = _mm_mul_ps(p3_, _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s))));
+        return *this;
+    }
+
+    __m128 p3_;
 };
+
+/// Direction addition
+[[nodiscard]] inline direction KLN_VEC_CALL operator+(direction a,
+                                                      direction b) noexcept
+{
+    direction c;
+    c.p3_ = _mm_add_ps(a.p3_, b.p3_);
+    return c;
+}
+
+/// Direction subtraction
+[[nodiscard]] inline direction KLN_VEC_CALL operator-(direction a,
+                                                      direction b) noexcept
+{
+    direction c;
+    c.p3_ = _mm_sub_ps(a.p3_, b.p3_);
+    return c;
+}
+
+/// Direction uniform scale
+[[nodiscard]] inline direction KLN_VEC_CALL operator*(direction d, float s) noexcept
+{
+    direction c;
+    c.p3_ = _mm_mul_ps(d.p3_, _mm_set1_ps(s));
+    return c;
+}
+
+/// Direction uniform scale
+[[nodiscard]] inline direction KLN_VEC_CALL operator*(float s, direction d) noexcept
+{
+    return d * s;
+}
+
+/// Direction uniform scale
+[[nodiscard]] inline direction KLN_VEC_CALL operator*(direction d, int s) noexcept
+{
+    return d * static_cast<float>(s);
+}
+
+/// Direction uniform scale
+[[nodiscard]] inline direction KLN_VEC_CALL operator*(int s, direction d) noexcept
+{
+    return d * static_cast<float>(s);
+}
+
+/// Direction uniform inverse scale
+[[nodiscard]] inline direction KLN_VEC_CALL operator/(direction d, float s) noexcept
+{
+    direction c;
+    c.p3_ = _mm_mul_ps(d.p3_, _mm_rcp_ps(_mm_set1_ps(s)));
+    return c;
+}
+
+/// Direction uniform inverse scale
+[[nodiscard]] inline direction KLN_VEC_CALL operator/(direction d, int s) noexcept
+{
+    return d / static_cast<float>(s);
+}
+
+/// Unary minus
+[[nodiscard]] inline direction operator-(direction d) noexcept
+{
+    return {_mm_xor_ps(d.p3_, _mm_set1_ps(-0.f))};
+}
 } // namespace kln
+  /// @}

@@ -38,7 +38,6 @@ TEST_CASE("measure-point-to-line")
 {
     line l{0, 1, 0, 1, 0, 0};
     point p{0, 1, 2};
-    point l_p{l & p};
     float distance = plane{l & p}.norm();
     CHECK_EQ(distance, doctest::Approx(std::sqrt(2.f)).epsilon(0.001));
 }

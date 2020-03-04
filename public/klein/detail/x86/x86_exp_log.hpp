@@ -24,10 +24,10 @@ namespace detail
     // that it is neither purely real nor purely ideal.
     // Exponentiates the bivector and returns the motor defined by partitions 1
     // and 2.
-    KLN_INLINE void KLN_VEC_CALL exp(__m128 const& a,
-                                     __m128 const& b,
-                                     __m128& p1_out,
-                                     __m128& p2_out)
+    KLN_INLINE void KLN_VEC_CALL exp(__m128 a,
+                                     __m128 b,
+                                     __m128& KLN_RESTRICT p1_out,
+                                     __m128& KLN_RESTRICT p2_out)
     {
         // The exponential map produces a continuous group of rotations about an
         // axis. We'd *like* to evaluate the exp(a + b) as exp(a)exp(b) but we
@@ -122,10 +122,10 @@ namespace detail
         p2_out            = _mm_add_ps(_mm_set_ss(minus_vsinu), p2_out);
     }
 
-    KLN_INLINE void KLN_VEC_CALL log(__m128 const& p1,
-                                     __m128 const& p2,
-                                     __m128& p1_out,
-                                     __m128& p2_out)
+    KLN_INLINE void KLN_VEC_CALL log(__m128 p1,
+                                     __m128 p2,
+                                     __m128& KLN_RESTRICT p1_out,
+                                     __m128& KLN_RESTRICT p2_out)
     {
         // The logarithm follows from the derivation of the exponential. Working
         // backwards, we ended up computing the exponential like so:

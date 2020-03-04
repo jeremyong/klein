@@ -64,19 +64,19 @@ kln_motor const& convert(kln::motor const& motor)
 
 void kln_plane_init(kln_plane* plane, float a, float b, float c, float d)
 {
-    plane->p0 = kln::plane{a, b, c, d}.p0();
+    plane->p0 = kln::plane{a, b, c, d}.p0_;
 }
 
 void kln_line_init(kln_line* line, float a, float b, float c, float d, float e, float f)
 {
     kln::line tmp{a, b, c, d, e, f};
-    line->p1 = tmp.p1();
-    line->p2 = tmp.p2();
+    line->p1 = tmp.p1_;
+    line->p2 = tmp.p2_;
 }
 
 void kln_point_init(kln_point* point, float x, float y, float z)
 {
-    point->p3 = kln::point{x, y, z}.p3();
+    point->p3 = kln::point{x, y, z}.p3_;
 }
 
 kln_point kln_reflect_point(kln_plane const* plane, kln_point const* point)
@@ -171,10 +171,10 @@ kln_motor kln_compose_motors(kln_motor const* motor1, kln_motor const* motor2)
 
 kln_line motor_log(kln_motor const* motor)
 {
-    return convert(kln::line{convert(*motor).log()});
+    return convert(kln::line{log(convert(*motor))});
 }
 
 kln_motor line_exp(kln_line const* line)
 {
-    return convert(kln::motor{convert(*line).exp()});
+    return convert(kln::motor{exp(convert(*line))});
 }

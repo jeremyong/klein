@@ -1,6 +1,14 @@
 #include <klein/klein.hpp>
 #include <mc_ruler.h>
 
+kln::rotor rotor_add(kln::rotor const& a, kln::rotor const& b)
+{
+    MC_MEASURE_BEGIN(rotor_add);
+    auto out = a + b;
+    MC_MEASURE_END();
+    return out;
+}
+
 kln::rotor rotor_composition(kln::rotor const& a, kln::rotor const& b)
 {
     MC_MEASURE_BEGIN(rotor_composition);
@@ -12,15 +20,6 @@ kln::rotor rotor_composition(kln::rotor const& a, kln::rotor const& b)
 kln::motor motor_composition(kln::motor const& a, kln::motor const& b)
 {
     MC_MEASURE_BEGIN(motor_composition);
-    auto out = a * b;
-    MC_MEASURE_END();
-    return out;
-}
-
-auto old_motor_composition(kln::entity<0b110> const& a,
-                           kln::entity<0b110> const& b)
-{
-    MC_MEASURE_BEGIN(old_motor_composition);
     auto out = a * b;
     MC_MEASURE_END();
     return out;

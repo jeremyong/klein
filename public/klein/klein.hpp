@@ -6,11 +6,9 @@
 
 #pragma once
 
-#include "direction.hpp"
-#include "line.hpp"
-#include "mat4x4.hpp"
-#include "motor.hpp"
-#include "plane.hpp"
-#include "point.hpp"
-#include "rotor.hpp"
-#include "translator.hpp"
+#include "exp_log.hpp"
+#include "geometric_product.hpp"
+#include "inner_product.hpp"
+#include "join.hpp"
+#include "meet.hpp"
+#include "projection.hpp"

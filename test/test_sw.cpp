@@ -118,6 +118,31 @@ TEST_CASE("construct-motor")
     CHECK_EQ(p2.x(), 0.f);
     CHECK_EQ(p2.y(), doctest::Approx(1.f));
     CHECK_EQ(p2.z(), doctest::Approx(1.f));
+
+    // Rotation and translation about the same axis commutes
+    m  = t * r;
+    p2 = m(p1);
+    CHECK_EQ(p2.x(), 0.f);
+    CHECK_EQ(p2.y(), doctest::Approx(1.f));
+    CHECK_EQ(p2.z(), doctest::Approx(1.f));
+
+    line l = log(m);
+    CHECK_EQ(l.e23(), 0.f);
+    CHECK_EQ(l.e12(), doctest::Approx(-0.7854).epsilon(0.001));
+    CHECK_EQ(l.e31(), 0.f);
+    CHECK_EQ(l.e01(), 0.f);
+    CHECK_EQ(l.e02(), 0.f);
+    CHECK_EQ(l.e03(), doctest::Approx(-0.5).epsilon(0.001));
+}
+
+TEST_CASE("construct-motor-via-screw-axis")
+{
+    motor m{M_PI * 0.5f, 1.f, line{0.f, 0.f, 0.f, 0.f, 0.f, 1.f}};
+    point p1{1, 0, 0};
+    point p2 = m(p1);
+    CHECK_EQ(p2.x(), doctest::Approx(0.f).epsilon(0.001));
+    CHECK_EQ(p2.y(), doctest::Approx(1.f).epsilon(0.001));
+    CHECK_EQ(p2.z(), doctest::Approx(1.f).epsilon(0.001));
 }
 
 TEST_CASE("motor-plane")
@@ -210,7 +235,7 @@ TEST_CASE("normalize-motor")
 TEST_CASE("normalize-rotor")
 {
     rotor r;
-    r.p1() = _mm_set_ps(4.f, -3.f, 3.f, 28.f);
+    r.p1_ = _mm_set_ps(4.f, -3.f, 3.f, 28.f);
     r.normalize();
     rotor norm = r * ~r;
     CHECK_EQ(norm.scalar(), doctest::Approx(1.f).epsilon(0.001));

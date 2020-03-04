@@ -74,10 +74,10 @@ TEST_CASE("multivector-sum")
     SUBCASE("planes")
     {
         plane p{1.f, 3.f, 4.f, -5.f};
-        auto p_norm = p | p;
-        CHECK_NE(p_norm.scalar(), 1.f);
+        float p_norm = p | p;
+        CHECK_NE(p_norm, 1.f);
         p.normalize();
         p_norm = p | p;
-        CHECK_EQ(p_norm.scalar(), doctest::Approx(1.f).epsilon(0.001));
+        CHECK_EQ(p_norm, doctest::Approx(1.f).epsilon(0.001));
     }
 }

@@ -8,8 +8,8 @@ using namespace kln;
 TEST_CASE("rotor-exp-log")
 {
     rotor r{M_PI * 0.5f, 0.3f, -3.f, 1.f};
-    branch b = r.log();
-    rotor r2 = b.exp();
+    branch b = log(r);
+    rotor r2 = exp(b);
 
     CHECK_EQ(r2.scalar(), doctest::Approx(r.scalar()).epsilon(0.001));
     CHECK_EQ(r2.e12(), doctest::Approx(r.e12()).epsilon(0.001));
@@ -23,8 +23,8 @@ TEST_CASE("motor-exp-log")
     rotor r{M_PI * 0.5f, 0.3f, -3.f, 1.f};
     translator t{12.f, -2.f, 0.4f, 1.f};
     motor m1 = r * t;
-    line l   = m1.log();
-    motor m2 = l.exp();
+    line l   = log(m1);
+    motor m2 = exp(l);
     // Check accuracy to within 1%
     CHECK_EQ(m1.scalar(), doctest::Approx(m2.scalar()).epsilon(0.01));
     CHECK_EQ(m1.e12(), doctest::Approx(m2.e12()).epsilon(0.01));
@@ -42,10 +42,10 @@ TEST_CASE("motor-slerp")
     rotor r{M_PI * 0.5f, 0.3f, -3.f, 1.f};
     translator t{12.f, -2.f, 0.4f, 1.f};
     motor m1 = r * t;
-    line l   = m1.log();
+    line l   = log(m1);
     // Divide the motor action into three equal steps
     line step    = l / 3;
-    motor m_step = step.exp();
+    motor m_step = exp(step);
     motor m2     = m_step * m_step * m_step;
     CHECK_EQ(m1.scalar(), doctest::Approx(m2.scalar()).epsilon(0.01));
     CHECK_EQ(m1.e12(), doctest::Approx(m2.e12()).epsilon(0.01));
@@ -68,8 +68,8 @@ TEST_CASE("motor-blend")
     motor m2 = r2 * t2;
 
     motor motion     = m2 * ~m1;
-    line step        = motion.log() / 4.f;
-    motor motor_step = step.exp();
+    line step        = log(motion) / 4.f;
+    motor motor_step = exp(step);
 
     // Applying motor_step 0 times to m1 is m1.
     // Applying motor_step 4 times to m1 is m2 * ~m1;

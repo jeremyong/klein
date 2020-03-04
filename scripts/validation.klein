@@ -6,6 +6,36 @@
 # p0 * p1
 (a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 + b1 e23 + b2 e31 + b3 e12)
 
+# p0 * line
+(a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
+(a0 e0 + a1 e1 + a2 e2 + a3 e3) ^ (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
+
+# line * p0
+(b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03) * (a0 e0 + a1 e1 + a2 e2 + a3 e3)
+
+# dual * line
+(u + v e0123) * (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
+
+# line * dual
+(b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03) * (u + v e0123)
+
+# line * line
+(a1 e23 + a2 e31 + a3 e12 + d1 e01 + d2 e02 + d3 e03) * (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
+
+# line * ideal line
+(a1 e23 + a2 e31 + a3 e12 + d1 e01 + d2 e02 + d3 e03) * (c1 e01 + c2 e02 + c3 e03)
+
+# ideal line * line
+(c1 e01 + c2 e02 + c3 e03) * (a1 e23 + a2 e31 + a3 e12 + d1 e01 + d2 e02 + d3 e03)
+
+# rotor * translator
+(a0 + a1 e23 + a2 e31 + a3 e12) * (1 + b1 e01 + b2 e02 + b3 e03)
+(a0 + a1 e23 + a2 e31 + a3 e12) * (b1 e01 + b2 e02 + b3 e03)
+
+# translator * rotor
+(1 + b1 e01 + b2 e02 + b3 e03) * (a0 + a1 e23 + a2 e31 + a3 e12)
+(b1 e01 + b2 e02 + b3 e03) * (a0 + a1 e23 + a2 e31 + a3 e12)
+
 # p1 * p0
 (b0 + b1 e23 + b2 e31 + b3 e12) * (a0 e0 + a1 e1 + a2 e2 + a3 e3)
 
@@ -98,6 +128,15 @@
 # p3 ^ p3
 (a0 e123 + a1 e032 + a2 e013 + a3 e021) ^ (b0 e123 + b1 e032 + b2 e013 + b3 e021)
 
+# line ^ line
+(a1 e23 + a2 e31 + a3 e12 + d1 e01 + d2 e02 + d3 e03) ^ (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
+
+# plane ^ line
+(a0 e0 + a1 e1 + a2 e2 + a3 e3) ^ (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
+
+# line ^ plane
+(b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03) ^ (a0 e0 + a1 e1 + a2 e2 + a3 e3)
+
 # p0 & p0 -> !(p3 ^ p3) = 0
 (a0 e3 + a1 e2 + a2 e1 + a3 e0) & (b0 e3 + b1 e2 + b2 e1 + b3 e0)
 
@@ -157,6 +196,27 @@
 
 # p3 | p3
 (a0 e123 + a1 e032 + a2 e013 + a3 e021) | (b0 e123 + b1 e032 + b2 e013 + b3 e021)
+
+# plane | line
+(a0 e0 + a1 e1 + a2 e2 + a3 e3) | (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
+
+# line | plane
+(b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03) | (a0 e0 + a1 e1 + a2 e2 + a3 e3)
+
+# plane | ideal-line
+(a0 e0 + a1 e1 + a2 e2 + a3 e3) | (c1 e01 + c2 e02 + c3 e03)
+
+# ideal-line | plane
+(c1 e01 + c2 e02 + c3 e03) | (a0 e0 + a1 e1 + a2 e2 + a3 e3)
+
+# line | line
+(a1 e23 + a2 e31 + a3 e12 + d1 e01 + d2 e02 + d3 e03) | (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
+
+# line | point
+(b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03) | (a0 e123 + a1 e032 + a2 e013 + a3 e021)
+
+# point | line
+(a0 e123 + a1 e032 + a2 e013 + a3 e021) | (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
 
 # plane conjugate plane
 (a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 e0 + b1 e1 + b2 e2 + b3 e3) * (a0 e0 + a1 e1 + a2 e2 + a3 e3)
@@ -223,3 +283,18 @@
 
 # Rotor conjugate direction (demonstrates that this is identical to motor conjugation)
 (b0 + b1 e12 + b2 e31 + b3 e23) * (a1 e021 + a2 e013 + a3 e032) * (b0 - b1 e12 - b2 e31 - b3 e23) 
+
+# Project point to line
+((b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03) | (a0 e123 + a1 e021 + a2 e013 + a3 e032)) * (b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03)
+
+(((b0 e0 + b1 e1 + b2 e2 + b3 e3) ^ (c0 e0 + c1 e1 + c2 e2 + c3 e3)) | (a0 e123 + a1 e021 + a2 e013 + a3 e032)) * ((b0 e0 + b1 e1 + b2 e2 + b3 e3) ^ (c0 e0 + c1 e1 + c2 e2 + c3 e3))
+
+# Project point to plane
+((b0 e0 + b1 e1 + b2 e2 + b3 e3) | (a0 e123 + a1 e021 + a2 e013 + a3 e032)) * (b0 e0 + b1 e1 + b2 e2 + b3 e3)
+
+((b0 e0 + b1 e1 + b2 e2 + b3 e3) | (a0 e123 + a1 e021 + a2 e013 + a3 e032)) ^ (b0 e0 + b1 e1 + b2 e2 + b3 e3)
+
+# Project line to plane
+((b0 e0 + b1 e1 + b2 e2 + b3 e3) | (a1 e23 + a2 e31 + a3 e12 + d1 e01 + d2 e02 + d3 e03)) * (b0 e0 + b1 e1 + b2 e2 + b3 e3)
+
+((b0 e0 + b1 e1 + b2 e2 + b3 e3) | (a1 e23 + a2 e31 + a3 e12 + d1 e01 + d2 e02 + d3 e03)) ^ (b0 e0 + b1 e1 + b2 e2 + b3 e3)
