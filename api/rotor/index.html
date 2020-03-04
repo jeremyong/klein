@@ -455,6 +455,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__rotor_1ga26bfef944e4ae6879de054390d297bc7" class="md-nav__link">
+    rotor  normalized() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
     mat3x4  as_mat3x4() const noexcept
   </a>
@@ -1045,6 +1052,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__rotor_1ga26bfef944e4ae6879de054390d297bc7" class="md-nav__link">
+    rotor  normalized() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
     mat3x4  as_mat3x4() const noexcept
   </a>
@@ -1362,6 +1376,10 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <td>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</td>
 </tr>
 <tr>
+<td><code>public rotor</code> <a href="#group__rotor_1ga26bfef944e4ae6879de054390d297bc7"><code>normalized</code></a><code>() const noexcept</code></td>
+<td>Return a normalized copy of this rotor.</td>
+</tr>
+<tr>
 <td><code>public mat3x4</code> <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d"><code>as_mat3x4</code></a><code>() const noexcept</code></td>
 <td>Converts the rotor to a 3x4 column-major matrix. The results of this conversion are only defined if the rotor is normalized, and this conversion is preferable if so.</td>
 </tr>
@@ -1510,6 +1528,8 @@ rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex
 <p>Normalization here is done using the <code>rsqrtps</code>
 instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
 </div>
+<h4 id="group__rotor_1ga26bfef944e4ae6879de054390d297bc7">rotor  <a href="#group__rotor_1ga26bfef944e4ae6879de054390d297bc7">normalized</a>() const noexcept</h4>
+<p>Return a normalized copy of this rotor.</p>
 <h4 id="group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d">mat3x4  <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d">as_mat3x4</a>() const noexcept</h4>
 <p>Converts the rotor to a 3x4 column-major matrix. The results of this conversion are only defined if the rotor is normalized, and this conversion is preferable if so.</p>
 <h4 id="group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8">mat4x4  <a href="#group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8">as_mat4x4</a>() const noexcept</h4>

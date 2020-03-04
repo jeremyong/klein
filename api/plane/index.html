@@ -414,6 +414,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__plane_1ga15ec918ecd05f7e9b21887afa590d405" class="md-nav__link">
+    plane  normalized() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__plane_1ga2f86598e6a327c72201e68615bd10384" class="md-nav__link">
     float  norm() const noexcept
   </a>
@@ -1024,6 +1031,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__plane_1ga15ec918ecd05f7e9b21887afa590d405" class="md-nav__link">
+    plane  normalized() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__plane_1ga2f86598e6a327c72201e68615bd10384" class="md-nav__link">
     float  norm() const noexcept
   </a>
@@ -1278,6 +1292,10 @@
 <td>Normalize this plane <span class="arithmatex">\(p\)</span> such that <span class="arithmatex">\(p \cdot p = 1\)</span>.</td>
 </tr>
 <tr>
+<td><code>public plane</code> <a href="#group__plane_1ga15ec918ecd05f7e9b21887afa590d405"><code>normalized</code></a><code>() const noexcept</code></td>
+<td>Return a normalized copy of this plane.</td>
+</tr>
+<tr>
 <td><code>public float</code> <a href="#group__plane_1ga2f86598e6a327c72201e68615bd10384"><code>norm</code></a><code>() const noexcept</code></td>
 <td>Compute the plane norm, which is often used to compute distances between points and lines.</td>
 </tr>
@@ -1409,6 +1427,8 @@ components one at a time.</p>
 <p>Normalization here is done using the <code>rsqrtps</code>
 instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
 </div>
+<h4 id="group__plane_1ga15ec918ecd05f7e9b21887afa590d405">plane  <a href="#group__plane_1ga15ec918ecd05f7e9b21887afa590d405">normalized</a>() const noexcept</h4>
+<p>Return a normalized copy of this plane.</p>
 <h4 id="group__plane_1ga2f86598e6a327c72201e68615bd10384">float  <a href="#group__plane_1ga2f86598e6a327c72201e68615bd10384">norm</a>() const noexcept</h4>
 <p>Compute the plane norm, which is often used to compute distances between points and lines.</p>
 <p>Given a normalized point <span class="arithmatex">\(P\)</span> and normalized line <span class="arithmatex">\(\ell\)</span>, the plane <span class="arithmatex">\(P\vee\ell\)</span> containing both <span class="arithmatex">\(\ell\)</span> and <span class="arithmatex">\(P\)</span> will have a norm equivalent to the distance between <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(\ell\)</span>.</p>

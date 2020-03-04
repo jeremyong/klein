@@ -486,6 +486,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122" class="md-nav__link">
+    motor  normalized() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6" class="md-nav__link">
     mat3x4  as_mat3x4() const noexcept
   </a>
@@ -1122,6 +1129,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122" class="md-nav__link">
+    motor  normalized() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6" class="md-nav__link">
     mat3x4  as_mat3x4() const noexcept
   </a>
@@ -1508,6 +1522,10 @@
 <td>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</td>
 </tr>
 <tr>
+<td><code>public motor</code> <a href="#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122"><code>normalized</code></a><code>() const noexcept</code></td>
+<td>Return a normalized copy of this motor.</td>
+</tr>
+<tr>
 <td><code>public mat3x4</code> <a href="#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6"><code>as_mat3x4</code></a><code>() const noexcept</code></td>
 <td>Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.</td>
 </tr>
@@ -1689,6 +1707,8 @@
 <p>Normalization here is done using the <code>rsqrtps</code>
 instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
 </div>
+<h4 id="group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122">motor  <a href="#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122">normalized</a>() const noexcept</h4>
+<p>Return a normalized copy of this motor.</p>
 <h4 id="group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6">mat3x4  <a href="#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6">as_mat3x4</a>() const noexcept</h4>
 <p>Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.</p>
 <h4 id="group__motor_1gaa84cd8df11fc906888dff2fd20fa6e7b">mat4x4  <a href="#group__motor_1gaa84cd8df11fc906888dff2fd20fa6e7b">as_mat4x4</a>() const noexcept</h4>
