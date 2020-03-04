@@ -1160,7 +1160,7 @@ what we want after substituting <span class="arithmatex">\(r\)</span>s for <span
     <span class="c1">// re-exponentiating it to produce a motor again.</span>
 
     <span class="c1">// In practice, this should be cached whenever possible.</span>
-    <span class="n">line</span> <span class="n">motor_step</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="o">~</span><span class="n">a</span><span class="p">).</span><span class="n">log</span><span class="p">();</span>
+    <span class="n">line</span> <span class="n">motor_step</span> <span class="o">=</span> <span class="n">log</span><span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="o">~</span><span class="n">a</span><span class="p">);</span>
 
     <span class="c1">// exp(log(m)) = exp(t*log(m) + (1 - t)*log(m))</span>
     <span class="c1">// = exp(t*(log(m))) * exp((1 - t)*log(m))</span>
@@ -1170,7 +1170,7 @@ what we want after substituting <span class="arithmatex">\(r\)</span>s for <span
     <span class="c1">// with fixed steps toward the final motor. Compose the interpolated</span>
     <span class="c1">// result with the start motor to produce the intermediate blended</span>
     <span class="c1">// motor.</span>
-    <span class="k">return</span> <span class="n">motor_step</span><span class="p">.</span><span class="n">exp</span><span class="p">()</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nf">exp</span><span class="p">(</span><span class="n">motor_step</span><span class="p">)</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
