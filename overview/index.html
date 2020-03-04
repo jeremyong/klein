@@ -335,19 +335,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/kln_entity/" title="Entity" class="md-nav__link">
-      Entity
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../api/kln_plane/" title="Plane" class="md-nav__link">
+    <a href="../api/plane/" title="Plane" class="md-nav__link">
       Plane
     </a>
   </li>
@@ -359,8 +347,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/kln_line/" title="Line" class="md-nav__link">
-      Line
+    <a href="../api/lines/" title="Lines" class="md-nav__link">
+      Lines
     </a>
   </li>
 
@@ -371,7 +359,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/kln_point/" title="Point" class="md-nav__link">
+    <a href="../api/point/" title="Point" class="md-nav__link">
       Point
     </a>
   </li>
@@ -383,67 +371,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/kln_rotor/" title="Rotor" class="md-nav__link">
-      Rotor
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../api/kln_branch/" title="Branch" class="md-nav__link">
-      Branch
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../api/kln_translator/" title="Translator" class="md-nav__link">
-      Translator
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../api/kln_motor/" title="Motor" class="md-nav__link">
-      Motor
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../api/kln_ideal_line/" title="Ideal Line" class="md-nav__link">
-      Ideal Line
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../api/kln_direction/" title="Direction" class="md-nav__link">
+    <a href="../api/dir/" title="Direction" class="md-nav__link">
       Direction
     </a>
   </li>
@@ -455,8 +383,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/kln_mat3x4/" title="Mat3x4" class="md-nav__link">
-      Mat3x4
+    <a href="../api/rotor/" title="Rotor" class="md-nav__link">
+      Rotor
     </a>
   </li>
 
@@ -467,8 +395,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/kln_mat4x4/" title="Mat4x4" class="md-nav__link">
-      Mat4x4
+    <a href="../api/translator/" title="Translator" class="md-nav__link">
+      Translator
     </a>
   </li>
 
@@ -479,8 +407,104 @@
 
 
   <li class="md-nav__item">
-    <a href="../api/kln_origin/" title="Origin" class="md-nav__link">
-      Origin
+    <a href="../api/motor/" title="Motor" class="md-nav__link">
+      Motor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/gp/" title="Geometric Product" class="md-nav__link">
+      Geometric Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/ext/" title="Exterior Product" class="md-nav__link">
+      Exterior Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/dual/" title="Poincare Dual" class="md-nav__link">
+      Poincare Dual
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/reg/" title="Regressive Product" class="md-nav__link">
+      Regressive Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/dot/" title="Inner Product" class="md-nav__link">
+      Inner Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/exp_log/" title="Exponential/Logarithm" class="md-nav__link">
+      Exponential/Logarithm
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/proj/" title="Projections" class="md-nav__link">
+      Projections
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../api/dualn/" title="Dual Numbers" class="md-nav__link">
+      Dual Numbers
     </a>
   </li>
 
@@ -663,14 +687,68 @@
                 
                 
                 <h1 id="api-overview">API Overview</h1>
-<p>Working with Klein is designed to be as simple as it is efficient. To "grok" the API, the main thing
-to understand is that everything that has an underlying multivector representation is an
-<a href="../api/kln_entity"><code>entity</code></a> which means that all operations supported by the entity will be
-inherited.</p>
-<p>The entities provided are Euclidean objects (<a href="../api/kln_point"><code>points</code></a>, <a href="../api/kln_line"><code>lines</code></a>, <a href="../api/kln_plane"><code>planes</code></a>), objects that arise in
-Projective space (<a href="../api/kln_direction"><code>directions</code></a>, <a href="../api/kln_ideal_line"><code>ideal lines</code></a>),
-and geometric actions (<a href="../api/kln_rotor"><code>rotors</code></a>, <a href="../api/kln_translator"><code>translators</code></a>,
-<a href="../api/kln_motor"><code>motors</code></a>, and <a href="../api/kln_plane"><code>planes</code></a>).</p>
+<style>
+tr > td:first-child {
+  white-space: nowrap;
+}
+</style>
+
+<p>Working with Klein is designed to be as simple as it is efficient. To "grok" the API, it suffices to
+understand the API in terms of the primary operations supported through the primary geometric entities.</p>
+<p>The entities provided are Euclidean objects (<a href="../api/point"><code>points</code></a>, <a href="../api/lines"><code>lines</code></a>, <a href="../api/plane"><code>planes</code></a>), objects that arise in
+Projective space (<a href="../api/dir"><code>directions</code></a>, <a href="../api/lines"><code>ideal lines</code></a>),
+and geometric actions (<a href="../api/rotor"><code>rotors</code></a>, <a href="../api/translator"><code>translators</code></a>,
+<a href="../api/motor"><code>motors</code></a>, and <a href="../api/plane"><code>planes</code></a>).</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>plane</code></td>
+<td>A plane can be thought of as either a point field spanning a 2-dimensional subspace of <span class="arithmatex">\(\mathbf{E}^3\)</span>, or as a reflection</td>
+</tr>
+<tr>
+<td><code>line</code></td>
+<td>A line can be thought of as either a point field spanning a 1-dimensional subspace of <span class="arithmatex">\(\mathbf{E}^3\)</span> or as a rotation</td>
+</tr>
+<tr>
+<td><code>branch</code></td>
+<td>A branch is a line through the origin</td>
+</tr>
+<tr>
+<td><code>ideal_line</code></td>
+<td>An ideal line is a line at infinity</td>
+</tr>
+<tr>
+<td><code>point</code></td>
+<td>A point can be thought of as either a point field spanning a 0-dimensional subspace of <span class="arithmatex">\(\mathbf{E}^3\)</span> or as a roto-reflection (which has a single fixed point)</td>
+</tr>
+<tr>
+<td><code>direction</code></td>
+<td>A direction is modeled as a point at infinity (homogeneous weight <span class="arithmatex">\(0\)</span>)</td>
+</tr>
+<tr>
+<td><code>rotor</code></td>
+<td>A rotor is the product of two planes (generating a rotation)</td>
+</tr>
+<tr>
+<td><code>translator</code></td>
+<td>A translator is the product of two ideal lines (generating a translation)</td>
+</tr>
+<tr>
+<td><code>motor</code></td>
+<td>A motor is a screw combining a rotation and translation along a screw axis</td>
+</tr>
+<tr>
+<td><code>dual</code></td>
+<td>A dual is the sum of a scalar and pseudoscalar quantity. Dual numbers show up in a number of contexts, including the factorization of a motor axis, and as the result of several meet and join operations.</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The call operator on a plane performs a <em>reflection</em> of the passed entity through the plane. The call operator on a rotor performs a <em>rotation</em> of the entity. The translator
@@ -695,27 +773,39 @@ are supported for all the listed entities above via the following operator table
 <td>Subtraction</td>
 </tr>
 <tr>
+<td><code>* s</code></td>
+<td>Uniform scaling by a float or int <code>s</code></td>
+</tr>
+<tr>
+<td><code>/ s</code></td>
+<td>Uniform inverse scaling by a float or int <code>s</code></td>
+</tr>
+<tr>
 <td><code>*</code></td>
-<td>Geometric Product</td>
+<td><a href="../api/gp">Geometric Product</a></td>
 </tr>
 <tr>
 <td><code>^</code></td>
-<td>Exterior Product</td>
+<td><a href="../api/ext">Exterior Product</a></td>
 </tr>
 <tr>
 <td><code>&amp;</code></td>
-<td>Regressive Product</td>
+<td><a href="../api/reg">Regressive Product</a></td>
 </tr>
 <tr>
 <td><code>|</code></td>
-<td>Symmetric Inner Product</td>
+<td><a href="../api/dot">Symmetric Inner Product</a></td>
 </tr>
 <tr>
 <td><code>!</code></td>
-<td>Poincaré Dual</td>
+<td><a href="../api/dual">Poincaré Dual</a></td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Addition and subtraction is only supported between arguments of the same type. For example, two planes can be added together, but not a <code>plane</code> and a <code>rotor</code>.</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>For the geometric actions (implemented via the conjugation operator <span class="arithmatex">\(xP\widetilde{x}\)</span>), the call
@@ -725,9 +815,33 @@ to <code>p</code> as <code>r(p)</code> will be faster with equivalent results to
 <p>Similarly, while the regressive product between two entities <code>a</code> and <code>b</code> can be computed as
 <code>!(!a ^ !b)</code>, the explicit <code>a &amp; b</code> should be preferred for efficiency.</p>
 </div>
-<p>In some cases, entities may have specialized routines that will live on the child class. For
-example, the exponential map makes sense to apply to bivector entities and thus lives on the <code>line</code>
-struct. Each child entity also provides convenient constructors that accept Cartesian coordinates.</p>
+<p>There are a few additional freestanding functions to perform various tasks.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>project</code></td>
+<td>Projects the first argument onto the second argument and returns the result.</td>
+</tr>
+<tr>
+<td><code>log</code></td>
+<td>Takes the logarithm of the argument and returns the result.</td>
+</tr>
+<tr>
+<td><code>exp</code></td>
+<td>Computes the exponential of the argument and returns the result.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Throughout the API, you may see functions and methods marked with <code>KLN_VEC_CALL</code>. This macro expands to <code>__vectorcall</code> to ensure that register passing is used on MSVC.</p>
+</div>
                 
                   
                 

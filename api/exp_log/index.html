@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/klein/api/kln_line/">
+        <link rel="canonical" href="https://jeremyong.com/klein/api/exp_log/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Line - klein</title>
+        <title>Exponential/Logarithm - klein</title>
       
     
     
@@ -120,7 +120,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#structkln_1_1line" tabindex="0" class="md-skip">
+      <a href="#group__exp__log" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -146,7 +146,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Line
+                Exponential/Logarithm
               
             </span>
           
@@ -326,8 +326,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_entity/" title="Entity" class="md-nav__link">
-      Entity
+    <a href="../plane/" title="Plane" class="md-nav__link">
+      Plane
     </a>
   </li>
 
@@ -338,8 +338,128 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_plane/" title="Plane" class="md-nav__link">
-      Plane
+    <a href="../lines/" title="Lines" class="md-nav__link">
+      Lines
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../point/" title="Point" class="md-nav__link">
+      Point
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dir/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rotor/" title="Rotor" class="md-nav__link">
+      Rotor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../translator/" title="Translator" class="md-nav__link">
+      Translator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../motor/" title="Motor" class="md-nav__link">
+      Motor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gp/" title="Geometric Product" class="md-nav__link">
+      Geometric Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ext/" title="Exterior Product" class="md-nav__link">
+      Exterior Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dual/" title="Poincare Dual" class="md-nav__link">
+      Poincare Dual
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reg/" title="Regressive Product" class="md-nav__link">
+      Regressive Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dot/" title="Inner Product" class="md-nav__link">
+      Inner Product
     </a>
   </li>
 
@@ -357,11 +477,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Line
+        Exponential/Logarithm
       </label>
     
-    <a href="./" title="Line" class="md-nav__link md-nav__link--active">
-      Line
+    <a href="./" title="Exponential/Logarithm" class="md-nav__link md-nav__link--active">
+      Exponential/Logarithm
     </a>
     
       
@@ -373,8 +493,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1line" class="md-nav__link">
-    struct kln::line
+  <a href="#group__exp__log" class="md-nav__link">
+    group exp_log
   </a>
   
     <nav class="md-nav">
@@ -396,64 +516,43 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a" class="md-nav__link">
-    line()
+  <a href="#group__exp__log_1ga3c130313451a2328e43f456d85dd4fb6" class="md-nav__link">
+    line KLN_VEC_CALL  log(motor m) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7" class="md-nav__link">
-    line(float a,float b,float c,float d,float e,float f) noexcept
+  <a href="#group__exp__log_1gafd039e0f0dd3daa0bcda9bf813509440" class="md-nav__link">
+    motor KLN_VEC_CALL  exp(line l) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c" class="md-nav__link">
-    line( entity&lt; 0b110 &gt; const &amp; e) noexcept
+  <a href="#group__exp__log_1ga869455da862cba894c72ede161751cf5" class="md-nav__link">
+    ideal_line  log(translator t) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072" class="md-nav__link">
-    line( entity&lt; 0b100 &gt; const &amp; e) noexcept
+  <a href="#group__exp__log_1gad82c9474f26ec967f2d28014f86df6da" class="md-nav__link">
+    translator KLN_VEC_CALL  exp(ideal_line il) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef" class="md-nav__link">
-    line( entity&lt; 0b10 &gt; const &amp; e) noexcept
+  <a href="#group__exp__log_1gae6a2c74caa439a32c5f1dd0b44b0d7f3" class="md-nav__link">
+    branch  log(rotor r) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
-    float  squared_norm() noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
-    float  norm() noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3" class="md-nav__link">
-    void  normalize() noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1" class="md-nav__link">
-    entity&lt; 0b110 &gt;  exp() const noexcept
+  <a href="#group__exp__log_1ga1aa5a83379532820974c7e86d4bb5a23" class="md-nav__link">
+    rotor  exp(branch b) noexcept
   </a>
   
 </li>
@@ -485,8 +584,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_point/" title="Point" class="md-nav__link">
-      Point
+    <a href="../proj/" title="Projections" class="md-nav__link">
+      Projections
     </a>
   </li>
 
@@ -497,104 +596,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_rotor/" title="Rotor" class="md-nav__link">
-      Rotor
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_branch/" title="Branch" class="md-nav__link">
-      Branch
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_translator/" title="Translator" class="md-nav__link">
-      Translator
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_motor/" title="Motor" class="md-nav__link">
-      Motor
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_ideal_line/" title="Ideal Line" class="md-nav__link">
-      Ideal Line
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_direction/" title="Direction" class="md-nav__link">
-      Direction
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_mat3x4/" title="Mat3x4" class="md-nav__link">
-      Mat3x4
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_mat4x4/" title="Mat4x4" class="md-nav__link">
-      Mat4x4
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_origin/" title="Origin" class="md-nav__link">
-      Origin
+    <a href="../dualn/" title="Dual Numbers" class="md-nav__link">
+      Dual Numbers
     </a>
   </li>
 
@@ -767,8 +770,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1line" class="md-nav__link">
-    struct kln::line
+  <a href="#group__exp__log" class="md-nav__link">
+    group exp_log
   </a>
   
     <nav class="md-nav">
@@ -790,64 +793,43 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a" class="md-nav__link">
-    line()
+  <a href="#group__exp__log_1ga3c130313451a2328e43f456d85dd4fb6" class="md-nav__link">
+    line KLN_VEC_CALL  log(motor m) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7" class="md-nav__link">
-    line(float a,float b,float c,float d,float e,float f) noexcept
+  <a href="#group__exp__log_1gafd039e0f0dd3daa0bcda9bf813509440" class="md-nav__link">
+    motor KLN_VEC_CALL  exp(line l) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c" class="md-nav__link">
-    line( entity&lt; 0b110 &gt; const &amp; e) noexcept
+  <a href="#group__exp__log_1ga869455da862cba894c72ede161751cf5" class="md-nav__link">
+    ideal_line  log(translator t) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072" class="md-nav__link">
-    line( entity&lt; 0b100 &gt; const &amp; e) noexcept
+  <a href="#group__exp__log_1gad82c9474f26ec967f2d28014f86df6da" class="md-nav__link">
+    translator KLN_VEC_CALL  exp(ideal_line il) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef" class="md-nav__link">
-    line( entity&lt; 0b10 &gt; const &amp; e) noexcept
+  <a href="#group__exp__log_1gae6a2c74caa439a32c5f1dd0b44b0d7f3" class="md-nav__link">
+    branch  log(rotor r) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
-    float  squared_norm() noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
-    float  norm() noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3" class="md-nav__link">
-    void  normalize() noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1" class="md-nav__link">
-    entity&lt; 0b110 &gt;  exp() const noexcept
+  <a href="#group__exp__log_1ga1aa5a83379532820974c7e86d4bb5a23" class="md-nav__link">
+    rotor  exp(branch b) noexcept
   </a>
   
 </li>
@@ -879,14 +861,11 @@
               
                 
                 
-                  <h1>Line</h1>
+                  <h1>Exponential/Logarithm</h1>
                 
-                <h2 id="structkln_1_1line">struct <code>kln::line</code></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">struct kln::line</span>
-<span class="err">  : public kln::entity&lt; 0b110 &gt;</span>
-</code></pre></div>
-
-<p>A general line in <span class="arithmatex">\(\PGA\)</span> is given as a 6-coordinate bivector with a direct correspondence to Plücker coordinates. All lines can be exponentiated using the <code>exp</code>  method to generate a motor.</p>
+                <h2 id="group__exp__log">group <code>exp_log</code></h2>
+<p>The group of rotations, translations, and screws (combined rotatation and translation) is <em>nonlinear</em>. This means, given say, a rotor <span class="arithmatex">\(\mathbf{r}\)</span>, the rotor <span class="arithmatex">\(\frac{\mathbf{r}}{2}\)</span> <em>does not</em> correspond to half the rotation. Similarly, for a motor <span class="arithmatex">\(\mathbf{m}\)</span>, the motor <span class="arithmatex">\(n \mathbf{m}\)</span> is not <span class="arithmatex">\(n\)</span> applications of the motor <span class="arithmatex">\(\mathbf{m}\)</span>. One way we could achieve this is through exponentiation; for example, the motor <span class="arithmatex">\(\mathbf{m}^3\)</span> will perform the screw action of <span class="arithmatex">\(\mathbf{m}\)</span> three times. However, repeated multiplication in this fashion lacks both efficiency and numerical stability.</p>
+<p>The solution is to take the logarithm of the action which maps the action to a linear space. Using <code>log(A)</code>  where <code>A</code>  is one of <code>rotor</code> , <code>translator</code> , or <code>motor</code> , we can apply linear scaling to <code>log(A)</code> , and then re-exponentiate the result. Using this technique, <code>exp(n * log(A))</code>  is equivalent to <span class="arithmatex">\(\mathbf{A}^n\)</span>.</p>
 <h3 id="summary">Summary</h3>
 <table>
 <thead>
@@ -897,65 +876,47 @@
 </thead>
 <tbody>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a"><code>line</code></a><code>()</code></td>
-<td></td>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__exp__log_1ga3c130313451a2328e43f456d85dd4fb6"><code>log</code></a><code>(motor m) noexcept</code></td>
+<td>Takes the principal branch of the logarithm of the motor, returning a bivector. Exponentiation of that bivector without any changes produces this motor again. Scaling that bivector by <span class="arithmatex">\(\frac{1}{n}\)</span>, re-exponentiating, and taking the result to the <span class="arithmatex">\(n\)</span>th power will also produce this motor again. The logarithm presumes that the motor is normalized.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7"><code>line</code></a><code>(float a,float b,float c,float d,float e,float f) noexcept</code></td>
-<td>A line is specifed by 6 coordinates which correspond to the line's <a href="https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates">Plücker coordinates</a>. The coordinates specified in this way correspond to the following multivector:</td>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__exp__log_1gafd039e0f0dd3daa0bcda9bf813509440"><code>exp</code></a><code>(line l) noexcept</code></td>
+<td>Exponentiate a line to produce a motor that posesses this line as its axis. This routine will be used most often when this line is produced as the logarithm of an existing rotor, then scaled to subdivide or accelerate the motor's action. The line need not be a <em>simple bivector</em> for the operation to be well-defined.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c"><code>line</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; e) noexcept</code></td>
-<td></td>
+<td><code>public ideal_line</code> <a href="#group__exp__log_1ga869455da862cba894c72ede161751cf5"><code>log</code></a><code>(translator t) noexcept</code></td>
+<td>Compute the logarithm of the translator, producing an ideal line axis. In practice, the logarithm of a translator is simply the ideal partition (without the scalar <span class="arithmatex">\(1\)</span>).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072"><code>line</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b100 &gt; const &amp; e) noexcept</code></td>
-<td></td>
+<td><code>public translator KLN_VEC_CALL</code> <a href="#group__exp__log_1gad82c9474f26ec967f2d28014f86df6da"><code>exp</code></a><code>(ideal_line il) noexcept</code></td>
+<td>Exponentiate an ideal line to produce a translation.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef"><code>line</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; e) noexcept</code></td>
-<td></td>
+<td><code>public branch</code> <a href="#group__exp__log_1gae6a2c74caa439a32c5f1dd0b44b0d7f3"><code>log</code></a><code>(rotor r) noexcept</code></td>
+<td>Returns the principal branch of this rotor's logarithm. Invoking <code>exp</code>  on the returned <code>[kln::branch](../../api/undefined#classkln_1_1branch)</code>  maps back to this rotor.</td>
 </tr>
 <tr>
-<td><code>public float</code> <a href="#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b"><code>squared_norm</code></a><code>() noexcept</code></td>
-<td>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</td>
-</tr>
-<tr>
-<td><code>public float</code> <a href="#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22"><code>norm</code></a><code>() noexcept</code></td>
-<td>Returns the square root of the quantity produced by <code>squared_norm</code> .</td>
-</tr>
-<tr>
-<td><code>public void</code> <a href="#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3"><code>normalize</code></a><code>() noexcept</code></td>
-<td>Normalize a line such that <span class="arithmatex">\(\ell^2 = 1\)</span>.</td>
-</tr>
-<tr>
-<td><code>public</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt;</code> <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1"><code>exp</code></a><code>() const noexcept</code></td>
-<td>Line exponentiation</td>
+<td><code>public rotor</code> <a href="#group__exp__log_1ga1aa5a83379532820974c7e86d4bb5a23"><code>exp</code></a><code>(branch b) noexcept</code></td>
+<td>Exponentiate a branch to produce a rotor.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="members">Members</h3>
-<h4 id="structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a"><a href="#structkln_1_1line_1a51e1c8ea3127970e521a48bf6139224a">line</a>()</h4>
-<h4 id="structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7"><a href="#structkln_1_1line_1a3a7b1cdde6811a23a30cd5d4082ee5d7">line</a>(float a,float b,float c,float d,float e,float f) noexcept</h4>
-<p>A line is specifed by 6 coordinates which correspond to the line's <a href="https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates">Plücker coordinates</a>. The coordinates specified in this way correspond to the following multivector:</p>
-<div class="arithmatex">\[a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\ d\mathbf{e}_{23} + e\mathbf{e}_{31} + f\mathbf{e}_{12}\]</div>
-<h4 id="structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c"><a href="#structkln_1_1line_1ab34c8ce4640a7f82ada73265dc979a2c">line</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; e) noexcept</h4>
-<h4 id="structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072"><a href="#structkln_1_1line_1adea8b05010cbb6b785795ba2f4f91072">line</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b100 &gt; const &amp; e) noexcept</h4>
-<h4 id="structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef"><a href="#structkln_1_1line_1a0b787e3e257d022d94fd54c0db2f15ef">line</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; e) noexcept</h4>
-<h4 id="structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b">float  <a href="#structkln_1_1line_1a941c27dc8594f947ecf718160ebb084b">squared_norm</a>() noexcept</h4>
-<p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
-<h4 id="structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22">float  <a href="#structkln_1_1line_1ad388b8d134c0c22b1f82026277e39c22">norm</a>() noexcept</h4>
-<p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
-<h4 id="structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3">void  <a href="#structkln_1_1line_1a1bf22b022eadfaf1e9f9179f346a4cd3">normalize</a>() noexcept</h4>
-<p>Normalize a line such that <span class="arithmatex">\(\ell^2 = 1\)</span>.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Normalization here is done using the <code>rsqrtps</code>
-instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
-</div>
-<h4 id="structkln_1_1line_1ab81feed09b9c02934914071206bf54d1"><a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt;  <a href="#structkln_1_1line_1ab81feed09b9c02934914071206bf54d1">exp</a>() const noexcept</h4>
-<p>Line exponentiation</p>
-<p>The line can be exponentiated to produce a motor that posesses this line as its axis. This routine will be used most often when this line is produced as the logarithm of an existing rotor, then scaled to subdivide or accelerate the motor's action.</p>
+<h4 id="group__exp__log_1ga3c130313451a2328e43f456d85dd4fb6">line KLN_VEC_CALL  <a href="#group__exp__log_1ga3c130313451a2328e43f456d85dd4fb6">log</a>(motor m) noexcept</h4>
+<p>Takes the principal branch of the logarithm of the motor, returning a bivector. Exponentiation of that bivector without any changes produces this motor again. Scaling that bivector by <span class="arithmatex">\(\frac{1}{n}\)</span>, re-exponentiating, and taking the result to the <span class="arithmatex">\(n\)</span>th power will also produce this motor again. The logarithm presumes that the motor is normalized.</p>
+<h4 id="group__exp__log_1gafd039e0f0dd3daa0bcda9bf813509440">motor KLN_VEC_CALL  <a href="#group__exp__log_1gafd039e0f0dd3daa0bcda9bf813509440">exp</a>(line l) noexcept</h4>
+<p>Exponentiate a line to produce a motor that posesses this line as its axis. This routine will be used most often when this line is produced as the logarithm of an existing rotor, then scaled to subdivide or accelerate the motor's action. The line need not be a <em>simple bivector</em> for the operation to be well-defined.</p>
+<h4 id="group__exp__log_1ga869455da862cba894c72ede161751cf5">ideal_line  <a href="#group__exp__log_1ga869455da862cba894c72ede161751cf5">log</a>(translator t) noexcept</h4>
+<p>Compute the logarithm of the translator, producing an ideal line axis. In practice, the logarithm of a translator is simply the ideal partition (without the scalar <span class="arithmatex">\(1\)</span>).</p>
+<h4 id="group__exp__log_1gad82c9474f26ec967f2d28014f86df6da">translator KLN_VEC_CALL  <a href="#group__exp__log_1gad82c9474f26ec967f2d28014f86df6da">exp</a>(ideal_line il) noexcept</h4>
+<p>Exponentiate an ideal line to produce a translation.</p>
+<p>The exponential of an ideal line <span class="arithmatex">\(a \mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03}\)</span> is given as:</p>
+<div class="arithmatex">\[\exp{\left[a\ee_{01} + b\ee_{02} + c\ee_{03}\right]} = 1 +\ a\ee_{01} + b\ee_{02} + c\ee_{03}\]</div>
+<h4 id="group__exp__log_1gae6a2c74caa439a32c5f1dd0b44b0d7f3">branch  <a href="#group__exp__log_1gae6a2c74caa439a32c5f1dd0b44b0d7f3">log</a>(rotor r) noexcept</h4>
+<p>Returns the principal branch of this rotor's logarithm. Invoking <code>exp</code>  on the returned <code>[kln::branch](../../api/undefined#classkln_1_1branch)</code>  maps back to this rotor.</p>
+<p>Given a rotor <span class="arithmatex">\(\cos\alpha + \sin\alpha\left[a\ee_{23} + b\ee_{31} +\ c\ee_{23}\right]\)</span>, the log is computed as simply <span class="arithmatex">\(\alpha\left[a\ee_{23} + b\ee_{31} + c\ee_{23}\right]\)</span>. This map is only well-defined if the rotor is normalized such that <span class="arithmatex">\(a^2 + b^2 + c^2 = 1\)</span>.</p>
+<h4 id="group__exp__log_1ga1aa5a83379532820974c7e86d4bb5a23">rotor  <a href="#group__exp__log_1ga1aa5a83379532820974c7e86d4bb5a23">exp</a>(branch b) noexcept</h4>
+<p>Exponentiate a branch to produce a rotor.</p>
                 
                   
                 
@@ -984,8 +945,8 @@ instruction with a maximum relative error of <span class="arithmatex">\(1.5\time
 
         <!-- Link to previous page -->
         
-          <a href="../kln_plane/"
-              title="Plane"
+          <a href="../dot/"
+              title="Inner Product"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -998,7 +959,7 @@ instruction with a maximum relative error of <span class="arithmatex">\(1.5\time
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Plane
+                Inner Product
               </span>
             </div>
           </a>
@@ -1006,8 +967,8 @@ instruction with a maximum relative error of <span class="arithmatex">\(1.5\time
 
         <!-- Link to next page -->
         
-          <a href="../kln_point/"
-              title="Point"
+          <a href="../proj/"
+              title="Projections"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -1016,7 +977,7 @@ instruction with a maximum relative error of <span class="arithmatex">\(1.5\time
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Point
+                Projections
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

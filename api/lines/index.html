@@ -1,0 +1,2685 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
+      
+      
+        <link rel="canonical" href="https://jeremyong.com/klein/api/lines/">
+      
+      
+        <meta name="author" content="Jeremy Ong">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>Lines - klein</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.adb8469c.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009688">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-10576233-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="teal" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#group__lines" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://jeremyong.com/klein/" title="klein" aria-label="klein" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">flip</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              klein
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Lines
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jeremyong/klein/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://jeremyong.com/klein/" title="klein" class="md-nav__button md-logo">
+      
+        <i class="md-icon">flip</i>
+      
+    </a>
+    klein
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jeremyong/klein/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../quickstart/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../gpu/" title="GPU Support" class="md-nav__link">
+      GPU Support
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plane/" title="Plane" class="md-nav__link">
+      Plane
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Lines
+      </label>
+    
+    <a href="./" title="Lines" class="md-nav__link md-nav__link--active">
+      Lines
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#group__lines" class="md-nav__link">
+    group lines
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#members" class="md-nav__link">
+    Members
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga62ef2297496614693083466f12635558" class="md-nav__link">
+    ideal_line() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga23cf4cb2763929db4f63dabadc1b9b32" class="md-nav__link">
+    ideal_line(float a,float b,float c) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga0734f86c43d547402c7d06d4eddb0691" class="md-nav__link">
+    ideal_line(__m128 xmm) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga4da377f9f9687a69e0cc1c84b936d53e" class="md-nav__link">
+    float  squared_ideal_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac38415e4e709ce83f215bfbbc6fa43a0" class="md-nav__link">
+    float  ideal_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga6cd29f5c0d762ba34140adfb11e89d4c" class="md-nav__link">
+    ideal_line &amp;KLN_VEC_CALL  operator+=(ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga716f3c3a2bab34ea147157a129b259d0" class="md-nav__link">
+    ideal_line &amp;KLN_VEC_CALL  operator-=(ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga50c085e141902ec94366bedfc5eb1993" class="md-nav__link">
+    ideal_line &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga848437f19a14e0e0f946420b388066c2" class="md-nav__link">
+    ideal_line &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gad5022268754a921e8a91b22745da62fe" class="md-nav__link">
+    ideal_line &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga6540e3a798f002b7add9bc83fad74b09" class="md-nav__link">
+    ideal_line &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga9209dc293ba4828ee9401471a2c39416" class="md-nav__link">
+    float  e01() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga630a786b6a720571df80ce07be2b480d" class="md-nav__link">
+    float  e10() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga64252faa6b55014eb29f1b0b0756c412" class="md-nav__link">
+    float  e02() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga895a9f40d184bc766580cd4f937d9653" class="md-nav__link">
+    float  e20() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gad7926824f65759c7757206a16c955494" class="md-nav__link">
+    float  e03() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf9a7c9717ca8bca47567bc2eb9cbdf5e" class="md-nav__link">
+    float  e30() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf20ec975ef8d272dec782a21e92ad292" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator+(ideal_line a,ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gae3e8dad43c2e6da933169175481b8807" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator-(ideal_line a,ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga8c687777271cee937c066f86cf8fc13e" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator*(ideal_line l,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga585458c330e0b6d6e3725aeb6d1f1711" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator*(ideal_line l,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga45fa818b3742c77e0a81fa35419e5a1d" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator*(float s,ideal_line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1c749bb69e95b736eb7ccc14b198ff41" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator*(int s,ideal_line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gad4c128535f9e5c60830442b18e62c419" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator/(ideal_line l,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga600666bf5950f2a58c1d6d0aaefa41f3" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator/(ideal_line l,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga8a25015fd95c9ae21a403a723328bdff" class="md-nav__link">
+    ideal_line  operator-(ideal_line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga86bab70a9013bb96a8e666f2d3b508b2" class="md-nav__link">
+    ideal_line  operator~(ideal_line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac0b6196328f798a024d116b0052dc933" class="md-nav__link">
+    branch() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga85e647f4c92a2dd6896c5afd849d00a5" class="md-nav__link">
+    branch(float a,float b,float c) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga919bf9527b955fe1d58188edfe5aa802" class="md-nav__link">
+    branch(__m128 xmm) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga0c6c16090b660c63df26aacf985c6f0c" class="md-nav__link">
+    float  squared_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga6174cbd24d0189e3f5f9b893d63f5086" class="md-nav__link">
+    float  norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2" class="md-nav__link">
+    branch &amp;KLN_VEC_CALL  operator+=(branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga69f66d6b2736f2fdaa02b45e72b1ba2f" class="md-nav__link">
+    branch &amp;KLN_VEC_CALL  operator-=(branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga174b924bea5109230431bce2ec996d77" class="md-nav__link">
+    branch &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf522a7fcce5ccd8ec64dd519b1355945" class="md-nav__link">
+    branch &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga0059f1b65a43b001a072cb6e2e7c0702" class="md-nav__link">
+    branch &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac2d5f7065b967c378f52e192b5cda886" class="md-nav__link">
+    branch &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf242b6c3e610d5a328dd251dfa8f47d0" class="md-nav__link">
+    float  e12() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga7523c736e05eea04cd848201b0a93506" class="md-nav__link">
+    float  e21() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac71e905e0f2758d0a6fa2242a135a568" class="md-nav__link">
+    float  e31() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaa00e179436a14b16c88dae12a42792c2" class="md-nav__link">
+    float  e13() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga7af485388456f1d35f6d25b493e3c466" class="md-nav__link">
+    float  e23() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaffda6cbc92f913c96c8c9697c7f498a7" class="md-nav__link">
+    float  e32() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga806e374cc4281cfc3eecec93d85a31fa" class="md-nav__link">
+    branch KLN_VEC_CALL  operator+(branch a,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga2bad4a299ed2bcb5fb8532af40608e3d" class="md-nav__link">
+    branch KLN_VEC_CALL  operator-(branch a,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga6f0f933a374ea30980fa71cc222fbdf1" class="md-nav__link">
+    branch KLN_VEC_CALL  operator*(branch b,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga06f26bbb23a3ac8bf2da68d6d86cb9a0" class="md-nav__link">
+    branch KLN_VEC_CALL  operator*(branch b,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gafcb9d3b2717d1fdf3591c06894a285a2" class="md-nav__link">
+    branch KLN_VEC_CALL  operator*(float s,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaacf02b8f4c3af4e74eb6a09eb849cdfa" class="md-nav__link">
+    branch KLN_VEC_CALL  operator*(int s,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga029c94290f7cec1095460b3ca72fdb5c" class="md-nav__link">
+    branch KLN_VEC_CALL  operator/(branch b,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga749e37e9a3b976563ac06098c5011bf6" class="md-nav__link">
+    branch KLN_VEC_CALL  operator/(branch b,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaabf4c8f567fef30fbdfcc200771994e8" class="md-nav__link">
+    branch  operator-(branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf3513b2c3f0725be15678230c44e7c2e" class="md-nav__link">
+    branch  operator~(branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf274662f18385ec8065a083d235cc63e" class="md-nav__link">
+    line() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga3a7b1cdde6811a23a30cd5d4082ee5d7" class="md-nav__link">
+    line(float a,float b,float c,float d,float e,float f) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga185af75e75e036164d3c1754da405737" class="md-nav__link">
+    line(__m128 xmm1,__m128 xmm2) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaddbd98af6bc9a738816347a15a83c276" class="md-nav__link">
+    line(ideal_line other) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gae8e557447c170f2cbb3004b6d9945a9e" class="md-nav__link">
+    line(branch other) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
+    float  squared_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
+    float  norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3" class="md-nav__link">
+    void  normalize() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3" class="md-nav__link">
+    line &amp;KLN_VEC_CALL  operator+=(line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1ab6e11021c616adfb35f5b11e478447" class="md-nav__link">
+    line &amp;KLN_VEC_CALL  operator-=(line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga64128e5413f0dd3e31808c6dae6aaad6" class="md-nav__link">
+    line &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gabf0b448a99eda4e48f5b14c998dfbfbc" class="md-nav__link">
+    line &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gab8d592169b9ed4abc4932a670d98131c" class="md-nav__link">
+    line &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga23fdb26f06a4e172aec588b2034e56af" class="md-nav__link">
+    line &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1362bf5e4fbf12c0a1fadeaa4cba905a" class="md-nav__link">
+    float  e12() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaed1b130b5124643dfe1baf82ef43a091" class="md-nav__link">
+    float  e21() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaeed171a99dbd03a54aaeeb4297a5f7d4" class="md-nav__link">
+    float  e31() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga49c1718902c977c0d04a9aae046d97d5" class="md-nav__link">
+    float  e13() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga637c8b7fa555e5dd30b0faadd88d0095" class="md-nav__link">
+    float  e23() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaa150f5a6ee68b810f27f9624496face0" class="md-nav__link">
+    float  e32() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac29f9783375c336ab2d3fb67a3431f07" class="md-nav__link">
+    float  e01() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga7d163f4afca8fd89a796056c909245d1" class="md-nav__link">
+    float  e10() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaa38fe9ae6e00bc4d595713c01ac1dd9f" class="md-nav__link">
+    float  e02() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga4f37f6f38b720170d3b41ecc33c1cef9" class="md-nav__link">
+    float  e20() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gacd1e4c54ab209259cbd3c3042f286580" class="md-nav__link">
+    float  e03() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaa75f3c527da3e76fba0f63defd1e822d" class="md-nav__link">
+    float  e30() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga0a83f2a48198edd9507f5bbd4c9b30db" class="md-nav__link">
+    line KLN_VEC_CALL  operator+(line a,line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gadb1e4f4b039a7b4876f5b594f31a3c18" class="md-nav__link">
+    line KLN_VEC_CALL  operator-(line a,line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga2ab242c8429056ce8a0eaff272d58055" class="md-nav__link">
+    line KLN_VEC_CALL  operator*(line l,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaeb3211aaaffb0c67796cd16fcc9fdfbb" class="md-nav__link">
+    line KLN_VEC_CALL  operator*(line l,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gafc0250185f6abbab4af1dfc7ddd7d82f" class="md-nav__link">
+    line KLN_VEC_CALL  operator*(float s,line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga8cb888db657b2113caea92ab8220594c" class="md-nav__link">
+    line KLN_VEC_CALL  operator*(int s,line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gafb3d9b8897b0af53ecb7e20887be0485" class="md-nav__link">
+    line KLN_VEC_CALL  operator/(line r,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gae8be4741283b0730feb08cdf697de2b1" class="md-nav__link">
+    line KLN_VEC_CALL  operator/(line r,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac249311dc1a091a5025cdd8993056c18" class="md-nav__link">
+    line  operator-(line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga42776f938b5c07b5cecc55cd0059e3e6" class="md-nav__link">
+    line  operator~(line l) noexcept
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../point/" title="Point" class="md-nav__link">
+      Point
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dir/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rotor/" title="Rotor" class="md-nav__link">
+      Rotor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../translator/" title="Translator" class="md-nav__link">
+      Translator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../motor/" title="Motor" class="md-nav__link">
+      Motor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gp/" title="Geometric Product" class="md-nav__link">
+      Geometric Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ext/" title="Exterior Product" class="md-nav__link">
+      Exterior Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dual/" title="Poincare Dual" class="md-nav__link">
+      Poincare Dual
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reg/" title="Regressive Product" class="md-nav__link">
+      Regressive Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dot/" title="Inner Product" class="md-nav__link">
+      Inner Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../exp_log/" title="Exponential/Logarithm" class="md-nav__link">
+      Exponential/Logarithm
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../proj/" title="Projections" class="md-nav__link">
+      Projections
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dualn/" title="Dual Numbers" class="md-nav__link">
+      Dual Numbers
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
+      Geometry Potpourri
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Tutorial
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Tutorial
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/intro/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/exterior_algebra/" title="Exterior Algebra" class="md-nav__link">
+      Exterior Algebra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Case Studies
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Case Studies
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../case_studies/ga_skeletal_animation/" title="Basic Skeletal Animation" class="md-nav__link">
+      Basic Skeletal Animation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../shell/" title="Klein Shell" class="md-nav__link">
+      Klein Shell
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../perf/" title="Performance" class="md-nav__link">
+      Performance
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../discord/" title="Discord" class="md-nav__link">
+      Discord
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../references/" title="References" class="md-nav__link">
+      References
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#group__lines" class="md-nav__link">
+    group lines
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#members" class="md-nav__link">
+    Members
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga62ef2297496614693083466f12635558" class="md-nav__link">
+    ideal_line() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga23cf4cb2763929db4f63dabadc1b9b32" class="md-nav__link">
+    ideal_line(float a,float b,float c) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga0734f86c43d547402c7d06d4eddb0691" class="md-nav__link">
+    ideal_line(__m128 xmm) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga4da377f9f9687a69e0cc1c84b936d53e" class="md-nav__link">
+    float  squared_ideal_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac38415e4e709ce83f215bfbbc6fa43a0" class="md-nav__link">
+    float  ideal_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga6cd29f5c0d762ba34140adfb11e89d4c" class="md-nav__link">
+    ideal_line &amp;KLN_VEC_CALL  operator+=(ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga716f3c3a2bab34ea147157a129b259d0" class="md-nav__link">
+    ideal_line &amp;KLN_VEC_CALL  operator-=(ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga50c085e141902ec94366bedfc5eb1993" class="md-nav__link">
+    ideal_line &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga848437f19a14e0e0f946420b388066c2" class="md-nav__link">
+    ideal_line &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gad5022268754a921e8a91b22745da62fe" class="md-nav__link">
+    ideal_line &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga6540e3a798f002b7add9bc83fad74b09" class="md-nav__link">
+    ideal_line &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga9209dc293ba4828ee9401471a2c39416" class="md-nav__link">
+    float  e01() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga630a786b6a720571df80ce07be2b480d" class="md-nav__link">
+    float  e10() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga64252faa6b55014eb29f1b0b0756c412" class="md-nav__link">
+    float  e02() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga895a9f40d184bc766580cd4f937d9653" class="md-nav__link">
+    float  e20() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gad7926824f65759c7757206a16c955494" class="md-nav__link">
+    float  e03() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf9a7c9717ca8bca47567bc2eb9cbdf5e" class="md-nav__link">
+    float  e30() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf20ec975ef8d272dec782a21e92ad292" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator+(ideal_line a,ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gae3e8dad43c2e6da933169175481b8807" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator-(ideal_line a,ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga8c687777271cee937c066f86cf8fc13e" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator*(ideal_line l,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga585458c330e0b6d6e3725aeb6d1f1711" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator*(ideal_line l,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga45fa818b3742c77e0a81fa35419e5a1d" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator*(float s,ideal_line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1c749bb69e95b736eb7ccc14b198ff41" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator*(int s,ideal_line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gad4c128535f9e5c60830442b18e62c419" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator/(ideal_line l,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga600666bf5950f2a58c1d6d0aaefa41f3" class="md-nav__link">
+    ideal_line KLN_VEC_CALL  operator/(ideal_line l,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga8a25015fd95c9ae21a403a723328bdff" class="md-nav__link">
+    ideal_line  operator-(ideal_line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga86bab70a9013bb96a8e666f2d3b508b2" class="md-nav__link">
+    ideal_line  operator~(ideal_line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac0b6196328f798a024d116b0052dc933" class="md-nav__link">
+    branch() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga85e647f4c92a2dd6896c5afd849d00a5" class="md-nav__link">
+    branch(float a,float b,float c) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga919bf9527b955fe1d58188edfe5aa802" class="md-nav__link">
+    branch(__m128 xmm) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga0c6c16090b660c63df26aacf985c6f0c" class="md-nav__link">
+    float  squared_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga6174cbd24d0189e3f5f9b893d63f5086" class="md-nav__link">
+    float  norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2" class="md-nav__link">
+    branch &amp;KLN_VEC_CALL  operator+=(branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga69f66d6b2736f2fdaa02b45e72b1ba2f" class="md-nav__link">
+    branch &amp;KLN_VEC_CALL  operator-=(branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga174b924bea5109230431bce2ec996d77" class="md-nav__link">
+    branch &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf522a7fcce5ccd8ec64dd519b1355945" class="md-nav__link">
+    branch &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga0059f1b65a43b001a072cb6e2e7c0702" class="md-nav__link">
+    branch &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac2d5f7065b967c378f52e192b5cda886" class="md-nav__link">
+    branch &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf242b6c3e610d5a328dd251dfa8f47d0" class="md-nav__link">
+    float  e12() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga7523c736e05eea04cd848201b0a93506" class="md-nav__link">
+    float  e21() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac71e905e0f2758d0a6fa2242a135a568" class="md-nav__link">
+    float  e31() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaa00e179436a14b16c88dae12a42792c2" class="md-nav__link">
+    float  e13() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga7af485388456f1d35f6d25b493e3c466" class="md-nav__link">
+    float  e23() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaffda6cbc92f913c96c8c9697c7f498a7" class="md-nav__link">
+    float  e32() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga806e374cc4281cfc3eecec93d85a31fa" class="md-nav__link">
+    branch KLN_VEC_CALL  operator+(branch a,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga2bad4a299ed2bcb5fb8532af40608e3d" class="md-nav__link">
+    branch KLN_VEC_CALL  operator-(branch a,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga6f0f933a374ea30980fa71cc222fbdf1" class="md-nav__link">
+    branch KLN_VEC_CALL  operator*(branch b,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga06f26bbb23a3ac8bf2da68d6d86cb9a0" class="md-nav__link">
+    branch KLN_VEC_CALL  operator*(branch b,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gafcb9d3b2717d1fdf3591c06894a285a2" class="md-nav__link">
+    branch KLN_VEC_CALL  operator*(float s,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaacf02b8f4c3af4e74eb6a09eb849cdfa" class="md-nav__link">
+    branch KLN_VEC_CALL  operator*(int s,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga029c94290f7cec1095460b3ca72fdb5c" class="md-nav__link">
+    branch KLN_VEC_CALL  operator/(branch b,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga749e37e9a3b976563ac06098c5011bf6" class="md-nav__link">
+    branch KLN_VEC_CALL  operator/(branch b,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaabf4c8f567fef30fbdfcc200771994e8" class="md-nav__link">
+    branch  operator-(branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf3513b2c3f0725be15678230c44e7c2e" class="md-nav__link">
+    branch  operator~(branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaf274662f18385ec8065a083d235cc63e" class="md-nav__link">
+    line() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga3a7b1cdde6811a23a30cd5d4082ee5d7" class="md-nav__link">
+    line(float a,float b,float c,float d,float e,float f) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga185af75e75e036164d3c1754da405737" class="md-nav__link">
+    line(__m128 xmm1,__m128 xmm2) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaddbd98af6bc9a738816347a15a83c276" class="md-nav__link">
+    line(ideal_line other) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gae8e557447c170f2cbb3004b6d9945a9e" class="md-nav__link">
+    line(branch other) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
+    float  squared_norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
+    float  norm() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3" class="md-nav__link">
+    void  normalize() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3" class="md-nav__link">
+    line &amp;KLN_VEC_CALL  operator+=(line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1ab6e11021c616adfb35f5b11e478447" class="md-nav__link">
+    line &amp;KLN_VEC_CALL  operator-=(line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga64128e5413f0dd3e31808c6dae6aaad6" class="md-nav__link">
+    line &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gabf0b448a99eda4e48f5b14c998dfbfbc" class="md-nav__link">
+    line &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gab8d592169b9ed4abc4932a670d98131c" class="md-nav__link">
+    line &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga23fdb26f06a4e172aec588b2034e56af" class="md-nav__link">
+    line &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1362bf5e4fbf12c0a1fadeaa4cba905a" class="md-nav__link">
+    float  e12() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaed1b130b5124643dfe1baf82ef43a091" class="md-nav__link">
+    float  e21() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaeed171a99dbd03a54aaeeb4297a5f7d4" class="md-nav__link">
+    float  e31() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga49c1718902c977c0d04a9aae046d97d5" class="md-nav__link">
+    float  e13() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga637c8b7fa555e5dd30b0faadd88d0095" class="md-nav__link">
+    float  e23() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaa150f5a6ee68b810f27f9624496face0" class="md-nav__link">
+    float  e32() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac29f9783375c336ab2d3fb67a3431f07" class="md-nav__link">
+    float  e01() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga7d163f4afca8fd89a796056c909245d1" class="md-nav__link">
+    float  e10() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaa38fe9ae6e00bc4d595713c01ac1dd9f" class="md-nav__link">
+    float  e02() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga4f37f6f38b720170d3b41ecc33c1cef9" class="md-nav__link">
+    float  e20() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gacd1e4c54ab209259cbd3c3042f286580" class="md-nav__link">
+    float  e03() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaa75f3c527da3e76fba0f63defd1e822d" class="md-nav__link">
+    float  e30() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga0a83f2a48198edd9507f5bbd4c9b30db" class="md-nav__link">
+    line KLN_VEC_CALL  operator+(line a,line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gadb1e4f4b039a7b4876f5b594f31a3c18" class="md-nav__link">
+    line KLN_VEC_CALL  operator-(line a,line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga2ab242c8429056ce8a0eaff272d58055" class="md-nav__link">
+    line KLN_VEC_CALL  operator*(line l,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gaeb3211aaaffb0c67796cd16fcc9fdfbb" class="md-nav__link">
+    line KLN_VEC_CALL  operator*(line l,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gafc0250185f6abbab4af1dfc7ddd7d82f" class="md-nav__link">
+    line KLN_VEC_CALL  operator*(float s,line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga8cb888db657b2113caea92ab8220594c" class="md-nav__link">
+    line KLN_VEC_CALL  operator*(int s,line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gafb3d9b8897b0af53ecb7e20887be0485" class="md-nav__link">
+    line KLN_VEC_CALL  operator/(line r,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gae8be4741283b0730feb08cdf697de2b1" class="md-nav__link">
+    line KLN_VEC_CALL  operator/(line r,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac249311dc1a091a5025cdd8993056c18" class="md-nav__link">
+    line  operator-(line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga42776f938b5c07b5cecc55cd0059e3e6" class="md-nav__link">
+    line  operator~(line l) noexcept
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Lines</h1>
+                
+                <h2 id="group__lines">group <code>lines</code></h2>
+<p>Klein provides three line classes: "line", "branch", and "ideal_line". The line class represents a full six-coordinate bivector. The branch contains three non-degenerate components (aka, a line through the origin). The ideal line represents the line at infinity. When the line is created as a meet of two planes or join of two points (or carefully selected Plücker coordinates), it will be a Euclidean line (factorizable as the meet of two vectors).</p>
+<h3 id="summary">Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Members</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>public</code> <a href="#group__lines_1ga62ef2297496614693083466f12635558"><code>ideal_line</code></a><code>() = default</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1ga23cf4cb2763929db4f63dabadc1b9b32"><code>ideal_line</code></a><code>(float a,float b,float c) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1ga0734f86c43d547402c7d06d4eddb0691"><code>ideal_line</code></a><code>(__m128 xmm) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga4da377f9f9687a69e0cc1c84b936d53e"><code>squared_ideal_norm</code></a><code>() noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gac38415e4e709ce83f215bfbbc6fa43a0"><code>ideal_norm</code></a><code>() noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public ideal_line &amp;KLN_VEC_CALL</code> <a href="#group__lines_1ga6cd29f5c0d762ba34140adfb11e89d4c"><code>operator+=</code></a><code>(ideal_line b) noexcept</code></td>
+<td>Ideal line addition.</td>
+</tr>
+<tr>
+<td><code>public ideal_line &amp;KLN_VEC_CALL</code> <a href="#group__lines_1ga716f3c3a2bab34ea147157a129b259d0"><code>operator-=</code></a><code>(ideal_line b) noexcept</code></td>
+<td>Ideal line subtraction.</td>
+</tr>
+<tr>
+<td><code>public ideal_line &amp;</code> <a href="#group__lines_1ga50c085e141902ec94366bedfc5eb1993"><code>operator*=</code></a><code>(float s) noexcept</code></td>
+<td>Ideal line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public ideal_line &amp;</code> <a href="#group__lines_1ga848437f19a14e0e0f946420b388066c2"><code>operator*=</code></a><code>(int s) noexcept</code></td>
+<td>Ideal line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public ideal_line &amp;</code> <a href="#group__lines_1gad5022268754a921e8a91b22745da62fe"><code>operator/=</code></a><code>(float s) noexcept</code></td>
+<td>Ideal line uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public ideal_line &amp;</code> <a href="#group__lines_1ga6540e3a798f002b7add9bc83fad74b09"><code>operator/=</code></a><code>(int s) noexcept</code></td>
+<td>Ideal line uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga9209dc293ba4828ee9401471a2c39416"><code>e01</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga630a786b6a720571df80ce07be2b480d"><code>e10</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga64252faa6b55014eb29f1b0b0756c412"><code>e02</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga895a9f40d184bc766580cd4f937d9653"><code>e20</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gad7926824f65759c7757206a16c955494"><code>e03</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gaf9a7c9717ca8bca47567bc2eb9cbdf5e"><code>e30</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public ideal_line KLN_VEC_CALL</code> <a href="#group__lines_1gaf20ec975ef8d272dec782a21e92ad292"><code>operator+</code></a><code>(ideal_line a,ideal_line b) noexcept</code></td>
+<td>Ideal line addition.</td>
+</tr>
+<tr>
+<td><code>public ideal_line KLN_VEC_CALL</code> <a href="#group__lines_1gae3e8dad43c2e6da933169175481b8807"><code>operator-</code></a><code>(ideal_line a,ideal_line b) noexcept</code></td>
+<td>Ideal line subtraction.</td>
+</tr>
+<tr>
+<td><code>public ideal_line KLN_VEC_CALL</code> <a href="#group__lines_1ga8c687777271cee937c066f86cf8fc13e"><code>operator*</code></a><code>(ideal_line l,float s) noexcept</code></td>
+<td>Ideal line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public ideal_line KLN_VEC_CALL</code> <a href="#group__lines_1ga585458c330e0b6d6e3725aeb6d1f1711"><code>operator*</code></a><code>(ideal_line l,int s) noexcept</code></td>
+<td>Ideal line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public ideal_line KLN_VEC_CALL</code> <a href="#group__lines_1ga45fa818b3742c77e0a81fa35419e5a1d"><code>operator*</code></a><code>(float s,ideal_line l) noexcept</code></td>
+<td>Ideal line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public ideal_line KLN_VEC_CALL</code> <a href="#group__lines_1ga1c749bb69e95b736eb7ccc14b198ff41"><code>operator*</code></a><code>(int s,ideal_line l) noexcept</code></td>
+<td>Ideal line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public ideal_line KLN_VEC_CALL</code> <a href="#group__lines_1gad4c128535f9e5c60830442b18e62c419"><code>operator/</code></a><code>(ideal_line l,float s) noexcept</code></td>
+<td>Ideal line uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public ideal_line KLN_VEC_CALL</code> <a href="#group__lines_1ga600666bf5950f2a58c1d6d0aaefa41f3"><code>operator/</code></a><code>(ideal_line l,int s) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public ideal_line</code> <a href="#group__lines_1ga8a25015fd95c9ae21a403a723328bdff"><code>operator-</code></a><code>(ideal_line l) noexcept</code></td>
+<td>Unary minus.</td>
+</tr>
+<tr>
+<td><code>public ideal_line</code> <a href="#group__lines_1ga86bab70a9013bb96a8e666f2d3b508b2"><code>operator~</code></a><code>(ideal_line l) noexcept</code></td>
+<td>Reversion operator.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1gac0b6196328f798a024d116b0052dc933"><code>branch</code></a><code>() = default</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1ga85e647f4c92a2dd6896c5afd849d00a5"><code>branch</code></a><code>(float a,float b,float c) noexcept</code></td>
+<td>Construct the branch as the following multivector:</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1ga919bf9527b955fe1d58188edfe5aa802"><code>branch</code></a><code>(__m128 xmm) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga0c6c16090b660c63df26aacf985c6f0c"><code>squared_norm</code></a><code>() noexcept</code></td>
+<td>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga6174cbd24d0189e3f5f9b893d63f5086"><code>norm</code></a><code>() noexcept</code></td>
+<td>Returns the square root of the quantity produced by <code>squared_norm</code> .</td>
+</tr>
+<tr>
+<td><code>public branch &amp;KLN_VEC_CALL</code> <a href="#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2"><code>operator+=</code></a><code>(branch b) noexcept</code></td>
+<td>Branch addition.</td>
+</tr>
+<tr>
+<td><code>public branch &amp;KLN_VEC_CALL</code> <a href="#group__lines_1ga69f66d6b2736f2fdaa02b45e72b1ba2f"><code>operator-=</code></a><code>(branch b) noexcept</code></td>
+<td>Branch subtraction.</td>
+</tr>
+<tr>
+<td><code>public branch &amp;</code> <a href="#group__lines_1ga174b924bea5109230431bce2ec996d77"><code>operator*=</code></a><code>(float s) noexcept</code></td>
+<td>Branch uniform scale.</td>
+</tr>
+<tr>
+<td><code>public branch &amp;</code> <a href="#group__lines_1gaf522a7fcce5ccd8ec64dd519b1355945"><code>operator*=</code></a><code>(int s) noexcept</code></td>
+<td>Branch uniform scale.</td>
+</tr>
+<tr>
+<td><code>public branch &amp;</code> <a href="#group__lines_1ga0059f1b65a43b001a072cb6e2e7c0702"><code>operator/=</code></a><code>(float s) noexcept</code></td>
+<td>Branch uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public branch &amp;</code> <a href="#group__lines_1gac2d5f7065b967c378f52e192b5cda886"><code>operator/=</code></a><code>(int s) noexcept</code></td>
+<td>Branch uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gaf242b6c3e610d5a328dd251dfa8f47d0"><code>e12</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga7523c736e05eea04cd848201b0a93506"><code>e21</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gac71e905e0f2758d0a6fa2242a135a568"><code>e31</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gaa00e179436a14b16c88dae12a42792c2"><code>e13</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga7af485388456f1d35f6d25b493e3c466"><code>e23</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gaffda6cbc92f913c96c8c9697c7f498a7"><code>e32</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public branch KLN_VEC_CALL</code> <a href="#group__lines_1ga806e374cc4281cfc3eecec93d85a31fa"><code>operator+</code></a><code>(branch a,branch b) noexcept</code></td>
+<td>Branch addition.</td>
+</tr>
+<tr>
+<td><code>public branch KLN_VEC_CALL</code> <a href="#group__lines_1ga2bad4a299ed2bcb5fb8532af40608e3d"><code>operator-</code></a><code>(branch a,branch b) noexcept</code></td>
+<td>Branch subtraction.</td>
+</tr>
+<tr>
+<td><code>public branch KLN_VEC_CALL</code> <a href="#group__lines_1ga6f0f933a374ea30980fa71cc222fbdf1"><code>operator*</code></a><code>(branch b,float s) noexcept</code></td>
+<td>Branch uniform scale.</td>
+</tr>
+<tr>
+<td><code>public branch KLN_VEC_CALL</code> <a href="#group__lines_1ga06f26bbb23a3ac8bf2da68d6d86cb9a0"><code>operator*</code></a><code>(branch b,int s) noexcept</code></td>
+<td>Branch uniform scale.</td>
+</tr>
+<tr>
+<td><code>public branch KLN_VEC_CALL</code> <a href="#group__lines_1gafcb9d3b2717d1fdf3591c06894a285a2"><code>operator*</code></a><code>(float s,branch b) noexcept</code></td>
+<td>Branch uniform scale.</td>
+</tr>
+<tr>
+<td><code>public branch KLN_VEC_CALL</code> <a href="#group__lines_1gaacf02b8f4c3af4e74eb6a09eb849cdfa"><code>operator*</code></a><code>(int s,branch b) noexcept</code></td>
+<td>Branch uniform scale.</td>
+</tr>
+<tr>
+<td><code>public branch KLN_VEC_CALL</code> <a href="#group__lines_1ga029c94290f7cec1095460b3ca72fdb5c"><code>operator/</code></a><code>(branch b,float s) noexcept</code></td>
+<td>Branch uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public branch KLN_VEC_CALL</code> <a href="#group__lines_1ga749e37e9a3b976563ac06098c5011bf6"><code>operator/</code></a><code>(branch b,int s) noexcept</code></td>
+<td>Branch uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public branch</code> <a href="#group__lines_1gaabf4c8f567fef30fbdfcc200771994e8"><code>operator-</code></a><code>(branch b) noexcept</code></td>
+<td>Unary minus.</td>
+</tr>
+<tr>
+<td><code>public branch</code> <a href="#group__lines_1gaf3513b2c3f0725be15678230c44e7c2e"><code>operator~</code></a><code>(branch b) noexcept</code></td>
+<td>Reversion operator.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1gaf274662f18385ec8065a083d235cc63e"><code>line</code></a><code>() = default</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1ga3a7b1cdde6811a23a30cd5d4082ee5d7"><code>line</code></a><code>(float a,float b,float c,float d,float e,float f) noexcept</code></td>
+<td>A line is specifed by 6 coordinates which correspond to the line's <a href="https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates">Plücker coordinates</a>. The coordinates specified in this way correspond to the following multivector:</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1ga185af75e75e036164d3c1754da405737"><code>line</code></a><code>(__m128 xmm1,__m128 xmm2) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1gaddbd98af6bc9a738816347a15a83c276"><code>line</code></a><code>(ideal_line other) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__lines_1gae8e557447c170f2cbb3004b6d9945a9e"><code>line</code></a><code>(branch other) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b"><code>squared_norm</code></a><code>() noexcept</code></td>
+<td>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22"><code>norm</code></a><code>() noexcept</code></td>
+<td>Returns the square root of the quantity produced by <code>squared_norm</code> .</td>
+</tr>
+<tr>
+<td><code>public void</code> <a href="#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3"><code>normalize</code></a><code>() noexcept</code></td>
+<td>Normalize a line such that <span class="arithmatex">\(\ell^2 = 1\)</span>.</td>
+</tr>
+<tr>
+<td><code>public line &amp;KLN_VEC_CALL</code> <a href="#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3"><code>operator+=</code></a><code>(line b) noexcept</code></td>
+<td>Line addition.</td>
+</tr>
+<tr>
+<td><code>public line &amp;KLN_VEC_CALL</code> <a href="#group__lines_1ga1ab6e11021c616adfb35f5b11e478447"><code>operator-=</code></a><code>(line b) noexcept</code></td>
+<td>Line subtraction.</td>
+</tr>
+<tr>
+<td><code>public line &amp;</code> <a href="#group__lines_1ga64128e5413f0dd3e31808c6dae6aaad6"><code>operator*=</code></a><code>(float s) noexcept</code></td>
+<td>Line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public line &amp;</code> <a href="#group__lines_1gabf0b448a99eda4e48f5b14c998dfbfbc"><code>operator*=</code></a><code>(int s) noexcept</code></td>
+<td>Line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public line &amp;</code> <a href="#group__lines_1gab8d592169b9ed4abc4932a670d98131c"><code>operator/=</code></a><code>(float s) noexcept</code></td>
+<td>Line uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public line &amp;</code> <a href="#group__lines_1ga23fdb26f06a4e172aec588b2034e56af"><code>operator/=</code></a><code>(int s) noexcept</code></td>
+<td>Line uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga1362bf5e4fbf12c0a1fadeaa4cba905a"><code>e12</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gaed1b130b5124643dfe1baf82ef43a091"><code>e21</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gaeed171a99dbd03a54aaeeb4297a5f7d4"><code>e31</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga49c1718902c977c0d04a9aae046d97d5"><code>e13</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga637c8b7fa555e5dd30b0faadd88d0095"><code>e23</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gaa150f5a6ee68b810f27f9624496face0"><code>e32</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gac29f9783375c336ab2d3fb67a3431f07"><code>e01</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga7d163f4afca8fd89a796056c909245d1"><code>e10</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gaa38fe9ae6e00bc4d595713c01ac1dd9f"><code>e02</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga4f37f6f38b720170d3b41ecc33c1cef9"><code>e20</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gacd1e4c54ab209259cbd3c3042f286580"><code>e03</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1gaa75f3c527da3e76fba0f63defd1e822d"><code>e30</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__lines_1ga0a83f2a48198edd9507f5bbd4c9b30db"><code>operator+</code></a><code>(line a,line b) noexcept</code></td>
+<td>Line addition.</td>
+</tr>
+<tr>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__lines_1gadb1e4f4b039a7b4876f5b594f31a3c18"><code>operator-</code></a><code>(line a,line b) noexcept</code></td>
+<td>Line subtraction.</td>
+</tr>
+<tr>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__lines_1ga2ab242c8429056ce8a0eaff272d58055"><code>operator*</code></a><code>(line l,float s) noexcept</code></td>
+<td>Line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__lines_1gaeb3211aaaffb0c67796cd16fcc9fdfbb"><code>operator*</code></a><code>(line l,int s) noexcept</code></td>
+<td>Line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__lines_1gafc0250185f6abbab4af1dfc7ddd7d82f"><code>operator*</code></a><code>(float s,line l) noexcept</code></td>
+<td>Line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__lines_1ga8cb888db657b2113caea92ab8220594c"><code>operator*</code></a><code>(int s,line l) noexcept</code></td>
+<td>Line uniform scale.</td>
+</tr>
+<tr>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__lines_1gafb3d9b8897b0af53ecb7e20887be0485"><code>operator/</code></a><code>(line r,float s) noexcept</code></td>
+<td>Line uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__lines_1gae8be4741283b0730feb08cdf697de2b1"><code>operator/</code></a><code>(line r,int s) noexcept</code></td>
+<td>Line uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public line</code> <a href="#group__lines_1gac249311dc1a091a5025cdd8993056c18"><code>operator-</code></a><code>(line l) noexcept</code></td>
+<td>Unary minus.</td>
+</tr>
+<tr>
+<td><code>public line</code> <a href="#group__lines_1ga42776f938b5c07b5cecc55cd0059e3e6"><code>operator~</code></a><code>(line l) noexcept</code></td>
+<td>Reversion operator.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="members">Members</h3>
+<h4 id="group__lines_1ga62ef2297496614693083466f12635558"><a href="#group__lines_1ga62ef2297496614693083466f12635558">ideal_line</a>() = default</h4>
+<h4 id="group__lines_1ga23cf4cb2763929db4f63dabadc1b9b32"><a href="#group__lines_1ga23cf4cb2763929db4f63dabadc1b9b32">ideal_line</a>(float a,float b,float c) noexcept</h4>
+<h4 id="group__lines_1ga0734f86c43d547402c7d06d4eddb0691"><a href="#group__lines_1ga0734f86c43d547402c7d06d4eddb0691">ideal_line</a>(__m128 xmm) noexcept</h4>
+<h4 id="group__lines_1ga4da377f9f9687a69e0cc1c84b936d53e">float  <a href="#group__lines_1ga4da377f9f9687a69e0cc1c84b936d53e">squared_ideal_norm</a>() noexcept</h4>
+<h4 id="group__lines_1gac38415e4e709ce83f215bfbbc6fa43a0">float  <a href="#group__lines_1gac38415e4e709ce83f215bfbbc6fa43a0">ideal_norm</a>() noexcept</h4>
+<h4 id="group__lines_1ga6cd29f5c0d762ba34140adfb11e89d4c">ideal_line &amp;KLN_VEC_CALL  <a href="#group__lines_1ga6cd29f5c0d762ba34140adfb11e89d4c">operator+=</a>(ideal_line b) noexcept</h4>
+<p>Ideal line addition.</p>
+<h4 id="group__lines_1ga716f3c3a2bab34ea147157a129b259d0">ideal_line &amp;KLN_VEC_CALL  <a href="#group__lines_1ga716f3c3a2bab34ea147157a129b259d0">operator-=</a>(ideal_line b) noexcept</h4>
+<p>Ideal line subtraction.</p>
+<h4 id="group__lines_1ga50c085e141902ec94366bedfc5eb1993">ideal_line &amp;  <a href="#group__lines_1ga50c085e141902ec94366bedfc5eb1993">operator*=</a>(float s) noexcept</h4>
+<p>Ideal line uniform scale.</p>
+<h4 id="group__lines_1ga848437f19a14e0e0f946420b388066c2">ideal_line &amp;  <a href="#group__lines_1ga848437f19a14e0e0f946420b388066c2">operator*=</a>(int s) noexcept</h4>
+<p>Ideal line uniform scale.</p>
+<h4 id="group__lines_1gad5022268754a921e8a91b22745da62fe">ideal_line &amp;  <a href="#group__lines_1gad5022268754a921e8a91b22745da62fe">operator/=</a>(float s) noexcept</h4>
+<p>Ideal line uniform inverse scale.</p>
+<h4 id="group__lines_1ga6540e3a798f002b7add9bc83fad74b09">ideal_line &amp;  <a href="#group__lines_1ga6540e3a798f002b7add9bc83fad74b09">operator/=</a>(int s) noexcept</h4>
+<p>Ideal line uniform inverse scale.</p>
+<h4 id="group__lines_1ga9209dc293ba4828ee9401471a2c39416">float  <a href="#group__lines_1ga9209dc293ba4828ee9401471a2c39416">e01</a>() const noexcept</h4>
+<h4 id="group__lines_1ga630a786b6a720571df80ce07be2b480d">float  <a href="#group__lines_1ga630a786b6a720571df80ce07be2b480d">e10</a>() const noexcept</h4>
+<h4 id="group__lines_1ga64252faa6b55014eb29f1b0b0756c412">float  <a href="#group__lines_1ga64252faa6b55014eb29f1b0b0756c412">e02</a>() const noexcept</h4>
+<h4 id="group__lines_1ga895a9f40d184bc766580cd4f937d9653">float  <a href="#group__lines_1ga895a9f40d184bc766580cd4f937d9653">e20</a>() const noexcept</h4>
+<h4 id="group__lines_1gad7926824f65759c7757206a16c955494">float  <a href="#group__lines_1gad7926824f65759c7757206a16c955494">e03</a>() const noexcept</h4>
+<h4 id="group__lines_1gaf9a7c9717ca8bca47567bc2eb9cbdf5e">float  <a href="#group__lines_1gaf9a7c9717ca8bca47567bc2eb9cbdf5e">e30</a>() const noexcept</h4>
+<h4 id="group__lines_1gaf20ec975ef8d272dec782a21e92ad292">ideal_line KLN_VEC_CALL  <a href="#group__lines_1gaf20ec975ef8d272dec782a21e92ad292">operator+</a>(ideal_line a,ideal_line b) noexcept</h4>
+<p>Ideal line addition.</p>
+<h4 id="group__lines_1gae3e8dad43c2e6da933169175481b8807">ideal_line KLN_VEC_CALL  <a href="#group__lines_1gae3e8dad43c2e6da933169175481b8807">operator-</a>(ideal_line a,ideal_line b) noexcept</h4>
+<p>Ideal line subtraction.</p>
+<h4 id="group__lines_1ga8c687777271cee937c066f86cf8fc13e">ideal_line KLN_VEC_CALL  <a href="#group__lines_1ga8c687777271cee937c066f86cf8fc13e">operator*</a>(ideal_line l,float s) noexcept</h4>
+<p>Ideal line uniform scale.</p>
+<h4 id="group__lines_1ga585458c330e0b6d6e3725aeb6d1f1711">ideal_line KLN_VEC_CALL  <a href="#group__lines_1ga585458c330e0b6d6e3725aeb6d1f1711">operator*</a>(ideal_line l,int s) noexcept</h4>
+<p>Ideal line uniform scale.</p>
+<h4 id="group__lines_1ga45fa818b3742c77e0a81fa35419e5a1d">ideal_line KLN_VEC_CALL  <a href="#group__lines_1ga45fa818b3742c77e0a81fa35419e5a1d">operator*</a>(float s,ideal_line l) noexcept</h4>
+<p>Ideal line uniform scale.</p>
+<h4 id="group__lines_1ga1c749bb69e95b736eb7ccc14b198ff41">ideal_line KLN_VEC_CALL  <a href="#group__lines_1ga1c749bb69e95b736eb7ccc14b198ff41">operator*</a>(int s,ideal_line l) noexcept</h4>
+<p>Ideal line uniform scale.</p>
+<h4 id="group__lines_1gad4c128535f9e5c60830442b18e62c419">ideal_line KLN_VEC_CALL  <a href="#group__lines_1gad4c128535f9e5c60830442b18e62c419">operator/</a>(ideal_line l,float s) noexcept</h4>
+<p>Ideal line uniform inverse scale.</p>
+<h4 id="group__lines_1ga600666bf5950f2a58c1d6d0aaefa41f3">ideal_line KLN_VEC_CALL  <a href="#group__lines_1ga600666bf5950f2a58c1d6d0aaefa41f3">operator/</a>(ideal_line l,int s) noexcept</h4>
+<h4 id="group__lines_1ga8a25015fd95c9ae21a403a723328bdff">ideal_line  <a href="#group__lines_1ga8a25015fd95c9ae21a403a723328bdff">operator-</a>(ideal_line l) noexcept</h4>
+<p>Unary minus.</p>
+<h4 id="group__lines_1ga86bab70a9013bb96a8e666f2d3b508b2">ideal_line  <a href="#group__lines_1ga86bab70a9013bb96a8e666f2d3b508b2">operator~</a>(ideal_line l) noexcept</h4>
+<p>Reversion operator.</p>
+<h4 id="group__lines_1gac0b6196328f798a024d116b0052dc933"><a href="#group__lines_1gac0b6196328f798a024d116b0052dc933">branch</a>() = default</h4>
+<h4 id="group__lines_1ga85e647f4c92a2dd6896c5afd849d00a5"><a href="#group__lines_1ga85e647f4c92a2dd6896c5afd849d00a5">branch</a>(float a,float b,float c) noexcept</h4>
+<p>Construct the branch as the following multivector:</p>
+<div class="arithmatex">\[a \mathbf{e}_{23} + b\mathbf{e}_{31} + c\mathbf{e}_{23}\]</div>
+<p>To convince yourself this is a line through the origin, remember that such a line can be generated using the geometric product of two planes through the origin.</p>
+<h4 id="group__lines_1ga919bf9527b955fe1d58188edfe5aa802"><a href="#group__lines_1ga919bf9527b955fe1d58188edfe5aa802">branch</a>(__m128 xmm) noexcept</h4>
+<h4 id="group__lines_1ga0c6c16090b660c63df26aacf985c6f0c">float  <a href="#group__lines_1ga0c6c16090b660c63df26aacf985c6f0c">squared_norm</a>() noexcept</h4>
+<p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
+<h4 id="group__lines_1ga6174cbd24d0189e3f5f9b893d63f5086">float  <a href="#group__lines_1ga6174cbd24d0189e3f5f9b893d63f5086">norm</a>() noexcept</h4>
+<p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
+<h4 id="group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2">branch &amp;KLN_VEC_CALL  <a href="#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2">operator+=</a>(branch b) noexcept</h4>
+<p>Branch addition.</p>
+<h4 id="group__lines_1ga69f66d6b2736f2fdaa02b45e72b1ba2f">branch &amp;KLN_VEC_CALL  <a href="#group__lines_1ga69f66d6b2736f2fdaa02b45e72b1ba2f">operator-=</a>(branch b) noexcept</h4>
+<p>Branch subtraction.</p>
+<h4 id="group__lines_1ga174b924bea5109230431bce2ec996d77">branch &amp;  <a href="#group__lines_1ga174b924bea5109230431bce2ec996d77">operator*=</a>(float s) noexcept</h4>
+<p>Branch uniform scale.</p>
+<h4 id="group__lines_1gaf522a7fcce5ccd8ec64dd519b1355945">branch &amp;  <a href="#group__lines_1gaf522a7fcce5ccd8ec64dd519b1355945">operator*=</a>(int s) noexcept</h4>
+<p>Branch uniform scale.</p>
+<h4 id="group__lines_1ga0059f1b65a43b001a072cb6e2e7c0702">branch &amp;  <a href="#group__lines_1ga0059f1b65a43b001a072cb6e2e7c0702">operator/=</a>(float s) noexcept</h4>
+<p>Branch uniform inverse scale.</p>
+<h4 id="group__lines_1gac2d5f7065b967c378f52e192b5cda886">branch &amp;  <a href="#group__lines_1gac2d5f7065b967c378f52e192b5cda886">operator/=</a>(int s) noexcept</h4>
+<p>Branch uniform inverse scale.</p>
+<h4 id="group__lines_1gaf242b6c3e610d5a328dd251dfa8f47d0">float  <a href="#group__lines_1gaf242b6c3e610d5a328dd251dfa8f47d0">e12</a>() const noexcept</h4>
+<h4 id="group__lines_1ga7523c736e05eea04cd848201b0a93506">float  <a href="#group__lines_1ga7523c736e05eea04cd848201b0a93506">e21</a>() const noexcept</h4>
+<h4 id="group__lines_1gac71e905e0f2758d0a6fa2242a135a568">float  <a href="#group__lines_1gac71e905e0f2758d0a6fa2242a135a568">e31</a>() const noexcept</h4>
+<h4 id="group__lines_1gaa00e179436a14b16c88dae12a42792c2">float  <a href="#group__lines_1gaa00e179436a14b16c88dae12a42792c2">e13</a>() const noexcept</h4>
+<h4 id="group__lines_1ga7af485388456f1d35f6d25b493e3c466">float  <a href="#group__lines_1ga7af485388456f1d35f6d25b493e3c466">e23</a>() const noexcept</h4>
+<h4 id="group__lines_1gaffda6cbc92f913c96c8c9697c7f498a7">float  <a href="#group__lines_1gaffda6cbc92f913c96c8c9697c7f498a7">e32</a>() const noexcept</h4>
+<h4 id="group__lines_1ga806e374cc4281cfc3eecec93d85a31fa">branch KLN_VEC_CALL  <a href="#group__lines_1ga806e374cc4281cfc3eecec93d85a31fa">operator+</a>(branch a,branch b) noexcept</h4>
+<p>Branch addition.</p>
+<h4 id="group__lines_1ga2bad4a299ed2bcb5fb8532af40608e3d">branch KLN_VEC_CALL  <a href="#group__lines_1ga2bad4a299ed2bcb5fb8532af40608e3d">operator-</a>(branch a,branch b) noexcept</h4>
+<p>Branch subtraction.</p>
+<h4 id="group__lines_1ga6f0f933a374ea30980fa71cc222fbdf1">branch KLN_VEC_CALL  <a href="#group__lines_1ga6f0f933a374ea30980fa71cc222fbdf1">operator*</a>(branch b,float s) noexcept</h4>
+<p>Branch uniform scale.</p>
+<h4 id="group__lines_1ga06f26bbb23a3ac8bf2da68d6d86cb9a0">branch KLN_VEC_CALL  <a href="#group__lines_1ga06f26bbb23a3ac8bf2da68d6d86cb9a0">operator*</a>(branch b,int s) noexcept</h4>
+<p>Branch uniform scale.</p>
+<h4 id="group__lines_1gafcb9d3b2717d1fdf3591c06894a285a2">branch KLN_VEC_CALL  <a href="#group__lines_1gafcb9d3b2717d1fdf3591c06894a285a2">operator*</a>(float s,branch b) noexcept</h4>
+<p>Branch uniform scale.</p>
+<h4 id="group__lines_1gaacf02b8f4c3af4e74eb6a09eb849cdfa">branch KLN_VEC_CALL  <a href="#group__lines_1gaacf02b8f4c3af4e74eb6a09eb849cdfa">operator*</a>(int s,branch b) noexcept</h4>
+<p>Branch uniform scale.</p>
+<h4 id="group__lines_1ga029c94290f7cec1095460b3ca72fdb5c">branch KLN_VEC_CALL  <a href="#group__lines_1ga029c94290f7cec1095460b3ca72fdb5c">operator/</a>(branch b,float s) noexcept</h4>
+<p>Branch uniform inverse scale.</p>
+<h4 id="group__lines_1ga749e37e9a3b976563ac06098c5011bf6">branch KLN_VEC_CALL  <a href="#group__lines_1ga749e37e9a3b976563ac06098c5011bf6">operator/</a>(branch b,int s) noexcept</h4>
+<p>Branch uniform inverse scale.</p>
+<h4 id="group__lines_1gaabf4c8f567fef30fbdfcc200771994e8">branch  <a href="#group__lines_1gaabf4c8f567fef30fbdfcc200771994e8">operator-</a>(branch b) noexcept</h4>
+<p>Unary minus.</p>
+<h4 id="group__lines_1gaf3513b2c3f0725be15678230c44e7c2e">branch  <a href="#group__lines_1gaf3513b2c3f0725be15678230c44e7c2e">operator~</a>(branch b) noexcept</h4>
+<p>Reversion operator.</p>
+<h4 id="group__lines_1gaf274662f18385ec8065a083d235cc63e"><a href="#group__lines_1gaf274662f18385ec8065a083d235cc63e">line</a>() = default</h4>
+<h4 id="group__lines_1ga3a7b1cdde6811a23a30cd5d4082ee5d7"><a href="#group__lines_1ga3a7b1cdde6811a23a30cd5d4082ee5d7">line</a>(float a,float b,float c,float d,float e,float f) noexcept</h4>
+<p>A line is specifed by 6 coordinates which correspond to the line's <a href="https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates">Plücker coordinates</a>. The coordinates specified in this way correspond to the following multivector:</p>
+<div class="arithmatex">\[a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\ d\mathbf{e}_{23} + e\mathbf{e}_{31} + f\mathbf{e}_{12}\]</div>
+<h4 id="group__lines_1ga185af75e75e036164d3c1754da405737"><a href="#group__lines_1ga185af75e75e036164d3c1754da405737">line</a>(__m128 xmm1,__m128 xmm2) noexcept</h4>
+<h4 id="group__lines_1gaddbd98af6bc9a738816347a15a83c276"><a href="#group__lines_1gaddbd98af6bc9a738816347a15a83c276">line</a>(ideal_line other) noexcept</h4>
+<h4 id="group__lines_1gae8e557447c170f2cbb3004b6d9945a9e"><a href="#group__lines_1gae8e557447c170f2cbb3004b6d9945a9e">line</a>(branch other) noexcept</h4>
+<h4 id="group__lines_1ga941c27dc8594f947ecf718160ebb084b">float  <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b">squared_norm</a>() noexcept</h4>
+<p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
+<h4 id="group__lines_1gad388b8d134c0c22b1f82026277e39c22">float  <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22">norm</a>() noexcept</h4>
+<p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
+<h4 id="group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3">void  <a href="#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3">normalize</a>() noexcept</h4>
+<p>Normalize a line such that <span class="arithmatex">\(\ell^2 = 1\)</span>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Normalization here is done using the <code>rsqrtps</code>
+instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
+</div>
+<h4 id="group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3">line &amp;KLN_VEC_CALL  <a href="#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3">operator+=</a>(line b) noexcept</h4>
+<p>Line addition.</p>
+<h4 id="group__lines_1ga1ab6e11021c616adfb35f5b11e478447">line &amp;KLN_VEC_CALL  <a href="#group__lines_1ga1ab6e11021c616adfb35f5b11e478447">operator-=</a>(line b) noexcept</h4>
+<p>Line subtraction.</p>
+<h4 id="group__lines_1ga64128e5413f0dd3e31808c6dae6aaad6">line &amp;  <a href="#group__lines_1ga64128e5413f0dd3e31808c6dae6aaad6">operator*=</a>(float s) noexcept</h4>
+<p>Line uniform scale.</p>
+<h4 id="group__lines_1gabf0b448a99eda4e48f5b14c998dfbfbc">line &amp;  <a href="#group__lines_1gabf0b448a99eda4e48f5b14c998dfbfbc">operator*=</a>(int s) noexcept</h4>
+<p>Line uniform scale.</p>
+<h4 id="group__lines_1gab8d592169b9ed4abc4932a670d98131c">line &amp;  <a href="#group__lines_1gab8d592169b9ed4abc4932a670d98131c">operator/=</a>(float s) noexcept</h4>
+<p>Line uniform inverse scale.</p>
+<h4 id="group__lines_1ga23fdb26f06a4e172aec588b2034e56af">line &amp;  <a href="#group__lines_1ga23fdb26f06a4e172aec588b2034e56af">operator/=</a>(int s) noexcept</h4>
+<p>Line uniform inverse scale.</p>
+<h4 id="group__lines_1ga1362bf5e4fbf12c0a1fadeaa4cba905a">float  <a href="#group__lines_1ga1362bf5e4fbf12c0a1fadeaa4cba905a">e12</a>() const noexcept</h4>
+<h4 id="group__lines_1gaed1b130b5124643dfe1baf82ef43a091">float  <a href="#group__lines_1gaed1b130b5124643dfe1baf82ef43a091">e21</a>() const noexcept</h4>
+<h4 id="group__lines_1gaeed171a99dbd03a54aaeeb4297a5f7d4">float  <a href="#group__lines_1gaeed171a99dbd03a54aaeeb4297a5f7d4">e31</a>() const noexcept</h4>
+<h4 id="group__lines_1ga49c1718902c977c0d04a9aae046d97d5">float  <a href="#group__lines_1ga49c1718902c977c0d04a9aae046d97d5">e13</a>() const noexcept</h4>
+<h4 id="group__lines_1ga637c8b7fa555e5dd30b0faadd88d0095">float  <a href="#group__lines_1ga637c8b7fa555e5dd30b0faadd88d0095">e23</a>() const noexcept</h4>
+<h4 id="group__lines_1gaa150f5a6ee68b810f27f9624496face0">float  <a href="#group__lines_1gaa150f5a6ee68b810f27f9624496face0">e32</a>() const noexcept</h4>
+<h4 id="group__lines_1gac29f9783375c336ab2d3fb67a3431f07">float  <a href="#group__lines_1gac29f9783375c336ab2d3fb67a3431f07">e01</a>() const noexcept</h4>
+<h4 id="group__lines_1ga7d163f4afca8fd89a796056c909245d1">float  <a href="#group__lines_1ga7d163f4afca8fd89a796056c909245d1">e10</a>() const noexcept</h4>
+<h4 id="group__lines_1gaa38fe9ae6e00bc4d595713c01ac1dd9f">float  <a href="#group__lines_1gaa38fe9ae6e00bc4d595713c01ac1dd9f">e02</a>() const noexcept</h4>
+<h4 id="group__lines_1ga4f37f6f38b720170d3b41ecc33c1cef9">float  <a href="#group__lines_1ga4f37f6f38b720170d3b41ecc33c1cef9">e20</a>() const noexcept</h4>
+<h4 id="group__lines_1gacd1e4c54ab209259cbd3c3042f286580">float  <a href="#group__lines_1gacd1e4c54ab209259cbd3c3042f286580">e03</a>() const noexcept</h4>
+<h4 id="group__lines_1gaa75f3c527da3e76fba0f63defd1e822d">float  <a href="#group__lines_1gaa75f3c527da3e76fba0f63defd1e822d">e30</a>() const noexcept</h4>
+<h4 id="group__lines_1ga0a83f2a48198edd9507f5bbd4c9b30db">line KLN_VEC_CALL  <a href="#group__lines_1ga0a83f2a48198edd9507f5bbd4c9b30db">operator+</a>(line a,line b) noexcept</h4>
+<p>Line addition.</p>
+<h4 id="group__lines_1gadb1e4f4b039a7b4876f5b594f31a3c18">line KLN_VEC_CALL  <a href="#group__lines_1gadb1e4f4b039a7b4876f5b594f31a3c18">operator-</a>(line a,line b) noexcept</h4>
+<p>Line subtraction.</p>
+<h4 id="group__lines_1ga2ab242c8429056ce8a0eaff272d58055">line KLN_VEC_CALL  <a href="#group__lines_1ga2ab242c8429056ce8a0eaff272d58055">operator*</a>(line l,float s) noexcept</h4>
+<p>Line uniform scale.</p>
+<h4 id="group__lines_1gaeb3211aaaffb0c67796cd16fcc9fdfbb">line KLN_VEC_CALL  <a href="#group__lines_1gaeb3211aaaffb0c67796cd16fcc9fdfbb">operator*</a>(line l,int s) noexcept</h4>
+<p>Line uniform scale.</p>
+<h4 id="group__lines_1gafc0250185f6abbab4af1dfc7ddd7d82f">line KLN_VEC_CALL  <a href="#group__lines_1gafc0250185f6abbab4af1dfc7ddd7d82f">operator*</a>(float s,line l) noexcept</h4>
+<p>Line uniform scale.</p>
+<h4 id="group__lines_1ga8cb888db657b2113caea92ab8220594c">line KLN_VEC_CALL  <a href="#group__lines_1ga8cb888db657b2113caea92ab8220594c">operator*</a>(int s,line l) noexcept</h4>
+<p>Line uniform scale.</p>
+<h4 id="group__lines_1gafb3d9b8897b0af53ecb7e20887be0485">line KLN_VEC_CALL  <a href="#group__lines_1gafb3d9b8897b0af53ecb7e20887be0485">operator/</a>(line r,float s) noexcept</h4>
+<p>Line uniform inverse scale.</p>
+<h4 id="group__lines_1gae8be4741283b0730feb08cdf697de2b1">line KLN_VEC_CALL  <a href="#group__lines_1gae8be4741283b0730feb08cdf697de2b1">operator/</a>(line r,int s) noexcept</h4>
+<p>Line uniform inverse scale.</p>
+<h4 id="group__lines_1gac249311dc1a091a5025cdd8993056c18">line  <a href="#group__lines_1gac249311dc1a091a5025cdd8993056c18">operator-</a>(line l) noexcept</h4>
+<p>Unary minus.</p>
+<h4 id="group__lines_1ga42776f938b5c07b5cecc55cd0059e3e6">line  <a href="#group__lines_1ga42776f938b5c07b5cecc55cd0059e3e6">operator~</a>(line l) noexcept</h4>
+<p>Reversion operator.</p>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+
+        <!-- Link to previous page -->
+        
+          <a href="../plane/"
+              title="Plane"
+              class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+              rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back
+                    md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch
+                  md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Plane
+              </span>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          <a href="../point/"
+              title="Point"
+              class="md-flex md-footer-nav__link md-footer-nav__link--next"
+              rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch
+                  md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Point
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward
+                    md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Klein Copyright &copy; 2020 Jeremy Ong
+          </div>
+        
+      </div>
+
+      <!-- Social links -->
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jeremyong" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/m_ninepoints" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://www.linkedin.com/in/jeremycong" target="_blank" rel="noopener" title="linkedin" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../js/extra.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/ganja.js@1.0.169"></script>
+      
+    
+  </body>
+</html>

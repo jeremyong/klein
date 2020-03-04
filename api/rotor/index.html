@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/klein/api/kln_rotor/">
+        <link rel="canonical" href="https://jeremyong.com/klein/api/rotor/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -120,7 +120,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#structkln_1_1rotor" tabindex="0" class="md-skip">
+      <a href="#group__rotor" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -326,19 +326,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_entity/" title="Entity" class="md-nav__link">
-      Entity
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_plane/" title="Plane" class="md-nav__link">
+    <a href="../plane/" title="Plane" class="md-nav__link">
       Plane
     </a>
   </li>
@@ -350,8 +338,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_line/" title="Line" class="md-nav__link">
-      Line
+    <a href="../lines/" title="Lines" class="md-nav__link">
+      Lines
     </a>
   </li>
 
@@ -362,8 +350,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_point/" title="Point" class="md-nav__link">
+    <a href="../point/" title="Point" class="md-nav__link">
       Point
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dir/" title="Direction" class="md-nav__link">
+      Direction
     </a>
   </li>
 
@@ -397,8 +397,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1rotor" class="md-nav__link">
-    struct kln::rotor
+  <a href="#group__rotor" class="md-nav__link">
+    group rotor
   </a>
   
     <nav class="md-nav">
@@ -420,113 +420,260 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4" class="md-nav__link">
+  <a href="#group__rotor_1gac31c726af9caf7e1de31bf02d9c9d8a5" class="md-nav__link">
     rotor() = default
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c" class="md-nav__link">
-    rotor(float ang_rad,float x,float y,float z)
+  <a href="#group__rotor_1gabd1532e0cd7e2c3cd88812cdccdd7dd4" class="md-nav__link">
+    rotor(float ang_rad,float x,float y,float z) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298" class="md-nav__link">
-    rotor( entity&lt; 0b10 &gt; const &amp; other)
+  <a href="#group__rotor_1gaa01cee77a321c13eb1260afbbfd1dbe2" class="md-nav__link">
+    rotor(__m128 p1) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da" class="md-nav__link">
+  <a href="#group__rotor_1gab063d72ca484de581a78ebd7b49e41da" class="md-nav__link">
     void  load_normalized(float * data) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4" class="md-nav__link">
+  <a href="#group__rotor_1ga4c9b04d0a4119e7d6b56b9e1478db5d4" class="md-nav__link">
     void  normalize() noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
+  <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
     mat3x4  as_mat3x4() const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8" class="md-nav__link">
+  <a href="#group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8" class="md-nav__link">
     mat4x4  as_mat4x4() const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81" class="md-nav__link">
-    branch  log() const noexcept
+  <a href="#group__rotor_1gae9e58f02352f5241dd94d22353a5e9ec" class="md-nav__link">
+    plane KLN_VEC_CALL  operator()(plane const &amp; p) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec" class="md-nav__link">
-    plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
+  <a href="#group__rotor_1ga491f6f2264c6ecf180664e75fc4a159b" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(plane * in,plane * out,size_t count) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b" class="md-nav__link">
-    void KLN_VEC_CALL  operator()( plane * in, plane * out,size_t count) const noexcept
+  <a href="#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc" class="md-nav__link">
+    line KLN_VEC_CALL  operator()(line const &amp; l) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc" class="md-nav__link">
-    line KLN_VEC_CALL  operator()( line const &amp; l) const noexcept
+  <a href="#group__rotor_1gaad794881fa0c11fb05486986032a431a" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(line * in,line * out,size_t count) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a" class="md-nav__link">
-    void KLN_VEC_CALL  operator()( line * in, line * out,size_t count) const noexcept
+  <a href="#group__rotor_1ga5aabb4caa402fb5793807fe1d8cec199" class="md-nav__link">
+    point KLN_VEC_CALL  operator()(point const &amp; p) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199" class="md-nav__link">
-    point KLN_VEC_CALL  operator()( point const &amp; p) const noexcept
+  <a href="#group__rotor_1gaa91e4024d7368fbd14a93ead29905aad" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(point * in,point * out,size_t count) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad" class="md-nav__link">
-    void KLN_VEC_CALL  operator()( point * in, point * out,size_t count) const noexcept
+  <a href="#group__rotor_1ga80935add9a99987a59879df1aa868b43" class="md-nav__link">
+    direction KLN_VEC_CALL  operator()(direction const &amp; d) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43" class="md-nav__link">
-    direction KLN_VEC_CALL  operator()( direction const &amp; d) const noexcept
+  <a href="#group__rotor_1ga185ca5be93f00396e5e0de9a05561999" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(direction * in,direction * out,size_t count) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999" class="md-nav__link">
-    void KLN_VEC_CALL  operator()( direction * in, direction * out,size_t count) const noexcept
+  <a href="#group__rotor_1ga45e39a62243e36e5e355ebd2b568f4e8" class="md-nav__link">
+    rotor &amp;KLN_VEC_CALL  operator+=(rotor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga6c3e3d03a77a3e6912a6de71587eec6c" class="md-nav__link">
+    rotor &amp;KLN_VEC_CALL  operator-=(rotor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga6dee3c43d98062a0d84c89c21f6e2eab" class="md-nav__link">
+    rotor &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga0192dadc8c52d7c8b0935498c79bac3c" class="md-nav__link">
+    rotor &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga471b8aca5f4b10e324d9da1261b96819" class="md-nav__link">
+    rotor &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gab9b4f34c5626f8f718d40f4244325627" class="md-nav__link">
+    rotor &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gad02dd43ba81281970b6c177897097bcb" class="md-nav__link">
+    float  scalar() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaeca61f73a42e3e4e33c15ef429ecaeb5" class="md-nav__link">
+    float  e12() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaa0b572c94d744b0cfc991fb6b4553e93" class="md-nav__link">
+    float  e21() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gac0fd6fb45a971064cbe9b77c8c6f96e6" class="md-nav__link">
+    float  e31() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga54519295ac9dcef24687d0d60d0a4fb7" class="md-nav__link">
+    float  e13() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaa1aee031886928dd7e62e65a2bc4c8c1" class="md-nav__link">
+    float  e23() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gac0aa82cab673eefc743c4bd7b9753440" class="md-nav__link">
+    float  e32() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gabd46b22dfdc4f00b1ee7d05f1570f071" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator+(rotor a,rotor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga1479b477d3a0e2ae643dbfce8b790e46" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator-(rotor a,rotor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga9a9b601b2fb07e3ad3984e1e92675903" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(rotor r,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga142d2a565a37e7646ed13d6461c193ec" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(rotor r,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gade99d6f57e8b4014485ded5b0d749bfa" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(float s,rotor r) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga57de1a4a27ca3515aea0ca8b5b4b69a0" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(int s,rotor r) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaacf6f0f789dfae74dae83af785b69232" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator/(rotor r,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaf87b76ceb327655df465f15b7e0dd96b" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator/(rotor r,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59" class="md-nav__link">
+    rotor  operator~(rotor r) noexcept
   </a>
   
 </li>
@@ -558,19 +705,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_branch/" title="Branch" class="md-nav__link">
-      Branch
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_translator/" title="Translator" class="md-nav__link">
+    <a href="../translator/" title="Translator" class="md-nav__link">
       Translator
     </a>
   </li>
@@ -582,7 +717,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_motor/" title="Motor" class="md-nav__link">
+    <a href="../motor/" title="Motor" class="md-nav__link">
       Motor
     </a>
   </li>
@@ -594,8 +729,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_ideal_line/" title="Ideal Line" class="md-nav__link">
-      Ideal Line
+    <a href="../gp/" title="Geometric Product" class="md-nav__link">
+      Geometric Product
     </a>
   </li>
 
@@ -606,8 +741,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_direction/" title="Direction" class="md-nav__link">
-      Direction
+    <a href="../ext/" title="Exterior Product" class="md-nav__link">
+      Exterior Product
     </a>
   </li>
 
@@ -618,8 +753,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_mat3x4/" title="Mat3x4" class="md-nav__link">
-      Mat3x4
+    <a href="../dual/" title="Poincare Dual" class="md-nav__link">
+      Poincare Dual
     </a>
   </li>
 
@@ -630,8 +765,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_mat4x4/" title="Mat4x4" class="md-nav__link">
-      Mat4x4
+    <a href="../reg/" title="Regressive Product" class="md-nav__link">
+      Regressive Product
     </a>
   </li>
 
@@ -642,8 +777,44 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_origin/" title="Origin" class="md-nav__link">
-      Origin
+    <a href="../dot/" title="Inner Product" class="md-nav__link">
+      Inner Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../exp_log/" title="Exponential/Logarithm" class="md-nav__link">
+      Exponential/Logarithm
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../proj/" title="Projections" class="md-nav__link">
+      Projections
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dualn/" title="Dual Numbers" class="md-nav__link">
+      Dual Numbers
     </a>
   </li>
 
@@ -816,8 +987,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1rotor" class="md-nav__link">
-    struct kln::rotor
+  <a href="#group__rotor" class="md-nav__link">
+    group rotor
   </a>
   
     <nav class="md-nav">
@@ -839,113 +1010,260 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4" class="md-nav__link">
+  <a href="#group__rotor_1gac31c726af9caf7e1de31bf02d9c9d8a5" class="md-nav__link">
     rotor() = default
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c" class="md-nav__link">
-    rotor(float ang_rad,float x,float y,float z)
+  <a href="#group__rotor_1gabd1532e0cd7e2c3cd88812cdccdd7dd4" class="md-nav__link">
+    rotor(float ang_rad,float x,float y,float z) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298" class="md-nav__link">
-    rotor( entity&lt; 0b10 &gt; const &amp; other)
+  <a href="#group__rotor_1gaa01cee77a321c13eb1260afbbfd1dbe2" class="md-nav__link">
+    rotor(__m128 p1) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da" class="md-nav__link">
+  <a href="#group__rotor_1gab063d72ca484de581a78ebd7b49e41da" class="md-nav__link">
     void  load_normalized(float * data) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4" class="md-nav__link">
+  <a href="#group__rotor_1ga4c9b04d0a4119e7d6b56b9e1478db5d4" class="md-nav__link">
     void  normalize() noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
+  <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
     mat3x4  as_mat3x4() const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8" class="md-nav__link">
+  <a href="#group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8" class="md-nav__link">
     mat4x4  as_mat4x4() const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81" class="md-nav__link">
-    branch  log() const noexcept
+  <a href="#group__rotor_1gae9e58f02352f5241dd94d22353a5e9ec" class="md-nav__link">
+    plane KLN_VEC_CALL  operator()(plane const &amp; p) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec" class="md-nav__link">
-    plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
+  <a href="#group__rotor_1ga491f6f2264c6ecf180664e75fc4a159b" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(plane * in,plane * out,size_t count) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b" class="md-nav__link">
-    void KLN_VEC_CALL  operator()( plane * in, plane * out,size_t count) const noexcept
+  <a href="#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc" class="md-nav__link">
+    line KLN_VEC_CALL  operator()(line const &amp; l) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc" class="md-nav__link">
-    line KLN_VEC_CALL  operator()( line const &amp; l) const noexcept
+  <a href="#group__rotor_1gaad794881fa0c11fb05486986032a431a" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(line * in,line * out,size_t count) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a" class="md-nav__link">
-    void KLN_VEC_CALL  operator()( line * in, line * out,size_t count) const noexcept
+  <a href="#group__rotor_1ga5aabb4caa402fb5793807fe1d8cec199" class="md-nav__link">
+    point KLN_VEC_CALL  operator()(point const &amp; p) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199" class="md-nav__link">
-    point KLN_VEC_CALL  operator()( point const &amp; p) const noexcept
+  <a href="#group__rotor_1gaa91e4024d7368fbd14a93ead29905aad" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(point * in,point * out,size_t count) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad" class="md-nav__link">
-    void KLN_VEC_CALL  operator()( point * in, point * out,size_t count) const noexcept
+  <a href="#group__rotor_1ga80935add9a99987a59879df1aa868b43" class="md-nav__link">
+    direction KLN_VEC_CALL  operator()(direction const &amp; d) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43" class="md-nav__link">
-    direction KLN_VEC_CALL  operator()( direction const &amp; d) const noexcept
+  <a href="#group__rotor_1ga185ca5be93f00396e5e0de9a05561999" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(direction * in,direction * out,size_t count) const noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999" class="md-nav__link">
-    void KLN_VEC_CALL  operator()( direction * in, direction * out,size_t count) const noexcept
+  <a href="#group__rotor_1ga45e39a62243e36e5e355ebd2b568f4e8" class="md-nav__link">
+    rotor &amp;KLN_VEC_CALL  operator+=(rotor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga6c3e3d03a77a3e6912a6de71587eec6c" class="md-nav__link">
+    rotor &amp;KLN_VEC_CALL  operator-=(rotor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga6dee3c43d98062a0d84c89c21f6e2eab" class="md-nav__link">
+    rotor &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga0192dadc8c52d7c8b0935498c79bac3c" class="md-nav__link">
+    rotor &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga471b8aca5f4b10e324d9da1261b96819" class="md-nav__link">
+    rotor &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gab9b4f34c5626f8f718d40f4244325627" class="md-nav__link">
+    rotor &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gad02dd43ba81281970b6c177897097bcb" class="md-nav__link">
+    float  scalar() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaeca61f73a42e3e4e33c15ef429ecaeb5" class="md-nav__link">
+    float  e12() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaa0b572c94d744b0cfc991fb6b4553e93" class="md-nav__link">
+    float  e21() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gac0fd6fb45a971064cbe9b77c8c6f96e6" class="md-nav__link">
+    float  e31() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga54519295ac9dcef24687d0d60d0a4fb7" class="md-nav__link">
+    float  e13() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaa1aee031886928dd7e62e65a2bc4c8c1" class="md-nav__link">
+    float  e23() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gac0aa82cab673eefc743c4bd7b9753440" class="md-nav__link">
+    float  e32() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gabd46b22dfdc4f00b1ee7d05f1570f071" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator+(rotor a,rotor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga1479b477d3a0e2ae643dbfce8b790e46" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator-(rotor a,rotor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga9a9b601b2fb07e3ad3984e1e92675903" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(rotor r,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga142d2a565a37e7646ed13d6461c193ec" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(rotor r,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gade99d6f57e8b4014485ded5b0d749bfa" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(float s,rotor r) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga57de1a4a27ca3515aea0ca8b5b4b69a0" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(int s,rotor r) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaacf6f0f789dfae74dae83af785b69232" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator/(rotor r,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gaf87b76ceb327655df465f15b7e0dd96b" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator/(rotor r,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59" class="md-nav__link">
+    rotor  operator~(rotor r) noexcept
   </a>
   
 </li>
@@ -979,11 +1297,7 @@
                 
                   <h1>Rotor</h1>
                 
-                <h2 id="structkln_1_1rotor">struct <code>kln::rotor</code></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">struct kln::rotor</span>
-<span class="err">  : public kln::entity&lt; 0b10 &gt;</span>
-</code></pre></div>
-
+                <h2 id="group__rotor">group <code>rotor</code></h2>
 <p>The rotor is an entity that represents a rigid rotation about an axis. To apply the rotor to a supported entity, the call operator is available.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -1028,101 +1342,181 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4"><code>rotor</code></a><code>() = default</code></td>
-<td>Default constructor leaves memory uninitialized.</td>
-</tr>
-<tr>
-<td><code>public</code> <a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c"><code>rotor</code></a><code>(float ang_rad,float x,float y,float z)</code></td>
-<td>Convenience constructor. Computes transcendentals and normalizes rotation axis.</td>
-</tr>
-<tr>
-<td><code>public</code> <a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><code>rotor</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b10 &gt; const &amp; other)</code></td>
+<td><code>public</code> <a href="#group__rotor_1gac31c726af9caf7e1de31bf02d9c9d8a5"><code>rotor</code></a><code>() = default</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public void</code> <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da"><code>load_normalized</code></a><code>(float * data) noexcept</code></td>
+<td><code>public</code> <a href="#group__rotor_1gabd1532e0cd7e2c3cd88812cdccdd7dd4"><code>rotor</code></a><code>(float ang_rad,float x,float y,float z) noexcept</code></td>
+<td>Convenience constructor. Computes transcendentals and normalizes rotation axis.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__rotor_1gaa01cee77a321c13eb1260afbbfd1dbe2"><code>rotor</code></a><code>(__m128 p1) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public void</code> <a href="#group__rotor_1gab063d72ca484de581a78ebd7b49e41da"><code>load_normalized</code></a><code>(float * data) noexcept</code></td>
 <td>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void</code> <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4"><code>normalize</code></a><code>() noexcept</code></td>
+<td><code>public void</code> <a href="#group__rotor_1ga4c9b04d0a4119e7d6b56b9e1478db5d4"><code>normalize</code></a><code>() noexcept</code></td>
 <td>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_mat3x4#structkln_1_1mat3x4"><code>mat3x4</code></a><code></code> <a href="#structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d"><code>as_mat3x4</code></a><code>() const noexcept</code></td>
+<td><code>public mat3x4</code> <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d"><code>as_mat3x4</code></a><code>() const noexcept</code></td>
 <td>Converts the rotor to a 3x4 column-major matrix. The results of this conversion are only defined if the rotor is normalized, and this conversion is preferable if so.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_mat4x4#structkln_1_1mat4x4"><code>mat4x4</code></a><code></code> <a href="#structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8"><code>as_mat4x4</code></a><code>() const noexcept</code></td>
+<td><code>public mat4x4</code> <a href="#group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8"><code>as_mat4x4</code></a><code>() const noexcept</code></td>
 <td>Converts the rotor to a 4x4 column-major matrix.</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_branch#structkln_1_1branch"><code>branch</code></a><code></code> <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81"><code>log</code></a><code>() const noexcept</code></td>
-<td>Returns the principal branch of this rotor's logarithm. Invoking <code>exp</code>  on the returned result maps back to this rotor.</td>
-</tr>
-<tr>
-<td><code>public</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><code>operator()</code></a><code>(</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public plane KLN_VEC_CALL</code> <a href="#group__rotor_1gae9e58f02352f5241dd94d22353a5e9ec"><code>operator()</code></a><code>(plane const &amp; p) const noexcept</code></td>
 <td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b"><code>operator()</code></a><code>(</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>* in,</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#group__rotor_1ga491f6f2264c6ecf180664e75fc4a159b"><code>operator()</code></a><code>(plane * in,plane * out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of planes with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc"><code>operator()</code></a><code>(</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>const &amp; l) const noexcept</code></td>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc"><code>operator()</code></a><code>(line const &amp; l) const noexcept</code></td>
 <td>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this rotor and returns the result <span class="arithmatex">\(r\ell \widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a"><code>operator()</code></a><code>(</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>* in,</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#group__rotor_1gaad794881fa0c11fb05486986032a431a"><code>operator()</code></a><code>(line * in,line * out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of lines with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><code>operator()</code></a><code>(</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
+<td><code>public point KLN_VEC_CALL</code> <a href="#group__rotor_1ga5aabb4caa402fb5793807fe1d8cec199"><code>operator()</code></a><code>(point const &amp; p) const noexcept</code></td>
 <td>Conjugates a point <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad"><code>operator()</code></a><code>(</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>* in,</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#group__rotor_1gaa91e4024d7368fbd14a93ead29905aad"><code>operator()</code></a><code>(point * in,point * out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of points with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43"><code>operator()</code></a><code>(</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>const &amp; d) const noexcept</code></td>
+<td><code>public direction KLN_VEC_CALL</code> <a href="#group__rotor_1ga80935add9a99987a59879df1aa868b43"><code>operator()</code></a><code>(direction const &amp; d) const noexcept</code></td>
 <td>Conjugates a direction <span class="arithmatex">\(d\)</span> with this rotor and returns the result <span class="arithmatex">\(rd\widetilde{r}\)</span>.</td>
 </tr>
 <tr>
-<td><code>public void KLN_VEC_CALL</code> <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999"><code>operator()</code></a><code>(</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>* in,</code> <a href="../../api/kln_direction#structkln_1_1direction"><code>direction</code></a><code>* out,size_t count) const noexcept</code></td>
+<td><code>public void KLN_VEC_CALL</code> <a href="#group__rotor_1ga185ca5be93f00396e5e0de9a05561999"><code>operator()</code></a><code>(direction * in,direction * out,size_t count) const noexcept</code></td>
 <td>Conjugates an array of directions with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</td>
+</tr>
+<tr>
+<td><code>public rotor &amp;KLN_VEC_CALL</code> <a href="#group__rotor_1ga45e39a62243e36e5e355ebd2b568f4e8"><code>operator+=</code></a><code>(rotor b) noexcept</code></td>
+<td>Rotor addition.</td>
+</tr>
+<tr>
+<td><code>public rotor &amp;KLN_VEC_CALL</code> <a href="#group__rotor_1ga6c3e3d03a77a3e6912a6de71587eec6c"><code>operator-=</code></a><code>(rotor b) noexcept</code></td>
+<td>Rotor subtraction.</td>
+</tr>
+<tr>
+<td><code>public rotor &amp;</code> <a href="#group__rotor_1ga6dee3c43d98062a0d84c89c21f6e2eab"><code>operator*=</code></a><code>(float s) noexcept</code></td>
+<td>Rotor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public rotor &amp;</code> <a href="#group__rotor_1ga0192dadc8c52d7c8b0935498c79bac3c"><code>operator*=</code></a><code>(int s) noexcept</code></td>
+<td>Rotor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public rotor &amp;</code> <a href="#group__rotor_1ga471b8aca5f4b10e324d9da1261b96819"><code>operator/=</code></a><code>(float s) noexcept</code></td>
+<td>Rotor uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public rotor &amp;</code> <a href="#group__rotor_1gab9b4f34c5626f8f718d40f4244325627"><code>operator/=</code></a><code>(int s) noexcept</code></td>
+<td>Rotor uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__rotor_1gad02dd43ba81281970b6c177897097bcb"><code>scalar</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__rotor_1gaeca61f73a42e3e4e33c15ef429ecaeb5"><code>e12</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__rotor_1gaa0b572c94d744b0cfc991fb6b4553e93"><code>e21</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__rotor_1gac0fd6fb45a971064cbe9b77c8c6f96e6"><code>e31</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__rotor_1ga54519295ac9dcef24687d0d60d0a4fb7"><code>e13</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__rotor_1gaa1aee031886928dd7e62e65a2bc4c8c1"><code>e23</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__rotor_1gac0aa82cab673eefc743c4bd7b9753440"><code>e32</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1gabd46b22dfdc4f00b1ee7d05f1570f071"><code>operator+</code></a><code>(rotor a,rotor b) noexcept</code></td>
+<td>Rotor addition.</td>
+</tr>
+<tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1ga1479b477d3a0e2ae643dbfce8b790e46"><code>operator-</code></a><code>(rotor a,rotor b) noexcept</code></td>
+<td>Rotor subtraction.</td>
+</tr>
+<tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1ga9a9b601b2fb07e3ad3984e1e92675903"><code>operator*</code></a><code>(rotor r,float s) noexcept</code></td>
+<td>Rotor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1ga142d2a565a37e7646ed13d6461c193ec"><code>operator*</code></a><code>(rotor r,int s) noexcept</code></td>
+<td>Rotor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1gade99d6f57e8b4014485ded5b0d749bfa"><code>operator*</code></a><code>(float s,rotor r) noexcept</code></td>
+<td>Rotor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1ga57de1a4a27ca3515aea0ca8b5b4b69a0"><code>operator*</code></a><code>(int s,rotor r) noexcept</code></td>
+<td>Rotor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1gaacf6f0f789dfae74dae83af785b69232"><code>operator/</code></a><code>(rotor r,float s) noexcept</code></td>
+<td>Rotor uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1gaf87b76ceb327655df465f15b7e0dd96b"><code>operator/</code></a><code>(rotor r,int s) noexcept</code></td>
+<td>Rotor uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public rotor</code> <a href="#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59"><code>operator~</code></a><code>(rotor r) noexcept</code></td>
+<td>Reversion operator.</td>
 </tr>
 </tbody>
 </table>
 <h3 id="members">Members</h3>
-<h4 id="structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4"><a href="#structkln_1_1rotor_1a3d3e11652d0c83a5f86de0d33b259be4">rotor</a>() = default</h4>
-<p>Default constructor leaves memory uninitialized.</p>
-<h4 id="structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c"><a href="#structkln_1_1rotor_1a1ed5b58579ef482f98fcd019476f883c">rotor</a>(float ang_rad,float x,float y,float z)</h4>
+<h4 id="group__rotor_1gac31c726af9caf7e1de31bf02d9c9d8a5"><a href="#group__rotor_1gac31c726af9caf7e1de31bf02d9c9d8a5">rotor</a>() = default</h4>
+<h4 id="group__rotor_1gabd1532e0cd7e2c3cd88812cdccdd7dd4"><a href="#group__rotor_1gabd1532e0cd7e2c3cd88812cdccdd7dd4">rotor</a>(float ang_rad,float x,float y,float z) noexcept</h4>
 <p>Convenience constructor. Computes transcendentals and normalizes rotation axis.</p>
-<h4 id="structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298"><a href="#structkln_1_1rotor_1aa14da87f8cbcddbd997fb29738214298">rotor</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b10 &gt; const &amp; other)</h4>
-<h4 id="structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">void  <a href="#structkln_1_1rotor_1ab063d72ca484de581a78ebd7b49e41da">load_normalized</a>(float * data) noexcept</h4>
+<h4 id="group__rotor_1gaa01cee77a321c13eb1260afbbfd1dbe2"><a href="#group__rotor_1gaa01cee77a321c13eb1260afbbfd1dbe2">rotor</a>(__m128 p1) noexcept</h4>
+<h4 id="group__rotor_1gab063d72ca484de581a78ebd7b49e41da">void  <a href="#group__rotor_1gab063d72ca484de581a78ebd7b49e41da">load_normalized</a>(float * data) noexcept</h4>
 <p>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(a, b, c, d)</code>  corresponding to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12}\)</span>.</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
 <p>The rotor data loaded this way <em>must</em> be normalized. That is, the
 rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex">\(r\widetilde{r} = 1\)</span>.</p>
 </div>
-<h4 id="structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4">void  <a href="#structkln_1_1rotor_1a4c9b04d0a4119e7d6b56b9e1478db5d4">normalize</a>() noexcept</h4>
+<h4 id="group__rotor_1ga4c9b04d0a4119e7d6b56b9e1478db5d4">void  <a href="#group__rotor_1ga4c9b04d0a4119e7d6b56b9e1478db5d4">normalize</a>() noexcept</h4>
 <p>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Normalization here is done using the <code>rsqrtps</code>
 instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
 </div>
-<h4 id="structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d"><a href="../../api/kln_mat3x4#structkln_1_1mat3x4">mat3x4</a>  <a href="#structkln_1_1rotor_1ad0e18686170db4038e5b7c287b3e8e7d">as_mat3x4</a>() const noexcept</h4>
+<h4 id="group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d">mat3x4  <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d">as_mat3x4</a>() const noexcept</h4>
 <p>Converts the rotor to a 3x4 column-major matrix. The results of this conversion are only defined if the rotor is normalized, and this conversion is preferable if so.</p>
-<h4 id="structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8"><a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a>  <a href="#structkln_1_1rotor_1a2484fc74feb9a79cabd474005fd1c0d8">as_mat4x4</a>() const noexcept</h4>
+<h4 id="group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8">mat4x4  <a href="#group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8">as_mat4x4</a>() const noexcept</h4>
 <p>Converts the rotor to a 4x4 column-major matrix.</p>
-<h4 id="structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81"><a href="../../api/kln_branch#structkln_1_1branch">branch</a>  <a href="#structkln_1_1rotor_1abdb39aa5e358dd4ceef256b48ef91e81">log</a>() const noexcept</h4>
-<p>Returns the principal branch of this rotor's logarithm. Invoking <code>exp</code>  on the returned result maps back to this rotor.</p>
-<p>Given a rotor <span class="arithmatex">\(\cos\alpha + \sin\alpha\left[a\ee_{23} + b\ee_{31} +\ c\ee_{23}\right]\)</span>, the log is computed as simply <span class="arithmatex">\(\alpha\left[a\ee_{23} + b\ee_{31} + c\ee_{23}\right]\)</span>. This map is only well-defined if the rotor is normalized such that <span class="arithmatex">\(a^2 + b^2 + c^2 = 1\)</span>.</p>
-<h4 id="structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec"><a href="../../api/kln_plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ae9e58f02352f5241dd94d22353a5e9ec">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
+<h4 id="group__rotor_1gae9e58f02352f5241dd94d22353a5e9ec">plane KLN_VEC_CALL  <a href="#group__rotor_1gae9e58f02352f5241dd94d22353a5e9ec">operator()</a>(plane const &amp; p) const noexcept</h4>
 <p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a491f6f2264c6ecf180664e75fc4a159b">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> * in, <a href="../../api/kln_plane#structkln_1_1plane">plane</a> * out,size_t count) const noexcept</h4>
+<h4 id="group__rotor_1ga491f6f2264c6ecf180664e75fc4a159b">void KLN_VEC_CALL  <a href="#group__rotor_1ga491f6f2264c6ecf180664e75fc4a159b">operator()</a>(plane * in,plane * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of planes with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1130,9 +1524,9 @@ instruction with a maximum relative error of <span class="arithmatex">\(1.5\time
 routine will be <em>significantly faster</em> than applying the rotor to
 each plane individually.</p>
 </div>
-<h4 id="structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc"><a href="../../api/kln_line#structkln_1_1line">line</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1ac4d044ea5b98ba540fc5da8d75f43ccc">operator()</a>( <a href="../../api/kln_line#structkln_1_1line">line</a> const &amp; l) const noexcept</h4>
+<h4 id="group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc">line KLN_VEC_CALL  <a href="#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc">operator()</a>(line const &amp; l) const noexcept</h4>
 <p>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this rotor and returns the result <span class="arithmatex">\(r\ell \widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1aad794881fa0c11fb05486986032a431a">operator()</a>( <a href="../../api/kln_line#structkln_1_1line">line</a> * in, <a href="../../api/kln_line#structkln_1_1line">line</a> * out,size_t count) const noexcept</h4>
+<h4 id="group__rotor_1gaad794881fa0c11fb05486986032a431a">void KLN_VEC_CALL  <a href="#group__rotor_1gaad794881fa0c11fb05486986032a431a">operator()</a>(line * in,line * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of lines with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1140,9 +1534,9 @@ each plane individually.</p>
 routine will be <em>significantly faster</em> than applying the rotor to
 each line individually.</p>
 </div>
-<h4 id="structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199"><a href="../../api/kln_point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a5aabb4caa402fb5793807fe1d8cec199">operator()</a>( <a href="../../api/kln_point#structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
+<h4 id="group__rotor_1ga5aabb4caa402fb5793807fe1d8cec199">point KLN_VEC_CALL  <a href="#group__rotor_1ga5aabb4caa402fb5793807fe1d8cec199">operator()</a>(point const &amp; p) const noexcept</h4>
 <p>Conjugates a point <span class="arithmatex">\(p\)</span> with this rotor and returns the result <span class="arithmatex">\(rp\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1aa91e4024d7368fbd14a93ead29905aad">operator()</a>( <a href="../../api/kln_point#structkln_1_1point">point</a> * in, <a href="../../api/kln_point#structkln_1_1point">point</a> * out,size_t count) const noexcept</h4>
+<h4 id="group__rotor_1gaa91e4024d7368fbd14a93ead29905aad">void KLN_VEC_CALL  <a href="#group__rotor_1gaa91e4024d7368fbd14a93ead29905aad">operator()</a>(point * in,point * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of points with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1150,9 +1544,9 @@ each line individually.</p>
 routine will be <em>significantly faster</em> than applying the rotor to
 each point individually.</p>
 </div>
-<h4 id="structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43"><a href="../../api/kln_direction#structkln_1_1direction">direction</a> KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a80935add9a99987a59879df1aa868b43">operator()</a>( <a href="../../api/kln_direction#structkln_1_1direction">direction</a> const &amp; d) const noexcept</h4>
+<h4 id="group__rotor_1ga80935add9a99987a59879df1aa868b43">direction KLN_VEC_CALL  <a href="#group__rotor_1ga80935add9a99987a59879df1aa868b43">operator()</a>(direction const &amp; d) const noexcept</h4>
 <p>Conjugates a direction <span class="arithmatex">\(d\)</span> with this rotor and returns the result <span class="arithmatex">\(rd\widetilde{r}\)</span>.</p>
-<h4 id="structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999">void KLN_VEC_CALL  <a href="#structkln_1_1rotor_1a185ca5be93f00396e5e0de9a05561999">operator()</a>( <a href="../../api/kln_direction#structkln_1_1direction">direction</a> * in, <a href="../../api/kln_direction#structkln_1_1direction">direction</a> * out,size_t count) const noexcept</h4>
+<h4 id="group__rotor_1ga185ca5be93f00396e5e0de9a05561999">void KLN_VEC_CALL  <a href="#group__rotor_1ga185ca5be93f00396e5e0de9a05561999">operator()</a>(direction * in,direction * out,size_t count) const noexcept</h4>
 <p>Conjugates an array of directions with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place rotor application).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1160,6 +1554,43 @@ each point individually.</p>
 routine will be <em>significantly faster</em> than applying the rotor to
 each direction individually.</p>
 </div>
+<h4 id="group__rotor_1ga45e39a62243e36e5e355ebd2b568f4e8">rotor &amp;KLN_VEC_CALL  <a href="#group__rotor_1ga45e39a62243e36e5e355ebd2b568f4e8">operator+=</a>(rotor b) noexcept</h4>
+<p>Rotor addition.</p>
+<h4 id="group__rotor_1ga6c3e3d03a77a3e6912a6de71587eec6c">rotor &amp;KLN_VEC_CALL  <a href="#group__rotor_1ga6c3e3d03a77a3e6912a6de71587eec6c">operator-=</a>(rotor b) noexcept</h4>
+<p>Rotor subtraction.</p>
+<h4 id="group__rotor_1ga6dee3c43d98062a0d84c89c21f6e2eab">rotor &amp;  <a href="#group__rotor_1ga6dee3c43d98062a0d84c89c21f6e2eab">operator*=</a>(float s) noexcept</h4>
+<p>Rotor uniform scale.</p>
+<h4 id="group__rotor_1ga0192dadc8c52d7c8b0935498c79bac3c">rotor &amp;  <a href="#group__rotor_1ga0192dadc8c52d7c8b0935498c79bac3c">operator*=</a>(int s) noexcept</h4>
+<p>Rotor uniform scale.</p>
+<h4 id="group__rotor_1ga471b8aca5f4b10e324d9da1261b96819">rotor &amp;  <a href="#group__rotor_1ga471b8aca5f4b10e324d9da1261b96819">operator/=</a>(float s) noexcept</h4>
+<p>Rotor uniform inverse scale.</p>
+<h4 id="group__rotor_1gab9b4f34c5626f8f718d40f4244325627">rotor &amp;  <a href="#group__rotor_1gab9b4f34c5626f8f718d40f4244325627">operator/=</a>(int s) noexcept</h4>
+<p>Rotor uniform inverse scale.</p>
+<h4 id="group__rotor_1gad02dd43ba81281970b6c177897097bcb">float  <a href="#group__rotor_1gad02dd43ba81281970b6c177897097bcb">scalar</a>() const noexcept</h4>
+<h4 id="group__rotor_1gaeca61f73a42e3e4e33c15ef429ecaeb5">float  <a href="#group__rotor_1gaeca61f73a42e3e4e33c15ef429ecaeb5">e12</a>() const noexcept</h4>
+<h4 id="group__rotor_1gaa0b572c94d744b0cfc991fb6b4553e93">float  <a href="#group__rotor_1gaa0b572c94d744b0cfc991fb6b4553e93">e21</a>() const noexcept</h4>
+<h4 id="group__rotor_1gac0fd6fb45a971064cbe9b77c8c6f96e6">float  <a href="#group__rotor_1gac0fd6fb45a971064cbe9b77c8c6f96e6">e31</a>() const noexcept</h4>
+<h4 id="group__rotor_1ga54519295ac9dcef24687d0d60d0a4fb7">float  <a href="#group__rotor_1ga54519295ac9dcef24687d0d60d0a4fb7">e13</a>() const noexcept</h4>
+<h4 id="group__rotor_1gaa1aee031886928dd7e62e65a2bc4c8c1">float  <a href="#group__rotor_1gaa1aee031886928dd7e62e65a2bc4c8c1">e23</a>() const noexcept</h4>
+<h4 id="group__rotor_1gac0aa82cab673eefc743c4bd7b9753440">float  <a href="#group__rotor_1gac0aa82cab673eefc743c4bd7b9753440">e32</a>() const noexcept</h4>
+<h4 id="group__rotor_1gabd46b22dfdc4f00b1ee7d05f1570f071">rotor KLN_VEC_CALL  <a href="#group__rotor_1gabd46b22dfdc4f00b1ee7d05f1570f071">operator+</a>(rotor a,rotor b) noexcept</h4>
+<p>Rotor addition.</p>
+<h4 id="group__rotor_1ga1479b477d3a0e2ae643dbfce8b790e46">rotor KLN_VEC_CALL  <a href="#group__rotor_1ga1479b477d3a0e2ae643dbfce8b790e46">operator-</a>(rotor a,rotor b) noexcept</h4>
+<p>Rotor subtraction.</p>
+<h4 id="group__rotor_1ga9a9b601b2fb07e3ad3984e1e92675903">rotor KLN_VEC_CALL  <a href="#group__rotor_1ga9a9b601b2fb07e3ad3984e1e92675903">operator*</a>(rotor r,float s) noexcept</h4>
+<p>Rotor uniform scale.</p>
+<h4 id="group__rotor_1ga142d2a565a37e7646ed13d6461c193ec">rotor KLN_VEC_CALL  <a href="#group__rotor_1ga142d2a565a37e7646ed13d6461c193ec">operator*</a>(rotor r,int s) noexcept</h4>
+<p>Rotor uniform scale.</p>
+<h4 id="group__rotor_1gade99d6f57e8b4014485ded5b0d749bfa">rotor KLN_VEC_CALL  <a href="#group__rotor_1gade99d6f57e8b4014485ded5b0d749bfa">operator*</a>(float s,rotor r) noexcept</h4>
+<p>Rotor uniform scale.</p>
+<h4 id="group__rotor_1ga57de1a4a27ca3515aea0ca8b5b4b69a0">rotor KLN_VEC_CALL  <a href="#group__rotor_1ga57de1a4a27ca3515aea0ca8b5b4b69a0">operator*</a>(int s,rotor r) noexcept</h4>
+<p>Rotor uniform scale.</p>
+<h4 id="group__rotor_1gaacf6f0f789dfae74dae83af785b69232">rotor KLN_VEC_CALL  <a href="#group__rotor_1gaacf6f0f789dfae74dae83af785b69232">operator/</a>(rotor r,float s) noexcept</h4>
+<p>Rotor uniform inverse scale.</p>
+<h4 id="group__rotor_1gaf87b76ceb327655df465f15b7e0dd96b">rotor KLN_VEC_CALL  <a href="#group__rotor_1gaf87b76ceb327655df465f15b7e0dd96b">operator/</a>(rotor r,int s) noexcept</h4>
+<p>Rotor uniform inverse scale.</p>
+<h4 id="group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59">rotor  <a href="#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59">operator~</a>(rotor r) noexcept</h4>
+<p>Reversion operator.</p>
                 
                   
                 
@@ -1188,8 +1619,8 @@ each direction individually.</p>
 
         <!-- Link to previous page -->
         
-          <a href="../kln_point/"
-              title="Point"
+          <a href="../dir/"
+              title="Direction"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -1202,7 +1633,7 @@ each direction individually.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Point
+                Direction
               </span>
             </div>
           </a>
@@ -1210,8 +1641,8 @@ each direction individually.</p>
 
         <!-- Link to next page -->
         
-          <a href="../kln_branch/"
-              title="Branch"
+          <a href="../translator/"
+              title="Translator"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -1220,7 +1651,7 @@ each direction individually.</p>
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Branch
+                Translator
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

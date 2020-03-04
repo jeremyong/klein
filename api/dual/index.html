@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/klein/api/kln_translator/">
+        <link rel="canonical" href="https://jeremyong.com/klein/api/dual/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Translator - klein</title>
+        <title>Poincare Dual - klein</title>
       
     
     
@@ -120,7 +120,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#structkln_1_1translator" tabindex="0" class="md-skip">
+      <a href="#group__dual" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -146,7 +146,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Translator
+                Poincare Dual
               
             </span>
           
@@ -326,19 +326,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_entity/" title="Entity" class="md-nav__link">
-      Entity
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_plane/" title="Plane" class="md-nav__link">
+    <a href="../plane/" title="Plane" class="md-nav__link">
       Plane
     </a>
   </li>
@@ -350,8 +338,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_line/" title="Line" class="md-nav__link">
-      Line
+    <a href="../lines/" title="Lines" class="md-nav__link">
+      Lines
     </a>
   </li>
 
@@ -362,7 +350,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_point/" title="Point" class="md-nav__link">
+    <a href="../point/" title="Point" class="md-nav__link">
       Point
     </a>
   </li>
@@ -374,7 +362,19 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_rotor/" title="Rotor" class="md-nav__link">
+    <a href="../dir/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rotor/" title="Rotor" class="md-nav__link">
       Rotor
     </a>
   </li>
@@ -386,8 +386,44 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_branch/" title="Branch" class="md-nav__link">
-      Branch
+    <a href="../translator/" title="Translator" class="md-nav__link">
+      Translator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../motor/" title="Motor" class="md-nav__link">
+      Motor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gp/" title="Geometric Product" class="md-nav__link">
+      Geometric Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ext/" title="Exterior Product" class="md-nav__link">
+      Exterior Product
     </a>
   </li>
 
@@ -405,11 +441,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Translator
+        Poincare Dual
       </label>
     
-    <a href="./" title="Translator" class="md-nav__link md-nav__link--active">
-      Translator
+    <a href="./" title="Poincare Dual" class="md-nav__link md-nav__link--active">
+      Poincare Dual
     </a>
     
       
@@ -421,8 +457,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1translator" class="md-nav__link">
-    struct kln::translator
+  <a href="#group__dual" class="md-nav__link">
+    group dual
   </a>
   
     <nav class="md-nav">
@@ -444,64 +480,43 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1" class="md-nav__link">
-    translator() = default
+  <a href="#group__dual_1ga3a687310cf04e42ff485b03d557ed5a0" class="md-nav__link">
+    KLN_INLINE point KLN_VEC_CALL  operator!(plane in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2" class="md-nav__link">
-    translator(float delta,float x,float y,float z)
+  <a href="#group__dual_1ga105ff06095b7eb1fc4ab4b345d7aefb1" class="md-nav__link">
+    KLN_INLINE plane KLN_VEC_CALL  operator!(point in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb" class="md-nav__link">
-    translator( entity&lt; 0b110 &gt; const &amp; other)
+  <a href="#group__dual_1gaa54dbe6355262d69f4302296708cc3fd" class="md-nav__link">
+    KLN_INLINE line KLN_VEC_CALL  operator!(line in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7" class="md-nav__link">
-    void  load_normalized(float * data) noexcept
+  <a href="#group__dual_1gac57689e4bf002977c93dbb5e162f7a73" class="md-nav__link">
+    KLN_INLINE branch KLN_VEC_CALL  operator!(ideal_line in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a" class="md-nav__link">
-    ideal_line  log() const noexcept
+  <a href="#group__dual_1gaba4e70ba96775d4bda3676593256a6be" class="md-nav__link">
+    KLN_INLINE ideal_line KLN_VEC_CALL  operator!(branch in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5" class="md-nav__link">
-    ideal_line &amp;  log() noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59" class="md-nav__link">
-    plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7" class="md-nav__link">
-    line KLN_VEC_CALL  operator()( line const &amp; l) const noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5" class="md-nav__link">
-    point KLN_VEC_CALL  operator()( point const &amp; p) const noexcept
+  <a href="#group__dual_1ga322859aabdd00a64e316ef1d4923a266" class="md-nav__link">
+    KLN_INLINE dual KLN_VEC_CALL  operator!(dual in) noexcept
   </a>
   
 </li>
@@ -533,8 +548,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_motor/" title="Motor" class="md-nav__link">
-      Motor
+    <a href="../reg/" title="Regressive Product" class="md-nav__link">
+      Regressive Product
     </a>
   </li>
 
@@ -545,8 +560,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_ideal_line/" title="Ideal Line" class="md-nav__link">
-      Ideal Line
+    <a href="../dot/" title="Inner Product" class="md-nav__link">
+      Inner Product
     </a>
   </li>
 
@@ -557,8 +572,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_direction/" title="Direction" class="md-nav__link">
-      Direction
+    <a href="../exp_log/" title="Exponential/Logarithm" class="md-nav__link">
+      Exponential/Logarithm
     </a>
   </li>
 
@@ -569,8 +584,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_mat3x4/" title="Mat3x4" class="md-nav__link">
-      Mat3x4
+    <a href="../proj/" title="Projections" class="md-nav__link">
+      Projections
     </a>
   </li>
 
@@ -581,20 +596,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_mat4x4/" title="Mat4x4" class="md-nav__link">
-      Mat4x4
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_origin/" title="Origin" class="md-nav__link">
-      Origin
+    <a href="../dualn/" title="Dual Numbers" class="md-nav__link">
+      Dual Numbers
     </a>
   </li>
 
@@ -767,8 +770,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1translator" class="md-nav__link">
-    struct kln::translator
+  <a href="#group__dual" class="md-nav__link">
+    group dual
   </a>
   
     <nav class="md-nav">
@@ -790,64 +793,43 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1" class="md-nav__link">
-    translator() = default
+  <a href="#group__dual_1ga3a687310cf04e42ff485b03d557ed5a0" class="md-nav__link">
+    KLN_INLINE point KLN_VEC_CALL  operator!(plane in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2" class="md-nav__link">
-    translator(float delta,float x,float y,float z)
+  <a href="#group__dual_1ga105ff06095b7eb1fc4ab4b345d7aefb1" class="md-nav__link">
+    KLN_INLINE plane KLN_VEC_CALL  operator!(point in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb" class="md-nav__link">
-    translator( entity&lt; 0b110 &gt; const &amp; other)
+  <a href="#group__dual_1gaa54dbe6355262d69f4302296708cc3fd" class="md-nav__link">
+    KLN_INLINE line KLN_VEC_CALL  operator!(line in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7" class="md-nav__link">
-    void  load_normalized(float * data) noexcept
+  <a href="#group__dual_1gac57689e4bf002977c93dbb5e162f7a73" class="md-nav__link">
+    KLN_INLINE branch KLN_VEC_CALL  operator!(ideal_line in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a" class="md-nav__link">
-    ideal_line  log() const noexcept
+  <a href="#group__dual_1gaba4e70ba96775d4bda3676593256a6be" class="md-nav__link">
+    KLN_INLINE ideal_line KLN_VEC_CALL  operator!(branch in) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5" class="md-nav__link">
-    ideal_line &amp;  log() noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59" class="md-nav__link">
-    plane KLN_VEC_CALL  operator()( plane const &amp; p) const noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7" class="md-nav__link">
-    line KLN_VEC_CALL  operator()( line const &amp; l) const noexcept
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5" class="md-nav__link">
-    point KLN_VEC_CALL  operator()( point const &amp; p) const noexcept
+  <a href="#group__dual_1ga322859aabdd00a64e316ef1d4923a266" class="md-nav__link">
+    KLN_INLINE dual KLN_VEC_CALL  operator!(dual in) noexcept
   </a>
   
 </li>
@@ -879,41 +861,11 @@
               
                 
                 
-                  <h1>Translator</h1>
+                  <h1>Poincare Dual</h1>
                 
-                <h2 id="structkln_1_1translator">struct <code>kln::translator</code></h2>
-<div class="codehilite"><pre><span></span><code><span class="err">struct kln::translator</span>
-<span class="err">  : public kln::entity&lt; 0b110 &gt;</span>
-</code></pre></div>
-
-<p>A translator represents a rigid-body displacement along a normalized axis. To apply the translator to a supported entity, the call operator is available.</p>
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<p><div class="codehilite"><pre><span></span><code>    <span class="c1">// Initialize a point at (1, 3, 2)</span>
-    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p</span><span class="p">{</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">3.f</span><span class="p">,</span> <span class="mf">2.f</span><span class="p">};</span>
-
-    <span class="c1">// Create a normalized translator representing a 4-unit</span>
-    <span class="c1">// displacement along the xz-axis.</span>
-    <span class="n">kln</span><span class="o">::</span><span class="n">translator</span> <span class="n">r</span><span class="p">{</span><span class="mf">4.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
-
-    <span class="c1">// Displace our point using the created translator</span>
-    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">translated</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
-</code></pre></div>
-We can translate lines and planes as well using the translator's call
-operator.</p>
-</div>
-<p>Translators can be multiplied to one another with the <code>*</code>  operator to create a new translator equivalent to the application of each factor.</p>
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<div class="codehilite"><pre><span></span><code>    <span class="c1">// Suppose we have 3 translators t1, t2, and t3</span>
-
-    <span class="c1">// The translator t created here represents the combined action of</span>
-    <span class="c1">// t1, t2, and t3.</span>
-    <span class="n">kln</span><span class="o">::</span><span class="n">translator</span> <span class="n">t</span> <span class="o">=</span> <span class="n">t3</span> <span class="o">*</span> <span class="n">t2</span> <span class="o">*</span> <span class="n">t1</span><span class="p">;</span>
-</code></pre></div>
-
-</div>
-<p>The same <code>*</code>  operator can be used to compose the translator's action with other rotors and motors.</p>
+                <h2 id="group__dual">group <code>dual</code></h2>
+<p>The Poincaré Dual of an element is the "subspace complement" of the argument with respect to the pseudoscalar in the exterior algebra. In practice, it is a relabeling of the coordinates to their dual-coordinates and is used most often to implement a "join" operation in terms of the exterior product of the duals of each operand.</p>
+<p>Ex: The dual of the point <span class="arithmatex">\(\mathbf{e}_{123} + 3\mathbf{e}_{013} - 2\mathbf{e}_{021}\)</span> (the point at <span class="arithmatex">\((0, 3, -2)\)</span>) is the plane <span class="arithmatex">\(\mathbf{e}_0 + 3\mathbf{e}_2 - 2\mathbf{e}_3\)</span>.</p>
 <h3 id="summary">Summary</h3>
 <table>
 <thead>
@@ -924,65 +876,38 @@ operator.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1"><code>translator</code></a><code>() = default</code></td>
+<td><code>public KLN_INLINE point KLN_VEC_CALL</code> <a href="#group__dual_1ga3a687310cf04e42ff485b03d557ed5a0"><code>operator!</code></a><code>(plane in) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2"><code>translator</code></a><code>(float delta,float x,float y,float z)</code></td>
+<td><code>public KLN_INLINE plane KLN_VEC_CALL</code> <a href="#group__dual_1ga105ff06095b7eb1fc4ab4b345d7aefb1"><code>operator!</code></a><code>(point in) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public</code> <a href="#structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb"><code>translator</code></a><code>(</code> <a href="../../api/kln_entity#structkln_1_1entity"><code>entity</code></a><code>&lt; 0b110 &gt; const &amp; other)</code></td>
+<td><code>public KLN_INLINE line KLN_VEC_CALL</code> <a href="#group__dual_1gaa54dbe6355262d69f4302296708cc3fd"><code>operator!</code></a><code>(line in) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public void</code> <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7"><code>load_normalized</code></a><code>(float * data) noexcept</code></td>
-<td>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(0.f, a, b, c)</code>  corresponding to the multivector <span class="arithmatex">\(a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03}\)</span>.</td>
+<td><code>public KLN_INLINE branch KLN_VEC_CALL</code> <a href="#group__dual_1gac57689e4bf002977c93dbb5e162f7a73"><code>operator!</code></a><code>(ideal_line in) noexcept</code></td>
+<td></td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_ideal_line#structkln_1_1ideal__line"><code>ideal_line</code></a><code></code> <a href="#structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a"><code>log</code></a><code>() const noexcept</code></td>
-<td>Compute the logarithm of the translator, producing an ideal line axis. In practice, the logarithm of a translator is simply the ideal partition (without the scalar <span class="arithmatex">\(1\)</span>).</td>
+<td><code>public KLN_INLINE ideal_line KLN_VEC_CALL</code> <a href="#group__dual_1gaba4e70ba96775d4bda3676593256a6be"><code>operator!</code></a><code>(branch in) noexcept</code></td>
+<td></td>
 </tr>
 <tr>
-<td><code>public</code> <a href="../../api/kln_ideal_line#structkln_1_1ideal__line"><code>ideal_line</code></a><code>&amp;</code> <a href="#structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5"><code>log</code></a><code>() noexcept</code></td>
-<td>Retrieve the ideal line axis of this translator which can be directly manipulated to augment or diminish the weight of this translator.</td>
-</tr>
-<tr>
-<td><code>public</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59"><code>operator()</code></a><code>(</code> <a href="../../api/kln_plane#structkln_1_1plane"><code>plane</code></a><code>const &amp; p) const noexcept</code></td>
-<td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this translator and returns the result <span class="arithmatex">\(tp\widetilde{t}\)</span>.</td>
-</tr>
-<tr>
-<td><code>public</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7"><code>operator()</code></a><code>(</code> <a href="../../api/kln_line#structkln_1_1line"><code>line</code></a><code>const &amp; l) const noexcept</code></td>
-<td>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this translator and returns the result <span class="arithmatex">\(t\ell\widetilde{t}\)</span>.</td>
-</tr>
-<tr>
-<td><code>public</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>KLN_VEC_CALL</code> <a href="#structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5"><code>operator()</code></a><code>(</code> <a href="../../api/kln_point#structkln_1_1point"><code>point</code></a><code>const &amp; p) const noexcept</code></td>
-<td>Conjugates a point <span class="arithmatex">\(p\)</span> with this translator and returns the result <span class="arithmatex">\(tp\widetilde{t}\)</span>.</td>
+<td><code>public KLN_INLINE dual KLN_VEC_CALL</code> <a href="#group__dual_1ga322859aabdd00a64e316ef1d4923a266"><code>operator!</code></a><code>(dual in) noexcept</code></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <h3 id="members">Members</h3>
-<h4 id="structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1"><a href="#structkln_1_1translator_1aea5e64c659061f07a509d5924b0c07b1">translator</a>() = default</h4>
-<h4 id="structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2"><a href="#structkln_1_1translator_1a79f802a9ad0d2ce8121e53e1041300d2">translator</a>(float delta,float x,float y,float z)</h4>
-<h4 id="structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb"><a href="#structkln_1_1translator_1abad7c4f575baf7c82b8e6dd4917a12cb">translator</a>( <a href="../../api/kln_entity#structkln_1_1entity">entity</a>&lt; 0b110 &gt; const &amp; other)</h4>
-<h4 id="structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7">void  <a href="#structkln_1_1translator_1af41d16e554ed66e640671ca9065971b7">load_normalized</a>(float * data) noexcept</h4>
-<p>Fast load operation for packed data that is already normalized. The argument <code>data</code>  should point to a set of 4 float values with layout <code>(0.f, a, b, c)</code>  corresponding to the multivector <span class="arithmatex">\(a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03}\)</span>.</p>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>The translator data loaded this way <em>must</em> be normalized. That is,
-the quantity <span class="arithmatex">\(-\sqrt{a^2 + b^2 + c^2}\)</span> must be half the desired
-displacement.</p>
-</div>
-<h4 id="structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a"><a href="../../api/kln_ideal_line#structkln_1_1ideal__line">ideal_line</a>  <a href="#structkln_1_1translator_1a29bc3e5e184b1184eb704faca120120a">log</a>() const noexcept</h4>
-<p>Compute the logarithm of the translator, producing an ideal line axis. In practice, the logarithm of a translator is simply the ideal partition (without the scalar <span class="arithmatex">\(1\)</span>).</p>
-<h4 id="structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5"><a href="../../api/kln_ideal_line#structkln_1_1ideal__line">ideal_line</a> &amp;  <a href="#structkln_1_1translator_1a4f8dd15b0b5ce83b03b24e027ccbe1b5">log</a>() noexcept</h4>
-<p>Retrieve the ideal line axis of this translator which can be directly manipulated to augment or diminish the weight of this translator.</p>
-<h4 id="structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59"><a href="../../api/kln_plane#structkln_1_1plane">plane</a> KLN_VEC_CALL  <a href="#structkln_1_1translator_1a0e313cc6d057b518bbc8b04ad6baec59">operator()</a>( <a href="../../api/kln_plane#structkln_1_1plane">plane</a> const &amp; p) const noexcept</h4>
-<p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this translator and returns the result <span class="arithmatex">\(tp\widetilde{t}\)</span>.</p>
-<h4 id="structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7"><a href="../../api/kln_line#structkln_1_1line">line</a> KLN_VEC_CALL  <a href="#structkln_1_1translator_1aa0a9ea85643aa7661d52dd477abd76e7">operator()</a>( <a href="../../api/kln_line#structkln_1_1line">line</a> const &amp; l) const noexcept</h4>
-<p>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this translator and returns the result <span class="arithmatex">\(t\ell\widetilde{t}\)</span>.</p>
-<h4 id="structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5"><a href="../../api/kln_point#structkln_1_1point">point</a> KLN_VEC_CALL  <a href="#structkln_1_1translator_1a6d5ee3578eb48f36bf3e21d321899de5">operator()</a>( <a href="../../api/kln_point#structkln_1_1point">point</a> const &amp; p) const noexcept</h4>
-<p>Conjugates a point <span class="arithmatex">\(p\)</span> with this translator and returns the result <span class="arithmatex">\(tp\widetilde{t}\)</span>.</p>
+<h4 id="group__dual_1ga3a687310cf04e42ff485b03d557ed5a0">KLN_INLINE point KLN_VEC_CALL  <a href="#group__dual_1ga3a687310cf04e42ff485b03d557ed5a0">operator!</a>(plane in) noexcept</h4>
+<h4 id="group__dual_1ga105ff06095b7eb1fc4ab4b345d7aefb1">KLN_INLINE plane KLN_VEC_CALL  <a href="#group__dual_1ga105ff06095b7eb1fc4ab4b345d7aefb1">operator!</a>(point in) noexcept</h4>
+<h4 id="group__dual_1gaa54dbe6355262d69f4302296708cc3fd">KLN_INLINE line KLN_VEC_CALL  <a href="#group__dual_1gaa54dbe6355262d69f4302296708cc3fd">operator!</a>(line in) noexcept</h4>
+<h4 id="group__dual_1gac57689e4bf002977c93dbb5e162f7a73">KLN_INLINE branch KLN_VEC_CALL  <a href="#group__dual_1gac57689e4bf002977c93dbb5e162f7a73">operator!</a>(ideal_line in) noexcept</h4>
+<h4 id="group__dual_1gaba4e70ba96775d4bda3676593256a6be">KLN_INLINE ideal_line KLN_VEC_CALL  <a href="#group__dual_1gaba4e70ba96775d4bda3676593256a6be">operator!</a>(branch in) noexcept</h4>
+<h4 id="group__dual_1ga322859aabdd00a64e316ef1d4923a266">KLN_INLINE dual KLN_VEC_CALL  <a href="#group__dual_1ga322859aabdd00a64e316ef1d4923a266">operator!</a>(dual in) noexcept</h4>
                 
                   
                 
@@ -1011,8 +936,8 @@ displacement.</p>
 
         <!-- Link to previous page -->
         
-          <a href="../kln_branch/"
-              title="Branch"
+          <a href="../ext/"
+              title="Exterior Product"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -1025,7 +950,7 @@ displacement.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Branch
+                Exterior Product
               </span>
             </div>
           </a>
@@ -1033,8 +958,8 @@ displacement.</p>
 
         <!-- Link to next page -->
         
-          <a href="../kln_motor/"
-              title="Motor"
+          <a href="../reg/"
+              title="Regressive Product"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -1043,7 +968,7 @@ displacement.</p>
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Motor
+                Regressive Product
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

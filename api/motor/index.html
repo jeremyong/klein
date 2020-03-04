@@ -1,0 +1,1903 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
+      
+      
+        <link rel="canonical" href="https://jeremyong.com/klein/api/motor/">
+      
+      
+        <meta name="author" content="Jeremy Ong">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.6.3">
+    
+    
+      
+        <title>Motor - klein</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.adb8469c.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009688">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.86422ebf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+    
+    
+      
+        
+<script>
+  window.ga = window.ga || function() {
+    (ga.q = ga.q || []).push(arguments)
+  }
+  ga.l = +new Date
+  /* Setup integration and send page view */
+  ga("create", "UA-10576233-1", "auto")
+  ga("set", "anonymizeIp", true)
+  ga("send", "pageview")
+  /* Register handler to log search on blur */
+  document.addEventListener("DOMContentLoaded", () => {
+    if (document.forms.search) {
+      var query = document.forms.search.query
+      query.addEventListener("blur", function() {
+        if (this.value) {
+          var path = document.location.pathname;
+          ga("send", "pageview", path + "?q=" + this.value)
+        }
+      })
+    }
+  })
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="teal" data-md-color-accent="deep-orange">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="__github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#group__motor" tabindex="0" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="https://jeremyong.com/klein/" title="klein" aria-label="klein" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">flip</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              klein
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Motor
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" aria-label="search" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+<a href="https://github.com/jeremyong/klein/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://jeremyong.com/klein/" title="klein" class="md-nav__button md-logo">
+      
+        <i class="md-icon">flip</i>
+      
+    </a>
+    klein
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/jeremyong/klein/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    jeremyong/klein
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../quickstart/" title="Quick Start" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../gpu/" title="GPU Support" class="md-nav__link">
+      GPU Support
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plane/" title="Plane" class="md-nav__link">
+      Plane
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../lines/" title="Lines" class="md-nav__link">
+      Lines
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../point/" title="Point" class="md-nav__link">
+      Point
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dir/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rotor/" title="Rotor" class="md-nav__link">
+      Rotor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../translator/" title="Translator" class="md-nav__link">
+      Translator
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Motor
+      </label>
+    
+    <a href="./" title="Motor" class="md-nav__link md-nav__link--active">
+      Motor
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#group__motor" class="md-nav__link">
+    group motor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#members" class="md-nav__link">
+    Members
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga96e82b7a735eed93288b76e1ecb3c13c" class="md-nav__link">
+    motor() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga0fc9829b8e6323e3ae2cc583361ce3d5" class="md-nav__link">
+    motor(float a,float b,float c,float d,float e,float f,float g,float h) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga5cb2fa5186236dffe8ddc875ad0b5063" class="md-nav__link">
+    motor(float ang_rad,float d,line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gae0f8cc6b72368628648b650d0fb21186" class="md-nav__link">
+    motor(__m128 p1,__m128 p2) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga3a048b8d0f35322259f8f1cbaad88cab" class="md-nav__link">
+    void  load(float * in) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga8af12b78c4e98b84c51f605b47dbc0a1" class="md-nav__link">
+    void  normalize() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6" class="md-nav__link">
+    mat3x4  as_mat3x4() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaa84cd8df11fc906888dff2fd20fa6e7b" class="md-nav__link">
+    mat4x4  as_mat4x4() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaa0a1d879d7716f962c1c18a0d8483196" class="md-nav__link">
+    plane KLN_VEC_CALL  operator()(plane const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaff16ea8f993f2c7ddb7e64aa5fd089ad" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(plane * in,plane * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaddae2fa94b3f6aa0045209c7692397e7" class="md-nav__link">
+    line KLN_VEC_CALL  operator()(line const &amp; l) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga63d8a856db029b21898c203115c431e0" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(line * in,line * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga7ae8d73c558d1f6581df3a4b50fb2a40" class="md-nav__link">
+    point KLN_VEC_CALL  operator()(point const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gab14cf440bf8281b4a56cc338c568156b" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(point * in,point * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gafa77e3a1d5a8f28bf6eee4de9e174489" class="md-nav__link">
+    point KLN_VEC_CALL  operator()(origin) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gac8debbfe23b80affa7bf9ef7e0dffc1f" class="md-nav__link">
+    direction KLN_VEC_CALL  operator()(direction const &amp; d) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaff385bad1df3b7ee29439b56bec43376" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(direction * in,direction * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga818ff5291121c508902dca5f1e5b7a09" class="md-nav__link">
+    motor &amp;KLN_VEC_CALL  operator+=(motor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga339f89870f76a0016cfadf2fc68cd918" class="md-nav__link">
+    motor &amp;KLN_VEC_CALL  operator-=(motor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gafd63fa96a2333b28014f8e3a7a4134ca" class="md-nav__link">
+    motor &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga119d48b12fc69b8fa0d1d02654d719a8" class="md-nav__link">
+    motor &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gad8ffc1682cb5df750eea6436a4f27d77" class="md-nav__link">
+    motor &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaa8b3dad31ce3e1fd6d62ee72e5b826e0" class="md-nav__link">
+    motor &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga2dad79dbeb201dc9dafad1c94ecd51cc" class="md-nav__link">
+    float  scalar() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga0d37119c1407e00425424c4784e7f075" class="md-nav__link">
+    float  e12() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga6d47c218ab3242156f10106fdf36a777" class="md-nav__link">
+    float  e21() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gae65d5ca5b4d158e23c942f93e3e2a6c1" class="md-nav__link">
+    float  e31() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga12938d12f57ccb5f76e7594912582f7e" class="md-nav__link">
+    float  e13() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga016619bad5d460399f782c396a4f1790" class="md-nav__link">
+    float  e23() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gadba251b758a64f618a0768b25de96644" class="md-nav__link">
+    float  e32() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gad7a738cbde6bf041842e9fce7db1a9aa" class="md-nav__link">
+    float  e01() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gac75be08d6e10f57e8c568968ff11fb0d" class="md-nav__link">
+    float  e10() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga6e8d74bcf2ba45b732b34493104d9a68" class="md-nav__link">
+    float  e02() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga119218e9aa8d5c1df3c06ac2a79d7eed" class="md-nav__link">
+    float  e20() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga0f483bcb7243e177dc9815f383066fd1" class="md-nav__link">
+    float  e03() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga607a40f4fffbad7fb4776ba68bbb1fea" class="md-nav__link">
+    float  e30() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga7c31381a8ba0be1d784f79f787ca06fc" class="md-nav__link">
+    float  e0123() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga55bb0d01d56750ae852cccc9127ae60b" class="md-nav__link">
+    motor KLN_VEC_CALL  operator+(motor a,motor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga3cb485fe89040eb6d01c70c96a031a14" class="md-nav__link">
+    motor KLN_VEC_CALL  operator-(motor a,motor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gafdb054b171b09ab54d6476d86e5d61e5" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*(motor l,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gae7eb210b5f7b49e24db9ee02fda857e3" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*(motor l,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga046f149d83052d0f83a7d24e48653d00" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*(float s,motor l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gadeb2482d5ca5548b73fbc81ea1559169" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*(int s,motor l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gab9468a090086428d6c48d47f75e8b0e7" class="md-nav__link">
+    motor KLN_VEC_CALL  operator/(motor r,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gacd7a8807bc6b6238b893150a8d8f97ca" class="md-nav__link">
+    motor KLN_VEC_CALL  operator/(motor r,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c" class="md-nav__link">
+    motor  operator-(motor m) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca" class="md-nav__link">
+    motor  operator~(motor m) noexcept
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../gp/" title="Geometric Product" class="md-nav__link">
+      Geometric Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ext/" title="Exterior Product" class="md-nav__link">
+      Exterior Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dual/" title="Poincare Dual" class="md-nav__link">
+      Poincare Dual
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reg/" title="Regressive Product" class="md-nav__link">
+      Regressive Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dot/" title="Inner Product" class="md-nav__link">
+      Inner Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../exp_log/" title="Exponential/Logarithm" class="md-nav__link">
+      Exponential/Logarithm
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../proj/" title="Projections" class="md-nav__link">
+      Projections
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dualn/" title="Dual Numbers" class="md-nav__link">
+      Dual Numbers
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../geometry-potpourri/" title="Geometry Potpourri" class="md-nav__link">
+      Geometry Potpourri
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Tutorial
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Tutorial
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/intro/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tutorial/exterior_algebra/" title="Exterior Algebra" class="md-nav__link">
+      Exterior Algebra
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Case Studies
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Case Studies
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../case_studies/ga_skeletal_animation/" title="Basic Skeletal Animation" class="md-nav__link">
+      Basic Skeletal Animation
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../shell/" title="Klein Shell" class="md-nav__link">
+      Klein Shell
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../perf/" title="Performance" class="md-nav__link">
+      Performance
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../discord/" title="Discord" class="md-nav__link">
+      Discord
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../references/" title="References" class="md-nav__link">
+      References
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#group__motor" class="md-nav__link">
+    group motor
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#members" class="md-nav__link">
+    Members
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga96e82b7a735eed93288b76e1ecb3c13c" class="md-nav__link">
+    motor() = default
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga0fc9829b8e6323e3ae2cc583361ce3d5" class="md-nav__link">
+    motor(float a,float b,float c,float d,float e,float f,float g,float h) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga5cb2fa5186236dffe8ddc875ad0b5063" class="md-nav__link">
+    motor(float ang_rad,float d,line l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gae0f8cc6b72368628648b650d0fb21186" class="md-nav__link">
+    motor(__m128 p1,__m128 p2) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga3a048b8d0f35322259f8f1cbaad88cab" class="md-nav__link">
+    void  load(float * in) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga8af12b78c4e98b84c51f605b47dbc0a1" class="md-nav__link">
+    void  normalize() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6" class="md-nav__link">
+    mat3x4  as_mat3x4() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaa84cd8df11fc906888dff2fd20fa6e7b" class="md-nav__link">
+    mat4x4  as_mat4x4() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaa0a1d879d7716f962c1c18a0d8483196" class="md-nav__link">
+    plane KLN_VEC_CALL  operator()(plane const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaff16ea8f993f2c7ddb7e64aa5fd089ad" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(plane * in,plane * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaddae2fa94b3f6aa0045209c7692397e7" class="md-nav__link">
+    line KLN_VEC_CALL  operator()(line const &amp; l) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga63d8a856db029b21898c203115c431e0" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(line * in,line * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga7ae8d73c558d1f6581df3a4b50fb2a40" class="md-nav__link">
+    point KLN_VEC_CALL  operator()(point const &amp; p) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gab14cf440bf8281b4a56cc338c568156b" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(point * in,point * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gafa77e3a1d5a8f28bf6eee4de9e174489" class="md-nav__link">
+    point KLN_VEC_CALL  operator()(origin) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gac8debbfe23b80affa7bf9ef7e0dffc1f" class="md-nav__link">
+    direction KLN_VEC_CALL  operator()(direction const &amp; d) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaff385bad1df3b7ee29439b56bec43376" class="md-nav__link">
+    void KLN_VEC_CALL  operator()(direction * in,direction * out,size_t count) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga818ff5291121c508902dca5f1e5b7a09" class="md-nav__link">
+    motor &amp;KLN_VEC_CALL  operator+=(motor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga339f89870f76a0016cfadf2fc68cd918" class="md-nav__link">
+    motor &amp;KLN_VEC_CALL  operator-=(motor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gafd63fa96a2333b28014f8e3a7a4134ca" class="md-nav__link">
+    motor &amp;  operator*=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga119d48b12fc69b8fa0d1d02654d719a8" class="md-nav__link">
+    motor &amp;  operator*=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gad8ffc1682cb5df750eea6436a4f27d77" class="md-nav__link">
+    motor &amp;  operator/=(float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gaa8b3dad31ce3e1fd6d62ee72e5b826e0" class="md-nav__link">
+    motor &amp;  operator/=(int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga2dad79dbeb201dc9dafad1c94ecd51cc" class="md-nav__link">
+    float  scalar() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga0d37119c1407e00425424c4784e7f075" class="md-nav__link">
+    float  e12() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga6d47c218ab3242156f10106fdf36a777" class="md-nav__link">
+    float  e21() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gae65d5ca5b4d158e23c942f93e3e2a6c1" class="md-nav__link">
+    float  e31() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga12938d12f57ccb5f76e7594912582f7e" class="md-nav__link">
+    float  e13() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga016619bad5d460399f782c396a4f1790" class="md-nav__link">
+    float  e23() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gadba251b758a64f618a0768b25de96644" class="md-nav__link">
+    float  e32() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gad7a738cbde6bf041842e9fce7db1a9aa" class="md-nav__link">
+    float  e01() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gac75be08d6e10f57e8c568968ff11fb0d" class="md-nav__link">
+    float  e10() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga6e8d74bcf2ba45b732b34493104d9a68" class="md-nav__link">
+    float  e02() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga119218e9aa8d5c1df3c06ac2a79d7eed" class="md-nav__link">
+    float  e20() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga0f483bcb7243e177dc9815f383066fd1" class="md-nav__link">
+    float  e03() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga607a40f4fffbad7fb4776ba68bbb1fea" class="md-nav__link">
+    float  e30() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga7c31381a8ba0be1d784f79f787ca06fc" class="md-nav__link">
+    float  e0123() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga55bb0d01d56750ae852cccc9127ae60b" class="md-nav__link">
+    motor KLN_VEC_CALL  operator+(motor a,motor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga3cb485fe89040eb6d01c70c96a031a14" class="md-nav__link">
+    motor KLN_VEC_CALL  operator-(motor a,motor b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gafdb054b171b09ab54d6476d86e5d61e5" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*(motor l,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gae7eb210b5f7b49e24db9ee02fda857e3" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*(motor l,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga046f149d83052d0f83a7d24e48653d00" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*(float s,motor l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gadeb2482d5ca5548b73fbc81ea1559169" class="md-nav__link">
+    motor KLN_VEC_CALL  operator*(int s,motor l) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gab9468a090086428d6c48d47f75e8b0e7" class="md-nav__link">
+    motor KLN_VEC_CALL  operator/(motor r,float s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1gacd7a8807bc6b6238b893150a8d8f97ca" class="md-nav__link">
+    motor KLN_VEC_CALL  operator/(motor r,int s) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c" class="md-nav__link">
+    motor  operator-(motor m) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca" class="md-nav__link">
+    motor  operator~(motor m) noexcept
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Motor</h1>
+                
+                <h2 id="group__motor">group <code>motor</code></h2>
+<p>A <code>motor</code>  represents a kinematic motion in our algebra. From <a href="https://en.wikipedia.org/wiki/Chasles%27_theorem_(kinematics)">Chasles' theorem</a>, we know that any rigid body displacement can be produced by a translation along a line, followed or preceded by a rotation about an axis parallel to that line. The motor algebra is isomorphic to the dual quaternions but exists here in the same algebra as all the other geometric entities and actions at our disposal. Operations such as composing a motor with a rotor or translator are possible for example. The primary benefit to using a motor over its corresponding matrix operation is twofold. First, you get the benefit of numerical stability when composing multiple actions via the geometric product (<code>*</code> ). Second, because the motors constitute a continuous group, they are amenable to smooth interpolation and differentiation.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="codehilite"><pre><span></span><code>    <span class="c1">// Create a rotor representing a pi/2 rotation about the z-axis</span>
+    <span class="c1">// Normalization is done automatically</span>
+    <span class="n">rotor</span> <span class="n">r</span><span class="p">{</span><span class="n">M_PI</span> <span class="o">*</span> <span class="mf">0.5f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
+
+    <span class="c1">// Create a translator that represents a translation of 1 unit</span>
+    <span class="c1">// in the yz-direction. Normalization is done automatically.</span>
+    <span class="n">translator</span> <span class="n">t</span><span class="p">{</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">0.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">,</span> <span class="mf">1.f</span><span class="p">};</span>
+
+    <span class="c1">// Create a motor that combines the action of the rotation and</span>
+    <span class="c1">// translation above.</span>
+    <span class="n">motor</span> <span class="n">m</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">t</span><span class="p">;</span>
+
+    <span class="c1">// Initialize a point at (1, 3, 2)</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p1</span><span class="p">{</span><span class="mf">1.f</span><span class="p">,</span> <span class="mf">3.f</span><span class="p">,</span> <span class="mf">2.f</span><span class="p">};</span>
+
+    <span class="c1">// Translate p1 and rotate it to create a new point p2</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+</code></pre></div>
+
+</div>
+<p>Motors can be multiplied to one another with the <code>*</code>  operator to create a new motor equivalent to the application of each factor.</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="codehilite"><pre><span></span><code>    <span class="c1">// Suppose we have 3 motors m1, m2, and m3</span>
+
+    <span class="c1">// The motor m created here represents the combined action of m1,</span>
+    <span class="c1">// m2, and m3.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m3</span> <span class="o">*</span> <span class="n">m2</span> <span class="o">*</span> <span class="n">m1</span><span class="p">;</span>
+</code></pre></div>
+
+</div>
+<p>The same <code>*</code>  operator can be used to compose the motor's action with other translators and rotors.</p>
+<p>A demonstration of using the exponential and logarithmic map to blend between two motors is provided in a test case <a href="https://github.com/jeremyong/Klein/blob/master/test/test_exp_log.cpp#L48">here</a>.</p>
+<h3 id="summary">Summary</h3>
+<table>
+<thead>
+<tr>
+<th>Members</th>
+<th>Descriptions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>public</code> <a href="#group__motor_1ga96e82b7a735eed93288b76e1ecb3c13c"><code>motor</code></a><code>() = default</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__motor_1ga0fc9829b8e6323e3ae2cc583361ce3d5"><code>motor</code></a><code>(float a,float b,float c,float d,float e,float f,float g,float h) noexcept</code></td>
+<td>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__motor_1ga5cb2fa5186236dffe8ddc875ad0b5063"><code>motor</code></a><code>(float ang_rad,float d,line l) noexcept</code></td>
+<td>Produce a screw motion rotating and translating by given amounts along a provided Euclidean axis.</td>
+</tr>
+<tr>
+<td><code>public</code> <a href="#group__motor_1gae0f8cc6b72368628648b650d0fb21186"><code>motor</code></a><code>(__m128 p1,__m128 p2) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public void</code> <a href="#group__motor_1ga3a048b8d0f35322259f8f1cbaad88cab"><code>load</code></a><code>(float * in) noexcept</code></td>
+<td>Load motor data using two unaligned loads. This routine does <em>not</em> assume the data passed in this way is normalized.</td>
+</tr>
+<tr>
+<td><code>public void</code> <a href="#group__motor_1ga8af12b78c4e98b84c51f605b47dbc0a1"><code>normalize</code></a><code>() noexcept</code></td>
+<td>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</td>
+</tr>
+<tr>
+<td><code>public mat3x4</code> <a href="#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6"><code>as_mat3x4</code></a><code>() const noexcept</code></td>
+<td>Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.</td>
+</tr>
+<tr>
+<td><code>public mat4x4</code> <a href="#group__motor_1gaa84cd8df11fc906888dff2fd20fa6e7b"><code>as_mat4x4</code></a><code>() const noexcept</code></td>
+<td>Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.</td>
+</tr>
+<tr>
+<td><code>public plane KLN_VEC_CALL</code> <a href="#group__motor_1gaa0a1d879d7716f962c1c18a0d8483196"><code>operator()</code></a><code>(plane const &amp; p) const noexcept</code></td>
+<td>Conjugates a plane <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(mp\widetilde{m}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public void KLN_VEC_CALL</code> <a href="#group__motor_1gaff16ea8f993f2c7ddb7e64aa5fd089ad"><code>operator()</code></a><code>(plane * in,plane * out,size_t count) const noexcept</code></td>
+<td>Conjugates an array of planes with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
+</tr>
+<tr>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__motor_1gaddae2fa94b3f6aa0045209c7692397e7"><code>operator()</code></a><code>(line const &amp; l) const noexcept</code></td>
+<td>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this motor and returns the result <span class="arithmatex">\(m\ell \widetilde{m}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public void KLN_VEC_CALL</code> <a href="#group__motor_1ga63d8a856db029b21898c203115c431e0"><code>operator()</code></a><code>(line * in,line * out,size_t count) const noexcept</code></td>
+<td>Conjugates an array of lines with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
+</tr>
+<tr>
+<td><code>public point KLN_VEC_CALL</code> <a href="#group__motor_1ga7ae8d73c558d1f6581df3a4b50fb2a40"><code>operator()</code></a><code>(point const &amp; p) const noexcept</code></td>
+<td>Conjugates a point <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(mp\widetilde{m}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public void KLN_VEC_CALL</code> <a href="#group__motor_1gab14cf440bf8281b4a56cc338c568156b"><code>operator()</code></a><code>(point * in,point * out,size_t count) const noexcept</code></td>
+<td>Conjugates an array of points with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
+</tr>
+<tr>
+<td><code>public point KLN_VEC_CALL</code> <a href="#group__motor_1gafa77e3a1d5a8f28bf6eee4de9e174489"><code>operator()</code></a><code>(origin) const noexcept</code></td>
+<td>Conjugates the origin <span class="arithmatex">\(O\)</span> with this motor and returns the result <span class="arithmatex">\(mO\widetilde{m}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public direction KLN_VEC_CALL</code> <a href="#group__motor_1gac8debbfe23b80affa7bf9ef7e0dffc1f"><code>operator()</code></a><code>(direction const &amp; d) const noexcept</code></td>
+<td>Conjugates a direction <span class="arithmatex">\(d\)</span> with this motor and returns the result <span class="arithmatex">\(md\widetilde{m}\)</span>.</td>
+</tr>
+<tr>
+<td><code>public void KLN_VEC_CALL</code> <a href="#group__motor_1gaff385bad1df3b7ee29439b56bec43376"><code>operator()</code></a><code>(direction * in,direction * out,size_t count) const noexcept</code></td>
+<td>Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
+</tr>
+<tr>
+<td><code>public motor &amp;KLN_VEC_CALL</code> <a href="#group__motor_1ga818ff5291121c508902dca5f1e5b7a09"><code>operator+=</code></a><code>(motor b) noexcept</code></td>
+<td>Motor addition.</td>
+</tr>
+<tr>
+<td><code>public motor &amp;KLN_VEC_CALL</code> <a href="#group__motor_1ga339f89870f76a0016cfadf2fc68cd918"><code>operator-=</code></a><code>(motor b) noexcept</code></td>
+<td>Motor subtraction.</td>
+</tr>
+<tr>
+<td><code>public motor &amp;</code> <a href="#group__motor_1gafd63fa96a2333b28014f8e3a7a4134ca"><code>operator*=</code></a><code>(float s) noexcept</code></td>
+<td>Motor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public motor &amp;</code> <a href="#group__motor_1ga119d48b12fc69b8fa0d1d02654d719a8"><code>operator*=</code></a><code>(int s) noexcept</code></td>
+<td>Motor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public motor &amp;</code> <a href="#group__motor_1gad8ffc1682cb5df750eea6436a4f27d77"><code>operator/=</code></a><code>(float s) noexcept</code></td>
+<td>Motor uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public motor &amp;</code> <a href="#group__motor_1gaa8b3dad31ce3e1fd6d62ee72e5b826e0"><code>operator/=</code></a><code>(int s) noexcept</code></td>
+<td>Motor uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga2dad79dbeb201dc9dafad1c94ecd51cc"><code>scalar</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga0d37119c1407e00425424c4784e7f075"><code>e12</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga6d47c218ab3242156f10106fdf36a777"><code>e21</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1gae65d5ca5b4d158e23c942f93e3e2a6c1"><code>e31</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga12938d12f57ccb5f76e7594912582f7e"><code>e13</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga016619bad5d460399f782c396a4f1790"><code>e23</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1gadba251b758a64f618a0768b25de96644"><code>e32</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1gad7a738cbde6bf041842e9fce7db1a9aa"><code>e01</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1gac75be08d6e10f57e8c568968ff11fb0d"><code>e10</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga6e8d74bcf2ba45b732b34493104d9a68"><code>e02</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga119218e9aa8d5c1df3c06ac2a79d7eed"><code>e20</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga0f483bcb7243e177dc9815f383066fd1"><code>e03</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga607a40f4fffbad7fb4776ba68bbb1fea"><code>e30</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__motor_1ga7c31381a8ba0be1d784f79f787ca06fc"><code>e0123</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1ga55bb0d01d56750ae852cccc9127ae60b"><code>operator+</code></a><code>(motor a,motor b) noexcept</code></td>
+<td>Motor addition.</td>
+</tr>
+<tr>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1ga3cb485fe89040eb6d01c70c96a031a14"><code>operator-</code></a><code>(motor a,motor b) noexcept</code></td>
+<td>Motor subtraction.</td>
+</tr>
+<tr>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1gafdb054b171b09ab54d6476d86e5d61e5"><code>operator*</code></a><code>(motor l,float s) noexcept</code></td>
+<td>Motor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1gae7eb210b5f7b49e24db9ee02fda857e3"><code>operator*</code></a><code>(motor l,int s) noexcept</code></td>
+<td>Motor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1ga046f149d83052d0f83a7d24e48653d00"><code>operator*</code></a><code>(float s,motor l) noexcept</code></td>
+<td>Motor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1gadeb2482d5ca5548b73fbc81ea1559169"><code>operator*</code></a><code>(int s,motor l) noexcept</code></td>
+<td>Motor uniform scale.</td>
+</tr>
+<tr>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1gab9468a090086428d6c48d47f75e8b0e7"><code>operator/</code></a><code>(motor r,float s) noexcept</code></td>
+<td>Motor uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1gacd7a8807bc6b6238b893150a8d8f97ca"><code>operator/</code></a><code>(motor r,int s) noexcept</code></td>
+<td>Motor uniform inverse scale.</td>
+</tr>
+<tr>
+<td><code>public motor</code> <a href="#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c"><code>operator-</code></a><code>(motor m) noexcept</code></td>
+<td>Unary minus.</td>
+</tr>
+<tr>
+<td><code>public motor</code> <a href="#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca"><code>operator~</code></a><code>(motor m) noexcept</code></td>
+<td>Reversion operator.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="members">Members</h3>
+<h4 id="group__motor_1ga96e82b7a735eed93288b76e1ecb3c13c"><a href="#group__motor_1ga96e82b7a735eed93288b76e1ecb3c13c">motor</a>() = default</h4>
+<h4 id="group__motor_1ga0fc9829b8e6323e3ae2cc583361ce3d5"><a href="#group__motor_1ga0fc9829b8e6323e3ae2cc583361ce3d5">motor</a>(float a,float b,float c,float d,float e,float f,float g,float h) noexcept</h4>
+<p>Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector <span class="arithmatex">\(a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}\)</span>.</p>
+<h4 id="group__motor_1ga5cb2fa5186236dffe8ddc875ad0b5063"><a href="#group__motor_1ga5cb2fa5186236dffe8ddc875ad0b5063">motor</a>(float ang_rad,float d,line l) noexcept</h4>
+<p>Produce a screw motion rotating and translating by given amounts along a provided Euclidean axis.</p>
+<h4 id="group__motor_1gae0f8cc6b72368628648b650d0fb21186"><a href="#group__motor_1gae0f8cc6b72368628648b650d0fb21186">motor</a>(__m128 p1,__m128 p2) noexcept</h4>
+<h4 id="group__motor_1ga3a048b8d0f35322259f8f1cbaad88cab">void  <a href="#group__motor_1ga3a048b8d0f35322259f8f1cbaad88cab">load</a>(float * in) noexcept</h4>
+<p>Load motor data using two unaligned loads. This routine does <em>not</em> assume the data passed in this way is normalized.</p>
+<h4 id="group__motor_1ga8af12b78c4e98b84c51f605b47dbc0a1">void  <a href="#group__motor_1ga8af12b78c4e98b84c51f605b47dbc0a1">normalize</a>() noexcept</h4>
+<p>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Normalization here is done using the <code>rsqrtps</code>
+instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
+</div>
+<h4 id="group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6">mat3x4  <a href="#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6">as_mat3x4</a>() const noexcept</h4>
+<p>Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.</p>
+<h4 id="group__motor_1gaa84cd8df11fc906888dff2fd20fa6e7b">mat4x4  <a href="#group__motor_1gaa84cd8df11fc906888dff2fd20fa6e7b">as_mat4x4</a>() const noexcept</h4>
+<p>Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.</p>
+<h4 id="group__motor_1gaa0a1d879d7716f962c1c18a0d8483196">plane KLN_VEC_CALL  <a href="#group__motor_1gaa0a1d879d7716f962c1c18a0d8483196">operator()</a>(plane const &amp; p) const noexcept</h4>
+<p>Conjugates a plane <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(mp\widetilde{m}\)</span>.</p>
+<h4 id="group__motor_1gaff16ea8f993f2c7ddb7e64aa5fd089ad">void KLN_VEC_CALL  <a href="#group__motor_1gaff16ea8f993f2c7ddb7e64aa5fd089ad">operator()</a>(plane * in,plane * out,size_t count) const noexcept</h4>
+<p>Conjugates an array of planes with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When applying a motor to a list of tightly packed planes, this
+routine will be <em>significantly faster</em> than applying the motor to
+each plane individually.</p>
+</div>
+<h4 id="group__motor_1gaddae2fa94b3f6aa0045209c7692397e7">line KLN_VEC_CALL  <a href="#group__motor_1gaddae2fa94b3f6aa0045209c7692397e7">operator()</a>(line const &amp; l) const noexcept</h4>
+<p>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this motor and returns the result <span class="arithmatex">\(m\ell \widetilde{m}\)</span>.</p>
+<h4 id="group__motor_1ga63d8a856db029b21898c203115c431e0">void KLN_VEC_CALL  <a href="#group__motor_1ga63d8a856db029b21898c203115c431e0">operator()</a>(line * in,line * out,size_t count) const noexcept</h4>
+<p>Conjugates an array of lines with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When applying a motor to a list of tightly packed lines, this
+routine will be <em>significantly faster</em> than applying the motor to
+each line individually.</p>
+</div>
+<h4 id="group__motor_1ga7ae8d73c558d1f6581df3a4b50fb2a40">point KLN_VEC_CALL  <a href="#group__motor_1ga7ae8d73c558d1f6581df3a4b50fb2a40">operator()</a>(point const &amp; p) const noexcept</h4>
+<p>Conjugates a point <span class="arithmatex">\(p\)</span> with this motor and returns the result <span class="arithmatex">\(mp\widetilde{m}\)</span>.</p>
+<h4 id="group__motor_1gab14cf440bf8281b4a56cc338c568156b">void KLN_VEC_CALL  <a href="#group__motor_1gab14cf440bf8281b4a56cc338c568156b">operator()</a>(point * in,point * out,size_t count) const noexcept</h4>
+<p>Conjugates an array of points with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When applying a motor to a list of tightly packed points, this
+routine will be <em>significantly faster</em> than applying the motor to
+each point individually.</p>
+</div>
+<h4 id="group__motor_1gafa77e3a1d5a8f28bf6eee4de9e174489">point KLN_VEC_CALL  <a href="#group__motor_1gafa77e3a1d5a8f28bf6eee4de9e174489">operator()</a>(origin) const noexcept</h4>
+<p>Conjugates the origin <span class="arithmatex">\(O\)</span> with this motor and returns the result <span class="arithmatex">\(mO\widetilde{m}\)</span>.</p>
+<h4 id="group__motor_1gac8debbfe23b80affa7bf9ef7e0dffc1f">direction KLN_VEC_CALL  <a href="#group__motor_1gac8debbfe23b80affa7bf9ef7e0dffc1f">operator()</a>(direction const &amp; d) const noexcept</h4>
+<p>Conjugates a direction <span class="arithmatex">\(d\)</span> with this motor and returns the result <span class="arithmatex">\(md\widetilde{m}\)</span>.</p>
+<p>The cost of this operation is the same as the application of a rotor due to the translational invariance of directions (points at infinity).</p>
+<h4 id="group__motor_1gaff385bad1df3b7ee29439b56bec43376">void KLN_VEC_CALL  <a href="#group__motor_1gaff385bad1df3b7ee29439b56bec43376">operator()</a>(direction * in,direction * out,size_t count) const noexcept</h4>
+<p>Conjugates an array of directions with this motor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</p>
+<p>The cost of this operation is the same as the application of a rotor due to the translational invariance of directions (points at infinity).</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When applying a motor to a list of tightly packed directions, this
+routine will be <em>significantly faster</em> than applying the motor to
+each direction individually.</p>
+</div>
+<h4 id="group__motor_1ga818ff5291121c508902dca5f1e5b7a09">motor &amp;KLN_VEC_CALL  <a href="#group__motor_1ga818ff5291121c508902dca5f1e5b7a09">operator+=</a>(motor b) noexcept</h4>
+<p>Motor addition.</p>
+<h4 id="group__motor_1ga339f89870f76a0016cfadf2fc68cd918">motor &amp;KLN_VEC_CALL  <a href="#group__motor_1ga339f89870f76a0016cfadf2fc68cd918">operator-=</a>(motor b) noexcept</h4>
+<p>Motor subtraction.</p>
+<h4 id="group__motor_1gafd63fa96a2333b28014f8e3a7a4134ca">motor &amp;  <a href="#group__motor_1gafd63fa96a2333b28014f8e3a7a4134ca">operator*=</a>(float s) noexcept</h4>
+<p>Motor uniform scale.</p>
+<h4 id="group__motor_1ga119d48b12fc69b8fa0d1d02654d719a8">motor &amp;  <a href="#group__motor_1ga119d48b12fc69b8fa0d1d02654d719a8">operator*=</a>(int s) noexcept</h4>
+<p>Motor uniform scale.</p>
+<h4 id="group__motor_1gad8ffc1682cb5df750eea6436a4f27d77">motor &amp;  <a href="#group__motor_1gad8ffc1682cb5df750eea6436a4f27d77">operator/=</a>(float s) noexcept</h4>
+<p>Motor uniform inverse scale.</p>
+<h4 id="group__motor_1gaa8b3dad31ce3e1fd6d62ee72e5b826e0">motor &amp;  <a href="#group__motor_1gaa8b3dad31ce3e1fd6d62ee72e5b826e0">operator/=</a>(int s) noexcept</h4>
+<p>Motor uniform inverse scale.</p>
+<h4 id="group__motor_1ga2dad79dbeb201dc9dafad1c94ecd51cc">float  <a href="#group__motor_1ga2dad79dbeb201dc9dafad1c94ecd51cc">scalar</a>() const noexcept</h4>
+<h4 id="group__motor_1ga0d37119c1407e00425424c4784e7f075">float  <a href="#group__motor_1ga0d37119c1407e00425424c4784e7f075">e12</a>() const noexcept</h4>
+<h4 id="group__motor_1ga6d47c218ab3242156f10106fdf36a777">float  <a href="#group__motor_1ga6d47c218ab3242156f10106fdf36a777">e21</a>() const noexcept</h4>
+<h4 id="group__motor_1gae65d5ca5b4d158e23c942f93e3e2a6c1">float  <a href="#group__motor_1gae65d5ca5b4d158e23c942f93e3e2a6c1">e31</a>() const noexcept</h4>
+<h4 id="group__motor_1ga12938d12f57ccb5f76e7594912582f7e">float  <a href="#group__motor_1ga12938d12f57ccb5f76e7594912582f7e">e13</a>() const noexcept</h4>
+<h4 id="group__motor_1ga016619bad5d460399f782c396a4f1790">float  <a href="#group__motor_1ga016619bad5d460399f782c396a4f1790">e23</a>() const noexcept</h4>
+<h4 id="group__motor_1gadba251b758a64f618a0768b25de96644">float  <a href="#group__motor_1gadba251b758a64f618a0768b25de96644">e32</a>() const noexcept</h4>
+<h4 id="group__motor_1gad7a738cbde6bf041842e9fce7db1a9aa">float  <a href="#group__motor_1gad7a738cbde6bf041842e9fce7db1a9aa">e01</a>() const noexcept</h4>
+<h4 id="group__motor_1gac75be08d6e10f57e8c568968ff11fb0d">float  <a href="#group__motor_1gac75be08d6e10f57e8c568968ff11fb0d">e10</a>() const noexcept</h4>
+<h4 id="group__motor_1ga6e8d74bcf2ba45b732b34493104d9a68">float  <a href="#group__motor_1ga6e8d74bcf2ba45b732b34493104d9a68">e02</a>() const noexcept</h4>
+<h4 id="group__motor_1ga119218e9aa8d5c1df3c06ac2a79d7eed">float  <a href="#group__motor_1ga119218e9aa8d5c1df3c06ac2a79d7eed">e20</a>() const noexcept</h4>
+<h4 id="group__motor_1ga0f483bcb7243e177dc9815f383066fd1">float  <a href="#group__motor_1ga0f483bcb7243e177dc9815f383066fd1">e03</a>() const noexcept</h4>
+<h4 id="group__motor_1ga607a40f4fffbad7fb4776ba68bbb1fea">float  <a href="#group__motor_1ga607a40f4fffbad7fb4776ba68bbb1fea">e30</a>() const noexcept</h4>
+<h4 id="group__motor_1ga7c31381a8ba0be1d784f79f787ca06fc">float  <a href="#group__motor_1ga7c31381a8ba0be1d784f79f787ca06fc">e0123</a>() const noexcept</h4>
+<h4 id="group__motor_1ga55bb0d01d56750ae852cccc9127ae60b">motor KLN_VEC_CALL  <a href="#group__motor_1ga55bb0d01d56750ae852cccc9127ae60b">operator+</a>(motor a,motor b) noexcept</h4>
+<p>Motor addition.</p>
+<h4 id="group__motor_1ga3cb485fe89040eb6d01c70c96a031a14">motor KLN_VEC_CALL  <a href="#group__motor_1ga3cb485fe89040eb6d01c70c96a031a14">operator-</a>(motor a,motor b) noexcept</h4>
+<p>Motor subtraction.</p>
+<h4 id="group__motor_1gafdb054b171b09ab54d6476d86e5d61e5">motor KLN_VEC_CALL  <a href="#group__motor_1gafdb054b171b09ab54d6476d86e5d61e5">operator*</a>(motor l,float s) noexcept</h4>
+<p>Motor uniform scale.</p>
+<h4 id="group__motor_1gae7eb210b5f7b49e24db9ee02fda857e3">motor KLN_VEC_CALL  <a href="#group__motor_1gae7eb210b5f7b49e24db9ee02fda857e3">operator*</a>(motor l,int s) noexcept</h4>
+<p>Motor uniform scale.</p>
+<h4 id="group__motor_1ga046f149d83052d0f83a7d24e48653d00">motor KLN_VEC_CALL  <a href="#group__motor_1ga046f149d83052d0f83a7d24e48653d00">operator*</a>(float s,motor l) noexcept</h4>
+<p>Motor uniform scale.</p>
+<h4 id="group__motor_1gadeb2482d5ca5548b73fbc81ea1559169">motor KLN_VEC_CALL  <a href="#group__motor_1gadeb2482d5ca5548b73fbc81ea1559169">operator*</a>(int s,motor l) noexcept</h4>
+<p>Motor uniform scale.</p>
+<h4 id="group__motor_1gab9468a090086428d6c48d47f75e8b0e7">motor KLN_VEC_CALL  <a href="#group__motor_1gab9468a090086428d6c48d47f75e8b0e7">operator/</a>(motor r,float s) noexcept</h4>
+<p>Motor uniform inverse scale.</p>
+<h4 id="group__motor_1gacd7a8807bc6b6238b893150a8d8f97ca">motor KLN_VEC_CALL  <a href="#group__motor_1gacd7a8807bc6b6238b893150a8d8f97ca">operator/</a>(motor r,int s) noexcept</h4>
+<p>Motor uniform inverse scale.</p>
+<h4 id="group__motor_1ga76e6057142774c1ffa347678ea6bbb7c">motor  <a href="#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c">operator-</a>(motor m) noexcept</h4>
+<p>Unary minus.</p>
+<h4 id="group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca">motor  <a href="#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca">operator~</a>(motor m) noexcept</h4>
+<p>Reversion operator.</p>
+                
+                  
+                
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+
+
+<!-- Application footer -->
+<footer class="md-footer">
+
+  <!-- Link to previous and/or next page -->
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+
+        <!-- Link to previous page -->
+        
+          <a href="../translator/"
+              title="Translator"
+              class="md-flex md-footer-nav__link md-footer-nav__link--prev"
+              rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back
+                    md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch
+                  md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Translator
+              </span>
+            </div>
+          </a>
+        
+
+        <!-- Link to next page -->
+        
+          <a href="../gp/"
+              title="Geometric Product"
+              class="md-flex md-footer-nav__link md-footer-nav__link--next"
+              rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch
+                  md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Geometric Product
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward
+                    md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+
+  <!-- Further information -->
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+
+      <!-- Copyright and theme information -->
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Klein Copyright &copy; 2020 Jeremy Ong
+          </div>
+        
+      </div>
+
+      <!-- Social links -->
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://github.com/jeremyong" target="_blank" rel="noopener" title="github" class="md-footer-social__link fa fa-github"></a>
+    
+      <a href="https://twitter.com/m_ninepoints" target="_blank" rel="noopener" title="twitter" class="md-footer-social__link fa fa-twitter"></a>
+    
+      <a href="https://www.linkedin.com/in/jeremycong" target="_blank" rel="noopener" title="linkedin" class="md-footer-social__link fa fa-linkedin"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.c33a9706.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../js/extra.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/ganja.js@1.0.169"></script>
+      
+    
+  </body>
+</html>

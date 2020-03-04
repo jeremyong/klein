@@ -13,7 +13,7 @@
         <meta name="description" content="Klein - Realtime Projective Geometric Algebra">
       
       
-        <link rel="canonical" href="https://jeremyong.com/klein/api/kln_mat3x4/">
+        <link rel="canonical" href="https://jeremyong.com/klein/api/reg/">
       
       
         <meta name="author" content="Jeremy Ong">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Mat3x4 - klein</title>
+        <title>Regressive Product - klein</title>
       
     
     
@@ -120,7 +120,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#structkln_1_1mat3x4" tabindex="0" class="md-skip">
+      <a href="#group__reg" tabindex="0" class="md-skip">
         Skip to content
       </a>
     
@@ -146,7 +146,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Mat3x4
+                Regressive Product
               
             </span>
           
@@ -326,19 +326,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_entity/" title="Entity" class="md-nav__link">
-      Entity
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_plane/" title="Plane" class="md-nav__link">
+    <a href="../plane/" title="Plane" class="md-nav__link">
       Plane
     </a>
   </li>
@@ -350,8 +338,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_line/" title="Line" class="md-nav__link">
-      Line
+    <a href="../lines/" title="Lines" class="md-nav__link">
+      Lines
     </a>
   </li>
 
@@ -362,7 +350,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_point/" title="Point" class="md-nav__link">
+    <a href="../point/" title="Point" class="md-nav__link">
       Point
     </a>
   </li>
@@ -374,7 +362,19 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_rotor/" title="Rotor" class="md-nav__link">
+    <a href="../dir/" title="Direction" class="md-nav__link">
+      Direction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../rotor/" title="Rotor" class="md-nav__link">
       Rotor
     </a>
   </li>
@@ -386,19 +386,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_branch/" title="Branch" class="md-nav__link">
-      Branch
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../kln_translator/" title="Translator" class="md-nav__link">
+    <a href="../translator/" title="Translator" class="md-nav__link">
       Translator
     </a>
   </li>
@@ -410,7 +398,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_motor/" title="Motor" class="md-nav__link">
+    <a href="../motor/" title="Motor" class="md-nav__link">
       Motor
     </a>
   </li>
@@ -422,8 +410,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_ideal_line/" title="Ideal Line" class="md-nav__link">
-      Ideal Line
+    <a href="../gp/" title="Geometric Product" class="md-nav__link">
+      Geometric Product
     </a>
   </li>
 
@@ -434,8 +422,20 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_direction/" title="Direction" class="md-nav__link">
-      Direction
+    <a href="../ext/" title="Exterior Product" class="md-nav__link">
+      Exterior Product
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dual/" title="Poincare Dual" class="md-nav__link">
+      Poincare Dual
     </a>
   </li>
 
@@ -453,11 +453,11 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Mat3x4
+        Regressive Product
       </label>
     
-    <a href="./" title="Mat3x4" class="md-nav__link md-nav__link--active">
-      Mat3x4
+    <a href="./" title="Regressive Product" class="md-nav__link md-nav__link--active">
+      Regressive Product
     </a>
     
       
@@ -469,8 +469,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4" class="md-nav__link">
-    struct kln::mat3x4
+  <a href="#group__reg" class="md-nav__link">
+    group reg
   </a>
   
     <nav class="md-nav">
@@ -492,29 +492,64 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4_1ae217bae8c138f689d810b6f3b5792298" class="md-nav__link">
-    __m128  cols
+  <a href="#group__reg_1ga63b0997f8119571d904e3c02673d8bbb" class="md-nav__link">
+    line KLN_VEC_CALL  operator&amp;(point a,point b) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4_1aa1d1afe15f3de970e020b325b8a34352" class="md-nav__link">
-    float  data
+  <a href="#group__reg_1gad37eea7e6c630474cae21c6a6d76dfd1" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(point a,line b) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4_1ad712ecf0935631018aa4b43bdf823046" class="md-nav__link">
-    union kln::mat3x4::@0  @1
+  <a href="#group__reg_1ga6be92308d719cd634211b5fc0909d00c" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(line b,point a) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4_1aec2ffe495ad2078179282c942c8b6e54" class="md-nav__link">
-    __m128 KLN_VEC_CALL  operator()(__m128 const &amp; xyzw) const noexcept
+  <a href="#group__reg_1ga9f3f5c16881afe59f2c77e2977653094" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(point a,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1ga7b9ddcd88aa6a10b980b69de28aebeb3" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(branch b,point a) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1ga05885edf19c3ef66e942390073922bd0" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(point a,ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1ga2da1a859d4b8c745a77855eabc380980" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(ideal_line b,point a) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1gaff23302987cbc2a0a33bae1420992e01" class="md-nav__link">
+    dual KLN_VEC_CALL  operator&amp;(plane a,point b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1ga66d87e84a1c2618381cb696800164ecc" class="md-nav__link">
+    dual KLN_VEC_CALL  operator&amp;(point a,plane b) noexcept
   </a>
   
 </li>
@@ -546,8 +581,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_mat4x4/" title="Mat4x4" class="md-nav__link">
-      Mat4x4
+    <a href="../dot/" title="Inner Product" class="md-nav__link">
+      Inner Product
     </a>
   </li>
 
@@ -558,8 +593,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../kln_origin/" title="Origin" class="md-nav__link">
-      Origin
+    <a href="../exp_log/" title="Exponential/Logarithm" class="md-nav__link">
+      Exponential/Logarithm
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../proj/" title="Projections" class="md-nav__link">
+      Projections
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dualn/" title="Dual Numbers" class="md-nav__link">
+      Dual Numbers
     </a>
   </li>
 
@@ -732,8 +791,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4" class="md-nav__link">
-    struct kln::mat3x4
+  <a href="#group__reg" class="md-nav__link">
+    group reg
   </a>
   
     <nav class="md-nav">
@@ -755,29 +814,64 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4_1ae217bae8c138f689d810b6f3b5792298" class="md-nav__link">
-    __m128  cols
+  <a href="#group__reg_1ga63b0997f8119571d904e3c02673d8bbb" class="md-nav__link">
+    line KLN_VEC_CALL  operator&amp;(point a,point b) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4_1aa1d1afe15f3de970e020b325b8a34352" class="md-nav__link">
-    float  data
+  <a href="#group__reg_1gad37eea7e6c630474cae21c6a6d76dfd1" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(point a,line b) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4_1ad712ecf0935631018aa4b43bdf823046" class="md-nav__link">
-    union kln::mat3x4::@0  @1
+  <a href="#group__reg_1ga6be92308d719cd634211b5fc0909d00c" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(line b,point a) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#structkln_1_1mat3x4_1aec2ffe495ad2078179282c942c8b6e54" class="md-nav__link">
-    __m128 KLN_VEC_CALL  operator()(__m128 const &amp; xyzw) const noexcept
+  <a href="#group__reg_1ga9f3f5c16881afe59f2c77e2977653094" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(point a,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1ga7b9ddcd88aa6a10b980b69de28aebeb3" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(branch b,point a) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1ga05885edf19c3ef66e942390073922bd0" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(point a,ideal_line b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1ga2da1a859d4b8c745a77855eabc380980" class="md-nav__link">
+    plane KLN_VEC_CALL  operator&amp;(ideal_line b,point a) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1gaff23302987cbc2a0a33bae1420992e01" class="md-nav__link">
+    dual KLN_VEC_CALL  operator&amp;(plane a,point b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__reg_1ga66d87e84a1c2618381cb696800164ecc" class="md-nav__link">
+    dual KLN_VEC_CALL  operator&amp;(point a,plane b) noexcept
   </a>
   
 </li>
@@ -809,10 +903,30 @@
               
                 
                 
-                  <h1>Mat3x4</h1>
+                  <h1>Regressive Product</h1>
                 
-                <h2 id="structkln_1_1mat3x4">struct <code>kln::mat3x4</code></h2>
-<p>3x4 column-major matrix (used for converting rotors/motors to matrix form to upload to shaders). Note that the storage requirement is identical to a column major <a href="../../api/kln_mat4x4#structkln_1_1mat4x4">mat4x4</a> due to the SIMD representation.</p>
+                <h2 id="group__reg">group <code>reg</code></h2>
+<p>The regressive product is implemented in terms of the exterior product. Given multivectors <span class="arithmatex">\(\mathbf{a}\)</span> and <span class="arithmatex">\(\mathbf{b}\)</span>, the regressive product <span class="arithmatex">\(\mathbf{a}\vee\mathbf{b}\)</span> is equivalent to <span class="arithmatex">\(J(J(\mathbf{a})\wedge J(\mathbf{b}))\)</span>. Thus, both meets and joins reside in the same algebraic structure.</p>
+<div class="admonition example joining two points">
+<p class="admonition-title">Example</p>
+<div class="codehilite"><pre><span></span><code>    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p1</span><span class="p">{</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">};</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p2</span><span class="p">{</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">};</span>
+
+    <span class="c1">// l contains both p1 and p2.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">line</span> <span class="n">l</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">&amp;</span> <span class="n">p2</span><span class="p">;</span>
+</code></pre></div>
+
+</div>
+<div class="admonition example joining a line and a point">
+<p class="admonition-title">Example</p>
+<div class="codehilite"><pre><span></span><code>    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">p1</span><span class="p">{</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">};</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">line</span> <span class="n">l2</span><span class="p">{</span><span class="n">mx</span><span class="p">,</span> <span class="n">my</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">};</span>
+
+    <span class="c1">// p2 contains both p1 and l2.</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">&amp;</span> <span class="n">l2</span><span class="p">;</span>
+</code></pre></div>
+
+</div>
 <h3 id="summary">Summary</h3>
 <table>
 <thead>
@@ -823,29 +937,53 @@
 </thead>
 <tbody>
 <tr>
-<td><code>public __m128</code> <a href="#structkln_1_1mat3x4_1ae217bae8c138f689d810b6f3b5792298"><code>cols</code></a></td>
+<td><code>public line KLN_VEC_CALL</code> <a href="#group__reg_1ga63b0997f8119571d904e3c02673d8bbb"><code>operator&amp;</code></a><code>(point a,point b) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public float</code> <a href="#structkln_1_1mat3x4_1aa1d1afe15f3de970e020b325b8a34352"><code>data</code></a></td>
+<td><code>public plane KLN_VEC_CALL</code> <a href="#group__reg_1gad37eea7e6c630474cae21c6a6d76dfd1"><code>operator&amp;</code></a><code>(point a,line b) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public union kln::mat3x4::@0</code> <a href="#structkln_1_1mat3x4_1ad712ecf0935631018aa4b43bdf823046"><code>@1</code></a></td>
+<td><code>public plane KLN_VEC_CALL</code> <a href="#group__reg_1ga6be92308d719cd634211b5fc0909d00c"><code>operator&amp;</code></a><code>(line b,point a) noexcept</code></td>
 <td></td>
 </tr>
 <tr>
-<td><code>public __m128 KLN_VEC_CALL</code> <a href="#structkln_1_1mat3x4_1aec2ffe495ad2078179282c942c8b6e54"><code>operator()</code></a><code>(__m128 const &amp; xyzw) const noexcept</code></td>
-<td>Apply the linear transformation represented by this matrix to a point packed with the layout (x, y, z, 1.f)</td>
+<td><code>public plane KLN_VEC_CALL</code> <a href="#group__reg_1ga9f3f5c16881afe59f2c77e2977653094"><code>operator&amp;</code></a><code>(point a,branch b) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public plane KLN_VEC_CALL</code> <a href="#group__reg_1ga7b9ddcd88aa6a10b980b69de28aebeb3"><code>operator&amp;</code></a><code>(branch b,point a) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public plane KLN_VEC_CALL</code> <a href="#group__reg_1ga05885edf19c3ef66e942390073922bd0"><code>operator&amp;</code></a><code>(point a,ideal_line b) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public plane KLN_VEC_CALL</code> <a href="#group__reg_1ga2da1a859d4b8c745a77855eabc380980"><code>operator&amp;</code></a><code>(ideal_line b,point a) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public dual KLN_VEC_CALL</code> <a href="#group__reg_1gaff23302987cbc2a0a33bae1420992e01"><code>operator&amp;</code></a><code>(plane a,point b) noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public dual KLN_VEC_CALL</code> <a href="#group__reg_1ga66d87e84a1c2618381cb696800164ecc"><code>operator&amp;</code></a><code>(point a,plane b) noexcept</code></td>
+<td></td>
 </tr>
 </tbody>
 </table>
 <h3 id="members">Members</h3>
-<h4 id="structkln_1_1mat3x4_1ae217bae8c138f689d810b6f3b5792298">__m128  <a href="#structkln_1_1mat3x4_1ae217bae8c138f689d810b6f3b5792298">cols</a></h4>
-<h4 id="structkln_1_1mat3x4_1aa1d1afe15f3de970e020b325b8a34352">float  <a href="#structkln_1_1mat3x4_1aa1d1afe15f3de970e020b325b8a34352">data</a></h4>
-<h4 id="structkln_1_1mat3x4_1ad712ecf0935631018aa4b43bdf823046">union kln::mat3x4::@0  <a href="#structkln_1_1mat3x4_1ad712ecf0935631018aa4b43bdf823046">@1</a></h4>
-<h4 id="structkln_1_1mat3x4_1aec2ffe495ad2078179282c942c8b6e54">__m128 KLN_VEC_CALL  <a href="#structkln_1_1mat3x4_1aec2ffe495ad2078179282c942c8b6e54">operator()</a>(__m128 const &amp; xyzw) const noexcept</h4>
-<p>Apply the linear transformation represented by this matrix to a point packed with the layout (x, y, z, 1.f)</p>
+<h4 id="group__reg_1ga63b0997f8119571d904e3c02673d8bbb">line KLN_VEC_CALL  <a href="#group__reg_1ga63b0997f8119571d904e3c02673d8bbb">operator&amp;</a>(point a,point b) noexcept</h4>
+<h4 id="group__reg_1gad37eea7e6c630474cae21c6a6d76dfd1">plane KLN_VEC_CALL  <a href="#group__reg_1gad37eea7e6c630474cae21c6a6d76dfd1">operator&amp;</a>(point a,line b) noexcept</h4>
+<h4 id="group__reg_1ga6be92308d719cd634211b5fc0909d00c">plane KLN_VEC_CALL  <a href="#group__reg_1ga6be92308d719cd634211b5fc0909d00c">operator&amp;</a>(line b,point a) noexcept</h4>
+<h4 id="group__reg_1ga9f3f5c16881afe59f2c77e2977653094">plane KLN_VEC_CALL  <a href="#group__reg_1ga9f3f5c16881afe59f2c77e2977653094">operator&amp;</a>(point a,branch b) noexcept</h4>
+<h4 id="group__reg_1ga7b9ddcd88aa6a10b980b69de28aebeb3">plane KLN_VEC_CALL  <a href="#group__reg_1ga7b9ddcd88aa6a10b980b69de28aebeb3">operator&amp;</a>(branch b,point a) noexcept</h4>
+<h4 id="group__reg_1ga05885edf19c3ef66e942390073922bd0">plane KLN_VEC_CALL  <a href="#group__reg_1ga05885edf19c3ef66e942390073922bd0">operator&amp;</a>(point a,ideal_line b) noexcept</h4>
+<h4 id="group__reg_1ga2da1a859d4b8c745a77855eabc380980">plane KLN_VEC_CALL  <a href="#group__reg_1ga2da1a859d4b8c745a77855eabc380980">operator&amp;</a>(ideal_line b,point a) noexcept</h4>
+<h4 id="group__reg_1gaff23302987cbc2a0a33bae1420992e01">dual KLN_VEC_CALL  <a href="#group__reg_1gaff23302987cbc2a0a33bae1420992e01">operator&amp;</a>(plane a,point b) noexcept</h4>
+<h4 id="group__reg_1ga66d87e84a1c2618381cb696800164ecc">dual KLN_VEC_CALL  <a href="#group__reg_1ga66d87e84a1c2618381cb696800164ecc">operator&amp;</a>(point a,plane b) noexcept</h4>
                 
                   
                 
@@ -874,8 +1012,8 @@
 
         <!-- Link to previous page -->
         
-          <a href="../kln_direction/"
-              title="Direction"
+          <a href="../dual/"
+              title="Poincare Dual"
               class="md-flex md-footer-nav__link md-footer-nav__link--prev"
               rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -888,7 +1026,7 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Direction
+                Poincare Dual
               </span>
             </div>
           </a>
@@ -896,8 +1034,8 @@
 
         <!-- Link to next page -->
         
-          <a href="../kln_mat4x4/"
-              title="Mat4x4"
+          <a href="../dot/"
+              title="Inner Product"
               class="md-flex md-footer-nav__link md-footer-nav__link--next"
               rel="next">
             <div class="md-flex__cell md-flex__cell--stretch
@@ -906,7 +1044,7 @@
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Mat4x4
+                Inner Product
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
