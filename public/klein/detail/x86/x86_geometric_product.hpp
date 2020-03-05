@@ -231,6 +231,15 @@ namespace detail
         }
     }
 
+    template <bool Flip>
+    KLN_INLINE void KLN_VEC_CALL gp12(__m128 a, __m128 b, __m128& p2) noexcept
+    {
+        gpRT<Flip>(a, b, p2);
+        p2 = _mm_sub_ps(p2,
+                        _mm_xor_ps(_mm_set_ss(-0.f),
+                                   _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0))));
+    }
+
     // Optimized line * line operation
     KLN_INLINE void KLN_VEC_CALL gpLL(__m128 const& KLN_RESTRICT l1,
                                       __m128 const& KLN_RESTRICT l2,

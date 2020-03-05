@@ -414,7 +414,7 @@ kln::motor slerp(kln::motor const& a, kln::motor const& b, float t)
     // re-exponentiating it to produce a motor again.
 
     // In practice, this should be cached whenever possible.
-    line motor_step = (b * ~a).log();
+    line motor_step = log(b * ~a);
 
     // exp(log(m)) = exp(t*log(m) + (1 - t)*log(m))
     // = exp(t*(log(m))) * exp((1 - t)*log(m))
@@ -424,7 +424,7 @@ kln::motor slerp(kln::motor const& a, kln::motor const& b, float t)
     // with fixed steps toward the final motor. Compose the interpolated
     // result with the start motor to produce the intermediate blended
     // motor.
-    return motor_step.exp() * a;
+    return exp(motor_step) * a;
 }
 ```
 

@@ -11,6 +11,8 @@
 #include "mat4x4.hpp"
 #include "plane.hpp"
 #include "point.hpp"
+#include "rotor.hpp"
+#include "translator.hpp"
 
 namespace kln
 {
@@ -106,6 +108,30 @@ public:
         , p2_{p2}
     {}
 
+    explicit KLN_VEC_CALL motor(rotor r) noexcept
+        : p1_{r.p1_}
+        , p2_{_mm_setzero_ps()}
+    {}
+
+    explicit KLN_VEC_CALL motor(translator t) noexcept
+        : p1_{_mm_setzero_ps()}
+        , p2_{t.p2_}
+    {}
+
+    motor& KLN_VEC_CALL operator=(rotor r) noexcept
+    {
+        p1_ = r.p1_;
+        p2_ = _mm_setzero_ps();
+        return *this;
+    }
+
+    motor& KLN_VEC_CALL operator=(translator t) noexcept
+    {
+        p1_ = _mm_setzero_ps();
+        p2_ = t.p2_;
+        return *this;
+    }
+
     /// Load motor data using two unaligned loads. This routine does *not*
     /// assume the data passed in this way is normalized.
     void load(float* in) noexcept
@@ -163,6 +189,16 @@ public:
         motor out = *this;
         out.normalize();
         return out;
+    }
+
+    /// Bitwise comparison
+    [[nodiscard]] bool KLN_VEC_CALL operator==(motor other) const noexcept
+    {
+        __m128 p1_eq = _mm_cmpeq_ps(p1_, other.p1_);
+        __m128 p2_eq = _mm_cmpeq_ps(p2_, other.p2_);
+        __m128 eq    = _mm_and_ps(p1_eq, p2_eq);
+        int mask     = _mm_movemask_ps(eq);
+        return mask == 0b1111;
     }
 
     /// Convert this motor to a 3x4 column-major matrix representing this

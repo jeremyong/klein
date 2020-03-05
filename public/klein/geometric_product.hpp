@@ -124,6 +124,40 @@ namespace kln
     return a + b;
 }
 
+[[nodiscard]] inline motor KLN_VEC_CALL operator*(rotor a, motor b) noexcept
+{
+    motor out;
+    detail::gp11(a.p1_, b.p1_, out.p1_);
+    detail::gp12<false>(a.p1_, b.p2_, out.p2_);
+    return out;
+}
+
+[[nodiscard]] inline motor KLN_VEC_CALL operator*(motor b, rotor a) noexcept
+{
+    motor out;
+    detail::gp11(b.p1_, a.p1_, out.p1_);
+    detail::gp12<true>(a.p1_, b.p2_, out.p2_);
+    return out;
+}
+
+[[nodiscard]] inline motor KLN_VEC_CALL operator*(translator a, motor b) noexcept
+{
+    motor out;
+    out.p1_ = b.p1_;
+    detail::gpRT<true>(b.p1_, a.p2_, out.p2_);
+    out.p2_ = _mm_add_ps(out.p2_, b.p2_);
+    return out;
+}
+
+[[nodiscard]] inline motor KLN_VEC_CALL operator*(motor b, translator a) noexcept
+{
+    motor out;
+    out.p1_ = b.p1_;
+    detail::gpRT<false>(b.p1_, a.p2_, out.p2_);
+    out.p2_ = _mm_add_ps(out.p2_, b.p2_);
+    return out;
+}
+
 [[nodiscard]] inline motor KLN_VEC_CALL operator*(motor a, motor b) noexcept
 {
     motor out;

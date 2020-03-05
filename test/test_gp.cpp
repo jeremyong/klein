@@ -126,6 +126,58 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(m.e0123(), 1.f);
     }
 
+    SUBCASE("motor*rotor")
+    {
+        rotor r1;
+        r1.p1_ = _mm_set_ps(1.f, 2.f, 3.f, 4.f);
+        translator t;
+        t.p2_ = _mm_set_ps(3.f, -2.f, 1.f, -3.f);
+        rotor r2;
+        r2.p1_   = _mm_set_ps(-4.f, 2.f, -3.f, 1.f);
+        motor m1 = (t * r1) * r2;
+        motor m2 = t * (r1 * r2);
+        CHECK_EQ(m1, m2);
+    }
+
+    SUBCASE("rotor*motor")
+    {
+        rotor r1;
+        r1.p1_ = _mm_set_ps(1.f, 2.f, 3.f, 4.f);
+        translator t;
+        t.p2_ = _mm_set_ps(3.f, -2.f, 1.f, -3.f);
+        rotor r2;
+        r2.p1_   = _mm_set_ps(-4.f, 2.f, -3.f, 1.f);
+        motor m1 = r2 * (r1 * t);
+        motor m2 = (r2 * r1) * t;
+        CHECK_EQ(m1, m2);
+    }
+
+    SUBCASE("motor*translator")
+    {
+        rotor r;
+        r.p1_ = _mm_set_ps(1.f, 2.f, 3.f, 4.f);
+        translator t1;
+        t1.p2_ = _mm_set_ps(3.f, -2.f, 1.f, -3.f);
+        translator t2;
+        t2.p2_   = _mm_set_ps(-4.f, 2.f, -3.f, 1.f);
+        motor m1 = (r * t1) * t2;
+        motor m2 = r * (t1 * t2);
+        CHECK_EQ(m1, m2);
+    }
+
+    SUBCASE("translator*motor")
+    {
+        rotor r;
+        r.p1_ = _mm_set_ps(1.f, 2.f, 3.f, 4.f);
+        translator t1;
+        t1.p2_ = _mm_set_ps(3.f, -2.f, 1.f, -3.f);
+        translator t2;
+        t2.p2_   = _mm_set_ps(-4.f, 2.f, -3.f, 1.f);
+        motor m1 = t2 * (r * t1);
+        motor m2 = (t2 * r) * t1;
+        CHECK_EQ(m1, m2);
+    }
+
     SUBCASE("motor*motor")
     {
         motor m1{2, 3, 4, 5, 6, 7, 8, 9};
