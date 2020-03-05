@@ -4,7 +4,7 @@
 
 The exterior product between two basis elements extinguishes if the two operands share any common index. Otherwise, the element produced is equivalent to the union of the subspaces. A sign flip is introduced if the concatenation of the element indices is an odd permutation of the cyclic basis representation. The exterior product extends to general multivectors by linearity.
 
-!!! example Meeting two planes 
+!!! example "Meeting two planes" 
     ```cpp
         kln::plane p1{x1, y1, z1, d1};
         kln::plane p2{x2, y2, z2, d2};
@@ -14,7 +14,7 @@ The exterior product between two basis elements extinguishes if the two operands
     ```
     
 
-!!! example Meeting a line and a plane 
+!!! example "Meeting a line and a plane" 
     ```cpp
         kln::plane p1{x, y, z, d};
         kln::line l2{mx, my, mz, dx, dy, dz};

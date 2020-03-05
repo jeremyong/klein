@@ -20,7 +20,7 @@ namespace kln
 /// cyclic basis representation. The exterior product extends to general
 /// multivectors by linearity.
 ///
-/// !!! example Meeting two planes
+/// !!! example "Meeting two planes"
 ///
 ///     ```cpp
 ///         kln::plane p1{x1, y1, z1, d1};
@@ -30,7 +30,7 @@ namespace kln
 ///         kln::line l = p1 ^ p2;
 ///     ```
 ///
-/// !!! example Meeting a line and a plane
+/// !!! example "Meeting a line and a plane"
 ///
 ///     ```cpp
 ///         kln::plane p1{x, y, z, d};

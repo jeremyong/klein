@@ -48,9 +48,15 @@ A demonstration of using the exponential and logarithmic map to blend between tw
 `public  ` [`motor`](#group__motor_1ga0fc9829b8e6323e3ae2cc583361ce3d5)`(float a,float b,float c,float d,float e,float f,float g,float h) noexcept`             | Direct initialization from components. A more common way of creating a motor is to take a product between a rotor and a translator. The arguments coorespond to the multivector $a + b\mathbf{e}_{23} + c\mathbf{e}_{31} + d\mathbf{e}_{12} +\ e\mathbf{e}_{01} + f\mathbf{e}_{02} + g\mathbf{e}_{03} +\ h\mathbf{e}_{0123}$.
 `public  ` [`motor`](#group__motor_1ga5cb2fa5186236dffe8ddc875ad0b5063)`(float ang_rad,float d,line l) noexcept`             | Produce a screw motion rotating and translating by given amounts along a provided Euclidean axis.
 `public  ` [`motor`](#group__motor_1gae0f8cc6b72368628648b650d0fb21186)`(__m128 p1,__m128 p2) noexcept`             | 
+`public KLN_VEC_CALL explicit ` [`motor`](#group__motor_1ga87f97067c7decdab7ee4fda78dc37e88)`(rotor r) noexcept`             | 
+`public KLN_VEC_CALL explicit ` [`motor`](#group__motor_1ga032fcbcf02e92c46144674a3365fc75a)`(translator t) noexcept`             | 
+`public motor &KLN_VEC_CALL ` [`operator=`](#group__motor_1ga34cad9009f782f022e61b57d2364e414)`(rotor r) noexcept`             | 
+`public motor &KLN_VEC_CALL ` [`operator=`](#group__motor_1gacbd7ff04372942af09879f71d0f62d3a)`(translator t) noexcept`             | 
 `public void ` [`load`](#group__motor_1ga3a048b8d0f35322259f8f1cbaad88cab)`(float * in) noexcept`             | Load motor data using two unaligned loads. This routine does *not* assume the data passed in this way is normalized.
 `public void ` [`normalize`](#group__motor_1ga8af12b78c4e98b84c51f605b47dbc0a1)`() noexcept`             | Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
 `public motor ` [`normalized`](#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122)`() const noexcept`             | Return a normalized copy of this motor.
+`public bool KLN_VEC_CALL ` [`operator==`](#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0)`(motor other) const noexcept`             | Bitwise comparison.
+`public bool KLN_VEC_CALL ` [`approx_eq`](#group__motor_1ga38cc29c04cc13dadeac2b93547079ced)`(motor other,float epsilon) const noexcept`             | 
 `public mat3x4 ` [`as_mat3x4`](#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6)`() const noexcept`             | Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.
 `public mat4x4 ` [`as_mat4x4`](#group__motor_1gaa84cd8df11fc906888dff2fd20fa6e7b)`() const noexcept`             | Convert this motor to a 4x4 column-major matrix representing this motor's action as a linear transformation.
 `public plane KLN_VEC_CALL ` [`operator()`](#group__motor_1gaa0a1d879d7716f962c1c18a0d8483196)`(plane const & p) const noexcept`             | Conjugates a plane $p$ with this motor and returns the result $mp\widetilde{m}$.
@@ -107,6 +113,14 @@ Produce a screw motion rotating and translating by given amounts along a provide
 
 ####   [motor](#group__motor_1gae0f8cc6b72368628648b650d0fb21186)(__m128 p1,__m128 p2) noexcept  {#group__motor_1gae0f8cc6b72368628648b650d0fb21186}
 
+#### KLN_VEC_CALL explicit  [motor](#group__motor_1ga87f97067c7decdab7ee4fda78dc37e88)(rotor r) noexcept  {#group__motor_1ga87f97067c7decdab7ee4fda78dc37e88}
+
+#### KLN_VEC_CALL explicit  [motor](#group__motor_1ga032fcbcf02e92c46144674a3365fc75a)(translator t) noexcept  {#group__motor_1ga032fcbcf02e92c46144674a3365fc75a}
+
+#### motor &KLN_VEC_CALL  [operator=](#group__motor_1ga34cad9009f782f022e61b57d2364e414)(rotor r) noexcept  {#group__motor_1ga34cad9009f782f022e61b57d2364e414}
+
+#### motor &KLN_VEC_CALL  [operator=](#group__motor_1gacbd7ff04372942af09879f71d0f62d3a)(translator t) noexcept  {#group__motor_1gacbd7ff04372942af09879f71d0f62d3a}
+
 #### void  [load](#group__motor_1ga3a048b8d0f35322259f8f1cbaad88cab)(float * in) noexcept  {#group__motor_1ga3a048b8d0f35322259f8f1cbaad88cab}
 
 Load motor data using two unaligned loads. This routine does *not* assume the data passed in this way is normalized.
@@ -115,13 +129,19 @@ Load motor data using two unaligned loads. This routine does *not* assume the da
 
 Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
 
-!!! tip 
+!!! warning 
     Normalization here is done using the `rsqrtps`
     instruction with a maximum relative error of $1.5\times 2^{-12}$.
 
 #### motor  [normalized](#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122)() const noexcept  {#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122}
 
 Return a normalized copy of this motor.
+
+#### bool KLN_VEC_CALL  [operator==](#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0)(motor other) const noexcept  {#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0}
+
+Bitwise comparison.
+
+#### bool KLN_VEC_CALL  [approx_eq](#group__motor_1ga38cc29c04cc13dadeac2b93547079ced)(motor other,float epsilon) const noexcept  {#group__motor_1ga38cc29c04cc13dadeac2b93547079ced}
 
 #### mat3x4  [as_mat3x4](#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6)() const noexcept  {#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6}
 

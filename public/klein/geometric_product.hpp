@@ -21,7 +21,7 @@ namespace kln
 /// to the metric. The geometric product can be used to build rotations, and
 /// by extension, rotations and translations in projective space.
 ///
-/// !!! example Rotor composition
+/// !!! example "Rotor composition"
 ///
 ///     ```cpp
 ///         kln::rotor r1{ang1, x1, y1, z1};
@@ -31,7 +31,7 @@ namespace kln
 ///         kln::rotor r3 = r1 * r2;; // r3 combines r2 and r1 in that order
 ///     ```
 ///
-/// !!! example Two reflections
+/// !!! example "Two reflections"
 ///
 ///     ```cpp
 ///         kln::plane p1{x1, y1, z1, d1};
@@ -43,6 +43,17 @@ namespace kln
 /// \addtogroup gp
 /// @{
 
+/// Construct a motor $m$ such that $\sqrt{m}$ takes plane $b$ to plane $a$.
+///
+/// !!! example
+///
+///     ```cpp
+///         kln::plane p1{x1, y1, z1, d1};
+///         kln::plane p2{x2, y2, z2, d2};
+///         kln::motor m = sqrt(p1 * p2);
+///         plane p3 = m(p2);
+///         // p3 will be approximately equal to p1
+///     ```
 [[nodiscard]] inline motor KLN_VEC_CALL operator*(plane a, plane b) noexcept
 {
     motor out;
@@ -64,6 +75,9 @@ namespace kln
     return out;
 }
 
+/// Generates a motor $m$ that produces a screw motion about the common normal
+/// to lines $a$ and $b$. The motor given by $\sqrt{m}$ takes $b$ to $a$
+/// provided that $a$ and $b$ are both normalized.
 [[nodiscard]] inline motor KLN_VEC_CALL operator*(line a, line b) noexcept
 {
     motor out;
@@ -71,13 +85,18 @@ namespace kln
     return out;
 }
 
-[[nodiscard]] inline motor KLN_VEC_CALL operator*(point a, point b) noexcept
+/// Generates a translator $t$ that produces a displacement along the line
+/// between points $a$ and $b$. The translator given by $\sqrt{t}$ takes $b$ to
+/// $a$.
+[[nodiscard]] inline translator KLN_VEC_CALL operator*(point a, point b) noexcept
 {
-    motor out;
-    detail::gp33(a.p3_, b.p3_, out.p1_, out.p2_);
+    translator out;
+    detail::gp33(a.p3_, b.p3_, out.p2_);
     return out;
 }
 
+/// Composes two rotational actions such that the produced rotor has the same
+/// effect as applying rotor $b$, then rotor $a$.
 [[nodiscard]] inline rotor KLN_VEC_CALL operator*(rotor a, rotor b) noexcept
 {
     rotor out;

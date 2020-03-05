@@ -127,6 +127,13 @@ namespace kln
     return r;
 }
 
+/// Compute the square root of the provided translator $t$.
+[[nodiscard]] inline translator sqrt(translator t) noexcept
+{
+    t *= 0.5f;
+    return t;
+}
+
 /// Compute the square root of the provided motor $m$.
 [[nodiscard]] inline motor sqrt(motor m) noexcept
 {

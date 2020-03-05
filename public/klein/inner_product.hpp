@@ -25,7 +25,7 @@ namespace kln
 /// clear what the interpretation of the symmetric inner product is with
 /// respect to the projection on various entities.
 ///
-/// !!! example Angle between planes
+/// !!! example "Angle between planes"
 ///
 ///     ```cpp
 ///         kln::plane a{x1, y1, z1, d1};
@@ -35,7 +35,7 @@ namespace kln
 ///         float cos_ang = a | b;
 ///     ```
 ///
-/// !!! example Line to plane through point
+/// !!! example "Line to plane through point"
 ///
 ///     ```cpp
 ///         kln::point a{x1, y1, z1};

@@ -4,7 +4,7 @@ The symmetric inner product takes two arguments and contracts the lower graded e
 
 There is some merit in providing both a left and right contraction operator for explicitness. However, when using Klein, it's generally clear what the interpretation of the symmetric inner product is with respect to the projection on various entities.
 
-!!! example Angle between planes 
+!!! example "Angle between planes" 
     ```cpp
         kln::plane a{x1, y1, z1, d1};
         kln::plane b{x2, y2, z2, d2};
@@ -14,7 +14,7 @@ There is some merit in providing both a left and right contraction operator for 
     ```
     
 
-!!! example Line to plane through point 
+!!! example "Line to plane through point" 
     ```cpp
         kln::point a{x1, y1, z1};
         kln::plane b{x2, y2, z2, d2};

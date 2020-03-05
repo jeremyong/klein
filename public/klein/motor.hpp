@@ -144,7 +144,7 @@ public:
 
     /// Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
     ///
-    /// !!! tip
+    /// !!! warning
     ///
     ///     Normalization here is done using the `rsqrtps`
     ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
@@ -158,13 +158,13 @@ public:
         // |b| + (b0 c0 - b1 c1 - b2 c2 - b3 c3)/|b| e0123
         //
         // The inverse of this is given by:
-        // 1/|b| + (-b0 c0 + b1 c1 + b2 c2 + b3 c3)/|b|^2 e0123 = s + t e0123
+        // 1/|b| + (-b0 c0 + b1 c1 + b2 c2 + b3 c3)/|b|^3 e0123 = s + t e0123
         //
         // Multiplying our original motor by this inverse will give us a
         // normalized motor.
         __m128 b2 = detail::dp_bc(p1_, p1_);
         __m128 s  = _mm_rsqrt_ps(b2);
-        __m128 bc = detail::dp_bc(_mm_mul_ss(p1_, _mm_set_ss(-1.f)), p2_);
+        __m128 bc = detail::dp_bc(_mm_xor_ps(p1_, _mm_set_ss(-0.f)), p2_);
         __m128 t  = _mm_mul_ps(_mm_mul_ps(bc, _mm_rcp_ps(b2)), s);
 
         // (s + t e0123) * motor =
@@ -179,7 +179,7 @@ public:
         // (s c3 - t b3) e03
 
         __m128 tmp = _mm_mul_ps(p2_, s);
-        p2_ = _mm_sub_ps(tmp, _mm_mul_ss(_mm_mul_ps(p1_, t), _mm_set_ss(-1.f)));
+        p2_ = _mm_sub_ps(tmp, _mm_xor_ps(_mm_mul_ps(p1_, t), _mm_set_ss(-0.f)));
         p1_ = _mm_mul_ps(p1_, s);
     }
 
@@ -197,8 +197,20 @@ public:
         __m128 p1_eq = _mm_cmpeq_ps(p1_, other.p1_);
         __m128 p2_eq = _mm_cmpeq_ps(p2_, other.p2_);
         __m128 eq    = _mm_and_ps(p1_eq, p2_eq);
-        int mask     = _mm_movemask_ps(eq);
-        return mask == 0b1111;
+        return _mm_movemask_ps(eq) == 0xf;
+    }
+
+    [[nodiscard]] bool KLN_VEC_CALL approx_eq(motor other, float epsilon) const
+        noexcept
+    {
+        __m128 eps = _mm_set1_ps(epsilon);
+        __m128 neg = _mm_set1_ps(-0.f);
+        __m128 cmp1
+            = _mm_cmplt_ps(_mm_andnot_ps(neg, _mm_sub_ps(p1_, other.p1_)), eps);
+        __m128 cmp2
+            = _mm_cmplt_ps(_mm_andnot_ps(neg, _mm_sub_ps(p2_, other.p2_)), eps);
+        __m128 cmp = _mm_and_ps(cmp1, cmp2);
+        return _mm_movemask_ps(cmp) == 0xf;
     }
 
     /// Convert this motor to a 3x4 column-major matrix representing this

@@ -16,6 +16,8 @@ The plane multivector in PGA looks like $d\mathbf{e}_0 + a\mathbf{e}_1 + b\mathb
 `public void ` [`normalize`](#group__plane_1gae5e1e0af05e84799d27d7b8782fe5f22)`() noexcept`             | Normalize this plane $p$ such that $p \cdot p = 1$.
 `public plane ` [`normalized`](#group__plane_1ga15ec918ecd05f7e9b21887afa590d405)`() const noexcept`             | Return a normalized copy of this plane.
 `public float ` [`norm`](#group__plane_1ga2f86598e6a327c72201e68615bd10384)`() const noexcept`             | Compute the plane norm, which is often used to compute distances between points and lines.
+`public bool KLN_VEC_CALL ` [`operator==`](#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1)`(plane other) const noexcept`             | 
+`public bool KLN_VEC_CALL ` [`approx_eq`](#group__plane_1ga4fecdce7f0b686851053d5edfe55aed8)`(plane other,float epsilon) const noexcept`             | 
 `public plane KLN_VEC_CALL ` [`operator()`](#group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9)`(plane const & p) const noexcept`             | Reflect another plane $p_2$ through this plane $p_1$. The operation performed via this call operator is an optimized routine equivalent to the expression $p_1 p_2 p_1$.
 `public line KLN_VEC_CALL ` [`operator()`](#group__plane_1ga782e4e0b1b93ab5bffb2c972f6d7acfa)`(line const & l) const noexcept`             | Reflect line $\ell$ through this plane $p$. The operation performed via this call operator is an optimized routine equivalent to the expression $p \ell p$.
 `public point KLN_VEC_CALL ` [`operator()`](#group__plane_1ga20b6577f6d1717e1ec086314d3ebd497)`(point const & p) const noexcept`             | Reflect the point $P$ through this plane $p$. The operation performed via this call operator is an optimized routine equivalent to the expression $p P p$.
@@ -84,6 +86,10 @@ Return a normalized copy of this plane.
 Compute the plane norm, which is often used to compute distances between points and lines.
 
 Given a normalized point $P$ and normalized line $\ell$, the plane $P\vee\ell$ containing both $\ell$ and $P$ will have a norm equivalent to the distance between $P$ and $\ell$.
+
+#### bool KLN_VEC_CALL  [operator==](#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1)(plane other) const noexcept  {#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1}
+
+#### bool KLN_VEC_CALL  [approx_eq](#group__plane_1ga4fecdce7f0b686851053d5edfe55aed8)(plane other,float epsilon) const noexcept  {#group__plane_1ga4fecdce7f0b686851053d5edfe55aed8}
 
 #### plane KLN_VEC_CALL  [operator()](#group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9)(plane const & p) const noexcept  {#group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9}
 

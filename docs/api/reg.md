@@ -2,7 +2,7 @@
 
 The regressive product is implemented in terms of the exterior product. Given multivectors $\mathbf{a}$ and $\mathbf{b}$, the regressive product $\mathbf{a}\vee\mathbf{b}$ is equivalent to $J(J(\mathbf{a})\wedge J(\mathbf{b}))$. Thus, both meets and joins reside in the same algebraic structure.
 
-!!! example Joining two points 
+!!! example "Joining two points" 
     ```cpp
         kln::point p1{x1, y1, z1};
         kln::point p2{x2, y2, z2};
@@ -12,7 +12,7 @@ The regressive product is implemented in terms of the exterior product. Given mu
     ```
     
 
-!!! example Joining a line and a point 
+!!! example "Joining a line and a point" 
     ```cpp
         kln::point p1{x, y, z};
         kln::line l2{mx, my, mz, dx, dy, dz};

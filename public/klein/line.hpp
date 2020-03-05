@@ -474,17 +474,30 @@ public:
         return std::sqrt(squared_norm());
     }
 
-    /// Normalize a line such that $\ell^2 = 1$.
+    /// Normalize a line such that $\ell^2 = -1$.
     ///
-    /// !!! tip
+    /// !!! warning
     ///
     ///     Normalization here is done using the `rsqrtps`
     ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
-        __m128 inv_norm = _mm_rsqrt_ps(detail::hi_dp_bc(p1_, p1_));
-        p1_             = _mm_mul_ps(inv_norm, p1_);
-        p2_             = _mm_mul_ps(inv_norm, p2_);
+        // l = b + c where b is p1 and c is p2
+        // l * ~l = |b|^2 - 2(b1 c1 + b2 c2 + b3 c3)e0123
+        //
+        // sqrt(l*~l) = |b| - (b1 c1 + b2 c2 + b3 c3)/|b| e0123
+        //
+        // 1/sqrt(l*~l) = 1/|b| + (b1 c1 + b2 c2 + b3 c3)/|b|^3 e0123
+        //              = s + t e0123
+        __m128 b2 = detail::hi_dp_bc(p1_, p1_);
+        __m128 s  = _mm_rsqrt_ps(b2);
+        __m128 bc = detail::hi_dp_bc(p1_, p2_);
+        __m128 t  = _mm_mul_ps(_mm_mul_ps(bc, _mm_rcp_ps(b2)), s);
+
+        // p1 * (s + t e0123) = s * p1 - t p1_perp
+        __m128 tmp = _mm_mul_ps(p2_, s);
+        p2_        = _mm_sub_ps(tmp, _mm_mul_ps(p1_, t));
+        p1_        = _mm_mul_ps(p1_, s);
     }
 
     /// Return a normalized copy of this line
@@ -493,6 +506,28 @@ public:
         line out = *this;
         out.normalize();
         return out;
+    }
+
+    /// Bitwise comparison
+    [[nodiscard]] bool KLN_VEC_CALL operator==(line other) const noexcept
+    {
+        __m128 p1_eq = _mm_cmpeq_ps(p1_, other.p1_);
+        __m128 p2_eq = _mm_cmpeq_ps(p2_, other.p2_);
+        __m128 eq    = _mm_and_ps(p1_eq, p2_eq);
+        return _mm_movemask_ps(eq) == 0xf;
+    }
+
+    [[nodiscard]] bool KLN_VEC_CALL approx_eq(line other, float epsilon) const
+        noexcept
+    {
+        __m128 eps = _mm_set1_ps(epsilon);
+        __m128 neg = _mm_set1_ps(-0.f);
+        __m128 cmp1
+            = _mm_cmplt_ps(_mm_andnot_ps(neg, _mm_sub_ps(p1_, other.p1_)), eps);
+        __m128 cmp2
+            = _mm_cmplt_ps(_mm_andnot_ps(neg, _mm_sub_ps(p2_, other.p2_)), eps);
+        __m128 cmp = _mm_and_ps(cmp1, cmp2);
+        return _mm_movemask_ps(cmp) == 0xf;
     }
 
     /// Line addition

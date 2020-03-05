@@ -147,29 +147,29 @@ namespace detail
     }
 
     // p3: (e123, e021, e013, e032)
-    // Returns p1 and p2
-    // p1: (1, e12, e31, e23)
     // p2: (e0123, e01, e02, e03)
-    KLN_INLINE void KLN_VEC_CALL gp33(__m128 a,
-                                      __m128 b,
-                                      __m128& KLN_RESTRICT p1_out,
-                                      __m128& KLN_RESTRICT p2_out) noexcept
+    KLN_INLINE void KLN_VEC_CALL gp33(__m128 a, __m128 b, __m128& p2) noexcept
     {
         // (-a0 b0) +
         // (-a0 b1 + a1 b0) e01 +
         // (-a0 b2 + a2 b0) e02 +
         // (-a0 b3 + a3 b0) e03
+        //
+        // Produce a translator by dividing all terms by a0 b0
 
         __m128 tmp = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), b);
         tmp        = _mm_mul_ps(tmp, _mm_set_ps(-1.f, -1.f, -1.f, -2.f));
         tmp        = _mm_add_ps(tmp, _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0)));
 
+        // (0, 1, 2, 3) -> (0, 0, 2, 2)
+        __m128 ss = _mm_moveldup_ps(tmp);
+        ss        = _mm_movelh_ps(ss, ss);
+        tmp       = _mm_mul_ps(tmp, _mm_rcp_ps(ss));
+
 #ifdef KLEIN_SSE_4_1
-        p1_out = _mm_blend_ps(_mm_setzero_ps(), tmp, 1);
-        p2_out = _mm_blend_ps(tmp, _mm_setzero_ps(), 1);
+        p2 = _mm_blend_ps(tmp, _mm_setzero_ps(), 1);
 #else
-        p1_out = _mm_and_ps(tmp, _mm_castsi128_ps(_mm_set_epi32(0, 0, 0, -1)));
-        p2_out = _mm_and_ps(tmp, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
+        p2 = _mm_and_ps(tmp, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
 #endif
     }
 

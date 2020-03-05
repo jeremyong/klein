@@ -64,7 +64,7 @@ KLN_INLINE dual KLN_VEC_CALL operator!(dual in) noexcept
 /// $J(J(\mathbf{a})\wedge J(\mathbf{b}))$. Thus, both meets and joins
 /// reside in the same algebraic structure.
 ///
-/// !!! example Joining two points
+/// !!! example "Joining two points"
 ///
 ///     ```cpp
 ///         kln::point p1{x1, y1, z1};
@@ -74,7 +74,7 @@ KLN_INLINE dual KLN_VEC_CALL operator!(dual in) noexcept
 ///         kln::line l = p1 & p2;
 ///     ```
 ///
-/// !!! example Joining a line and a point
+/// !!! example "Joining a line and a point"
 ///
 ///     ```cpp
 ///         kln::point p1{x, y, z};
