@@ -428,6 +428,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1" class="md-nav__link">
+    bool KLN_VEC_CALL  operator==(plane other) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__plane_1ga4fecdce7f0b686851053d5edfe55aed8" class="md-nav__link">
+    bool KLN_VEC_CALL  approx_eq(plane other,float epsilon) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9" class="md-nav__link">
     plane KLN_VEC_CALL  operator()(plane const &amp; p) const noexcept
   </a>
@@ -1045,6 +1059,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1" class="md-nav__link">
+    bool KLN_VEC_CALL  operator==(plane other) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__plane_1ga4fecdce7f0b686851053d5edfe55aed8" class="md-nav__link">
+    bool KLN_VEC_CALL  approx_eq(plane other,float epsilon) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9" class="md-nav__link">
     plane KLN_VEC_CALL  operator()(plane const &amp; p) const noexcept
   </a>
@@ -1300,6 +1328,14 @@
 <td>Compute the plane norm, which is often used to compute distances between points and lines.</td>
 </tr>
 <tr>
+<td><code>public bool KLN_VEC_CALL</code> <a href="#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1"><code>operator==</code></a><code>(plane other) const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public bool KLN_VEC_CALL</code> <a href="#group__plane_1ga4fecdce7f0b686851053d5edfe55aed8"><code>approx_eq</code></a><code>(plane other,float epsilon) const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
 <td><code>public plane KLN_VEC_CALL</code> <a href="#group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9"><code>operator()</code></a><code>(plane const &amp; p) const noexcept</code></td>
 <td>Reflect another plane <span class="arithmatex">\(p_2\)</span> through this plane <span class="arithmatex">\(p_1\)</span>. The operation performed via this call operator is an optimized routine equivalent to the expression <span class="arithmatex">\(p_1 p_2 p_1\)</span>.</td>
 </tr>
@@ -1432,6 +1468,8 @@ instruction with a maximum relative error of <span class="arithmatex">\(1.5\time
 <h4 id="group__plane_1ga2f86598e6a327c72201e68615bd10384">float  <a href="#group__plane_1ga2f86598e6a327c72201e68615bd10384">norm</a>() const noexcept</h4>
 <p>Compute the plane norm, which is often used to compute distances between points and lines.</p>
 <p>Given a normalized point <span class="arithmatex">\(P\)</span> and normalized line <span class="arithmatex">\(\ell\)</span>, the plane <span class="arithmatex">\(P\vee\ell\)</span> containing both <span class="arithmatex">\(\ell\)</span> and <span class="arithmatex">\(P\)</span> will have a norm equivalent to the distance between <span class="arithmatex">\(P\)</span> and <span class="arithmatex">\(\ell\)</span>.</p>
+<h4 id="group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1">bool KLN_VEC_CALL  <a href="#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1">operator==</a>(plane other) const noexcept</h4>
+<h4 id="group__plane_1ga4fecdce7f0b686851053d5edfe55aed8">bool KLN_VEC_CALL  <a href="#group__plane_1ga4fecdce7f0b686851053d5edfe55aed8">approx_eq</a>(plane other,float epsilon) const noexcept</h4>
 <h4 id="group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9">plane KLN_VEC_CALL  <a href="#group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9">operator()</a>(plane const &amp; p) const noexcept</h4>
 <p>Reflect another plane <span class="arithmatex">\(p_2\)</span> through this plane <span class="arithmatex">\(p_1\)</span>. The operation performed via this call operator is an optimized routine equivalent to the expression <span class="arithmatex">\(p_1 p_2 p_1\)</span>.</p>
 <h4 id="group__plane_1ga782e4e0b1b93ab5bffb2c972f6d7acfa">line KLN_VEC_CALL  <a href="#group__plane_1ga782e4e0b1b93ab5bffb2c972f6d7acfa">operator()</a>(line const &amp; l) const noexcept</h4>

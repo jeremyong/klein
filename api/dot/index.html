@@ -936,8 +936,8 @@
                 <h2 id="group__dot">group <code>dot</code></h2>
 <p>The symmetric inner product takes two arguments and contracts the lower graded element to the greater graded element. If lower graded element spans an index that is not contained in the higher graded element, the result is annihilated. Otherwise, the result is the part of the higher graded element "most unlike" the lower graded element. Thus, the symmetric inner product can be thought of as a bidirectional contraction operator.</p>
 <p>There is some merit in providing both a left and right contraction operator for explicitness. However, when using Klein, it's generally clear what the interpretation of the symmetric inner product is with respect to the projection on various entities.</p>
-<div class="admonition example angle between planes">
-<p class="admonition-title">Example</p>
+<div class="admonition example">
+<p class="admonition-title">Angle between planes</p>
 <div class="codehilite"><pre><span></span><code>    <span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">a</span><span class="p">{</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">,</span> <span class="n">d1</span><span class="p">};</span>
     <span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">b</span><span class="p">{</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">d2</span><span class="p">};</span>
 
@@ -946,8 +946,8 @@
 </code></pre></div>
 
 </div>
-<div class="admonition example line to plane through point">
-<p class="admonition-title">Example</p>
+<div class="admonition example">
+<p class="admonition-title">Line to plane through point</p>
 <div class="codehilite"><pre><span></span><code>    <span class="n">kln</span><span class="o">::</span><span class="n">point</span> <span class="n">a</span><span class="p">{</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">z1</span><span class="p">};</span>
     <span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">b</span><span class="p">{</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">d2</span><span class="p">};</span>
 

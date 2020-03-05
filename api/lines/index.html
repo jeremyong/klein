@@ -825,6 +825,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__lines_1gae443bd972f232ca9c17924283ab210c6" class="md-nav__link">
+    bool KLN_VEC_CALL  operator==(line other) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1b70abc509a2e60dbccb3131acd0801e" class="md-nav__link">
+    bool KLN_VEC_CALL  approx_eq(line other,float epsilon) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3" class="md-nav__link">
     line &amp;KLN_VEC_CALL  operator+=(line b) noexcept
   </a>
@@ -1829,6 +1843,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__lines_1gae443bd972f232ca9c17924283ab210c6" class="md-nav__link">
+    bool KLN_VEC_CALL  operator==(line other) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga1b70abc509a2e60dbccb3131acd0801e" class="md-nav__link">
+    bool KLN_VEC_CALL  approx_eq(line other,float epsilon) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3" class="md-nav__link">
     line &amp;KLN_VEC_CALL  operator+=(line b) noexcept
   </a>
@@ -2310,11 +2338,19 @@
 </tr>
 <tr>
 <td><code>public void</code> <a href="#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3"><code>normalize</code></a><code>() noexcept</code></td>
-<td>Normalize a line such that <span class="arithmatex">\(\ell^2 = 1\)</span>.</td>
+<td>Normalize a line such that <span class="arithmatex">\(\ell^2 = -1\)</span>.</td>
 </tr>
 <tr>
 <td><code>public line</code> <a href="#group__lines_1ga276e9de782855e6c32560923dce491c4"><code>normalized</code></a><code>() const noexcept</code></td>
 <td>Return a normalized copy of this line.</td>
+</tr>
+<tr>
+<td><code>public bool KLN_VEC_CALL</code> <a href="#group__lines_1gae443bd972f232ca9c17924283ab210c6"><code>operator==</code></a><code>(line other) const noexcept</code></td>
+<td>Bitwise comparison.</td>
+</tr>
+<tr>
+<td><code>public bool KLN_VEC_CALL</code> <a href="#group__lines_1ga1b70abc509a2e60dbccb3131acd0801e"><code>approx_eq</code></a><code>(line other,float epsilon) const noexcept</code></td>
+<td></td>
 </tr>
 <tr>
 <td><code>public line &amp;KLN_VEC_CALL</code> <a href="#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3"><code>operator+=</code></a><code>(line b) noexcept</code></td>
@@ -2533,14 +2569,17 @@
 <h4 id="group__lines_1gad388b8d134c0c22b1f82026277e39c22">float  <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22">norm</a>() noexcept</h4>
 <p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
 <h4 id="group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3">void  <a href="#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3">normalize</a>() noexcept</h4>
-<p>Normalize a line such that <span class="arithmatex">\(\ell^2 = 1\)</span>.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
+<p>Normalize a line such that <span class="arithmatex">\(\ell^2 = -1\)</span>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>Normalization here is done using the <code>rsqrtps</code>
 instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
 </div>
 <h4 id="group__lines_1ga276e9de782855e6c32560923dce491c4">line  <a href="#group__lines_1ga276e9de782855e6c32560923dce491c4">normalized</a>() const noexcept</h4>
 <p>Return a normalized copy of this line.</p>
+<h4 id="group__lines_1gae443bd972f232ca9c17924283ab210c6">bool KLN_VEC_CALL  <a href="#group__lines_1gae443bd972f232ca9c17924283ab210c6">operator==</a>(line other) const noexcept</h4>
+<p>Bitwise comparison.</p>
+<h4 id="group__lines_1ga1b70abc509a2e60dbccb3131acd0801e">bool KLN_VEC_CALL  <a href="#group__lines_1ga1b70abc509a2e60dbccb3131acd0801e">approx_eq</a>(line other,float epsilon) const noexcept</h4>
 <h4 id="group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3">line &amp;KLN_VEC_CALL  <a href="#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3">operator+=</a>(line b) noexcept</h4>
 <p>Line addition.</p>
 <h4 id="group__lines_1ga1ab6e11021c616adfb35f5b11e478447">line &amp;KLN_VEC_CALL  <a href="#group__lines_1ga1ab6e11021c616adfb35f5b11e478447">operator-=</a>(line b) noexcept</h4>
