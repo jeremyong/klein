@@ -477,6 +477,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__gp_1ga2c84f0a8b28b709e973668df084d1529" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(branch a,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__gp_1ga152dac80fd07d20e8205a75a651717c7" class="md-nav__link">
     motor KLN_VEC_CALL  operator*(line a,line b) noexcept
   </a>
@@ -884,6 +891,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__gp_1ga2c84f0a8b28b709e973668df084d1529" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator*(branch a,branch b) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__gp_1ga152dac80fd07d20e8205a75a651717c7" class="md-nav__link">
     motor KLN_VEC_CALL  operator*(line a,line b) noexcept
   </a>
@@ -1021,7 +1035,24 @@
     <span class="n">kln</span><span class="o">::</span><span class="n">plane</span> <span class="n">p2</span><span class="p">{</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">z2</span><span class="p">,</span> <span class="n">d2</span><span class="p">};</span>
 
     <span class="c1">// The geometric product of two planes combines their reflections</span>
-    <span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="n">m3</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">*</span> <span class="n">p2</span><span class="p">;;</span> <span class="c1">// m3 combines p2 and p1 in that order</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="n">m3</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">*</span> <span class="n">p2</span><span class="p">;</span> <span class="c1">// m3 combines p2 and p1 in that order</span>
+    <span class="c1">// If p1 and p2 were parallel, m3 would be a translation. Otherwise,</span>
+    <span class="c1">// m3 would be a rotation.</span>
+</code></pre></div>
+
+</div>
+<p>Another common usage of the geometric product is to create a transformation that takes one entity to another. Suppose we have two entities <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> and suppose that both entities are normalized such that <span class="arithmatex">\(a^2 = b^2 = 1\)</span>. Then, the action created by <span class="arithmatex">\(\sqrt{ab}\)</span> is the action that maps <span class="arithmatex">\(b\)</span> to <span class="arithmatex">\(a\)</span>.</p>
+<div class="admonition example">
+<p class="admonition-title">Motor between two lines</p>
+<div class="codehilite"><pre><span></span><code>    <span class="n">kln</span><span class="o">::</span><span class="n">line</span> <span class="n">l1</span><span class="p">{</span><span class="n">mx1</span><span class="p">,</span> <span class="n">my1</span><span class="p">,</span> <span class="n">mz1</span><span class="p">,</span> <span class="n">dx1</span><span class="p">,</span> <span class="n">dy1</span><span class="p">,</span> <span class="n">dz1</span><span class="p">};</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">line</span> <span class="n">l2</span><span class="p">{</span><span class="n">mx2</span><span class="p">,</span> <span class="n">my2</span><span class="p">,</span> <span class="n">mz2</span><span class="p">,</span> <span class="n">dx2</span><span class="p">,</span> <span class="n">dy2</span><span class="p">,</span> <span class="n">dz2</span><span class="p">};</span>
+    <span class="c1">// Ensure lines are normalized if they aren&#39;t already</span>
+    <span class="n">l1</span><span class="p">.</span><span class="n">normalize</span><span class="p">();</span>
+    <span class="n">l2</span><span class="p">.</span><span class="n">normalize</span><span class="p">();</span>
+    <span class="n">kln</span><span class="o">::</span><span class="n">motor</span> <span class="n">m</span> <span class="o">=</span> <span class="n">kln</span><span class="o">::</span><span class="n">sqrt</span><span class="p">(</span><span class="n">l1</span> <span class="o">*</span> <span class="n">l2</span><span class="p">);</span>
+
+    <span class="n">kln</span><span class="o">::</span><span class="n">line</span> <span class="n">l3</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">l2</span><span class="p">);</span>
+    <span class="c1">// l3 will be projectively equivalent to l1.</span>
 </code></pre></div>
 
 </div>
@@ -1047,6 +1078,10 @@
 <td></td>
 </tr>
 <tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__gp_1ga2c84f0a8b28b709e973668df084d1529"><code>operator*</code></a><code>(branch a,branch b) noexcept</code></td>
+<td>Generate a rotor <span class="arithmatex">\(r\)</span> such that <span class="arithmatex">\(\widetilde{\sqrt{r}}\)</span> takes branch <span class="arithmatex">\(b\)</span> to branch <span class="arithmatex">\(a\)</span>.</td>
+</tr>
+<tr>
 <td><code>public motor KLN_VEC_CALL</code> <a href="#group__gp_1ga152dac80fd07d20e8205a75a651717c7"><code>operator*</code></a><code>(line a,line b) noexcept</code></td>
 <td>Generates a motor <span class="arithmatex">\(m\)</span> that produces a screw motion about the common normal to lines <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span>. The motor given by <span class="arithmatex">\(\sqrt{m}\)</span> takes <span class="arithmatex">\(b\)</span> to <span class="arithmatex">\(a\)</span> provided that <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> are both normalized.</td>
 </tr>
@@ -1068,35 +1103,35 @@
 </tr>
 <tr>
 <td><code>public motor KLN_VEC_CALL</code> <a href="#group__gp_1gafdd46a387780ea583d6ab6bb68da17e7"><code>operator*</code></a><code>(rotor a,translator b) noexcept</code></td>
-<td></td>
+<td>Compose the action of a translator and rotor (<code>b</code>  will be applied, then <code>a</code> )</td>
 </tr>
 <tr>
 <td><code>public motor KLN_VEC_CALL</code> <a href="#group__gp_1ga8c85df199553c9189e2238de6f8ea75f"><code>operator*</code></a><code>(translator b,rotor a) noexcept</code></td>
-<td></td>
+<td>Compose the action of a rotor and translator (<code>a</code>  will be applied, then <code>b</code> )</td>
 </tr>
 <tr>
 <td><code>public translator KLN_VEC_CALL</code> <a href="#group__gp_1gae58f3fe871600c10a862f0d798ecfa9a"><code>operator*</code></a><code>(translator a,translator b) noexcept</code></td>
-<td></td>
+<td>Compose the action of two translators (this operation is commutative for these operands).</td>
 </tr>
 <tr>
 <td><code>public motor KLN_VEC_CALL</code> <a href="#group__gp_1ga6b7806b8e0563902a4799e8a96023419"><code>operator*</code></a><code>(rotor a,motor b) noexcept</code></td>
-<td></td>
+<td>Compose the action of a rotor and motor (<code>b</code>  will be applied, then <code>a</code> )</td>
 </tr>
 <tr>
 <td><code>public motor KLN_VEC_CALL</code> <a href="#group__gp_1ga0d66c1ed07072e669a6618c8a2cd3915"><code>operator*</code></a><code>(motor b,rotor a) noexcept</code></td>
-<td></td>
+<td>Compose the action of a rotor and motor (<code>a</code>  will be applied, then <code>b</code> )</td>
 </tr>
 <tr>
 <td><code>public motor KLN_VEC_CALL</code> <a href="#group__gp_1gaf71d001695eb98b0dbde90039957feda"><code>operator*</code></a><code>(translator a,motor b) noexcept</code></td>
-<td></td>
+<td>Compose the action of a translator and motor (<code>b</code>  will be applied, then <code>a</code> )</td>
 </tr>
 <tr>
 <td><code>public motor KLN_VEC_CALL</code> <a href="#group__gp_1gae243255b3c91515f8a651ad3ce531650"><code>operator*</code></a><code>(motor b,translator a) noexcept</code></td>
-<td></td>
+<td>Compose the action of a translator and motor (<code>a</code>  will be applied, then <code>b</code> )</td>
 </tr>
 <tr>
 <td><code>public motor KLN_VEC_CALL</code> <a href="#group__gp_1ga88f8e53b1842ca28ec1456d887144fec"><code>operator*</code></a><code>(motor a,motor b) noexcept</code></td>
-<td></td>
+<td>Compose the action of two motors (<code>b</code>  will be applied, then <code>a</code> )</td>
 </tr>
 </tbody>
 </table>
@@ -1115,6 +1150,8 @@
 </div>
 <h4 id="group__gp_1ga6ebccec1c450228f4d70a2862981a6ae">motor KLN_VEC_CALL  <a href="#group__gp_1ga6ebccec1c450228f4d70a2862981a6ae">operator*</a>(plane a,point b) noexcept</h4>
 <h4 id="group__gp_1ga72c655dc80b7be4642a36be1cacc39f7">motor KLN_VEC_CALL  <a href="#group__gp_1ga72c655dc80b7be4642a36be1cacc39f7">operator*</a>(point b,plane a) noexcept</h4>
+<h4 id="group__gp_1ga2c84f0a8b28b709e973668df084d1529">rotor KLN_VEC_CALL  <a href="#group__gp_1ga2c84f0a8b28b709e973668df084d1529">operator*</a>(branch a,branch b) noexcept</h4>
+<p>Generate a rotor <span class="arithmatex">\(r\)</span> such that <span class="arithmatex">\(\widetilde{\sqrt{r}}\)</span> takes branch <span class="arithmatex">\(b\)</span> to branch <span class="arithmatex">\(a\)</span>.</p>
 <h4 id="group__gp_1ga152dac80fd07d20e8205a75a651717c7">motor KLN_VEC_CALL  <a href="#group__gp_1ga152dac80fd07d20e8205a75a651717c7">operator*</a>(line a,line b) noexcept</h4>
 <p>Generates a motor <span class="arithmatex">\(m\)</span> that produces a screw motion about the common normal to lines <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span>. The motor given by <span class="arithmatex">\(\sqrt{m}\)</span> takes <span class="arithmatex">\(b\)</span> to <span class="arithmatex">\(a\)</span> provided that <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span> are both normalized.</p>
 <h4 id="group__gp_1ga6d59afd80f83622351ee528209242505">translator KLN_VEC_CALL  <a href="#group__gp_1ga6d59afd80f83622351ee528209242505">operator*</a>(point a,point b) noexcept</h4>
@@ -1125,13 +1162,21 @@
 <p>The product of a dual number and a line effectively weights the line with a rotational and translational quantity. Subsequent exponentiation will produce a motor along the screw axis of line <span class="arithmatex">\(b\)</span> with rotation and translation given by half the scalar and pseudoscalar parts of the dual number <span class="arithmatex">\(a\)</span> respectively.</p>
 <h4 id="group__gp_1ga8ce7535e36f267c43cd82e636cef84f1">line KLN_VEC_CALL  <a href="#group__gp_1ga8ce7535e36f267c43cd82e636cef84f1">operator*</a>(line b,dual a) noexcept</h4>
 <h4 id="group__gp_1gafdd46a387780ea583d6ab6bb68da17e7">motor KLN_VEC_CALL  <a href="#group__gp_1gafdd46a387780ea583d6ab6bb68da17e7">operator*</a>(rotor a,translator b) noexcept</h4>
+<p>Compose the action of a translator and rotor (<code>b</code>  will be applied, then <code>a</code> )</p>
 <h4 id="group__gp_1ga8c85df199553c9189e2238de6f8ea75f">motor KLN_VEC_CALL  <a href="#group__gp_1ga8c85df199553c9189e2238de6f8ea75f">operator*</a>(translator b,rotor a) noexcept</h4>
+<p>Compose the action of a rotor and translator (<code>a</code>  will be applied, then <code>b</code> )</p>
 <h4 id="group__gp_1gae58f3fe871600c10a862f0d798ecfa9a">translator KLN_VEC_CALL  <a href="#group__gp_1gae58f3fe871600c10a862f0d798ecfa9a">operator*</a>(translator a,translator b) noexcept</h4>
+<p>Compose the action of two translators (this operation is commutative for these operands).</p>
 <h4 id="group__gp_1ga6b7806b8e0563902a4799e8a96023419">motor KLN_VEC_CALL  <a href="#group__gp_1ga6b7806b8e0563902a4799e8a96023419">operator*</a>(rotor a,motor b) noexcept</h4>
+<p>Compose the action of a rotor and motor (<code>b</code>  will be applied, then <code>a</code> )</p>
 <h4 id="group__gp_1ga0d66c1ed07072e669a6618c8a2cd3915">motor KLN_VEC_CALL  <a href="#group__gp_1ga0d66c1ed07072e669a6618c8a2cd3915">operator*</a>(motor b,rotor a) noexcept</h4>
+<p>Compose the action of a rotor and motor (<code>a</code>  will be applied, then <code>b</code> )</p>
 <h4 id="group__gp_1gaf71d001695eb98b0dbde90039957feda">motor KLN_VEC_CALL  <a href="#group__gp_1gaf71d001695eb98b0dbde90039957feda">operator*</a>(translator a,motor b) noexcept</h4>
+<p>Compose the action of a translator and motor (<code>b</code>  will be applied, then <code>a</code> )</p>
 <h4 id="group__gp_1gae243255b3c91515f8a651ad3ce531650">motor KLN_VEC_CALL  <a href="#group__gp_1gae243255b3c91515f8a651ad3ce531650">operator*</a>(motor b,translator a) noexcept</h4>
+<p>Compose the action of a translator and motor (<code>a</code>  will be applied, then <code>b</code> )</p>
 <h4 id="group__gp_1ga88f8e53b1842ca28ec1456d887144fec">motor KLN_VEC_CALL  <a href="#group__gp_1ga88f8e53b1842ca28ec1456d887144fec">operator*</a>(motor a,motor b) noexcept</h4>
+<p>Compose the action of two motors (<code>b</code>  will be applied, then <code>a</code> )</p>
                 
                   
                 

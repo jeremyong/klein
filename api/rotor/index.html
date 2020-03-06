@@ -490,6 +490,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__rotor_1ga4fb7861b9656f5cbc44484c1ba66ce74" class="md-nav__link">
+    branch KLN_VEC_CALL  operator()(branch const &amp; b) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc" class="md-nav__link">
     line KLN_VEC_CALL  operator()(line const &amp; l) const noexcept
   </a>
@@ -1087,6 +1094,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__rotor_1ga4fb7861b9656f5cbc44484c1ba66ce74" class="md-nav__link">
+    branch KLN_VEC_CALL  operator()(branch const &amp; b) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc" class="md-nav__link">
     line KLN_VEC_CALL  operator()(line const &amp; l) const noexcept
   </a>
@@ -1396,6 +1410,10 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <td>Conjugates an array of planes with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when <code>in == out</code>  (in place motor application).</td>
 </tr>
 <tr>
+<td><code>public branch KLN_VEC_CALL</code> <a href="#group__rotor_1ga4fb7861b9656f5cbc44484c1ba66ce74"><code>operator()</code></a><code>(branch const &amp; b) const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
 <td><code>public line KLN_VEC_CALL</code> <a href="#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc"><code>operator()</code></a><code>(line const &amp; l) const noexcept</code></td>
 <td>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this rotor and returns the result <span class="arithmatex">\(r\ell \widetilde{r}\)</span>.</td>
 </tr>
@@ -1544,6 +1562,7 @@ instruction with a maximum relative error of <span class="arithmatex">\(1.5\time
 routine will be <em>significantly faster</em> than applying the rotor to
 each plane individually.</p>
 </div>
+<h4 id="group__rotor_1ga4fb7861b9656f5cbc44484c1ba66ce74">branch KLN_VEC_CALL  <a href="#group__rotor_1ga4fb7861b9656f5cbc44484c1ba66ce74">operator()</a>(branch const &amp; b) const noexcept</h4>
 <h4 id="group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc">line KLN_VEC_CALL  <a href="#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc">operator()</a>(line const &amp; l) const noexcept</h4>
 <p>Conjugates a line <span class="arithmatex">\(\ell\)</span> with this rotor and returns the result <span class="arithmatex">\(r\ell \widetilde{r}\)</span>.</p>
 <h4 id="group__rotor_1gaad794881fa0c11fb05486986032a431a">void KLN_VEC_CALL  <a href="#group__rotor_1gaad794881fa0c11fb05486986032a431a">operator()</a>(line * in,line * out,size_t count) const noexcept</h4>
