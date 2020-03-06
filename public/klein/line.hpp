@@ -266,6 +266,19 @@ public:
         return std::sqrt(squared_norm());
     }
 
+    void normalize() noexcept
+    {
+        __m128 inv_norm = _mm_rsqrt_ps(detail::hi_dp_bc(p1_, p1_));
+        p1_             = _mm_mul_ps(p1_, inv_norm);
+    }
+
+    [[nodiscard]] branch normalized() const noexcept
+    {
+        branch out = *this;
+        out.normalize();
+        return out;
+    }
+
     /// Branch addition
     branch& KLN_VEC_CALL operator+=(branch b) noexcept
     {
@@ -312,12 +325,17 @@ public:
     {
         float out[4];
         _mm_store_ps(out, p1_);
-        return out[1];
+        return out[3];
     }
 
     [[nodiscard]] float e21() const noexcept
     {
         return -e12();
+    }
+
+    [[nodiscard]] float z() const noexcept
+    {
+        return e12();
     }
 
     [[nodiscard]] float e31() const noexcept
@@ -332,16 +350,26 @@ public:
         return -e31();
     }
 
+    [[nodiscard]] float y() const noexcept
+    {
+        return e31();
+    }
+
     [[nodiscard]] float e23() const noexcept
     {
         float out[4];
         _mm_store_ps(out, p1_);
-        return out[3];
+        return out[1];
     }
 
     [[nodiscard]] float e32() const noexcept
     {
         return -e23();
+    }
+
+    [[nodiscard]] float x() const noexcept
+    {
+        return e23();
     }
 
     __m128 p1_;

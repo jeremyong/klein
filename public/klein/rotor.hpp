@@ -156,12 +156,19 @@ public:
         detail::sw012<true, false>(&in->p0_, p1_, nullptr, &out->p0_, count);
     }
 
+    [[nodiscard]] branch KLN_VEC_CALL operator()(branch const& b) const noexcept
+    {
+        branch out;
+        detail::swMM<false, false, false>(&b.p1_, p1_, nullptr, &out.p1_);
+        return out;
+    }
+
     /// Conjugates a line $\ell$ with this rotor and returns the result
     /// $r\ell \widetilde{r}$.
     [[nodiscard]] line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
-        detail::swMM<false, false>(&l.p1_, p1_, nullptr, &out.p1_);
+        detail::swMM<false, false, true>(&l.p1_, p1_, nullptr, &out.p1_);
         return out;
     }
 
@@ -176,7 +183,7 @@ public:
     ///     each line individually.
     void KLN_VEC_CALL operator()(line* in, line* out, size_t count) const noexcept
     {
-        detail::swMM<true, false>(&in->p1_, p1_, nullptr, &out->p1_, count);
+        detail::swMM<true, false, true>(&in->p1_, p1_, nullptr, &out->p1_, count);
     }
 
     /// Conjugates a point $p$ with this rotor and returns the result
@@ -285,7 +292,7 @@ public:
     {
         float out[4];
         _mm_store_ps(out, p1_);
-        return out[1];
+        return out[3];
     }
 
     [[nodiscard]] float e21() const noexcept
@@ -309,7 +316,7 @@ public:
     {
         float out[4];
         _mm_store_ps(out, p1_);
-        return out[3];
+        return out[1];
     }
 
     [[nodiscard]] float e32() const noexcept

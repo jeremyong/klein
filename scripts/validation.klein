@@ -267,6 +267,12 @@
 # Motor conjugate motor
 (b0 + b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 + a1 e23 + a2 e31 + a3 e12 + d1 e01 + d2 e02 + d3 e03 + d0 e0123) * (b0 - b1 e23 - b2 e31 - b3 e12 - c1 e01 - c2 e02 - c3 e03 + c0 e0123) 
 
+# Motor conjugate branch
+(b0 + b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a1 e23 + a2 e31 + a3 e12) * (b0 - b1 e23 - b2 e31 - b3 e12 - c1 e01 - c2 e02 - c3 e03 + c0 e0123) 
+
+# Rotor conjugate branch
+(b0 + b1 e23 + b2 e31 + b3 e12) * (a1 e23 + a2 e31 + a3 e12) * (b0 - b1 e23 - b2 e31 - b3 e12) 
+
 # Motor conjugate plane
 (b0 + b1 e23 + b2 e31 + b3 e12 + c1 e01 + c2 e02 + c3 e03 + c0 e0123) * (a0 e0 + a1 e1 + a2 e2 + a3 e3) * (b0 - b1 e23 - b2 e31 - b3 e12 - c1 e01 - c2 e02 - c3 e03 + c0 e0123) 
 

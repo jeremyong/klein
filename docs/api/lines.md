@@ -38,6 +38,8 @@ Klein provides three line classes: "line", "branch", and "ideal_line". The line 
 `public  ` [`branch`](#group__lines_1ga919bf9527b955fe1d58188edfe5aa802)`(__m128 xmm) noexcept`             | 
 `public float ` [`squared_norm`](#group__lines_1ga0c6c16090b660c63df26aacf985c6f0c)`() noexcept`             | If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
 `public float ` [`norm`](#group__lines_1ga6174cbd24d0189e3f5f9b893d63f5086)`() noexcept`             | Returns the square root of the quantity produced by `squared_norm` .
+`public void ` [`normalize`](#group__lines_1ga4d9e87ff79bba150183642ac82404d13)`() noexcept`             | 
+`public branch ` [`normalized`](#group__lines_1ga9d8961eee2687dd2b0ec3626193a0849)`() const noexcept`             | 
 `public branch &KLN_VEC_CALL ` [`operator+=`](#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2)`(branch b) noexcept`             | Branch addition.
 `public branch &KLN_VEC_CALL ` [`operator-=`](#group__lines_1ga69f66d6b2736f2fdaa02b45e72b1ba2f)`(branch b) noexcept`             | Branch subtraction.
 `public branch & ` [`operator*=`](#group__lines_1ga174b924bea5109230431bce2ec996d77)`(float s) noexcept`             | Branch uniform scale.
@@ -46,10 +48,13 @@ Klein provides three line classes: "line", "branch", and "ideal_line". The line 
 `public branch & ` [`operator/=`](#group__lines_1gac2d5f7065b967c378f52e192b5cda886)`(int s) noexcept`             | Branch uniform inverse scale.
 `public float ` [`e12`](#group__lines_1gaf242b6c3e610d5a328dd251dfa8f47d0)`() const noexcept`             | 
 `public float ` [`e21`](#group__lines_1ga7523c736e05eea04cd848201b0a93506)`() const noexcept`             | 
+`public float ` [`z`](#group__lines_1ga9eebc3c6c95cec91949528d6ce064169)`() const noexcept`             | 
 `public float ` [`e31`](#group__lines_1gac71e905e0f2758d0a6fa2242a135a568)`() const noexcept`             | 
 `public float ` [`e13`](#group__lines_1gaa00e179436a14b16c88dae12a42792c2)`() const noexcept`             | 
+`public float ` [`y`](#group__lines_1ga6093486d459bb08789ba50998e499794)`() const noexcept`             | 
 `public float ` [`e23`](#group__lines_1ga7af485388456f1d35f6d25b493e3c466)`() const noexcept`             | 
 `public float ` [`e32`](#group__lines_1gaffda6cbc92f913c96c8c9697c7f498a7)`() const noexcept`             | 
+`public float ` [`x`](#group__lines_1ga639819fb843ea77e0cd153c370425267)`() const noexcept`             | 
 `public branch KLN_VEC_CALL ` [`operator+`](#group__lines_1ga806e374cc4281cfc3eecec93d85a31fa)`(branch a,branch b) noexcept`             | Branch addition.
 `public branch KLN_VEC_CALL ` [`operator-`](#group__lines_1ga2bad4a299ed2bcb5fb8532af40608e3d)`(branch a,branch b) noexcept`             | Branch subtraction.
 `public branch KLN_VEC_CALL ` [`operator*`](#group__lines_1ga6f0f933a374ea30980fa71cc222fbdf1)`(branch b,float s) noexcept`             | Branch uniform scale.
@@ -206,6 +211,10 @@ If a line is constructed as the regressive product (join) of two points, the squ
 
 Returns the square root of the quantity produced by `squared_norm` .
 
+#### void  [normalize](#group__lines_1ga4d9e87ff79bba150183642ac82404d13)() noexcept  {#group__lines_1ga4d9e87ff79bba150183642ac82404d13}
+
+#### branch  [normalized](#group__lines_1ga9d8961eee2687dd2b0ec3626193a0849)() const noexcept  {#group__lines_1ga9d8961eee2687dd2b0ec3626193a0849}
+
 #### branch &KLN_VEC_CALL  [operator+=](#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2)(branch b) noexcept  {#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2}
 
 Branch addition.
@@ -234,13 +243,19 @@ Branch uniform inverse scale.
 
 #### float  [e21](#group__lines_1ga7523c736e05eea04cd848201b0a93506)() const noexcept  {#group__lines_1ga7523c736e05eea04cd848201b0a93506}
 
+#### float  [z](#group__lines_1ga9eebc3c6c95cec91949528d6ce064169)() const noexcept  {#group__lines_1ga9eebc3c6c95cec91949528d6ce064169}
+
 #### float  [e31](#group__lines_1gac71e905e0f2758d0a6fa2242a135a568)() const noexcept  {#group__lines_1gac71e905e0f2758d0a6fa2242a135a568}
 
 #### float  [e13](#group__lines_1gaa00e179436a14b16c88dae12a42792c2)() const noexcept  {#group__lines_1gaa00e179436a14b16c88dae12a42792c2}
 
+#### float  [y](#group__lines_1ga6093486d459bb08789ba50998e499794)() const noexcept  {#group__lines_1ga6093486d459bb08789ba50998e499794}
+
 #### float  [e23](#group__lines_1ga7af485388456f1d35f6d25b493e3c466)() const noexcept  {#group__lines_1ga7af485388456f1d35f6d25b493e3c466}
 
 #### float  [e32](#group__lines_1gaffda6cbc92f913c96c8c9697c7f498a7)() const noexcept  {#group__lines_1gaffda6cbc92f913c96c8c9697c7f498a7}
+
+#### float  [x](#group__lines_1ga639819fb843ea77e0cd153c370425267)() const noexcept  {#group__lines_1ga639819fb843ea77e0cd153c370425267}
 
 #### branch KLN_VEC_CALL  [operator+](#group__lines_1ga806e374cc4281cfc3eecec93d85a31fa)(branch a,branch b) noexcept  {#group__lines_1ga806e374cc4281cfc3eecec93d85a31fa}
 

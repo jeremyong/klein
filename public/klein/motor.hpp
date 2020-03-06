@@ -262,7 +262,7 @@ public:
     [[nodiscard]] line KLN_VEC_CALL operator()(line const& l) const noexcept
     {
         line out;
-        detail::swMM<false, true>(&l.p1_, p1_, &p2_, &out.p1_);
+        detail::swMM<false, true, true>(&l.p1_, p1_, &p2_, &out.p1_);
         return out;
     }
 
@@ -277,7 +277,7 @@ public:
     ///     each line individually.
     void KLN_VEC_CALL operator()(line* in, line* out, size_t count) const noexcept
     {
-        detail::swMM<true, true>(&in->p1_, p1_, &p2_, &out->p1_, count);
+        detail::swMM<true, true, true>(&in->p1_, p1_, &p2_, &out->p1_, count);
     }
 
     /// Conjugates a point $p$ with this motor and returns the result

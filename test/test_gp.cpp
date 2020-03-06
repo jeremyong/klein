@@ -62,6 +62,24 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(m.e0123(), doctest::Approx(0.f).epsilon(0.001f));
     }
 
+    SUBCASE("branch*branch")
+    {
+        branch b1{2.f, 1.f, 3.f};
+        branch b2{1.f, -2.f, -3.f};
+        rotor r = b2 * b1;
+        CHECK_EQ(r.scalar(), 9.f);
+        CHECK_EQ(r.e23(), 3.f);
+        CHECK_EQ(r.e31(), 9.f);
+        CHECK_EQ(r.e12(), -5.f);
+
+        b1.normalize();
+        b2.normalize();
+        branch b3 = ~sqrt(b2 * b1)(b1);
+        CHECK_EQ(b3.x(), doctest::Approx(b2.x()).epsilon(0.001));
+        CHECK_EQ(b3.y(), doctest::Approx(b2.y()).epsilon(0.01));
+        CHECK_EQ(b3.z(), doctest::Approx(b2.z()).epsilon(0.001));
+    }
+
     SUBCASE("line*line")
     {
         // a*e01 + b*e02 + c*e03 + d*e23 + e*e31 + f*e12

@@ -127,6 +127,14 @@ namespace kln
     return r;
 }
 
+[[nodiscard]] inline rotor sqrt(branch b) noexcept
+{
+    rotor r;
+    r.p1_ = _mm_add_ss(b.p1_, _mm_set_ss(1.f));
+    r.normalize();
+    return r;
+}
+
 /// Compute the square root of the provided translator $t$.
 [[nodiscard]] inline translator sqrt(translator t) noexcept
 {

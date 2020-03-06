@@ -52,6 +52,7 @@ The same `*`  operator can be used to compose the rotor's action with other tran
 `public mat4x4 ` [`as_mat4x4`](#group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8)`() const noexcept`             | Converts the rotor to a 4x4 column-major matrix.
 `public plane KLN_VEC_CALL ` [`operator()`](#group__rotor_1gae9e58f02352f5241dd94d22353a5e9ec)`(plane const & p) const noexcept`             | Conjugates a plane $p$ with this rotor and returns the result $rp\widetilde{r}$.
 `public void KLN_VEC_CALL ` [`operator()`](#group__rotor_1ga491f6f2264c6ecf180664e75fc4a159b)`(plane * in,plane * out,size_t count) const noexcept`             | Conjugates an array of planes with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when `in == out`  (in place motor application).
+`public branch KLN_VEC_CALL ` [`operator()`](#group__rotor_1ga4fb7861b9656f5cbc44484c1ba66ce74)`(branch const & b) const noexcept`             | 
 `public line KLN_VEC_CALL ` [`operator()`](#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc)`(line const & l) const noexcept`             | Conjugates a line $\ell$ with this rotor and returns the result $r\ell \widetilde{r}$.
 `public void KLN_VEC_CALL ` [`operator()`](#group__rotor_1gaad794881fa0c11fb05486986032a431a)`(line * in,line * out,size_t count) const noexcept`             | Conjugates an array of lines with this rotor in the input array and stores the result in the output array. Aliasing is only permitted when `in == out`  (in place rotor application).
 `public point KLN_VEC_CALL ` [`operator()`](#group__rotor_1ga5aabb4caa402fb5793807fe1d8cec199)`(point const & p) const noexcept`             | Conjugates a point $p$ with this rotor and returns the result $rp\widetilde{r}$.
@@ -131,6 +132,8 @@ Conjugates an array of planes with this rotor in the input array and stores the 
     When applying a rotor to a list of tightly packed planes, this
     routine will be *significantly faster* than applying the rotor to
     each plane individually.
+
+#### branch KLN_VEC_CALL  [operator()](#group__rotor_1ga4fb7861b9656f5cbc44484c1ba66ce74)(branch const & b) const noexcept  {#group__rotor_1ga4fb7861b9656f5cbc44484c1ba66ce74}
 
 #### line KLN_VEC_CALL  [operator()](#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc)(line const & l) const noexcept  {#group__rotor_1gac4d044ea5b98ba540fc5da8d75f43ccc}
 

@@ -235,7 +235,7 @@ namespace detail
     // and p2)
     //
     // Note: in and out are permitted to alias iff a == out.
-    template <bool Variadic = false, bool Translate = true>
+    template <bool Variadic, bool Translate, bool InputP2>
     KLN_INLINE void KLN_VEC_CALL swMM(__m128 const* KLN_RESTRICT in,
                                       __m128 const& KLN_RESTRICT b,
                                       [[maybe_unused]] __m128 const* KLN_RESTRICT c,
@@ -300,25 +300,34 @@ namespace detail
         //  d3(b0^2 + b3^2 - b2^2 - b1^2)) e03
 
         // Rotation
+
         // scaled by d and added to p2
-        __m128 tmp4 = _mm_mul_ps(b, b);
-        b_tmp       = KLN_SWIZZLE(b, 0, 0, 0, 1);
-        tmp4        = _mm_add_ps(tmp4, _mm_mul_ps(b_tmp, b_tmp));
-        b_tmp       = KLN_SWIZZLE(b, 2, 1, 3, 2);
-        __m128 tmp5 = _mm_mul_ps(b_tmp, b_tmp);
-        b_tmp       = KLN_SWIZZLE(b, 1, 3, 2, 3);
-        tmp5        = _mm_add_ps(tmp5, _mm_mul_ps(b_tmp, b_tmp));
-        tmp4        = _mm_sub_ps(tmp4, _mm_xor_ps(tmp5, _mm_set_ss(-0.f)));
-
+        [[maybe_unused]] __m128 tmp4;
         // scaled by (d0, d2, d3, d1) and added to p2
-        tmp5 = _mm_mul_ps(bzero, KLN_SWIZZLE(b, 2, 1, 3, 0));
-        tmp5 = _mm_add_ps(tmp5, _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 2, 0), b));
-        tmp5 = _mm_mul_ps(tmp5, scale);
-
+        [[maybe_unused]] __m128 tmp5;
         // scaled by (d0, d3, d1, d2) and added to p2
-        __m128 tmp6 = _mm_mul_ps(b, KLN_SWIZZLE(b, 2, 1, 3, 0));
-        tmp6 = _mm_sub_ps(tmp6, _mm_mul_ps(bzero, KLN_SWIZZLE(b, 1, 3, 2, 0)));
-        tmp6 = _mm_mul_ps(tmp6, scale);
+        [[maybe_unused]] __m128 tmp6;
+
+        if constexpr (InputP2)
+        {
+            tmp4  = _mm_mul_ps(b, b);
+            b_tmp = KLN_SWIZZLE(b, 0, 0, 0, 1);
+            tmp4  = _mm_add_ps(tmp4, _mm_mul_ps(b_tmp, b_tmp));
+            b_tmp = KLN_SWIZZLE(b, 2, 1, 3, 2);
+            tmp5  = _mm_mul_ps(b_tmp, b_tmp);
+            b_tmp = KLN_SWIZZLE(b, 1, 3, 2, 3);
+            tmp5  = _mm_add_ps(tmp5, _mm_mul_ps(b_tmp, b_tmp));
+            tmp4  = _mm_sub_ps(tmp4, _mm_xor_ps(tmp5, _mm_set_ss(-0.f)));
+
+            tmp5 = _mm_mul_ps(bzero, KLN_SWIZZLE(b, 2, 1, 3, 0));
+            tmp5 = _mm_add_ps(tmp5, _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 2, 0), b));
+            tmp5 = _mm_mul_ps(tmp5, scale);
+
+            tmp6 = _mm_mul_ps(b, KLN_SWIZZLE(b, 2, 1, 3, 0));
+            tmp6 = _mm_sub_ps(
+                tmp6, _mm_mul_ps(bzero, KLN_SWIZZLE(b, 1, 3, 2, 0)));
+            tmp6 = _mm_mul_ps(tmp6, scale);
+        }
 
         // Translation
         [[maybe_unused]] __m128 tmp7; // scaled by a and added to p2
@@ -357,13 +366,12 @@ namespace detail
             tmp9 = _mm_mul_ps(tmp9, scale);
         }
 
-        size_t limit = Variadic ? count : 1;
+        size_t limit            = Variadic ? count : 1;
+        constexpr size_t stride = InputP2 ? 2 : 1;
         for (size_t i = 0; i != limit; ++i)
         {
-            __m128 const& p1_in = in[2 * i];     // a
-            __m128 const& p2_in = in[2 * i + 1]; // d
-            __m128& p1_out      = out[2 * i];
-            __m128& p2_out      = out[2 * i + 1];
+            __m128 const& p1_in = in[stride * i]; // a
+            __m128& p1_out      = out[stride * i];
 
             p1_out = _mm_mul_ps(tmp, p1_in);
             p1_out = _mm_add_ps(
@@ -371,18 +379,24 @@ namespace detail
             p1_out = _mm_add_ps(
                 p1_out, _mm_mul_ps(tmp3, KLN_SWIZZLE(p1_in, 2, 1, 3, 0)));
 
-            p2_out = _mm_mul_ps(tmp4, p2_in);
-            p2_out = _mm_add_ps(
-                p2_out, _mm_mul_ps(tmp5, KLN_SWIZZLE(p2_in, 1, 3, 2, 0)));
-            p2_out = _mm_add_ps(
-                p2_out, _mm_mul_ps(tmp6, KLN_SWIZZLE(p2_in, 2, 1, 3, 0)));
+            if constexpr (InputP2)
+            {
+                __m128 const& p2_in = in[2 * i + 1]; // d
+                __m128& p2_out      = out[2 * i + 1];
+                p2_out              = _mm_mul_ps(tmp4, p2_in);
+                p2_out              = _mm_add_ps(
+                    p2_out, _mm_mul_ps(tmp5, KLN_SWIZZLE(p2_in, 1, 3, 2, 0)));
+                p2_out = _mm_add_ps(
+                    p2_out, _mm_mul_ps(tmp6, KLN_SWIZZLE(p2_in, 2, 1, 3, 0)));
+            }
 
             // If what is being applied is a rotor, the non-directional
             // components of the line are left untouched
             if constexpr (Translate)
             {
-                p2_out = _mm_add_ps(p2_out, _mm_mul_ps(tmp7, p1_in));
-                p2_out = _mm_add_ps(
+                __m128& p2_out = out[2 * i + 1];
+                p2_out         = _mm_add_ps(p2_out, _mm_mul_ps(tmp7, p1_in));
+                p2_out         = _mm_add_ps(
                     p2_out, _mm_mul_ps(tmp8, KLN_SWIZZLE(p1_in, 2, 1, 3, 0)));
                 p2_out = _mm_add_ps(
                     p2_out, _mm_mul_ps(tmp9, KLN_SWIZZLE(p1_in, 1, 3, 2, 0)));
