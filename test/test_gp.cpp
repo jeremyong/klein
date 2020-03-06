@@ -23,6 +23,10 @@ TEST_CASE("multivector-gp")
 
         plane p3 = sqrt(p1 * p2)(p2);
         CHECK_EQ(p3.approx_eq(p1, 0.001f), true);
+
+        p1.normalize();
+        motor m = p1 * p1;
+        CHECK_EQ(m.scalar(), doctest::Approx(1.f).epsilon(0.001f));
     }
 
     SUBCASE("plane*point")

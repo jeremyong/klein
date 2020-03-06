@@ -16,14 +16,14 @@ and geometric actions ([`rotors`](../api/rotor), [`translators`](../api/translat
 
 | Class        | Description                                                                                                                                                                                                |
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `plane`      | A plane can be thought of as either a point field spanning a 2-dimensional subspace of $\mathbf{E}^3$, or as a reflection                                                                                  |
-| `line`       | A line can be thought of as either a point field spanning a 1-dimensional subspace of $\mathbf{E}^3$ or as a rotation                                                                                      |
+| `plane`      | A plane is the manifestation of a reflection of $\mathbf{E}^3$ (consider the set of fixed points of a reflection).                                                                                         |
+| `line`       | A line is the manifestation of a rotation of $\mathbf{E}^3$ (consider the set of fixed points of a rotation).                                                                                              |
 | `branch`     | A branch is a line through the origin                                                                                                                                                                      |
 | `ideal_line` | An ideal line is a line at infinity                                                                                                                                                                        |
-| `point`      | A point can be thought of as either a point field spanning a 0-dimensional subspace of $\mathbf{E}^3$ or as a roto-reflection (which has a single fixed point)                                             |
+| `point`      | A point is the manifestation of a roto-reflection of $\mathbf{E}^3$ (which has a single fixed point)                                                                                                       |
 | `direction`  | A direction is modeled as a point at infinity (homogeneous weight $0$)                                                                                                                                     |
-| `rotor`      | A rotor is the product of two planes (generating a rotation)                                                                                                                                               |
-| `translator` | A translator is the product of two ideal lines (generating a translation)                                                                                                                                  |
+| `rotor`      | A rotor is the product of two intersecting planes (generating a rotation)                                                                                                                                  |
+| `translator` | A translator is the product of two parallel planes (generating a translation)                                                                                                                              |
 | `motor`      | A motor is a screw combining a rotation and translation along a screw axis                                                                                                                                 |
 | `dual`       | A dual is the sum of a scalar and pseudoscalar quantity. Dual numbers show up in a number of contexts, including the factorization of a motor axis, and as the result of several meet and join operations. |
 

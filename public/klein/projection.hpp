@@ -42,5 +42,27 @@ inline line KLN_VEC_CALL project(line a, plane b) noexcept
 {
     return {(a | b) ^ b};
 }
+
+/// Project a line onto a point. Given a line $\ell$ and point $p$, produces the
+/// line through $p$ that is parallel to $\ell$.
+inline line KLN_VEC_CALL project(line a, point b) noexcept
+{
+    return {(a | b) | b};
+}
+
+/// Project a plane onto a point. Given a plane $p$ and point $P$, produces the
+/// plane through $p$ that is parallel to $P$.
+inline plane KLN_VEC_CALL project(plane a, point b) noexcept
+{
+    return {(a | b) | b};
+}
+
+/// Project a plane onto a line. Given a plane $p$ and line $\ell$, produces the
+/// plane through
+/// $\ell$ that is parallel to $p$.
+inline plane KLN_VEC_CALL project(plane a, line b) noexcept
+{
+    return {(a | b) | b};
+}
 /// @}
 } // namespace kln
