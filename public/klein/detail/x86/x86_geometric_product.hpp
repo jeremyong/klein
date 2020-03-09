@@ -164,7 +164,7 @@ namespace detail
         // (0, 1, 2, 3) -> (0, 0, 2, 2)
         __m128 ss = _mm_moveldup_ps(tmp);
         ss        = _mm_movelh_ps(ss, ss);
-        tmp       = _mm_mul_ps(tmp, _mm_rcp_ps(ss));
+        tmp       = _mm_mul_ps(tmp, detail::rcp_nr1(ss));
 
 #ifdef KLEIN_SSE_4_1
         p2 = _mm_blend_ps(tmp, _mm_setzero_ps(), 1);

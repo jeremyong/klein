@@ -69,7 +69,7 @@ public:
     ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
-        __m128 inv_norm = _mm_rsqrt_ps(detail::hi_dp_bc(p0_, p0_));
+        __m128 inv_norm = detail::rsqrt_nr1(detail::hi_dp_bc(p0_, p0_));
 #ifdef KLEIN_SSE_4_1
         inv_norm = _mm_blend_ps(inv_norm, _mm_set_ss(1.f), 1);
 #else
@@ -95,7 +95,7 @@ public:
     [[nodiscard]] float norm() const noexcept
     {
         float out;
-        _mm_store_ss(&out, _mm_rcp_ss(_mm_rsqrt_ss(detail::hi_dp(p0_, p0_))));
+        _mm_store_ss(&out, detail::sqrt_nr1(detail::hi_dp(p0_, p0_)));
         return out;
     }
 
@@ -177,14 +177,15 @@ public:
     /// Plane uniform inverse scale
     plane& operator/=(float s) noexcept
     {
-        p0_ = _mm_mul_ps(p0_, _mm_rcp_ps(_mm_set1_ps(s)));
+        p0_ = _mm_mul_ps(p0_, detail::rcp_nr1(_mm_set1_ps(s)));
         return *this;
     }
 
     /// Plane uniform inverse scale
     plane& operator/=(int s) noexcept
     {
-        p0_ = _mm_mul_ps(p0_, _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s))));
+        p0_ = _mm_mul_ps(
+            p0_, detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s))));
         return *this;
     }
 
@@ -285,7 +286,7 @@ public:
 [[nodiscard]] inline plane KLN_VEC_CALL operator/(plane p, float s) noexcept
 {
     plane c;
-    c.p0_ = _mm_mul_ps(p.p0_, _mm_rcp_ps(_mm_set1_ps(s)));
+    c.p0_ = _mm_mul_ps(p.p0_, detail::rcp_nr1(_mm_set1_ps(s)));
     return c;
 }
 

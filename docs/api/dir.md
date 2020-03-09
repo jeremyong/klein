@@ -13,7 +13,7 @@ Directions in $\mathbf{P}(\mathbb{R}^3_{3, 0, 1})$ are represented using points 
 `public float ` [`x`](#group__dir_1ga721087c2056a33cd780c678ae0ec39dd)`() const noexcept`             | 
 `public float ` [`y`](#group__dir_1ga40bc7052a639d57afde7a860c1631638)`() const noexcept`             | 
 `public float ` [`z`](#group__dir_1ga1e16d3ed0ff945d0d1cbf1e6458d334b)`() const noexcept`             | 
-`public void ` [`normalize`](#group__dir_1ga143cd2cfeb94860ce1d47b9735064802)`() noexcept`             | Normalize this direction by dividing all components by the magnitude
+`public void ` [`normalize`](#group__dir_1ga143cd2cfeb94860ce1d47b9735064802)`() noexcept`             | Normalize this direction by dividing all components by the magnitude (by default, `rsqrtps`  is used with a single Newton-Raphson refinement iteration)
 `public direction ` [`normalized`](#group__dir_1ga1f97cae228749958e81d2747a3cdb4c2)`() const noexcept`             | Return a normalized copy of this direction.
 `public direction &KLN_VEC_CALL ` [`operator+=`](#group__dir_1gabf098bdf982bbd9572d9fb09a5f76786)`(direction b) noexcept`             | Direction addition.
 `public direction &KLN_VEC_CALL ` [`operator-=`](#group__dir_1ga4bd0650e5c363ec427a4021b678f0567)`(direction b) noexcept`             | Direction subtraction.
@@ -53,12 +53,7 @@ Data should point to four floats with memory layout `(0.f, x, y, z)`  where the 
 
 #### void  [normalize](#group__dir_1ga143cd2cfeb94860ce1d47b9735064802)() noexcept  {#group__dir_1ga143cd2cfeb94860ce1d47b9735064802}
 
-Normalize this direction by dividing all components by the magnitude
-
-!!! tip 
-    Direction normalization divides the coordinates by the quantity
-    $\sqrt{x^2 + y^2 + z^2}$. This is done using the `rsqrtps`
-    instruction with a maximum relative error of $1.5\times 2^{-12}$.
+Normalize this direction by dividing all components by the magnitude (by default, `rsqrtps`  is used with a single Newton-Raphson refinement iteration)
 
 #### direction  [normalized](#group__dir_1ga1f97cae228749958e81d2747a3cdb4c2)() const noexcept  {#group__dir_1ga1f97cae228749958e81d2747a3cdb4c2}
 

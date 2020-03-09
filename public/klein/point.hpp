@@ -48,18 +48,11 @@ public:
         p3_ = _mm_loadu_ps(data);
     }
 
-    /// Normalize this point
-    ///
-    /// !!! tip
-    ///
-    ///     Point normalization divides the coordinates by the homogeneous
-    ///     coordinate `w`. This is done using the `rcpps` instruction with a
-    ///     maximum relative error of $1.5\times 2^{-12}$.
+    /// Normalize this point (division is done via rcpps with an additional
+    /// Newton-Raphson refinement).
     void normalize() noexcept
     {
-        // Fast reciprocal operation to divide by w. The maximum relative error
-        // for the rcp approximation is 1.5*2^-12 (~.00036621)
-        __m128 tmp = _mm_rcp_ps(KLN_SWIZZLE(p3_, 0, 0, 0, 0));
+        __m128 tmp = detail::rcp_nr1(KLN_SWIZZLE(p3_, 0, 0, 0, 0));
         p3_        = _mm_mul_ps(p3_, tmp);
     }
 
@@ -151,14 +144,15 @@ public:
     /// Point uniform inverse scale
     point& operator/=(float s) noexcept
     {
-        p3_ = _mm_mul_ps(p3_, _mm_rcp_ps(_mm_set1_ps(s)));
+        p3_ = _mm_mul_ps(p3_, detail::rcp_nr1(_mm_set1_ps(s)));
         return *this;
     }
 
     /// Point uniform inverse scale
     point& operator/=(int s) noexcept
     {
-        p3_ = _mm_mul_ps(p3_, _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s))));
+        p3_ = _mm_mul_ps(
+            p3_, detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s))));
         return *this;
     }
 
@@ -211,7 +205,7 @@ public:
 [[nodiscard]] inline point KLN_VEC_CALL operator/(point p, float s) noexcept
 {
     point c;
-    c.p3_ = _mm_mul_ps(p.p3_, _mm_rcp_ps(_mm_set1_ps(s)));
+    c.p3_ = _mm_mul_ps(p.p3_, detail::rcp_nr1(_mm_set1_ps(s)));
     return c;
 }
 

@@ -146,8 +146,8 @@ TEST_CASE("multivector-ip")
         point p4{(l | p1) ^ l};
         p4.normalize();
 
-        CHECK_EQ(p4.e123(), doctest::Approx(1.f).epsilon(0.001));
-        CHECK_EQ(p4.x(), doctest::Approx(2.f).epsilon(0.001));
+        CHECK_EQ(p4.e123(), doctest::Approx(1.f));
+        CHECK_EQ(p4.x(), doctest::Approx(2.f));
         CHECK_EQ(p4.y(), doctest::Approx(0.f));
         CHECK_EQ(p4.z(), doctest::Approx(0.f));
     }

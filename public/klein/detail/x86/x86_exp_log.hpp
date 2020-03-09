@@ -62,13 +62,8 @@ namespace detail
         // (square the above quantity yourself to quickly verify the claim)
         // Maximum relative error < 1.5*2e-12
 
-#ifdef KLEIN_PRECISE
-        __m128 u           = _mm_sqrt_ps(a2);
-        __m128 a2_sqrt_rcp = _mm_div_ps(_mm_set1_ps(1.f), u);
-#else
-        __m128 a2_sqrt_rcp = _mm_rsqrt_ps(a2);
-        __m128 u           = _mm_rcp_ps(a2_sqrt_rcp);
-#endif
+        __m128 a2_sqrt_rcp = detail::rsqrt_nr1(a2);
+        __m128 u           = _mm_mul_ps(a2, a2_sqrt_rcp);
         // Don't forget the minus later!
         __m128 minus_v = _mm_mul_ps(ab, a2_sqrt_rcp);
 
@@ -89,7 +84,7 @@ namespace detail
         norm_ideal = _mm_sub_ps(
             norm_ideal,
             _mm_mul_ps(
-                a, _mm_mul_ps(ab, _mm_mul_ps(a2_sqrt_rcp, _mm_rcp_ps(a2)))));
+                a, _mm_mul_ps(ab, _mm_mul_ps(a2_sqrt_rcp, detail::rcp_nr1(a2)))));
 
         // The norm * our normalized bivector is the original bivector (a + b).
         // Thus, we have:
@@ -152,15 +147,10 @@ namespace detail
         // Next, we need to compute the norm as in the exponential.
         __m128 a2 = hi_dp_bc(a, a);
         // TODO: handle case when a2 is 0
-        __m128 ab = hi_dp_bc(a, b);
-#ifdef KLEIN_PRECISE
-        __m128 s           = _mm_sqrt_ps(a2);
-        __m128 a2_sqrt_rcp = _mm_div_ps(_mm_set1_ps(1.f), s);
-#else
-        __m128 a2_sqrt_rcp = _mm_rsqrt_ps(a2);
-        __m128 s           = _mm_rcp_ps(a2_sqrt_rcp);
-#endif
-        __m128 minus_t = _mm_mul_ps(ab, a2_sqrt_rcp);
+        __m128 ab          = hi_dp_bc(a, b);
+        __m128 a2_sqrt_rcp = detail::rsqrt_nr1(a2);
+        __m128 s           = _mm_mul_ps(a2, a2_sqrt_rcp);
+        __m128 minus_t     = _mm_mul_ps(ab, a2_sqrt_rcp);
         // s + t e0123 is the norm of our bivector.
 
         // Store the scalar component
@@ -193,7 +183,7 @@ namespace detail
         norm_ideal        = _mm_sub_ps(
             norm_ideal,
             _mm_mul_ps(
-                a, _mm_mul_ps(ab, _mm_mul_ps(a2_sqrt_rcp, _mm_rcp_ps(a2)))));
+                a, _mm_mul_ps(ab, _mm_mul_ps(a2_sqrt_rcp, detail::rcp_nr1(a2)))));
 
         __m128 uvec = _mm_set1_ps(u);
         p1_out      = _mm_mul_ps(uvec, norm_real);

@@ -78,6 +78,6 @@ TEST_CASE("multivector-sum")
         CHECK_NE(p_norm, 1.f);
         p.normalize();
         p_norm = p | p;
-        CHECK_EQ(p_norm, doctest::Approx(1.f).epsilon(0.001));
+        CHECK_EQ(p_norm, doctest::Approx(1.f));
     }
 }

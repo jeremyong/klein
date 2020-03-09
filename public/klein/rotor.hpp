@@ -102,7 +102,7 @@ public:
     void normalize() noexcept
     {
         // A rotor is normalized if r * ~r is unity.
-        __m128 inv_norm = _mm_rsqrt_ps(detail::dp_bc(p1_, p1_));
+        __m128 inv_norm = detail::rsqrt_nr1(detail::dp_bc(p1_, p1_));
         p1_             = _mm_mul_ps(p1_, inv_norm);
     }
 
@@ -270,14 +270,15 @@ public:
     /// Rotor uniform inverse scale
     rotor& operator/=(float s) noexcept
     {
-        p1_ = _mm_mul_ps(p1_, _mm_rcp_ps(_mm_set1_ps(s)));
+        p1_ = _mm_mul_ps(p1_, detail::rcp_nr1(_mm_set1_ps(s)));
         return *this;
     }
 
     /// Rotor uniform inverse scale
     rotor& operator/=(int s) noexcept
     {
-        p1_ = _mm_mul_ps(p1_, _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s))));
+        p1_ = _mm_mul_ps(
+            p1_, detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s))));
         return *this;
     }
 
@@ -373,7 +374,7 @@ public:
 [[nodiscard]] inline rotor KLN_VEC_CALL operator/(rotor r, float s) noexcept
 {
     rotor c;
-    c.p1_ = _mm_mul_ps(r.p1_, _mm_rcp_ps(_mm_set1_ps(s)));
+    c.p1_ = _mm_mul_ps(r.p1_, detail::rcp_nr1(_mm_set1_ps(s)));
     return c;
 }
 

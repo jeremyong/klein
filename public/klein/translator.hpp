@@ -141,14 +141,15 @@ public:
     /// Translator uniform inverse scale
     translator& operator/=(float s) noexcept
     {
-        p2_ = _mm_mul_ps(p2_, _mm_rcp_ps(_mm_set1_ps(s)));
+        p2_ = _mm_mul_ps(p2_, detail::rcp_nr1(_mm_set1_ps(s)));
         return *this;
     }
 
     /// Translator uniform inverse scale
     translator& operator/=(int s) noexcept
     {
-        p2_ = _mm_mul_ps(p2_, _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s))));
+        p2_ = _mm_mul_ps(
+            p2_, detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s))));
         return *this;
     }
 
@@ -249,7 +250,7 @@ public:
                                                        float s) noexcept
 {
     translator c;
-    c.p2_ = _mm_mul_ps(t.p2_, _mm_rcp_ps(_mm_set1_ps(s)));
+    c.p2_ = _mm_mul_ps(t.p2_, detail::rcp_nr1(_mm_set1_ps(s)));
     return c;
 }
 

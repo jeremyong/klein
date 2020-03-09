@@ -32,10 +32,9 @@ public:
     {}
 
     ideal_line(__m128 xmm) noexcept
-        : p2_{xmm}
-    {}
+        : p2_{xmm} {}
 
-    [[nodiscard]] float squared_ideal_norm() noexcept
+              [[nodiscard]] float squared_ideal_norm() noexcept
     {
         float out;
         __m128 dp = detail::hi_dp(p2_, p2_);
@@ -79,14 +78,15 @@ public:
     /// Ideal line uniform inverse scale
     ideal_line& operator/=(float s) noexcept
     {
-        p2_ = _mm_mul_ps(p2_, _mm_rcp_ps(_mm_set1_ps(s)));
+        p2_ = _mm_mul_ps(p2_, detail::rcp_nr1(_mm_set1_ps(s)));
         return *this;
     }
 
     /// Ideal line uniform inverse scale
     ideal_line& operator/=(int s) noexcept
     {
-        p2_ = _mm_mul_ps(p2_, _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s))));
+        p2_ = _mm_mul_ps(
+            p2_, detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s))));
         return *this;
     }
 
@@ -182,7 +182,7 @@ public:
                                                        float s) noexcept
 {
     ideal_line c;
-    c.p2_ = _mm_mul_ps(l.p2_, _mm_rcp_ps(_mm_set1_ps(s)));
+    c.p2_ = _mm_mul_ps(l.p2_, detail::rcp_nr1(_mm_set1_ps(s)));
     return c;
 }
 
@@ -246,13 +246,13 @@ public:
     {}
 
     branch(__m128 xmm) noexcept
-        : p1_{xmm}
-    {}
+        : p1_{xmm} {}
 
-    /// If a line is constructed as the regressive product (join) of two points,
-    /// the squared norm provided here is the squared distance between the two
-    /// points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
-    [[nodiscard]] float squared_norm() noexcept
+              /// If a line is constructed as the regressive product (join) of
+              /// two points, the squared norm provided here is the squared
+              /// distance between the two points (provided the points are
+              /// normalized). Returns $d^2 + e^2 + f^2$.
+              [[nodiscard]] float squared_norm() noexcept
     {
         float out;
         __m128 dp = detail::hi_dp(p1_, p1_);
@@ -268,7 +268,7 @@ public:
 
     void normalize() noexcept
     {
-        __m128 inv_norm = _mm_rsqrt_ps(detail::hi_dp_bc(p1_, p1_));
+        __m128 inv_norm = detail::rsqrt_nr1(detail::hi_dp_bc(p1_, p1_));
         p1_             = _mm_mul_ps(p1_, inv_norm);
     }
 
@@ -310,14 +310,15 @@ public:
     /// Branch uniform inverse scale
     branch& operator/=(float s) noexcept
     {
-        p1_ = _mm_mul_ps(p1_, _mm_rcp_ps(_mm_set1_ps(s)));
+        p1_ = _mm_mul_ps(p1_, detail::rcp_nr1(_mm_set1_ps(s)));
         return *this;
     }
 
     /// Branch uniform inverse scale
     branch& operator/=(int s) noexcept
     {
-        p1_ = _mm_mul_ps(p1_, _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s))));
+        p1_ = _mm_mul_ps(
+            p1_, detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s))));
         return *this;
     }
 
@@ -421,7 +422,7 @@ public:
 [[nodiscard]] inline branch KLN_VEC_CALL operator/(branch b, float s) noexcept
 {
     branch c;
-    c.p1_ = _mm_mul_ps(b.p1_, _mm_rcp_ps(_mm_set1_ps(s)));
+    c.p1_ = _mm_mul_ps(b.p1_, detail::rcp_nr1(_mm_set1_ps(s)));
     return c;
 }
 
@@ -482,13 +483,13 @@ public:
 
     line(branch other) noexcept
         : p1_{other.p1_}
-        , p2_{_mm_setzero_ps()}
-    {}
+        , p2_{_mm_setzero_ps()} {}
 
-    /// If a line is constructed as the regressive product (join) of two points,
-    /// the squared norm provided here is the squared distance between the two
-    /// points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
-    [[nodiscard]] float squared_norm() noexcept
+              /// If a line is constructed as the regressive product (join) of
+              /// two points, the squared norm provided here is the squared
+              /// distance between the two points (provided the points are
+              /// normalized). Returns $d^2 + e^2 + f^2$.
+              [[nodiscard]] float squared_norm() noexcept
     {
         float out;
         __m128 dp = detail::hi_dp(p1_, p1_);
@@ -503,11 +504,6 @@ public:
     }
 
     /// Normalize a line such that $\ell^2 = -1$.
-    ///
-    /// !!! warning
-    ///
-    ///     Normalization here is done using the `rsqrtps`
-    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
         // l = b + c where b is p1 and c is p2
@@ -518,9 +514,9 @@ public:
         // 1/sqrt(l*~l) = 1/|b| + (b1 c1 + b2 c2 + b3 c3)/|b|^3 e0123
         //              = s + t e0123
         __m128 b2 = detail::hi_dp_bc(p1_, p1_);
-        __m128 s  = _mm_rsqrt_ps(b2);
+        __m128 s  = detail::rsqrt_nr1(b2);
         __m128 bc = detail::hi_dp_bc(p1_, p2_);
-        __m128 t  = _mm_mul_ps(_mm_mul_ps(bc, _mm_rcp_ps(b2)), s);
+        __m128 t  = _mm_mul_ps(_mm_mul_ps(bc, detail::rcp_nr1(b2)), s);
 
         // p1 * (s + t e0123) = s * p1 - t p1_perp
         __m128 tmp = _mm_mul_ps(p2_, s);
@@ -595,7 +591,7 @@ public:
     /// Line uniform inverse scale
     line& operator/=(float s) noexcept
     {
-        __m128 vs = _mm_rcp_ps(_mm_set1_ps(s));
+        __m128 vs = detail::rcp_nr1(_mm_set1_ps(s));
         p1_       = _mm_mul_ps(p1_, vs);
         p2_       = _mm_mul_ps(p2_, vs);
         return *this;
@@ -604,7 +600,7 @@ public:
     /// Line uniform inverse scale
     line& operator/=(int s) noexcept
     {
-        __m128 vs = _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s)));
+        __m128 vs = detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s)));
         p1_       = _mm_mul_ps(p1_, vs);
         p2_       = _mm_mul_ps(p2_, vs);
         return *this;
@@ -736,7 +732,7 @@ public:
 [[nodiscard]] inline line KLN_VEC_CALL operator/(line r, float s) noexcept
 {
     line c;
-    __m128 vs = _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s)));
+    __m128 vs = detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s)));
     c.p1_     = _mm_mul_ps(r.p1_, vs);
     c.p2_     = _mm_mul_ps(r.p2_, vs);
     return c;

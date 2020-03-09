@@ -45,7 +45,7 @@ namespace detail
         tmp = _mm_add_ss(
             tmp,
             _mm_mul_ss(KLN_SWIZZLE(a, 0, 0, 0, 3), KLN_SWIZZLE(b, 0, 0, 0, 3)));
-        tmp = _mm_mul_ps(tmp, _mm_mul_ps(a, _mm_set1_ps(2.f)));
+        tmp = _mm_mul_ps(tmp, _mm_add_ps(a, a));
 
         // Right block
         __m128 a_tmp = KLN_SWIZZLE(a, 3, 2, 1, 1);
@@ -225,7 +225,7 @@ namespace detail
         p2_out = _mm_sub_ps(p2_out,
                             _mm_xor_ps(_mm_mul_ps(a, KLN_SWIZZLE(c, 0, 0, 0, 0)),
                                        _mm_set_ss(-0.f)));
-        p2_out = _mm_mul_ps(p2_out, _mm_set1_ps(2.f));
+        p2_out = _mm_add_ps(p2_out, p2_out);
         p2_out = _mm_add_ps(p2_out, d);
     }
 
@@ -347,7 +347,7 @@ namespace detail
             tmp7         = _mm_sub_ps(tmp7,
                               _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 2, 3),
                                          KLN_SWIZZLE(*c, 2, 1, 2, 3)));
-            tmp7         = _mm_mul_ps(tmp7, _mm_set1_ps(2.f));
+            tmp7         = _mm_add_ps(tmp7, tmp7);
 
             tmp8 = _mm_mul_ps(b, KLN_SWIZZLE(*c, 2, 1, 3, 0));
             tmp8 = _mm_add_ps(

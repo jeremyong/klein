@@ -29,7 +29,7 @@ TEST_CASE("measure-point-to-plane")
     plane p2{1.f, -1.f, 0.f, 0.f};
     p2.normalize();
     // Distance from point p1 to plane p2
-    auto root_two = doctest::Approx(std::sqrt(2.f)).epsilon(0.001);
+    auto root_two = doctest::Approx(std::sqrt(2.f));
     CHECK_EQ(std::abs((p1 & p2).scalar()), root_two);
     CHECK_EQ(std::abs((p1 ^ p2).e0123()), root_two);
 }
@@ -39,5 +39,5 @@ TEST_CASE("measure-point-to-line")
     line l{0, 1, 0, 1, 0, 0};
     point p{0, 1, 2};
     float distance = plane{l & p}.norm();
-    CHECK_EQ(distance, doctest::Approx(std::sqrt(2.f)).epsilon(0.001));
+    CHECK_EQ(distance, doctest::Approx(std::sqrt(2.f)));
 }

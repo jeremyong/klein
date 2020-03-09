@@ -129,10 +129,6 @@ Load motor data using two unaligned loads. This routine does *not* assume the da
 
 Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
 
-!!! warning 
-    Normalization here is done using the `rsqrtps`
-    instruction with a maximum relative error of $1.5\times 2^{-12}$.
-
 #### motor  [normalized](#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122)() const noexcept  {#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122}
 
 Return a normalized copy of this motor.

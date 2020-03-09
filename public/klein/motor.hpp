@@ -143,11 +143,6 @@ public:
     }
 
     /// Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
-    ///
-    /// !!! warning
-    ///
-    ///     Normalization here is done using the `rsqrtps`
-    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
         // m = b + c where b is p1 and c is p2
@@ -163,9 +158,9 @@ public:
         // Multiplying our original motor by this inverse will give us a
         // normalized motor.
         __m128 b2 = detail::dp_bc(p1_, p1_);
-        __m128 s  = _mm_rsqrt_ps(b2);
+        __m128 s  = detail::rsqrt_nr1(b2);
         __m128 bc = detail::dp_bc(_mm_xor_ps(p1_, _mm_set_ss(-0.f)), p2_);
-        __m128 t  = _mm_mul_ps(_mm_mul_ps(bc, _mm_rcp_ps(b2)), s);
+        __m128 t  = _mm_mul_ps(_mm_mul_ps(bc, detail::rcp_nr1(b2)), s);
 
         // (s + t e0123) * motor =
         //
@@ -381,7 +376,7 @@ public:
     /// Motor uniform inverse scale
     motor& operator/=(float s) noexcept
     {
-        __m128 vs = _mm_rcp_ps(_mm_set1_ps(s));
+        __m128 vs = detail::rcp_nr1(_mm_set1_ps(s));
         p1_       = _mm_mul_ps(p1_, vs);
         p2_       = _mm_mul_ps(p2_, vs);
         return *this;
@@ -390,7 +385,7 @@ public:
     /// Motor uniform inverse scale
     motor& operator/=(int s) noexcept
     {
-        __m128 vs = _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s)));
+        __m128 vs = detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s)));
         p1_       = _mm_mul_ps(p1_, vs);
         p2_       = _mm_mul_ps(p2_, vs);
         return *this;
@@ -536,7 +531,7 @@ public:
 [[nodiscard]] inline motor KLN_VEC_CALL operator/(motor r, float s) noexcept
 {
     motor c;
-    __m128 vs = _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s)));
+    __m128 vs = detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s)));
     c.p1_     = _mm_mul_ps(r.p1_, vs);
     c.p2_     = _mm_mul_ps(r.p2_, vs);
     return c;

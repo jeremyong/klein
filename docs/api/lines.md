@@ -323,10 +323,6 @@ Returns the square root of the quantity produced by `squared_norm` .
 
 Normalize a line such that $\ell^2 = -1$.
 
-!!! warning 
-    Normalization here is done using the `rsqrtps`
-    instruction with a maximum relative error of $1.5\times 2^{-12}$.
-
 #### line  [normalized](#group__lines_1ga276e9de782855e6c32560923dce491c4)() const noexcept  {#group__lines_1ga276e9de782855e6c32560923dce491c4}
 
 Return a normalized copy of this line.

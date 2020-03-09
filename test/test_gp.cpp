@@ -26,7 +26,7 @@ TEST_CASE("multivector-gp")
 
         p1.normalize();
         motor m = p1 * p1;
-        CHECK_EQ(m.scalar(), doctest::Approx(1.f).epsilon(0.001f));
+        CHECK_EQ(m.scalar(), doctest::Approx(1.f));
     }
 
     SUBCASE("plane*point")
@@ -52,14 +52,14 @@ TEST_CASE("multivector-gp")
         line l{1.f, 2.f, 3.f, 3.f, 2.f, 1.f};
         l.normalize();
         motor m = l * ~l;
-        CHECK_EQ(m.scalar(), doctest::Approx(1.f).epsilon(0.001f));
-        CHECK_EQ(m.e23(), doctest::Approx(0.f).epsilon(0.001f));
-        CHECK_EQ(m.e31(), doctest::Approx(0.f).epsilon(0.001f));
-        CHECK_EQ(m.e12(), doctest::Approx(0.f).epsilon(0.001f));
-        CHECK_EQ(m.e01(), doctest::Approx(0.f).epsilon(0.001f));
-        CHECK_EQ(m.e02(), doctest::Approx(0.f).epsilon(0.001f));
-        CHECK_EQ(m.e03(), doctest::Approx(0.f).epsilon(0.001f));
-        CHECK_EQ(m.e0123(), doctest::Approx(0.f).epsilon(0.001f));
+        CHECK_EQ(m.scalar(), doctest::Approx(1.f));
+        CHECK_EQ(m.e23(), doctest::Approx(0.f));
+        CHECK_EQ(m.e31(), doctest::Approx(0.f));
+        CHECK_EQ(m.e12(), doctest::Approx(0.f));
+        CHECK_EQ(m.e01(), doctest::Approx(0.f));
+        CHECK_EQ(m.e02(), doctest::Approx(0.f));
+        CHECK_EQ(m.e03(), doctest::Approx(0.f));
+        CHECK_EQ(m.e0123(), doctest::Approx(0.f));
     }
 
     SUBCASE("branch*branch")
@@ -75,9 +75,9 @@ TEST_CASE("multivector-gp")
         b1.normalize();
         b2.normalize();
         branch b3 = ~sqrt(b2 * b1)(b1);
-        CHECK_EQ(b3.x(), doctest::Approx(b2.x()).epsilon(0.001));
-        CHECK_EQ(b3.y(), doctest::Approx(b2.y()).epsilon(0.01));
-        CHECK_EQ(b3.z(), doctest::Approx(b2.z()).epsilon(0.001));
+        CHECK_EQ(b3.x(), doctest::Approx(b2.x()));
+        CHECK_EQ(b3.y(), doctest::Approx(b2.y()));
+        CHECK_EQ(b3.z(), doctest::Approx(b2.z()));
     }
 
     SUBCASE("line*line")
@@ -127,14 +127,14 @@ TEST_CASE("multivector-gp")
         point p2{-2.f, 1.f, 4.f};
 
         translator p1p2 = p1 * p2;
-        CHECK_EQ(p1p2.e01(), doctest::Approx(-3.f).epsilon(0.001));
-        CHECK_EQ(p1p2.e02(), doctest::Approx(-1.f).epsilon(0.001));
-        CHECK_EQ(p1p2.e03(), doctest::Approx(1.f).epsilon(0.001));
+        CHECK_EQ(p1p2.e01(), doctest::Approx(-3.f));
+        CHECK_EQ(p1p2.e02(), doctest::Approx(-1.f));
+        CHECK_EQ(p1p2.e03(), doctest::Approx(1.f));
 
         point p3 = sqrt(p1p2)(p2);
-        CHECK_EQ(p3.x(), doctest::Approx(1.f).epsilon(0.001));
-        CHECK_EQ(p3.y(), doctest::Approx(2.f).epsilon(0.001));
-        CHECK_EQ(p3.z(), doctest::Approx(3.f).epsilon(0.001));
+        CHECK_EQ(p3.x(), doctest::Approx(1.f));
+        CHECK_EQ(p3.y(), doctest::Approx(2.f));
+        CHECK_EQ(p3.z(), doctest::Approx(3.f));
     }
 
     SUBCASE("rotor*translator")

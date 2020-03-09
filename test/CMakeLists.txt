@@ -17,6 +17,7 @@ add_executable(klein_test
     test_gp.cpp
     test_metric.cpp
     test_rp.cpp
+    test_sse.cpp
     test_sw.cpp
 )
 target_link_libraries(klein_test PRIVATE klein::klein doctest)
@@ -50,6 +51,7 @@ add_executable(klein_test_sse42
     test_gp.cpp
     test_metric.cpp
     test_rp.cpp
+    test_sse.cpp
     test_sw.cpp
 )
 target_link_libraries(klein_test_sse42 PRIVATE klein::klein_sse42 doctest)

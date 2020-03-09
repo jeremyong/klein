@@ -94,7 +94,7 @@ namespace kln
     float sin_ang = std::sin(ang);
 
     branch out;
-    out.p1_ = _mm_mul_ps(r.p1_, _mm_rcp_ps(_mm_set1_ps(sin_ang)));
+    out.p1_ = _mm_mul_ps(r.p1_, detail::rcp_nr1(_mm_set1_ps(sin_ang)));
     out.p1_ = _mm_mul_ps(out.p1_, _mm_set1_ps(ang));
 #ifdef KLEIN_SSE_4_1
     out.p1_ = _mm_blend_ps(out.p1_, _mm_setzero_ps(), 1);
@@ -109,7 +109,7 @@ namespace kln
 {
     // Compute the rotor angle
     float ang;
-    _mm_store_ss(&ang, _mm_rcp_ps(_mm_rsqrt_ps(detail::hi_dp(b.p1_, b.p1_))));
+    _mm_store_ss(&ang, detail::sqrt_nr1(detail::hi_dp(b.p1_, b.p1_)));
     float cos_ang = std::cos(ang);
     float sin_ang = std::sin(ang) / ang;
 

@@ -65,18 +65,11 @@ public:
     }
 
     /// Normalize this direction by dividing all components by the
-    /// magnitude
-    ///
-    /// !!! tip
-    ///
-    ///     Direction normalization divides the coordinates by the quantity
-    ///     $\sqrt{x^2 + y^2 + z^2}$. This is done using the `rsqrtps`
-    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
+    /// magnitude (by default, `rsqrtps` is used with a single Newton-Raphson
+    /// refinement iteration)
     void normalize() noexcept
     {
-        // Fast reciprocal operation to divide by a^2 + b^2 + c^2. The maximum
-        // relative error for the rcp approximation is 1.5*2^-12 (~.00036621)
-        __m128 tmp = _mm_rsqrt_ps(detail::hi_dp_bc(p3_, p3_));
+        __m128 tmp = detail::rsqrt_nr1(detail::hi_dp_bc(p3_, p3_));
         p3_        = _mm_mul_ps(p3_, tmp);
     }
 
@@ -119,14 +112,15 @@ public:
     /// Direction uniform inverse scale
     direction& operator/=(float s) noexcept
     {
-        p3_ = _mm_mul_ps(p3_, _mm_rcp_ps(_mm_set1_ps(s)));
+        p3_ = _mm_mul_ps(p3_, detail::rcp_nr1(_mm_set1_ps(s)));
         return *this;
     }
 
     /// Direction uniform inverse scale
     direction& operator/=(int s) noexcept
     {
-        p3_ = _mm_mul_ps(p3_, _mm_rcp_ps(_mm_set1_ps(static_cast<float>(s))));
+        p3_ = _mm_mul_ps(
+            p3_, detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s))));
         return *this;
     }
 
@@ -181,7 +175,7 @@ public:
 [[nodiscard]] inline direction KLN_VEC_CALL operator/(direction d, float s) noexcept
 {
     direction c;
-    c.p3_ = _mm_mul_ps(d.p3_, _mm_rcp_ps(_mm_set1_ps(s)));
+    c.p3_ = _mm_mul_ps(d.p3_, detail::rcp_nr1(_mm_set1_ps(s)));
     return c;
 }
 
