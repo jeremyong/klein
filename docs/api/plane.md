@@ -16,6 +16,8 @@ The plane multivector in PGA looks like $d\mathbf{e}_0 + a\mathbf{e}_1 + b\mathb
 `public void ` [`normalize`](#group__plane_1gae5e1e0af05e84799d27d7b8782fe5f22)`() noexcept`             | Normalize this plane $p$ such that $p \cdot p = 1$.
 `public plane ` [`normalized`](#group__plane_1ga15ec918ecd05f7e9b21887afa590d405)`() const noexcept`             | Return a normalized copy of this plane.
 `public float ` [`norm`](#group__plane_1ga2f86598e6a327c72201e68615bd10384)`() const noexcept`             | Compute the plane norm, which is often used to compute distances between points and lines.
+`public void ` [`invert`](#group__plane_1ga8b2ee34f6cc0fd6992520835b13c10e6)`() noexcept`             | 
+`public plane ` [`inverse`](#group__plane_1gab3e738eb24a1528e69a1a3ebd75c051e)`() const noexcept`             | 
 `public bool KLN_VEC_CALL ` [`operator==`](#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1)`(plane other) const noexcept`             | 
 `public bool KLN_VEC_CALL ` [`approx_eq`](#group__plane_1ga4fecdce7f0b686851053d5edfe55aed8)`(plane other,float epsilon) const noexcept`             | 
 `public plane KLN_VEC_CALL ` [`operator()`](#group__plane_1ga1c7a11e35d91c2aee88a4152b1799ca9)`(plane const & p) const noexcept`             | Reflect another plane $p_2$ through this plane $p_1$. The operation performed via this call operator is an optimized routine equivalent to the expression $p_1 p_2 p_1$.
@@ -86,6 +88,10 @@ Return a normalized copy of this plane.
 Compute the plane norm, which is often used to compute distances between points and lines.
 
 Given a normalized point $P$ and normalized line $\ell$, the plane $P\vee\ell$ containing both $\ell$ and $P$ will have a norm equivalent to the distance between $P$ and $\ell$.
+
+#### void  [invert](#group__plane_1ga8b2ee34f6cc0fd6992520835b13c10e6)() noexcept  {#group__plane_1ga8b2ee34f6cc0fd6992520835b13c10e6}
+
+#### plane  [inverse](#group__plane_1gab3e738eb24a1528e69a1a3ebd75c051e)() const noexcept  {#group__plane_1gab3e738eb24a1528e69a1a3ebd75c051e}
 
 #### bool KLN_VEC_CALL  [operator==](#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1)(plane other) const noexcept  {#group__plane_1ga1163a89d4d307d9f8812cd491d5e80e1}
 

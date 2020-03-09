@@ -32,9 +32,10 @@ public:
     {}
 
     ideal_line(__m128 xmm) noexcept
-        : p2_{xmm} {}
+        : p2_{xmm}
+    {}
 
-              [[nodiscard]] float squared_ideal_norm() noexcept
+    [[nodiscard]] float squared_ideal_norm() noexcept
     {
         float out;
         __m128 dp = detail::hi_dp(p2_, p2_);
@@ -246,13 +247,14 @@ public:
     {}
 
     branch(__m128 xmm) noexcept
-        : p1_{xmm} {}
+        : p1_{xmm}
+    {}
 
-              /// If a line is constructed as the regressive product (join) of
-              /// two points, the squared norm provided here is the squared
-              /// distance between the two points (provided the points are
-              /// normalized). Returns $d^2 + e^2 + f^2$.
-              [[nodiscard]] float squared_norm() noexcept
+    /// If a line is constructed as the regressive product (join) of
+    /// two points, the squared norm provided here is the squared
+    /// distance between the two points (provided the points are
+    /// normalized). Returns $d^2 + e^2 + f^2$.
+    [[nodiscard]] float squared_norm() noexcept
     {
         float out;
         __m128 dp = detail::hi_dp(p1_, p1_);
@@ -276,6 +278,21 @@ public:
     {
         branch out = *this;
         out.normalize();
+        return out;
+    }
+
+    void invert() noexcept
+    {
+        __m128 inv_norm = detail::rsqrt_nr1(detail::hi_dp_bc(p1_, p1_));
+        p1_             = _mm_mul_ps(p1_, inv_norm);
+        p1_             = _mm_mul_ps(p1_, inv_norm);
+        p1_             = _mm_xor_ps(_mm_set_ps(-0.f, -0.f, -0.f, 0.f), p1_);
+    }
+
+    [[nodiscard]] branch inverse() const noexcept
+    {
+        branch out = *this;
+        out.invert();
         return out;
     }
 
@@ -483,24 +500,26 @@ public:
 
     line(branch other) noexcept
         : p1_{other.p1_}
-        , p2_{_mm_setzero_ps()} {}
+        , p2_{_mm_setzero_ps()}
+    {}
 
-              /// If a line is constructed as the regressive product (join) of
-              /// two points, the squared norm provided here is the squared
-              /// distance between the two points (provided the points are
-              /// normalized). Returns $d^2 + e^2 + f^2$.
-              [[nodiscard]] float squared_norm() noexcept
+    /// Returns the square root of the quantity produced by
+    /// `squared_norm`.
+    [[nodiscard]] float norm() noexcept
+    {
+        return std::sqrt(squared_norm());
+    }
+
+    /// If a line is constructed as the regressive product (join) of
+    /// two points, the squared norm provided here is the squared
+    /// distance between the two points (provided the points are
+    /// normalized). Returns $d^2 + e^2 + f^2$.
+    [[nodiscard]] float squared_norm() noexcept
     {
         float out;
         __m128 dp = detail::hi_dp(p1_, p1_);
         _mm_store_ss(&out, dp);
         return out;
-    }
-
-    /// Returns the square root of the quantity produced by `squared_norm`.
-    [[nodiscard]] float norm() noexcept
-    {
-        return std::sqrt(squared_norm());
     }
 
     /// Normalize a line such that $\ell^2 = -1$.
@@ -529,6 +548,36 @@ public:
     {
         line out = *this;
         out.normalize();
+        return out;
+    }
+
+    void invert() noexcept
+    {
+        // s, t computed as in the normalization
+        __m128 b2     = detail::hi_dp_bc(p1_, p1_);
+        __m128 s      = detail::rsqrt_nr1(b2);
+        __m128 bc     = detail::hi_dp_bc(p1_, p2_);
+        __m128 b2_inv = detail::rcp_nr1(b2);
+        __m128 t      = _mm_mul_ps(_mm_mul_ps(bc, b2_inv), s);
+        __m128 neg    = _mm_set_ps(-0.f, -0.f, -0.f, 0.f);
+
+        // p1 * (s + t e0123)^2 = (s * p1 - t p1_perp) * (s + t e0123)
+        // = s^2 p1 - s t p1_perp - s t p1_perp
+        // = s^2 p1 - 2 s t p1_perp
+        // p2 * (s + t e0123)^2 = s^2 p2
+        // NOTE: s^2 = b2_inv
+        __m128 st = _mm_mul_ps(s, t);
+        st        = _mm_mul_ps(p1_, st);
+        p2_       = _mm_sub_ps(_mm_mul_ps(p2_, b2_inv), _mm_add_ps(st, st));
+        p2_       = _mm_xor_ps(p2_, neg);
+
+        p1_ = _mm_xor_ps(_mm_mul_ps(p1_, b2_inv), neg);
+    }
+
+    [[nodiscard]] line inverse() const noexcept
+    {
+        line out = *this;
+        out.invert();
         return out;
     }
 

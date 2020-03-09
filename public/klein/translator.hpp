@@ -78,6 +78,18 @@ public:
         p2_ = _mm_loadu_ps(data);
     }
 
+    void invert() noexcept
+    {
+        p2_ = _mm_xor_ps(_mm_set_ps(-0.f, -0.f, -0.f, 0.f), p2_);
+    }
+
+    [[nodiscard]] translator inverse() const noexcept
+    {
+        translator out = *this;
+        out.invert();
+        return out;
+    }
+
     /// Conjugates a plane $p$ with this translator and returns the result
     /// $tp\widetilde{t}$.
     [[nodiscard]] plane KLN_VEC_CALL operator()(plane const& p) const noexcept

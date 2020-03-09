@@ -114,6 +114,21 @@ public:
         return out;
     }
 
+    void invert() noexcept
+    {
+        __m128 inv_norm = detail::rsqrt_nr1(detail::hi_dp_bc(p1_, p1_));
+        p1_             = _mm_mul_ps(p1_, inv_norm);
+        p1_             = _mm_mul_ps(p1_, inv_norm);
+        p1_             = _mm_xor_ps(_mm_set_ps(-0.f, -0.f, -0.f, 0.f), p1_);
+    }
+
+    [[nodiscard]] rotor inverse() const noexcept
+    {
+        rotor out = *this;
+        out.invert();
+        return out;
+    }
+
     /// Converts the rotor to a 3x4 column-major matrix. The results of this
     /// conversion are only defined if the rotor is normalized, and this
     /// conversion is preferable if so.

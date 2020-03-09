@@ -38,6 +38,9 @@ Another common usage of the geometric product is to create a transformation that
         kln::line l3 = m(l2);
         // l3 will be projectively equivalent to l1.
     ```
+    
+
+Also provided are division operators that multiply the first argument by the inverse of the second argument.
 
 ### Summary
 
@@ -60,6 +63,15 @@ Another common usage of the geometric product is to create a transformation that
 `public motor KLN_VEC_CALL ` [`operator*`](#group__gp_1gaf71d001695eb98b0dbde90039957feda)`(translator a,motor b) noexcept`             | Compose the action of a translator and motor (`b`  will be applied, then `a` )
 `public motor KLN_VEC_CALL ` [`operator*`](#group__gp_1gae243255b3c91515f8a651ad3ce531650)`(motor b,translator a) noexcept`             | Compose the action of a translator and motor (`a`  will be applied, then `b` )
 `public motor KLN_VEC_CALL ` [`operator*`](#group__gp_1ga88f8e53b1842ca28ec1456d887144fec)`(motor a,motor b) noexcept`             | Compose the action of two motors (`b`  will be applied, then `a` )
+`public motor KLN_VEC_CALL ` [`operator/`](#group__gp_1gae07ffecb7a36960edc6959958faabc66)`(plane a,plane b) noexcept`             | 
+`public translator KLN_VEC_CALL ` [`operator/`](#group__gp_1gab85d0363fbcf716788bedca7d82dbf33)`(point a,point b) noexcept`             | 
+`public rotor KLN_VEC_CALL ` [`operator/`](#group__gp_1gae2b0b438f70ae7fdcb0bab00472074ec)`(branch a,branch b) noexcept`             | 
+`public rotor KLN_VEC_CALL ` [`operator/`](#group__gp_1ga9ed0e3e8b451b340f465d8f910d1ab35)`(rotor a,rotor b) noexcept`             | 
+`public translator KLN_VEC_CALL ` [`operator/`](#group__gp_1ga3bcbe21374e5abcbdcb62586091a9540)`(translator a,translator b) noexcept`             | 
+`public motor KLN_VEC_CALL ` [`operator/`](#group__gp_1ga391b74b2c0cab4a1fd80505ddd18763b)`(line a,line b) noexcept`             | 
+`public motor KLN_VEC_CALL ` [`operator/`](#group__gp_1gadf3632ea9928e28c4293deff327bdb6c)`(motor a,rotor b) noexcept`             | 
+`public motor KLN_VEC_CALL ` [`operator/`](#group__gp_1gac04a8339b0036a0949b2cdd30a7dbcfc)`(motor a,translator b) noexcept`             | 
+`public motor KLN_VEC_CALL ` [`operator/`](#group__gp_1ga195ed6702368641d3c46f5afe1f752d3)`(motor a,motor b) noexcept`             | 
 
 ### Members
 
@@ -133,4 +145,22 @@ Compose the action of a translator and motor (`a`  will be applied, then `b` )
 #### motor KLN_VEC_CALL  [operator*](#group__gp_1ga88f8e53b1842ca28ec1456d887144fec)(motor a,motor b) noexcept  {#group__gp_1ga88f8e53b1842ca28ec1456d887144fec}
 
 Compose the action of two motors (`b`  will be applied, then `a` )
+
+#### motor KLN_VEC_CALL  [operator/](#group__gp_1gae07ffecb7a36960edc6959958faabc66)(plane a,plane b) noexcept  {#group__gp_1gae07ffecb7a36960edc6959958faabc66}
+
+#### translator KLN_VEC_CALL  [operator/](#group__gp_1gab85d0363fbcf716788bedca7d82dbf33)(point a,point b) noexcept  {#group__gp_1gab85d0363fbcf716788bedca7d82dbf33}
+
+#### rotor KLN_VEC_CALL  [operator/](#group__gp_1gae2b0b438f70ae7fdcb0bab00472074ec)(branch a,branch b) noexcept  {#group__gp_1gae2b0b438f70ae7fdcb0bab00472074ec}
+
+#### rotor KLN_VEC_CALL  [operator/](#group__gp_1ga9ed0e3e8b451b340f465d8f910d1ab35)(rotor a,rotor b) noexcept  {#group__gp_1ga9ed0e3e8b451b340f465d8f910d1ab35}
+
+#### translator KLN_VEC_CALL  [operator/](#group__gp_1ga3bcbe21374e5abcbdcb62586091a9540)(translator a,translator b) noexcept  {#group__gp_1ga3bcbe21374e5abcbdcb62586091a9540}
+
+#### motor KLN_VEC_CALL  [operator/](#group__gp_1ga391b74b2c0cab4a1fd80505ddd18763b)(line a,line b) noexcept  {#group__gp_1ga391b74b2c0cab4a1fd80505ddd18763b}
+
+#### motor KLN_VEC_CALL  [operator/](#group__gp_1gadf3632ea9928e28c4293deff327bdb6c)(motor a,rotor b) noexcept  {#group__gp_1gadf3632ea9928e28c4293deff327bdb6c}
+
+#### motor KLN_VEC_CALL  [operator/](#group__gp_1gac04a8339b0036a0949b2cdd30a7dbcfc)(motor a,translator b) noexcept  {#group__gp_1gac04a8339b0036a0949b2cdd30a7dbcfc}
+
+#### motor KLN_VEC_CALL  [operator/](#group__gp_1ga195ed6702368641d3c46f5afe1f752d3)(motor a,motor b) noexcept  {#group__gp_1ga195ed6702368641d3c46f5afe1f752d3}
 

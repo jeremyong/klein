@@ -29,6 +29,20 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(m.scalar(), doctest::Approx(1.f));
     }
 
+    SUBCASE("plane/plane")
+    {
+        plane p1{1.f, 2.f, 3.f, 4.f};
+        motor m = p1 / p1;
+        CHECK_EQ(m.scalar(), doctest::Approx(1.f));
+        CHECK_EQ(m.e12(), 0.f);
+        CHECK_EQ(m.e31(), 0.f);
+        CHECK_EQ(m.e23(), 0.f);
+        CHECK_EQ(m.e01(), 0.f);
+        CHECK_EQ(m.e02(), 0.f);
+        CHECK_EQ(m.e03(), 0.f);
+        CHECK_EQ(m.e0123(), 0.f);
+    }
+
     SUBCASE("plane*point")
     {
         // d*e_0 + a*e_1 + b*e_2 + c*e_3
@@ -80,6 +94,16 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(b3.z(), doctest::Approx(b2.z()));
     }
 
+    SUBCASE("branch/branch")
+    {
+        branch b{2.f, 1.f, 3.f};
+        rotor r = b / b;
+        CHECK_EQ(r.scalar(), doctest::Approx(1.f));
+        CHECK_EQ(r.e23(), 0.f);
+        CHECK_EQ(r.e31(), 0.f);
+        CHECK_EQ(r.e12(), 0.f);
+    }
+
     SUBCASE("line*line")
     {
         // a*e01 + b*e02 + c*e03 + d*e23 + e*e31 + f*e12
@@ -100,6 +124,20 @@ TEST_CASE("multivector-gp")
         l2.normalize();
         line l3 = sqrt(l1 * l2)(l2);
         CHECK_EQ(l3.approx_eq(-l1, 0.001f), true);
+    }
+
+    SUBCASE("line/line")
+    {
+        line l{1.f, -2.f, 2.f, -3.f, 3.f, -4.f};
+        motor m = l / l;
+        CHECK_EQ(m.scalar(), doctest::Approx(1.f));
+        CHECK_EQ(m.e12(), 0.f);
+        CHECK_EQ(m.e31(), 0.f);
+        CHECK_EQ(m.e23(), 0.f);
+        CHECK_EQ(m.e01(), 0.f);
+        CHECK_EQ(m.e02(), 0.f);
+        CHECK_EQ(m.e03(), doctest::Approx(0.f));
+        CHECK_EQ(m.e0123(), doctest::Approx(0.f));
     }
 
     SUBCASE("point*plane")
@@ -135,6 +173,24 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(p3.x(), doctest::Approx(1.f));
         CHECK_EQ(p3.y(), doctest::Approx(2.f));
         CHECK_EQ(p3.z(), doctest::Approx(3.f));
+    }
+
+    SUBCASE("point/point")
+    {
+        point p1{1.f, 2.f, 3.f};
+        translator t = p1 / p1;
+        CHECK_EQ(t.e01(), 0.f);
+        CHECK_EQ(t.e02(), 0.f);
+        CHECK_EQ(t.e03(), 0.f);
+    }
+
+    SUBCASE("translator/translator")
+    {
+        translator t1{3.f, 1.f, -2.f, 3.f};
+        translator t2 = t1 / t1;
+        CHECK_EQ(t2.e01(), 0.f);
+        CHECK_EQ(t2.e02(), 0.f);
+        CHECK_EQ(t2.e03(), 0.f);
     }
 
     SUBCASE("rotor*translator")
@@ -236,5 +292,19 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(m3.e02(), -76.f);
         CHECK_EQ(m3.e03(), -66.f);
         CHECK_EQ(m3.e0123(), 384.f);
+    }
+
+    SUBCASE("motor/motor")
+    {
+        motor m1{2, 3, 4, 5, 6, 7, 8, 9};
+        motor m2 = m1 / m1;
+        CHECK_EQ(m2.scalar(), doctest::Approx(1.f));
+        CHECK_EQ(m2.e23(), 0.f);
+        CHECK_EQ(m2.e31(), 0.f);
+        CHECK_EQ(m2.e12(), 0.f);
+        CHECK_EQ(m2.e01(), 0.f);
+        CHECK_EQ(m2.e02(), doctest::Approx(0.f));
+        CHECK_EQ(m2.e03(), doctest::Approx(0.f));
+        CHECK_EQ(m2.e0123(), doctest::Approx(0.f));
     }
 }

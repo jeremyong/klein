@@ -55,6 +55,8 @@ A demonstration of using the exponential and logarithmic map to blend between tw
 `public void ` [`load`](#group__motor_1ga3a048b8d0f35322259f8f1cbaad88cab)`(float * in) noexcept`             | Load motor data using two unaligned loads. This routine does *not* assume the data passed in this way is normalized.
 `public void ` [`normalize`](#group__motor_1ga8af12b78c4e98b84c51f605b47dbc0a1)`() noexcept`             | Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
 `public motor ` [`normalized`](#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122)`() const noexcept`             | Return a normalized copy of this motor.
+`public void ` [`invert`](#group__motor_1ga934628e8e8f6d444b1d2fde50e44e219)`() noexcept`             | 
+`public motor ` [`inverse`](#group__motor_1ga0eacf6f6c4f25da1746a9769040ef17f)`() const noexcept`             | 
 `public bool KLN_VEC_CALL ` [`operator==`](#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0)`(motor other) const noexcept`             | Bitwise comparison.
 `public bool KLN_VEC_CALL ` [`approx_eq`](#group__motor_1ga38cc29c04cc13dadeac2b93547079ced)`(motor other,float epsilon) const noexcept`             | 
 `public mat3x4 ` [`as_mat3x4`](#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6)`() const noexcept`             | Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.
@@ -132,6 +134,10 @@ Normalizes this motor $m$ such that $m\widetilde{m} = 1$.
 #### motor  [normalized](#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122)() const noexcept  {#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122}
 
 Return a normalized copy of this motor.
+
+#### void  [invert](#group__motor_1ga934628e8e8f6d444b1d2fde50e44e219)() noexcept  {#group__motor_1ga934628e8e8f6d444b1d2fde50e44e219}
+
+#### motor  [inverse](#group__motor_1ga0eacf6f6c4f25da1746a9769040ef17f)() const noexcept  {#group__motor_1ga0eacf6f6c4f25da1746a9769040ef17f}
 
 #### bool KLN_VEC_CALL  [operator==](#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0)(motor other) const noexcept  {#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0}
 

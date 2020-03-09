@@ -40,6 +40,8 @@ Klein provides three line classes: "line", "branch", and "ideal_line". The line 
 `public float ` [`norm`](#group__lines_1ga6174cbd24d0189e3f5f9b893d63f5086)`() noexcept`             | Returns the square root of the quantity produced by `squared_norm` .
 `public void ` [`normalize`](#group__lines_1ga4d9e87ff79bba150183642ac82404d13)`() noexcept`             | 
 `public branch ` [`normalized`](#group__lines_1ga9d8961eee2687dd2b0ec3626193a0849)`() const noexcept`             | 
+`public void ` [`invert`](#group__lines_1ga1979e6270f96d0fdab20e96f2207c1fa)`() noexcept`             | 
+`public branch ` [`inverse`](#group__lines_1ga73cc09b7435bf131f8497a179dff059b)`() const noexcept`             | 
 `public branch &KLN_VEC_CALL ` [`operator+=`](#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2)`(branch b) noexcept`             | Branch addition.
 `public branch &KLN_VEC_CALL ` [`operator-=`](#group__lines_1ga69f66d6b2736f2fdaa02b45e72b1ba2f)`(branch b) noexcept`             | Branch subtraction.
 `public branch & ` [`operator*=`](#group__lines_1ga174b924bea5109230431bce2ec996d77)`(float s) noexcept`             | Branch uniform scale.
@@ -70,10 +72,12 @@ Klein provides three line classes: "line", "branch", and "ideal_line". The line 
 `public  ` [`line`](#group__lines_1ga185af75e75e036164d3c1754da405737)`(__m128 xmm1,__m128 xmm2) noexcept`             | 
 `public  ` [`line`](#group__lines_1gaddbd98af6bc9a738816347a15a83c276)`(ideal_line other) noexcept`             | 
 `public  ` [`line`](#group__lines_1gae8e557447c170f2cbb3004b6d9945a9e)`(branch other) noexcept`             | 
-`public float ` [`squared_norm`](#group__lines_1ga941c27dc8594f947ecf718160ebb084b)`() noexcept`             | If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
 `public float ` [`norm`](#group__lines_1gad388b8d134c0c22b1f82026277e39c22)`() noexcept`             | Returns the square root of the quantity produced by `squared_norm` .
+`public float ` [`squared_norm`](#group__lines_1ga941c27dc8594f947ecf718160ebb084b)`() noexcept`             | If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
 `public void ` [`normalize`](#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3)`() noexcept`             | Normalize a line such that $\ell^2 = -1$.
 `public line ` [`normalized`](#group__lines_1ga276e9de782855e6c32560923dce491c4)`() const noexcept`             | Return a normalized copy of this line.
+`public void ` [`invert`](#group__lines_1ga803c6bc20ae199f78a92419521366d2e)`() noexcept`             | 
+`public line ` [`inverse`](#group__lines_1gac196dc5ee3591a2c302d3d78cd7abcd8)`() const noexcept`             | 
 `public bool KLN_VEC_CALL ` [`operator==`](#group__lines_1gae443bd972f232ca9c17924283ab210c6)`(line other) const noexcept`             | Bitwise comparison.
 `public bool KLN_VEC_CALL ` [`approx_eq`](#group__lines_1ga1b70abc509a2e60dbccb3131acd0801e)`(line other,float epsilon) const noexcept`             | 
 `public line &KLN_VEC_CALL ` [`operator+=`](#group__lines_1ga3189260b7a1b0b6cf1f09a5b1b9bb8f3)`(line b) noexcept`             | Line addition.
@@ -215,6 +219,10 @@ Returns the square root of the quantity produced by `squared_norm` .
 
 #### branch  [normalized](#group__lines_1ga9d8961eee2687dd2b0ec3626193a0849)() const noexcept  {#group__lines_1ga9d8961eee2687dd2b0ec3626193a0849}
 
+#### void  [invert](#group__lines_1ga1979e6270f96d0fdab20e96f2207c1fa)() noexcept  {#group__lines_1ga1979e6270f96d0fdab20e96f2207c1fa}
+
+#### branch  [inverse](#group__lines_1ga73cc09b7435bf131f8497a179dff059b)() const noexcept  {#group__lines_1ga73cc09b7435bf131f8497a179dff059b}
+
 #### branch &KLN_VEC_CALL  [operator+=](#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2)(branch b) noexcept  {#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2}
 
 Branch addition.
@@ -311,13 +319,13 @@ $$a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03} +\ d\mathbf{e}_{23} + e
 
 ####   [line](#group__lines_1gae8e557447c170f2cbb3004b6d9945a9e)(branch other) noexcept  {#group__lines_1gae8e557447c170f2cbb3004b6d9945a9e}
 
-#### float  [squared_norm](#group__lines_1ga941c27dc8594f947ecf718160ebb084b)() noexcept  {#group__lines_1ga941c27dc8594f947ecf718160ebb084b}
-
-If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
-
 #### float  [norm](#group__lines_1gad388b8d134c0c22b1f82026277e39c22)() noexcept  {#group__lines_1gad388b8d134c0c22b1f82026277e39c22}
 
 Returns the square root of the quantity produced by `squared_norm` .
+
+#### float  [squared_norm](#group__lines_1ga941c27dc8594f947ecf718160ebb084b)() noexcept  {#group__lines_1ga941c27dc8594f947ecf718160ebb084b}
+
+If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns $d^2 + e^2 + f^2$.
 
 #### void  [normalize](#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3)() noexcept  {#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3}
 
@@ -326,6 +334,10 @@ Normalize a line such that $\ell^2 = -1$.
 #### line  [normalized](#group__lines_1ga276e9de782855e6c32560923dce491c4)() const noexcept  {#group__lines_1ga276e9de782855e6c32560923dce491c4}
 
 Return a normalized copy of this line.
+
+#### void  [invert](#group__lines_1ga803c6bc20ae199f78a92419521366d2e)() noexcept  {#group__lines_1ga803c6bc20ae199f78a92419521366d2e}
+
+#### line  [inverse](#group__lines_1gac196dc5ee3591a2c302d3d78cd7abcd8)() const noexcept  {#group__lines_1gac196dc5ee3591a2c302d3d78cd7abcd8}
 
 #### bool KLN_VEC_CALL  [operator==](#group__lines_1gae443bd972f232ca9c17924283ab210c6)(line other) const noexcept  {#group__lines_1gae443bd972f232ca9c17924283ab210c6}
 

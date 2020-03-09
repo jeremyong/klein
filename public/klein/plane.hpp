@@ -99,6 +99,20 @@ public:
         return out;
     }
 
+    void invert() noexcept
+    {
+        __m128 inv_norm = detail::rsqrt_nr1(detail::hi_dp_bc(p0_, p0_));
+        p0_             = _mm_mul_ps(inv_norm, p0_);
+        p0_             = _mm_mul_ps(inv_norm, p0_);
+    }
+
+    [[nodiscard]] plane inverse() const noexcept
+    {
+        plane out = *this;
+        out.invert();
+        return out;
+    }
+
     [[nodiscard]] bool KLN_VEC_CALL operator==(plane other) const noexcept
     {
         return _mm_movemask_ps(_mm_cmpeq_ps(p0_, other.p0_)) == 0b1111;

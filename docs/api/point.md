@@ -12,6 +12,8 @@ A point is represented as the multivector $x\mathbf{e}_{032} + y\mathbf{e}_{013}
 `public void ` [`load`](#group__point_1ga805739dde6d772f5b228cce5b95ef13f)`(float * data) noexcept`             | Fast load from a pointer to an array of four floats with layout `(w, x, y, z)`  where `w`  occupies the lowest address in memory.
 `public void ` [`normalize`](#group__point_1ga3d1ba8e0c47d25c5b5d124d9b5ef8e04)`() noexcept`             | Normalize this point (division is done via rcpps with an additional Newton-Raphson refinement).
 `public point ` [`normalized`](#group__point_1ga8f4c5fa5342ffda6c73695b2fbfa0f9b)`() const noexcept`             | Return a normalized copy of this point.
+`public void ` [`invert`](#group__point_1ga6ffcd424ab00bf033d241d55e901b209)`() noexcept`             | 
+`public point ` [`inverse`](#group__point_1ga4abcf2a7bce6975617ada1a3be8bc47d)`() const noexcept`             | 
 `public float ` [`x`](#group__point_1ga0c100888d1b7edc3fdb81f8b7c22feb1)`() const noexcept`             | 
 `public float ` [`e032`](#group__point_1ga1a733ef19316e24dc74867e91c27d126)`() const noexcept`             | 
 `public float ` [`y`](#group__point_1gae413703952e1a6e15b401d2620f6ae93)`() const noexcept`             | 
@@ -69,6 +71,10 @@ Normalize this point (division is done via rcpps with an additional Newton-Raphs
 #### point  [normalized](#group__point_1ga8f4c5fa5342ffda6c73695b2fbfa0f9b)() const noexcept  {#group__point_1ga8f4c5fa5342ffda6c73695b2fbfa0f9b}
 
 Return a normalized copy of this point.
+
+#### void  [invert](#group__point_1ga6ffcd424ab00bf033d241d55e901b209)() noexcept  {#group__point_1ga6ffcd424ab00bf033d241d55e901b209}
+
+#### point  [inverse](#group__point_1ga4abcf2a7bce6975617ada1a3be8bc47d)() const noexcept  {#group__point_1ga4abcf2a7bce6975617ada1a3be8bc47d}
 
 #### float  [x](#group__point_1ga0c100888d1b7edc3fdb81f8b7c22feb1)() const noexcept  {#group__point_1ga0c100888d1b7edc3fdb81f8b7c22feb1}
 

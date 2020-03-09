@@ -64,6 +64,20 @@ public:
         return out;
     }
 
+    void invert() noexcept
+    {
+        __m128 inv_norm = detail::rcp_nr1(KLN_SWIZZLE(p3_, 0, 0, 0, 0));
+        p3_             = _mm_mul_ps(inv_norm, p3_);
+        p3_             = _mm_mul_ps(inv_norm, p3_);
+    }
+
+    [[nodiscard]] point inverse() const noexcept
+    {
+        point out = *this;
+        out.invert();
+        return out;
+    }
+
     [[nodiscard]] float x() const noexcept
     {
         float out[4];

@@ -61,6 +61,9 @@ namespace kln
 ///         kln::line l3 = m(l2);
 ///         // l3 will be projectively equivalent to l1.
 ///     ```
+///
+/// Also provided are division operators that multiply the first argument by the
+/// inverse of the second argument.
 /// \addtogroup gp
 /// @{
 
@@ -221,6 +224,63 @@ namespace kln
     motor out;
     detail::gpMM(a.p1_, b.p1_, &out.p1_);
     return out;
+}
+
+// Division operators
+
+[[nodiscard]] inline motor KLN_VEC_CALL operator/(plane a, plane b) noexcept
+{
+    b.invert();
+    return a * b;
+}
+
+[[nodiscard]] inline translator KLN_VEC_CALL operator/(point a, point b) noexcept
+{
+    b.invert();
+    return a * b;
+}
+
+[[nodiscard]] inline rotor KLN_VEC_CALL operator/(branch a, branch b) noexcept
+{
+    b.invert();
+    return a * b;
+}
+
+[[nodiscard]] inline rotor KLN_VEC_CALL operator/(rotor a, rotor b) noexcept
+{
+    b.invert();
+    return a * b;
+}
+
+[[nodiscard]] inline translator KLN_VEC_CALL operator/(translator a,
+                                                       translator b) noexcept
+{
+    b.invert();
+    return a * b;
+}
+
+[[nodiscard]] inline motor KLN_VEC_CALL operator/(line a, line b) noexcept
+{
+    b.invert();
+    return a * b;
+}
+
+[[nodiscard]] inline motor KLN_VEC_CALL operator/(motor a, rotor b) noexcept
+{
+    b.invert();
+    return a * b;
+}
+
+[[nodiscard]] inline motor KLN_VEC_CALL operator/(motor a, translator b) noexcept
+{
+    b.invert();
+    return a * b;
+}
+
+[[nodiscard]] inline motor KLN_VEC_CALL operator/(motor a, motor b) noexcept
+{
+    b.invert();
+    return a * b;
 }
 /// @}
 } // namespace kln

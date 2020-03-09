@@ -186,6 +186,37 @@ public:
         return out;
     }
 
+    void invert() noexcept
+    {
+        // s, t computed as in the normalization
+        __m128 b2     = detail::dp_bc(p1_, p1_);
+        __m128 s      = detail::rsqrt_nr1(b2);
+        __m128 bc     = detail::dp_bc(_mm_xor_ps(p1_, _mm_set_ss(-0.f)), p2_);
+        __m128 b2_inv = detail::rcp_nr1(b2);
+        __m128 t      = _mm_mul_ps(_mm_mul_ps(bc, b2_inv), s);
+        __m128 neg    = _mm_set_ps(-0.f, -0.f, -0.f, 0.f);
+
+        // p1 * (s + t e0123)^2 = (s * p1 - t p1_perp) * (s + t e0123)
+        // = s^2 p1 - s t p1_perp - s t p1_perp
+        // = s^2 p1 - 2 s t p1_perp
+        // (the scalar component above needs to be negated)
+        // p2 * (s + t e0123)^2 = s^2 p2 NOTE: s^2 = b2_inv
+        __m128 st = _mm_mul_ps(s, t);
+        st        = _mm_mul_ps(p1_, st);
+        p2_       = _mm_sub_ps(_mm_mul_ps(p2_, b2_inv),
+                         _mm_xor_ps(_mm_add_ps(st, st), _mm_set_ss(-0.f)));
+        p2_       = _mm_xor_ps(p2_, neg);
+
+        p1_ = _mm_xor_ps(_mm_mul_ps(p1_, b2_inv), neg);
+    }
+
+    [[nodiscard]] motor inverse() const noexcept
+    {
+        motor out = *this;
+        out.invert();
+        return out;
+    }
+
     /// Bitwise comparison
     [[nodiscard]] bool KLN_VEC_CALL operator==(motor other) const noexcept
     {

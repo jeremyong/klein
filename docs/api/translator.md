@@ -39,6 +39,8 @@ The same `*`  operator can be used to compose the translator's action with other
 `public  ` [`translator`](#group__translator_1ga874afec21015e89c7b5f6f2100b5d2e7)`() = default`             | 
 `public  ` [`translator`](#group__translator_1ga0978aecd03c99d9f677ec606ccc2ace7)`(float delta,float x,float y,float z) noexcept`             | 
 `public void ` [`load_normalized`](#group__translator_1gaf41d16e554ed66e640671ca9065971b7)`(float * data) noexcept`             | Fast load operation for packed data that is already normalized. The argument `data`  should point to a set of 4 float values with layout `(0.f, a, b, c)`  corresponding to the multivector $a\mathbf{e}_{01} + b\mathbf{e}_{02} + c\mathbf{e}_{03}$.
+`public void ` [`invert`](#group__translator_1gaeec4cf70b528e2d42197dd41988a54a5)`() noexcept`             | 
+`public translator ` [`inverse`](#group__translator_1ga73c92c1080705f7ba48db4d3618099f8)`() const noexcept`             | 
 `public plane KLN_VEC_CALL ` [`operator()`](#group__translator_1ga0e313cc6d057b518bbc8b04ad6baec59)`(plane const & p) const noexcept`             | Conjugates a plane $p$ with this translator and returns the result $tp\widetilde{t}$.
 `public line KLN_VEC_CALL ` [`operator()`](#group__translator_1gaa0a9ea85643aa7661d52dd477abd76e7)`(line const & l) const noexcept`             | Conjugates a line $\ell$ with this translator and returns the result $t\ell\widetilde{t}$.
 `public point KLN_VEC_CALL ` [`operator()`](#group__translator_1ga6d5ee3578eb48f36bf3e21d321899de5)`(point const & p) const noexcept`             | Conjugates a point $p$ with this translator and returns the result $tp\widetilde{t}$.
@@ -78,6 +80,10 @@ Fast load operation for packed data that is already normalized. The argument `da
     The translator data loaded this way *must* be normalized. That is,
     the quantity $-\sqrt{a^2 + b^2 + c^2}$ must be half the desired
     displacement.
+
+#### void  [invert](#group__translator_1gaeec4cf70b528e2d42197dd41988a54a5)() noexcept  {#group__translator_1gaeec4cf70b528e2d42197dd41988a54a5}
+
+#### translator  [inverse](#group__translator_1ga73c92c1080705f7ba48db4d3618099f8)() const noexcept  {#group__translator_1ga73c92c1080705f7ba48db4d3618099f8}
 
 #### plane KLN_VEC_CALL  [operator()](#group__translator_1ga0e313cc6d057b518bbc8b04ad6baec59)(plane const & p) const noexcept  {#group__translator_1ga0e313cc6d057b518bbc8b04ad6baec59}
 
