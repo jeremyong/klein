@@ -622,6 +622,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__lines_1ga1979e6270f96d0fdab20e96f2207c1fa" class="md-nav__link">
+    void  invert() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga73cc09b7435bf131f8497a179dff059b" class="md-nav__link">
+    branch  inverse() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2" class="md-nav__link">
     branch &amp;KLN_VEC_CALL  operator+=(branch b) noexcept
   </a>
@@ -832,15 +846,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
-    float  squared_norm() noexcept
+  <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
+    float  norm() noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
-    float  norm() noexcept
+  <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
+    float  squared_norm() noexcept
   </a>
   
 </li>
@@ -855,6 +869,20 @@
           <li class="md-nav__item">
   <a href="#group__lines_1ga276e9de782855e6c32560923dce491c4" class="md-nav__link">
     line  normalized() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga803c6bc20ae199f78a92419521366d2e" class="md-nav__link">
+    void  invert() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac196dc5ee3591a2c302d3d78cd7abcd8" class="md-nav__link">
+    line  inverse() const noexcept
   </a>
   
 </li>
@@ -1675,6 +1703,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__lines_1ga1979e6270f96d0fdab20e96f2207c1fa" class="md-nav__link">
+    void  invert() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga73cc09b7435bf131f8497a179dff059b" class="md-nav__link">
+    branch  inverse() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2" class="md-nav__link">
     branch &amp;KLN_VEC_CALL  operator+=(branch b) noexcept
   </a>
@@ -1885,15 +1927,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
-    float  squared_norm() noexcept
+  <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
+    float  norm() noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22" class="md-nav__link">
-    float  norm() noexcept
+  <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b" class="md-nav__link">
+    float  squared_norm() noexcept
   </a>
   
 </li>
@@ -1908,6 +1950,20 @@
           <li class="md-nav__item">
   <a href="#group__lines_1ga276e9de782855e6c32560923dce491c4" class="md-nav__link">
     line  normalized() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1ga803c6bc20ae199f78a92419521366d2e" class="md-nav__link">
+    void  invert() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__lines_1gac196dc5ee3591a2c302d3d78cd7abcd8" class="md-nav__link">
+    line  inverse() const noexcept
   </a>
   
 </li>
@@ -2299,6 +2355,14 @@
 <td></td>
 </tr>
 <tr>
+<td><code>public void</code> <a href="#group__lines_1ga1979e6270f96d0fdab20e96f2207c1fa"><code>invert</code></a><code>() noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public branch</code> <a href="#group__lines_1ga73cc09b7435bf131f8497a179dff059b"><code>inverse</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
 <td><code>public branch &amp;KLN_VEC_CALL</code> <a href="#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2"><code>operator+=</code></a><code>(branch b) noexcept</code></td>
 <td>Branch addition.</td>
 </tr>
@@ -2419,12 +2483,12 @@
 <td></td>
 </tr>
 <tr>
-<td><code>public float</code> <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b"><code>squared_norm</code></a><code>() noexcept</code></td>
-<td>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</td>
-</tr>
-<tr>
 <td><code>public float</code> <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22"><code>norm</code></a><code>() noexcept</code></td>
 <td>Returns the square root of the quantity produced by <code>squared_norm</code> .</td>
+</tr>
+<tr>
+<td><code>public float</code> <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b"><code>squared_norm</code></a><code>() noexcept</code></td>
+<td>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</td>
 </tr>
 <tr>
 <td><code>public void</code> <a href="#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3"><code>normalize</code></a><code>() noexcept</code></td>
@@ -2433,6 +2497,14 @@
 <tr>
 <td><code>public line</code> <a href="#group__lines_1ga276e9de782855e6c32560923dce491c4"><code>normalized</code></a><code>() const noexcept</code></td>
 <td>Return a normalized copy of this line.</td>
+</tr>
+<tr>
+<td><code>public void</code> <a href="#group__lines_1ga803c6bc20ae199f78a92419521366d2e"><code>invert</code></a><code>() noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public line</code> <a href="#group__lines_1gac196dc5ee3591a2c302d3d78cd7abcd8"><code>inverse</code></a><code>() const noexcept</code></td>
+<td></td>
 </tr>
 <tr>
 <td><code>public bool KLN_VEC_CALL</code> <a href="#group__lines_1gae443bd972f232ca9c17924283ab210c6"><code>operator==</code></a><code>(line other) const noexcept</code></td>
@@ -2611,6 +2683,8 @@
 <p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
 <h4 id="group__lines_1ga4d9e87ff79bba150183642ac82404d13">void  <a href="#group__lines_1ga4d9e87ff79bba150183642ac82404d13">normalize</a>() noexcept</h4>
 <h4 id="group__lines_1ga9d8961eee2687dd2b0ec3626193a0849">branch  <a href="#group__lines_1ga9d8961eee2687dd2b0ec3626193a0849">normalized</a>() const noexcept</h4>
+<h4 id="group__lines_1ga1979e6270f96d0fdab20e96f2207c1fa">void  <a href="#group__lines_1ga1979e6270f96d0fdab20e96f2207c1fa">invert</a>() noexcept</h4>
+<h4 id="group__lines_1ga73cc09b7435bf131f8497a179dff059b">branch  <a href="#group__lines_1ga73cc09b7435bf131f8497a179dff059b">inverse</a>() const noexcept</h4>
 <h4 id="group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2">branch &amp;KLN_VEC_CALL  <a href="#group__lines_1gaeb5c16ed0187ff38df6c685529bb90c2">operator+=</a>(branch b) noexcept</h4>
 <p>Branch addition.</p>
 <h4 id="group__lines_1ga69f66d6b2736f2fdaa02b45e72b1ba2f">branch &amp;KLN_VEC_CALL  <a href="#group__lines_1ga69f66d6b2736f2fdaa02b45e72b1ba2f">operator-=</a>(branch b) noexcept</h4>
@@ -2659,14 +2733,16 @@
 <h4 id="group__lines_1ga185af75e75e036164d3c1754da405737"><a href="#group__lines_1ga185af75e75e036164d3c1754da405737">line</a>(__m128 xmm1,__m128 xmm2) noexcept</h4>
 <h4 id="group__lines_1gaddbd98af6bc9a738816347a15a83c276"><a href="#group__lines_1gaddbd98af6bc9a738816347a15a83c276">line</a>(ideal_line other) noexcept</h4>
 <h4 id="group__lines_1gae8e557447c170f2cbb3004b6d9945a9e"><a href="#group__lines_1gae8e557447c170f2cbb3004b6d9945a9e">line</a>(branch other) noexcept</h4>
-<h4 id="group__lines_1ga941c27dc8594f947ecf718160ebb084b">float  <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b">squared_norm</a>() noexcept</h4>
-<p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
 <h4 id="group__lines_1gad388b8d134c0c22b1f82026277e39c22">float  <a href="#group__lines_1gad388b8d134c0c22b1f82026277e39c22">norm</a>() noexcept</h4>
 <p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
+<h4 id="group__lines_1ga941c27dc8594f947ecf718160ebb084b">float  <a href="#group__lines_1ga941c27dc8594f947ecf718160ebb084b">squared_norm</a>() noexcept</h4>
+<p>If a line is constructed as the regressive product (join) of two points, the squared norm provided here is the squared distance between the two points (provided the points are normalized). Returns <span class="arithmatex">\(d^2 + e^2 + f^2\)</span>.</p>
 <h4 id="group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3">void  <a href="#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3">normalize</a>() noexcept</h4>
 <p>Normalize a line such that <span class="arithmatex">\(\ell^2 = -1\)</span>.</p>
 <h4 id="group__lines_1ga276e9de782855e6c32560923dce491c4">line  <a href="#group__lines_1ga276e9de782855e6c32560923dce491c4">normalized</a>() const noexcept</h4>
 <p>Return a normalized copy of this line.</p>
+<h4 id="group__lines_1ga803c6bc20ae199f78a92419521366d2e">void  <a href="#group__lines_1ga803c6bc20ae199f78a92419521366d2e">invert</a>() noexcept</h4>
+<h4 id="group__lines_1gac196dc5ee3591a2c302d3d78cd7abcd8">line  <a href="#group__lines_1gac196dc5ee3591a2c302d3d78cd7abcd8">inverse</a>() const noexcept</h4>
 <h4 id="group__lines_1gae443bd972f232ca9c17924283ab210c6">bool KLN_VEC_CALL  <a href="#group__lines_1gae443bd972f232ca9c17924283ab210c6">operator==</a>(line other) const noexcept</h4>
 <p>Bitwise comparison.</p>
 <h4 id="group__lines_1ga1b70abc509a2e60dbccb3131acd0801e">bool KLN_VEC_CALL  <a href="#group__lines_1ga1b70abc509a2e60dbccb3131acd0801e">approx_eq</a>(line other,float epsilon) const noexcept</h4>
