@@ -2665,11 +2665,6 @@
 <p>Returns the square root of the quantity produced by <code>squared_norm</code> .</p>
 <h4 id="group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3">void  <a href="#group__lines_1ga1bf22b022eadfaf1e9f9179f346a4cd3">normalize</a>() noexcept</h4>
 <p>Normalize a line such that <span class="arithmatex">\(\ell^2 = -1\)</span>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Normalization here is done using the <code>rsqrtps</code>
-instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
-</div>
 <h4 id="group__lines_1ga276e9de782855e6c32560923dce491c4">line  <a href="#group__lines_1ga276e9de782855e6c32560923dce491c4">normalized</a>() const noexcept</h4>
 <p>Return a normalized copy of this line.</p>
 <h4 id="group__lines_1gae443bd972f232ca9c17924283ab210c6">bool KLN_VEC_CALL  <a href="#group__lines_1gae443bd972f232ca9c17924283ab210c6">operator==</a>(line other) const noexcept</h4>

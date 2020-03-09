@@ -1814,11 +1814,6 @@
 <p>Load motor data using two unaligned loads. This routine does <em>not</em> assume the data passed in this way is normalized.</p>
 <h4 id="group__motor_1ga8af12b78c4e98b84c51f605b47dbc0a1">void  <a href="#group__motor_1ga8af12b78c4e98b84c51f605b47dbc0a1">normalize</a>() noexcept</h4>
 <p>Normalizes this motor <span class="arithmatex">\(m\)</span> such that <span class="arithmatex">\(m\widetilde{m} = 1\)</span>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Normalization here is done using the <code>rsqrtps</code>
-instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
-</div>
 <h4 id="group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122">motor  <a href="#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122">normalized</a>() const noexcept</h4>
 <p>Return a normalized copy of this motor.</p>
 <h4 id="group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0">bool KLN_VEC_CALL  <a href="#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0">operator==</a>(motor other) const noexcept</h4>

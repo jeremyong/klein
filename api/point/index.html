@@ -1242,7 +1242,7 @@
 </tr>
 <tr>
 <td><code>public void</code> <a href="#group__point_1ga3d1ba8e0c47d25c5b5d124d9b5ef8e04"><code>normalize</code></a><code>() noexcept</code></td>
-<td>Normalize this point</td>
+<td>Normalize this point (division is done via rcpps with an additional Newton-Raphson refinement).</td>
 </tr>
 <tr>
 <td><code>public point</code> <a href="#group__point_1ga8f4c5fa5342ffda6c73695b2fbfa0f9b"><code>normalized</code></a><code>() const noexcept</code></td>
@@ -1369,13 +1369,7 @@ homogeneous coordinate <code>w</code> to be supplied as well in the lowest
 address pointed to by <code>data</code>.</p>
 </div>
 <h4 id="group__point_1ga3d1ba8e0c47d25c5b5d124d9b5ef8e04">void  <a href="#group__point_1ga3d1ba8e0c47d25c5b5d124d9b5ef8e04">normalize</a>() noexcept</h4>
-<p>Normalize this point</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Point normalization divides the coordinates by the homogeneous
-coordinate <code>w</code>. This is done using the <code>rcpps</code> instruction with a
-maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
-</div>
+<p>Normalize this point (division is done via rcpps with an additional Newton-Raphson refinement).</p>
 <h4 id="group__point_1ga8f4c5fa5342ffda6c73695b2fbfa0f9b">point  <a href="#group__point_1ga8f4c5fa5342ffda6c73695b2fbfa0f9b">normalized</a>() const noexcept</h4>
 <p>Return a normalized copy of this point.</p>
 <h4 id="group__point_1ga0c100888d1b7edc3fdb81f8b7c22feb1">float  <a href="#group__point_1ga0c100888d1b7edc3fdb81f8b7c22feb1">x</a>() const noexcept</h4>

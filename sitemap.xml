@@ -2,137 +2,137 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://jeremyong.com/klein/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/quickstart/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/overview/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/gpu/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/plane/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/lines/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/point/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/dir/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/rotor/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/translator/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/motor/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/gp/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/ext/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/dual/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/reg/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/dot/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/exp_log/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/proj/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/api/dualn/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/geometry-potpourri/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/tutorial/intro/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/tutorial/exterior_algebra/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/case_studies/ga_skeletal_animation/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/shell/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/perf/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/discord/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://jeremyong.com/klein/references/</loc>
-     <lastmod>2020-03-05</lastmod>
+     <lastmod>2020-03-08</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
