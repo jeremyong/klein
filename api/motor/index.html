@@ -535,6 +535,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__motor_1gae856f717434c757ae51f7b63d3a46871" class="md-nav__link">
+    void  constrain() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga7db461c10aede892e0d3abd5be0fa099" class="md-nav__link">
+    motor  constrained() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0" class="md-nav__link">
     bool KLN_VEC_CALL  operator==(motor other) const noexcept
   </a>
@@ -822,15 +836,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c" class="md-nav__link">
-    motor  operator-(motor m) noexcept
+  <a href="#group__motor_1gaf953e632f3ddff1dc435c3070e07c9b5" class="md-nav__link">
+    motor KLN_VEC_CALL  operator-(motor m) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca" class="md-nav__link">
-    motor  operator~(motor m) noexcept
+  <a href="#group__motor_1gaf4f013b57e29f6925ddfdf2d6e25ce0a" class="md-nav__link">
+    motor KLN_VEC_CALL  operator~(motor m) noexcept
   </a>
   
 </li>
@@ -1234,6 +1248,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__motor_1gae856f717434c757ae51f7b63d3a46871" class="md-nav__link">
+    void  constrain() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__motor_1ga7db461c10aede892e0d3abd5be0fa099" class="md-nav__link">
+    motor  constrained() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0" class="md-nav__link">
     bool KLN_VEC_CALL  operator==(motor other) const noexcept
   </a>
@@ -1521,15 +1549,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c" class="md-nav__link">
-    motor  operator-(motor m) noexcept
+  <a href="#group__motor_1gaf953e632f3ddff1dc435c3070e07c9b5" class="md-nav__link">
+    motor KLN_VEC_CALL  operator-(motor m) noexcept
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca" class="md-nav__link">
-    motor  operator~(motor m) noexcept
+  <a href="#group__motor_1gaf4f013b57e29f6925ddfdf2d6e25ce0a" class="md-nav__link">
+    motor KLN_VEC_CALL  operator~(motor m) noexcept
   </a>
   
 </li>
@@ -1659,6 +1687,14 @@
 </tr>
 <tr>
 <td><code>public motor</code> <a href="#group__motor_1ga0eacf6f6c4f25da1746a9769040ef17f"><code>inverse</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public void</code> <a href="#group__motor_1gae856f717434c757ae51f7b63d3a46871"><code>constrain</code></a><code>() noexcept</code></td>
+<td>Constrains the motor to traverse the shortest arc.</td>
+</tr>
+<tr>
+<td><code>public motor</code> <a href="#group__motor_1ga7db461c10aede892e0d3abd5be0fa099"><code>constrained</code></a><code>() const noexcept</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1826,11 +1862,11 @@
 <td>Motor uniform inverse scale.</td>
 </tr>
 <tr>
-<td><code>public motor</code> <a href="#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c"><code>operator-</code></a><code>(motor m) noexcept</code></td>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1gaf953e632f3ddff1dc435c3070e07c9b5"><code>operator-</code></a><code>(motor m) noexcept</code></td>
 <td>Unary minus.</td>
 </tr>
 <tr>
-<td><code>public motor</code> <a href="#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca"><code>operator~</code></a><code>(motor m) noexcept</code></td>
+<td><code>public motor KLN_VEC_CALL</code> <a href="#group__motor_1gaf4f013b57e29f6925ddfdf2d6e25ce0a"><code>operator~</code></a><code>(motor m) noexcept</code></td>
 <td>Reversion operator.</td>
 </tr>
 </tbody>
@@ -1854,6 +1890,9 @@
 <p>Return a normalized copy of this motor.</p>
 <h4 id="group__motor_1ga934628e8e8f6d444b1d2fde50e44e219">void  <a href="#group__motor_1ga934628e8e8f6d444b1d2fde50e44e219">invert</a>() noexcept</h4>
 <h4 id="group__motor_1ga0eacf6f6c4f25da1746a9769040ef17f">motor  <a href="#group__motor_1ga0eacf6f6c4f25da1746a9769040ef17f">inverse</a>() const noexcept</h4>
+<h4 id="group__motor_1gae856f717434c757ae51f7b63d3a46871">void  <a href="#group__motor_1gae856f717434c757ae51f7b63d3a46871">constrain</a>() noexcept</h4>
+<p>Constrains the motor to traverse the shortest arc.</p>
+<h4 id="group__motor_1ga7db461c10aede892e0d3abd5be0fa099">motor  <a href="#group__motor_1ga7db461c10aede892e0d3abd5be0fa099">constrained</a>() const noexcept</h4>
 <h4 id="group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0">bool KLN_VEC_CALL  <a href="#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0">operator==</a>(motor other) const noexcept</h4>
 <p>Bitwise comparison.</p>
 <h4 id="group__motor_1ga38cc29c04cc13dadeac2b93547079ced">bool KLN_VEC_CALL  <a href="#group__motor_1ga38cc29c04cc13dadeac2b93547079ced">approx_eq</a>(motor other,float epsilon) const noexcept</h4>
@@ -1947,9 +1986,9 @@ each direction individually.</p>
 <p>Motor uniform inverse scale.</p>
 <h4 id="group__motor_1gacd7a8807bc6b6238b893150a8d8f97ca">motor KLN_VEC_CALL  <a href="#group__motor_1gacd7a8807bc6b6238b893150a8d8f97ca">operator/</a>(motor r,int s) noexcept</h4>
 <p>Motor uniform inverse scale.</p>
-<h4 id="group__motor_1ga76e6057142774c1ffa347678ea6bbb7c">motor  <a href="#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c">operator-</a>(motor m) noexcept</h4>
+<h4 id="group__motor_1gaf953e632f3ddff1dc435c3070e07c9b5">motor KLN_VEC_CALL  <a href="#group__motor_1gaf953e632f3ddff1dc435c3070e07c9b5">operator-</a>(motor m) noexcept</h4>
 <p>Unary minus.</p>
-<h4 id="group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca">motor  <a href="#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca">operator~</a>(motor m) noexcept</h4>
+<h4 id="group__motor_1gaf4f013b57e29f6925ddfdf2d6e25ce0a">motor KLN_VEC_CALL  <a href="#group__motor_1gaf4f013b57e29f6925ddfdf2d6e25ce0a">operator~</a>(motor m) noexcept</h4>
 <p>Reversion operator.</p>
                 
                   

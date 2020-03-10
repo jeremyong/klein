@@ -631,8 +631,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__plane_1ga8faa5ef6b8daedb841f7ea4ad6d0f452" class="md-nav__link">
-    plane  operator-(plane p) noexcept
+  <a href="#group__plane_1gae018fc4984db372392abd5305b86a212" class="md-nav__link">
+    plane KLN_VEC_CALL  operator-(plane p) noexcept
   </a>
   
 </li>
@@ -1276,8 +1276,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__plane_1ga8faa5ef6b8daedb841f7ea4ad6d0f452" class="md-nav__link">
-    plane  operator-(plane p) noexcept
+  <a href="#group__plane_1gae018fc4984db372392abd5305b86a212" class="md-nav__link">
+    plane KLN_VEC_CALL  operator-(plane p) noexcept
   </a>
   
 </li>
@@ -1472,8 +1472,8 @@
 <td>Plane uniform inverse scale.</td>
 </tr>
 <tr>
-<td><code>public plane</code> <a href="#group__plane_1ga8faa5ef6b8daedb841f7ea4ad6d0f452"><code>operator-</code></a><code>(plane p) noexcept</code></td>
-<td>Unary minus.</td>
+<td><code>public plane KLN_VEC_CALL</code> <a href="#group__plane_1gae018fc4984db372392abd5305b86a212"><code>operator-</code></a><code>(plane p) noexcept</code></td>
+<td>Unary minus (leaves displacement from origin untouched, changing orientation only)</td>
 </tr>
 </tbody>
 </table>
@@ -1494,11 +1494,6 @@ components one at a time.</p>
 <h4 id="group__plane_1gae5e1e0af05e84799d27d7b8782fe5f22">void  <a href="#group__plane_1gae5e1e0af05e84799d27d7b8782fe5f22">normalize</a>() noexcept</h4>
 <p>Normalize this plane <span class="arithmatex">\(p\)</span> such that <span class="arithmatex">\(p \cdot p = 1\)</span>.</p>
 <p>In order to compute the cosine of the angle between planes via the inner product operator <code>|</code> , the planes must be normalized. Producing a normalized rotor between two planes with the geometric product <code>*</code>  also requires that the planes are normalized.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Normalization here is done using the <code>rsqrtps</code>
-instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
-</div>
 <h4 id="group__plane_1ga15ec918ecd05f7e9b21887afa590d405">plane  <a href="#group__plane_1ga15ec918ecd05f7e9b21887afa590d405">normalized</a>() const noexcept</h4>
 <p>Return a normalized copy of this plane.</p>
 <h4 id="group__plane_1ga2f86598e6a327c72201e68615bd10384">float  <a href="#group__plane_1ga2f86598e6a327c72201e68615bd10384">norm</a>() const noexcept</h4>
@@ -1550,8 +1545,8 @@ instruction with a maximum relative error of <span class="arithmatex">\(1.5\time
 <p>Plane uniform inverse scale.</p>
 <h4 id="group__plane_1gafa4b66325f423b360e28b5b5efffa75f">plane KLN_VEC_CALL  <a href="#group__plane_1gafa4b66325f423b360e28b5b5efffa75f">operator/</a>(plane p,int s) noexcept</h4>
 <p>Plane uniform inverse scale.</p>
-<h4 id="group__plane_1ga8faa5ef6b8daedb841f7ea4ad6d0f452">plane  <a href="#group__plane_1ga8faa5ef6b8daedb841f7ea4ad6d0f452">operator-</a>(plane p) noexcept</h4>
-<p>Unary minus.</p>
+<h4 id="group__plane_1gae018fc4984db372392abd5305b86a212">plane KLN_VEC_CALL  <a href="#group__plane_1gae018fc4984db372392abd5305b86a212">operator-</a>(plane p) noexcept</h4>
+<p>Unary minus (leaves displacement from origin untouched, changing orientation only)</p>
                 
                   
                 

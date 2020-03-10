@@ -476,6 +476,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__rotor_1gad54377a528107dc4dea11e2235c7bcb4" class="md-nav__link">
+    void  constrain() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga16106f423e64a1e83eb3e8c565185a4c" class="md-nav__link">
+    rotor  constrained() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gacde3f253079c87e7f14af37d1ecbb820" class="md-nav__link">
+    bool KLN_VEC_CALL  operator==(rotor other) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gae600982e491885c97654229bc86321a1" class="md-nav__link">
+    bool KLN_VEC_CALL  approx_eq(rotor other,float epsilon) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
     mat3x4  as_mat3x4() const noexcept
   </a>
@@ -700,8 +728,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59" class="md-nav__link">
-    rotor  operator~(rotor r) noexcept
+  <a href="#group__rotor_1ga2c4b1d7565d89e7a6f6e6b838f838ed5" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator~(rotor r) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga2da1f112e6633bfefb1a15e5e2bdcd5b" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator-(rotor r) noexcept
   </a>
   
 </li>
@@ -1094,6 +1129,34 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#group__rotor_1gad54377a528107dc4dea11e2235c7bcb4" class="md-nav__link">
+    void  constrain() noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga16106f423e64a1e83eb3e8c565185a4c" class="md-nav__link">
+    rotor  constrained() const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gacde3f253079c87e7f14af37d1ecbb820" class="md-nav__link">
+    bool KLN_VEC_CALL  operator==(rotor other) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1gae600982e491885c97654229bc86321a1" class="md-nav__link">
+    bool KLN_VEC_CALL  approx_eq(rotor other,float epsilon) const noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d" class="md-nav__link">
     mat3x4  as_mat3x4() const noexcept
   </a>
@@ -1318,8 +1381,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59" class="md-nav__link">
-    rotor  operator~(rotor r) noexcept
+  <a href="#group__rotor_1ga2c4b1d7565d89e7a6f6e6b838f838ed5" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator~(rotor r) noexcept
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group__rotor_1ga2da1f112e6633bfefb1a15e5e2bdcd5b" class="md-nav__link">
+    rotor KLN_VEC_CALL  operator-(rotor r) noexcept
   </a>
   
 </li>
@@ -1427,6 +1497,22 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 </tr>
 <tr>
 <td><code>public rotor</code> <a href="#group__rotor_1gaaac6e3fe391fc452089f8742427f011a"><code>inverse</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public void</code> <a href="#group__rotor_1gad54377a528107dc4dea11e2235c7bcb4"><code>constrain</code></a><code>() noexcept</code></td>
+<td>Constrains the rotor to traverse the shortest arc.</td>
+</tr>
+<tr>
+<td><code>public rotor</code> <a href="#group__rotor_1ga16106f423e64a1e83eb3e8c565185a4c"><code>constrained</code></a><code>() const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public bool KLN_VEC_CALL</code> <a href="#group__rotor_1gacde3f253079c87e7f14af37d1ecbb820"><code>operator==</code></a><code>(rotor other) const noexcept</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>public bool KLN_VEC_CALL</code> <a href="#group__rotor_1gae600982e491885c97654229bc86321a1"><code>approx_eq</code></a><code>(rotor other,float epsilon) const noexcept</code></td>
 <td></td>
 </tr>
 <tr>
@@ -1558,8 +1644,12 @@ We can rotate lines and planes as well using the rotor's call operator.</p>
 <td>Rotor uniform inverse scale.</td>
 </tr>
 <tr>
-<td><code>public rotor</code> <a href="#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59"><code>operator~</code></a><code>(rotor r) noexcept</code></td>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1ga2c4b1d7565d89e7a6f6e6b838f838ed5"><code>operator~</code></a><code>(rotor r) noexcept</code></td>
 <td>Reversion operator.</td>
+</tr>
+<tr>
+<td><code>public rotor KLN_VEC_CALL</code> <a href="#group__rotor_1ga2da1f112e6633bfefb1a15e5e2bdcd5b"><code>operator-</code></a><code>(rotor r) noexcept</code></td>
+<td>Unary minus.</td>
 </tr>
 </tbody>
 </table>
@@ -1577,15 +1667,15 @@ rotor <span class="arithmatex">\(r\)</span> must satisfy <span class="arithmatex
 </div>
 <h4 id="group__rotor_1ga4c9b04d0a4119e7d6b56b9e1478db5d4">void  <a href="#group__rotor_1ga4c9b04d0a4119e7d6b56b9e1478db5d4">normalize</a>() noexcept</h4>
 <p>Normalize a rotor such that <span class="arithmatex">\(\mathbf{r}\widetilde{\mathbf{r}} = 1\)</span>.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Normalization here is done using the <code>rsqrtps</code>
-instruction with a maximum relative error of <span class="arithmatex">\(1.5\times 2^{-12}\)</span>.</p>
-</div>
 <h4 id="group__rotor_1ga26bfef944e4ae6879de054390d297bc7">rotor  <a href="#group__rotor_1ga26bfef944e4ae6879de054390d297bc7">normalized</a>() const noexcept</h4>
 <p>Return a normalized copy of this rotor.</p>
 <h4 id="group__rotor_1ga9203cbd66f7cc6f61e545e02657868d8">void  <a href="#group__rotor_1ga9203cbd66f7cc6f61e545e02657868d8">invert</a>() noexcept</h4>
 <h4 id="group__rotor_1gaaac6e3fe391fc452089f8742427f011a">rotor  <a href="#group__rotor_1gaaac6e3fe391fc452089f8742427f011a">inverse</a>() const noexcept</h4>
+<h4 id="group__rotor_1gad54377a528107dc4dea11e2235c7bcb4">void  <a href="#group__rotor_1gad54377a528107dc4dea11e2235c7bcb4">constrain</a>() noexcept</h4>
+<p>Constrains the rotor to traverse the shortest arc.</p>
+<h4 id="group__rotor_1ga16106f423e64a1e83eb3e8c565185a4c">rotor  <a href="#group__rotor_1ga16106f423e64a1e83eb3e8c565185a4c">constrained</a>() const noexcept</h4>
+<h4 id="group__rotor_1gacde3f253079c87e7f14af37d1ecbb820">bool KLN_VEC_CALL  <a href="#group__rotor_1gacde3f253079c87e7f14af37d1ecbb820">operator==</a>(rotor other) const noexcept</h4>
+<h4 id="group__rotor_1gae600982e491885c97654229bc86321a1">bool KLN_VEC_CALL  <a href="#group__rotor_1gae600982e491885c97654229bc86321a1">approx_eq</a>(rotor other,float epsilon) const noexcept</h4>
 <h4 id="group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d">mat3x4  <a href="#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d">as_mat3x4</a>() const noexcept</h4>
 <p>Converts the rotor to a 3x4 column-major matrix. The results of this conversion are only defined if the rotor is normalized, and this conversion is preferable if so.</p>
 <h4 id="group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8">mat4x4  <a href="#group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8">as_mat4x4</a>() const noexcept</h4>
@@ -1666,8 +1756,10 @@ each direction individually.</p>
 <p>Rotor uniform inverse scale.</p>
 <h4 id="group__rotor_1gaf87b76ceb327655df465f15b7e0dd96b">rotor KLN_VEC_CALL  <a href="#group__rotor_1gaf87b76ceb327655df465f15b7e0dd96b">operator/</a>(rotor r,int s) noexcept</h4>
 <p>Rotor uniform inverse scale.</p>
-<h4 id="group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59">rotor  <a href="#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59">operator~</a>(rotor r) noexcept</h4>
+<h4 id="group__rotor_1ga2c4b1d7565d89e7a6f6e6b838f838ed5">rotor KLN_VEC_CALL  <a href="#group__rotor_1ga2c4b1d7565d89e7a6f6e6b838f838ed5">operator~</a>(rotor r) noexcept</h4>
 <p>Reversion operator.</p>
+<h4 id="group__rotor_1ga2da1f112e6633bfefb1a15e5e2bdcd5b">rotor KLN_VEC_CALL  <a href="#group__rotor_1ga2da1f112e6633bfefb1a15e5e2bdcd5b">operator-</a>(rotor r) noexcept</h4>
+<p>Unary minus.</p>
                 
                   
                 
