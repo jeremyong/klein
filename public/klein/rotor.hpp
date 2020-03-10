@@ -127,9 +127,8 @@ public:
     /// Constrains the rotor to traverse the shortest arc
     void constrain() noexcept
     {
-        __m128 mask
-            = KLN_SWIZZLE(_mm_cmple_ss(p1_, _mm_setzero_ps()), 0, 0, 0, 0);
-        p1_ = _mm_xor_ps(_mm_and_ps(mask, _mm_set1_ps(-0.f)), p1_);
+        __m128 mask = KLN_SWIZZLE(_mm_and_ps(p1_, _mm_set_ss(-0.f)), 0, 0, 0, 0);
+        p1_         = _mm_xor_ps(mask, p1_);
     }
 
     [[nodiscard]] rotor constrained() const noexcept
