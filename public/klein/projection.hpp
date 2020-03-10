@@ -75,7 +75,11 @@ inline line KLN_VEC_CALL project(line a, point b) noexcept
 }
 
 /// Project a plane onto a line. Given a plane $p$ and line $\ell$, produces the
-/// plane through $\ell$ that is parallel to $p$.
+/// plane through $\ell$ that is parallel to $p$ if $p \parallel \ell$.
+///
+/// If $p \nparallel \ell$, the result will be the plane $p'$ containing $\ell$
+/// that maximizes $p \cdot p'$ (that is, $p'$ is as parallel to $p$ as
+/// possible).
 inline plane KLN_VEC_CALL project(plane a, line b) noexcept
 {
     return {(a | b) | b};

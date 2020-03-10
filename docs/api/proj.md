@@ -21,7 +21,7 @@ It can be verified that as in the first case, the grade of the result is the sam
 `public line KLN_VEC_CALL ` [`project`](#group__proj_1gad0ac38479bfb78b1ef9d0c06cb37a033)`(line a,plane b) noexcept`             | Project a line onto a plane.
 `public plane KLN_VEC_CALL ` [`project`](#group__proj_1ga9ba81079e93afed456b56ae7273af189)`(plane a,point b) noexcept`             | Project a plane onto a point. Given a plane $p$ and point $P$, produces the plane through $P$ that is parallel to $p$.
 `public line KLN_VEC_CALL ` [`project`](#group__proj_1ga1d875a5cc0de38ff17c3e4f298a116bd)`(line a,point b) noexcept`             | Project a line onto a point. Given a line $\ell$ and point $P$, produces the line through $P$ that is parallel to $\ell$.
-`public plane KLN_VEC_CALL ` [`project`](#group__proj_1ga29fd7694ba97a90fc9ae4525ab609314)`(plane a,line b) noexcept`             | Project a plane onto a line. Given a plane $p$ and line $\ell$, produces the plane through $\ell$ that is parallel to $p$.
+`public plane KLN_VEC_CALL ` [`project`](#group__proj_1ga29fd7694ba97a90fc9ae4525ab609314)`(plane a,line b) noexcept`             | Project a plane onto a line. Given a plane $p$ and line $\ell$, produces the plane through $\ell$ that is parallel to $p$ if $p \parallel \ell$.
 
 ### Members
 
@@ -49,5 +49,7 @@ Project a line onto a point. Given a line $\ell$ and point $P$, produces the lin
 
 #### plane KLN_VEC_CALL  [project](#group__proj_1ga29fd7694ba97a90fc9ae4525ab609314)(plane a,line b) noexcept  {#group__proj_1ga29fd7694ba97a90fc9ae4525ab609314}
 
-Project a plane onto a line. Given a plane $p$ and line $\ell$, produces the plane through $\ell$ that is parallel to $p$.
+Project a plane onto a line. Given a plane $p$ and line $\ell$, produces the plane through $\ell$ that is parallel to $p$ if $p \parallel \ell$.
+
+If $p \nparallel \ell$, the result will be the plane $p'$ containing $\ell$ that maximizes $p \cdot p'$ (that is, $p'$ is as parallel to $p$ as possible).
 
