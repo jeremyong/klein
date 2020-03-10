@@ -62,11 +62,6 @@ public:
     /// inner product operator `|`, the planes must be normalized. Producing a
     /// normalized rotor between two planes with the geometric product `*` also
     /// requires that the planes are normalized.
-    ///
-    /// !!! tip
-    ///
-    ///     Normalization here is done using the `rsqrtps`
-    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
         __m128 inv_norm = detail::rsqrt_nr1(detail::hi_dp_bc(p0_, p0_));
@@ -310,10 +305,11 @@ public:
     return p / static_cast<float>(s);
 }
 
-/// Unary minus
-[[nodiscard]] inline plane operator-(plane p) noexcept
+/// Unary minus (leaves displacement from origin untouched, changing orientation
+/// only)
+[[nodiscard]] inline plane KLN_VEC_CALL operator-(plane p) noexcept
 {
-    return {_mm_xor_ps(p.p0_, _mm_set1_ps(-0.f))};
+    return {_mm_xor_ps(p.p0_, _mm_set_ps(-0.f, -0.f, -0.f, 0.f))};
 }
 } // namespace kln
 /// @}

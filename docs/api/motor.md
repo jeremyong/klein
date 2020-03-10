@@ -57,6 +57,8 @@ A demonstration of using the exponential and logarithmic map to blend between tw
 `public motor ` [`normalized`](#group__motor_1ga6d04fd7c7cfc51f614e73018f1e92122)`() const noexcept`             | Return a normalized copy of this motor.
 `public void ` [`invert`](#group__motor_1ga934628e8e8f6d444b1d2fde50e44e219)`() noexcept`             | 
 `public motor ` [`inverse`](#group__motor_1ga0eacf6f6c4f25da1746a9769040ef17f)`() const noexcept`             | 
+`public void ` [`constrain`](#group__motor_1gae856f717434c757ae51f7b63d3a46871)`() noexcept`             | Constrains the motor to traverse the shortest arc.
+`public motor ` [`constrained`](#group__motor_1ga7db461c10aede892e0d3abd5be0fa099)`() const noexcept`             | 
 `public bool KLN_VEC_CALL ` [`operator==`](#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0)`(motor other) const noexcept`             | Bitwise comparison.
 `public bool KLN_VEC_CALL ` [`approx_eq`](#group__motor_1ga38cc29c04cc13dadeac2b93547079ced)`(motor other,float epsilon) const noexcept`             | 
 `public mat3x4 ` [`as_mat3x4`](#group__motor_1gae07a4ac9001f3afe4e1200e114ccf4c6)`() const noexcept`             | Convert this motor to a 3x4 column-major matrix representing this motor's action as a linear transformation. The motor must be normalized for this conversion to produce well-defined results, but is more efficient than a 4x4 matrix conversion.
@@ -98,8 +100,8 @@ A demonstration of using the exponential and logarithmic map to blend between tw
 `public motor KLN_VEC_CALL ` [`operator*`](#group__motor_1gadeb2482d5ca5548b73fbc81ea1559169)`(int s,motor l) noexcept`             | Motor uniform scale.
 `public motor KLN_VEC_CALL ` [`operator/`](#group__motor_1gab9468a090086428d6c48d47f75e8b0e7)`(motor r,float s) noexcept`             | Motor uniform inverse scale.
 `public motor KLN_VEC_CALL ` [`operator/`](#group__motor_1gacd7a8807bc6b6238b893150a8d8f97ca)`(motor r,int s) noexcept`             | Motor uniform inverse scale.
-`public motor ` [`operator-`](#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c)`(motor m) noexcept`             | Unary minus.
-`public motor ` [`operator~`](#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca)`(motor m) noexcept`             | Reversion operator.
+`public motor KLN_VEC_CALL ` [`operator-`](#group__motor_1gaf953e632f3ddff1dc435c3070e07c9b5)`(motor m) noexcept`             | Unary minus.
+`public motor KLN_VEC_CALL ` [`operator~`](#group__motor_1gaf4f013b57e29f6925ddfdf2d6e25ce0a)`(motor m) noexcept`             | Reversion operator.
 
 ### Members
 
@@ -138,6 +140,12 @@ Return a normalized copy of this motor.
 #### void  [invert](#group__motor_1ga934628e8e8f6d444b1d2fde50e44e219)() noexcept  {#group__motor_1ga934628e8e8f6d444b1d2fde50e44e219}
 
 #### motor  [inverse](#group__motor_1ga0eacf6f6c4f25da1746a9769040ef17f)() const noexcept  {#group__motor_1ga0eacf6f6c4f25da1746a9769040ef17f}
+
+#### void  [constrain](#group__motor_1gae856f717434c757ae51f7b63d3a46871)() noexcept  {#group__motor_1gae856f717434c757ae51f7b63d3a46871}
+
+Constrains the motor to traverse the shortest arc.
+
+#### motor  [constrained](#group__motor_1ga7db461c10aede892e0d3abd5be0fa099)() const noexcept  {#group__motor_1ga7db461c10aede892e0d3abd5be0fa099}
 
 #### bool KLN_VEC_CALL  [operator==](#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0)(motor other) const noexcept  {#group__motor_1ga96324fdd9ee73afdc3b246b1aa1177a0}
 
@@ -297,11 +305,11 @@ Motor uniform inverse scale.
 
 Motor uniform inverse scale.
 
-#### motor  [operator-](#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c)(motor m) noexcept  {#group__motor_1ga76e6057142774c1ffa347678ea6bbb7c}
+#### motor KLN_VEC_CALL  [operator-](#group__motor_1gaf953e632f3ddff1dc435c3070e07c9b5)(motor m) noexcept  {#group__motor_1gaf953e632f3ddff1dc435c3070e07c9b5}
 
 Unary minus.
 
-#### motor  [operator~](#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca)(motor m) noexcept  {#group__motor_1ga4ea5c8269dffb3993f0965faf875f2ca}
+#### motor KLN_VEC_CALL  [operator~](#group__motor_1gaf4f013b57e29f6925ddfdf2d6e25ce0a)(motor m) noexcept  {#group__motor_1gaf4f013b57e29f6925ddfdf2d6e25ce0a}
 
 Reversion operator.
 

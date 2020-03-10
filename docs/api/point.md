@@ -36,8 +36,8 @@ A point is represented as the multivector $x\mathbf{e}_{032} + y\mathbf{e}_{013}
 `public point KLN_VEC_CALL ` [`operator*`](#group__point_1ga7033b360b0bc9476403ebe099ba86ea3)`(int s,point p) noexcept`             | Point uniform scale.
 `public point KLN_VEC_CALL ` [`operator/`](#group__point_1ga98d52f70be04ecd1936acb684a7dd3a3)`(point p,float s) noexcept`             | Point uniform inverse scale.
 `public point KLN_VEC_CALL ` [`operator/`](#group__point_1ga0ecf62635012f01c124f9294b4dd4a2e)`(point p,int s) noexcept`             | Point uniform inverse scale.
-`public point ` [`operator-`](#group__point_1ga2c45767b8c46f0c1948a0467ad83e483)`(point p) noexcept`             | Unary minus.
-`public point ` [`operator~`](#group__point_1ga9672dbea8ffbc08e34d601ee04fd352e)`(point p) noexcept`             | Reversion operator.
+`public point KLN_VEC_CALL ` [`operator-`](#group__point_1ga7b18bf2b94b9e7d2e013eb710dbe11ac)`(point p) noexcept`             | Unary minus (leaves homogeneous coordinate untouched)
+`public point KLN_VEC_CALL ` [`operator~`](#group__point_1ga5b6009037927bd8a00156237756f7566)`(point p) noexcept`             | Reversion operator.
 `public  ` [`operator point`](#group__point_1gac078bf1318b763fe44d89abf77d3b3ef)`() const noexcept`             | On its own, the origin occupies no memory, but it can be casted as an entity at any point, at which point it is represented as $\mathbf{e}_{123}$.
 
 ### Members
@@ -150,11 +150,11 @@ Point uniform inverse scale.
 
 Point uniform inverse scale.
 
-#### point  [operator-](#group__point_1ga2c45767b8c46f0c1948a0467ad83e483)(point p) noexcept  {#group__point_1ga2c45767b8c46f0c1948a0467ad83e483}
+#### point KLN_VEC_CALL  [operator-](#group__point_1ga7b18bf2b94b9e7d2e013eb710dbe11ac)(point p) noexcept  {#group__point_1ga7b18bf2b94b9e7d2e013eb710dbe11ac}
 
-Unary minus.
+Unary minus (leaves homogeneous coordinate untouched)
 
-#### point  [operator~](#group__point_1ga9672dbea8ffbc08e34d601ee04fd352e)(point p) noexcept  {#group__point_1ga9672dbea8ffbc08e34d601ee04fd352e}
+#### point KLN_VEC_CALL  [operator~](#group__point_1ga5b6009037927bd8a00156237756f7566)(point p) noexcept  {#group__point_1ga5b6009037927bd8a00156237756f7566}
 
 Reversion operator.
 

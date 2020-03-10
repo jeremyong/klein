@@ -31,8 +31,8 @@ Klein provides three line classes: "line", "branch", and "ideal_line". The line 
 `public ideal_line KLN_VEC_CALL ` [`operator*`](#group__lines_1ga1c749bb69e95b736eb7ccc14b198ff41)`(int s,ideal_line l) noexcept`             | Ideal line uniform scale.
 `public ideal_line KLN_VEC_CALL ` [`operator/`](#group__lines_1gad4c128535f9e5c60830442b18e62c419)`(ideal_line l,float s) noexcept`             | Ideal line uniform inverse scale.
 `public ideal_line KLN_VEC_CALL ` [`operator/`](#group__lines_1ga600666bf5950f2a58c1d6d0aaefa41f3)`(ideal_line l,int s) noexcept`             | 
-`public ideal_line ` [`operator-`](#group__lines_1ga8a25015fd95c9ae21a403a723328bdff)`(ideal_line l) noexcept`             | Unary minus.
-`public ideal_line ` [`operator~`](#group__lines_1ga86bab70a9013bb96a8e666f2d3b508b2)`(ideal_line l) noexcept`             | Reversion operator.
+`public ideal_line KLN_VEC_CALL ` [`operator-`](#group__lines_1ga3d10cab9e9f55da1b0aea1f95697854f)`(ideal_line l) noexcept`             | Unary minus.
+`public ideal_line KLN_VEC_CALL ` [`operator~`](#group__lines_1ga40e609b90210191b544d61d64032db7c)`(ideal_line l) noexcept`             | Reversion operator.
 `public  ` [`branch`](#group__lines_1gac0b6196328f798a024d116b0052dc933)`() = default`             | 
 `public  ` [`branch`](#group__lines_1ga85e647f4c92a2dd6896c5afd849d00a5)`(float a,float b,float c) noexcept`             | Construct the branch as the following multivector:
 `public  ` [`branch`](#group__lines_1ga919bf9527b955fe1d58188edfe5aa802)`(__m128 xmm) noexcept`             | 
@@ -65,8 +65,8 @@ Klein provides three line classes: "line", "branch", and "ideal_line". The line 
 `public branch KLN_VEC_CALL ` [`operator*`](#group__lines_1gaacf02b8f4c3af4e74eb6a09eb849cdfa)`(int s,branch b) noexcept`             | Branch uniform scale.
 `public branch KLN_VEC_CALL ` [`operator/`](#group__lines_1ga029c94290f7cec1095460b3ca72fdb5c)`(branch b,float s) noexcept`             | Branch uniform inverse scale.
 `public branch KLN_VEC_CALL ` [`operator/`](#group__lines_1ga749e37e9a3b976563ac06098c5011bf6)`(branch b,int s) noexcept`             | Branch uniform inverse scale.
-`public branch ` [`operator-`](#group__lines_1gaabf4c8f567fef30fbdfcc200771994e8)`(branch b) noexcept`             | Unary minus.
-`public branch ` [`operator~`](#group__lines_1gaf3513b2c3f0725be15678230c44e7c2e)`(branch b) noexcept`             | Reversion operator.
+`public branch KLN_VEC_CALL ` [`operator-`](#group__lines_1ga1445656708214b75860bc4c21dd92eac)`(branch b) noexcept`             | Unary minus.
+`public branch KLN_VEC_CALL ` [`operator~`](#group__lines_1gaad8d9b139430ae9be3c575741ee82d6e)`(branch b) noexcept`             | Reversion operator.
 `public  ` [`line`](#group__lines_1gaf274662f18385ec8065a083d235cc63e)`() = default`             | 
 `public  ` [`line`](#group__lines_1ga3a7b1cdde6811a23a30cd5d4082ee5d7)`(float a,float b,float c,float d,float e,float f) noexcept`             | A line is specifed by 6 coordinates which correspond to the line's [Plücker coordinates](https://en.wikipedia.org/wiki/Pl%C3%BCcker_coordinates). The coordinates specified in this way correspond to the following multivector:
 `public  ` [`line`](#group__lines_1ga185af75e75e036164d3c1754da405737)`(__m128 xmm1,__m128 xmm2) noexcept`             | 
@@ -106,8 +106,8 @@ Klein provides three line classes: "line", "branch", and "ideal_line". The line 
 `public line KLN_VEC_CALL ` [`operator*`](#group__lines_1ga8cb888db657b2113caea92ab8220594c)`(int s,line l) noexcept`             | Line uniform scale.
 `public line KLN_VEC_CALL ` [`operator/`](#group__lines_1gafb3d9b8897b0af53ecb7e20887be0485)`(line r,float s) noexcept`             | Line uniform inverse scale.
 `public line KLN_VEC_CALL ` [`operator/`](#group__lines_1gae8be4741283b0730feb08cdf697de2b1)`(line r,int s) noexcept`             | Line uniform inverse scale.
-`public line ` [`operator-`](#group__lines_1gac249311dc1a091a5025cdd8993056c18)`(line l) noexcept`             | Unary minus.
-`public line ` [`operator~`](#group__lines_1ga42776f938b5c07b5cecc55cd0059e3e6)`(line l) noexcept`             | Reversion operator.
+`public line KLN_VEC_CALL ` [`operator-`](#group__lines_1ga17f373e90ac62d4218dae72f9f2099d3)`(line l) noexcept`             | Unary minus.
+`public line KLN_VEC_CALL ` [`operator~`](#group__lines_1gadb187ac167c98d721c8eea5eed2f0120)`(line l) noexcept`             | Reversion operator.
 
 ### Members
 
@@ -187,11 +187,11 @@ Ideal line uniform inverse scale.
 
 #### ideal_line KLN_VEC_CALL  [operator/](#group__lines_1ga600666bf5950f2a58c1d6d0aaefa41f3)(ideal_line l,int s) noexcept  {#group__lines_1ga600666bf5950f2a58c1d6d0aaefa41f3}
 
-#### ideal_line  [operator-](#group__lines_1ga8a25015fd95c9ae21a403a723328bdff)(ideal_line l) noexcept  {#group__lines_1ga8a25015fd95c9ae21a403a723328bdff}
+#### ideal_line KLN_VEC_CALL  [operator-](#group__lines_1ga3d10cab9e9f55da1b0aea1f95697854f)(ideal_line l) noexcept  {#group__lines_1ga3d10cab9e9f55da1b0aea1f95697854f}
 
 Unary minus.
 
-#### ideal_line  [operator~](#group__lines_1ga86bab70a9013bb96a8e666f2d3b508b2)(ideal_line l) noexcept  {#group__lines_1ga86bab70a9013bb96a8e666f2d3b508b2}
+#### ideal_line KLN_VEC_CALL  [operator~](#group__lines_1ga40e609b90210191b544d61d64032db7c)(ideal_line l) noexcept  {#group__lines_1ga40e609b90210191b544d61d64032db7c}
 
 Reversion operator.
 
@@ -297,11 +297,11 @@ Branch uniform inverse scale.
 
 Branch uniform inverse scale.
 
-#### branch  [operator-](#group__lines_1gaabf4c8f567fef30fbdfcc200771994e8)(branch b) noexcept  {#group__lines_1gaabf4c8f567fef30fbdfcc200771994e8}
+#### branch KLN_VEC_CALL  [operator-](#group__lines_1ga1445656708214b75860bc4c21dd92eac)(branch b) noexcept  {#group__lines_1ga1445656708214b75860bc4c21dd92eac}
 
 Unary minus.
 
-#### branch  [operator~](#group__lines_1gaf3513b2c3f0725be15678230c44e7c2e)(branch b) noexcept  {#group__lines_1gaf3513b2c3f0725be15678230c44e7c2e}
+#### branch KLN_VEC_CALL  [operator~](#group__lines_1gaad8d9b139430ae9be3c575741ee82d6e)(branch b) noexcept  {#group__lines_1gaad8d9b139430ae9be3c575741ee82d6e}
 
 Reversion operator.
 
@@ -425,11 +425,11 @@ Line uniform inverse scale.
 
 Line uniform inverse scale.
 
-#### line  [operator-](#group__lines_1gac249311dc1a091a5025cdd8993056c18)(line l) noexcept  {#group__lines_1gac249311dc1a091a5025cdd8993056c18}
+#### line KLN_VEC_CALL  [operator-](#group__lines_1ga17f373e90ac62d4218dae72f9f2099d3)(line l) noexcept  {#group__lines_1ga17f373e90ac62d4218dae72f9f2099d3}
 
 Unary minus.
 
-#### line  [operator~](#group__lines_1ga42776f938b5c07b5cecc55cd0059e3e6)(line l) noexcept  {#group__lines_1ga42776f938b5c07b5cecc55cd0059e3e6}
+#### line KLN_VEC_CALL  [operator~](#group__lines_1gadb187ac167c98d721c8eea5eed2f0120)(line l) noexcept  {#group__lines_1gadb187ac167c98d721c8eea5eed2f0120}
 
 Reversion operator.
 

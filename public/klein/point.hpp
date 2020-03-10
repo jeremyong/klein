@@ -229,14 +229,14 @@ public:
     return p / static_cast<float>(s);
 }
 
-/// Unary minus
-[[nodiscard]] inline point operator-(point p) noexcept
+/// Unary minus (leaves homogeneous coordinate untouched)
+[[nodiscard]] inline point KLN_VEC_CALL operator-(point p) noexcept
 {
-    return {_mm_xor_ps(p.p3_, _mm_set1_ps(-0.f))};
+    return {_mm_xor_ps(p.p3_, _mm_set_ps(-0.f, -0.f, -0.f, 0.f))};
 }
 
 /// Reversion operator
-[[nodiscard]] inline point operator~(point p) noexcept
+[[nodiscard]] inline point KLN_VEC_CALL operator~(point p) noexcept
 {
     __m128 flip = _mm_set1_ps(-0.f);
     return {_mm_xor_ps(p.p3_, flip)};

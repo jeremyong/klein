@@ -45,7 +45,7 @@ The plane multivector in PGA looks like $d\mathbf{e}_0 + a\mathbf{e}_1 + b\mathb
 `public plane KLN_VEC_CALL ` [`operator*`](#group__plane_1ga46d2c31f730f0760f0c22c6022bb0a3b)`(int s,plane p) noexcept`             | Plane uniform scale.
 `public plane KLN_VEC_CALL ` [`operator/`](#group__plane_1ga0f591eb9e778135613a1d5c4a3ac5d51)`(plane p,float s) noexcept`             | Plane uniform inverse scale.
 `public plane KLN_VEC_CALL ` [`operator/`](#group__plane_1gafa4b66325f423b360e28b5b5efffa75f)`(plane p,int s) noexcept`             | Plane uniform inverse scale.
-`public plane ` [`operator-`](#group__plane_1ga8faa5ef6b8daedb841f7ea4ad6d0f452)`(plane p) noexcept`             | Unary minus.
+`public plane KLN_VEC_CALL ` [`operator-`](#group__plane_1gae018fc4984db372392abd5305b86a212)`(plane p) noexcept`             | Unary minus (leaves displacement from origin untouched, changing orientation only)
 
 ### Members
 
@@ -74,10 +74,6 @@ Unaligned load of data. The `data`  argument should point to 4 floats correspond
 Normalize this plane $p$ such that $p \cdot p = 1$.
 
 In order to compute the cosine of the angle between planes via the inner product operator `|` , the planes must be normalized. Producing a normalized rotor between two planes with the geometric product `*`  also requires that the planes are normalized.
-
-!!! tip 
-    Normalization here is done using the `rsqrtps`
-    instruction with a maximum relative error of $1.5\times 2^{-12}$.
 
 #### plane  [normalized](#group__plane_1ga15ec918ecd05f7e9b21887afa590d405)() const noexcept  {#group__plane_1ga15ec918ecd05f7e9b21887afa590d405}
 
@@ -181,7 +177,7 @@ Plane uniform inverse scale.
 
 Plane uniform inverse scale.
 
-#### plane  [operator-](#group__plane_1ga8faa5ef6b8daedb841f7ea4ad6d0f452)(plane p) noexcept  {#group__plane_1ga8faa5ef6b8daedb841f7ea4ad6d0f452}
+#### plane KLN_VEC_CALL  [operator-](#group__plane_1gae018fc4984db372392abd5305b86a212)(plane p) noexcept  {#group__plane_1gae018fc4984db372392abd5305b86a212}
 
-Unary minus.
+Unary minus (leaves displacement from origin untouched, changing orientation only)
 

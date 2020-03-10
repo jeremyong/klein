@@ -50,6 +50,10 @@ The same `*`  operator can be used to compose the rotor's action with other tran
 `public rotor ` [`normalized`](#group__rotor_1ga26bfef944e4ae6879de054390d297bc7)`() const noexcept`             | Return a normalized copy of this rotor.
 `public void ` [`invert`](#group__rotor_1ga9203cbd66f7cc6f61e545e02657868d8)`() noexcept`             | 
 `public rotor ` [`inverse`](#group__rotor_1gaaac6e3fe391fc452089f8742427f011a)`() const noexcept`             | 
+`public void ` [`constrain`](#group__rotor_1gad54377a528107dc4dea11e2235c7bcb4)`() noexcept`             | Constrains the rotor to traverse the shortest arc.
+`public rotor ` [`constrained`](#group__rotor_1ga16106f423e64a1e83eb3e8c565185a4c)`() const noexcept`             | 
+`public bool KLN_VEC_CALL ` [`operator==`](#group__rotor_1gacde3f253079c87e7f14af37d1ecbb820)`(rotor other) const noexcept`             | 
+`public bool KLN_VEC_CALL ` [`approx_eq`](#group__rotor_1gae600982e491885c97654229bc86321a1)`(rotor other,float epsilon) const noexcept`             | 
 `public mat3x4 ` [`as_mat3x4`](#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d)`() const noexcept`             | Converts the rotor to a 3x4 column-major matrix. The results of this conversion are only defined if the rotor is normalized, and this conversion is preferable if so.
 `public mat4x4 ` [`as_mat4x4`](#group__rotor_1ga2484fc74feb9a79cabd474005fd1c0d8)`() const noexcept`             | Converts the rotor to a 4x4 column-major matrix.
 `public plane KLN_VEC_CALL ` [`operator()`](#group__rotor_1gae9e58f02352f5241dd94d22353a5e9ec)`(plane const & p) const noexcept`             | Conjugates a plane $p$ with this rotor and returns the result $rp\widetilde{r}$.
@@ -82,7 +86,8 @@ The same `*`  operator can be used to compose the rotor's action with other tran
 `public rotor KLN_VEC_CALL ` [`operator*`](#group__rotor_1ga57de1a4a27ca3515aea0ca8b5b4b69a0)`(int s,rotor r) noexcept`             | Rotor uniform scale.
 `public rotor KLN_VEC_CALL ` [`operator/`](#group__rotor_1gaacf6f0f789dfae74dae83af785b69232)`(rotor r,float s) noexcept`             | Rotor uniform inverse scale.
 `public rotor KLN_VEC_CALL ` [`operator/`](#group__rotor_1gaf87b76ceb327655df465f15b7e0dd96b)`(rotor r,int s) noexcept`             | Rotor uniform inverse scale.
-`public rotor ` [`operator~`](#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59)`(rotor r) noexcept`             | Reversion operator.
+`public rotor KLN_VEC_CALL ` [`operator~`](#group__rotor_1ga2c4b1d7565d89e7a6f6e6b838f838ed5)`(rotor r) noexcept`             | Reversion operator.
+`public rotor KLN_VEC_CALL ` [`operator-`](#group__rotor_1ga2da1f112e6633bfefb1a15e5e2bdcd5b)`(rotor r) noexcept`             | Unary minus.
 
 ### Members
 
@@ -106,10 +111,6 @@ Fast load operation for packed data that is already normalized. The argument `da
 
 Normalize a rotor such that $\mathbf{r}\widetilde{\mathbf{r}} = 1$.
 
-!!! tip 
-    Normalization here is done using the `rsqrtps`
-    instruction with a maximum relative error of $1.5\times 2^{-12}$.
-
 #### rotor  [normalized](#group__rotor_1ga26bfef944e4ae6879de054390d297bc7)() const noexcept  {#group__rotor_1ga26bfef944e4ae6879de054390d297bc7}
 
 Return a normalized copy of this rotor.
@@ -117,6 +118,16 @@ Return a normalized copy of this rotor.
 #### void  [invert](#group__rotor_1ga9203cbd66f7cc6f61e545e02657868d8)() noexcept  {#group__rotor_1ga9203cbd66f7cc6f61e545e02657868d8}
 
 #### rotor  [inverse](#group__rotor_1gaaac6e3fe391fc452089f8742427f011a)() const noexcept  {#group__rotor_1gaaac6e3fe391fc452089f8742427f011a}
+
+#### void  [constrain](#group__rotor_1gad54377a528107dc4dea11e2235c7bcb4)() noexcept  {#group__rotor_1gad54377a528107dc4dea11e2235c7bcb4}
+
+Constrains the rotor to traverse the shortest arc.
+
+#### rotor  [constrained](#group__rotor_1ga16106f423e64a1e83eb3e8c565185a4c)() const noexcept  {#group__rotor_1ga16106f423e64a1e83eb3e8c565185a4c}
+
+#### bool KLN_VEC_CALL  [operator==](#group__rotor_1gacde3f253079c87e7f14af37d1ecbb820)(rotor other) const noexcept  {#group__rotor_1gacde3f253079c87e7f14af37d1ecbb820}
+
+#### bool KLN_VEC_CALL  [approx_eq](#group__rotor_1gae600982e491885c97654229bc86321a1)(rotor other,float epsilon) const noexcept  {#group__rotor_1gae600982e491885c97654229bc86321a1}
 
 #### mat3x4  [as_mat3x4](#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d)() const noexcept  {#group__rotor_1gad0e18686170db4038e5b7c287b3e8e7d}
 
@@ -250,7 +261,11 @@ Rotor uniform inverse scale.
 
 Rotor uniform inverse scale.
 
-#### rotor  [operator~](#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59)(rotor r) noexcept  {#group__rotor_1ga0d8cb2b5265fc601d087ac7f017abb59}
+#### rotor KLN_VEC_CALL  [operator~](#group__rotor_1ga2c4b1d7565d89e7a6f6e6b838f838ed5)(rotor r) noexcept  {#group__rotor_1ga2c4b1d7565d89e7a6f6e6b838f838ed5}
 
 Reversion operator.
+
+#### rotor KLN_VEC_CALL  [operator-](#group__rotor_1ga2da1f112e6633bfefb1a15e5e2bdcd5b)(rotor r) noexcept  {#group__rotor_1ga2da1f112e6633bfefb1a15e5e2bdcd5b}
+
+Unary minus.
 

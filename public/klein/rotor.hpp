@@ -94,11 +94,6 @@ public:
     }
 
     /// Normalize a rotor such that $\mathbf{r}\widetilde{\mathbf{r}} = 1$.
-    ///
-    /// !!! tip
-    ///
-    ///     Normalization here is done using the `rsqrtps`
-    ///     instruction with a maximum relative error of $1.5\times 2^{-12}$.
     void normalize() noexcept
     {
         // A rotor is normalized if r * ~r is unity.
@@ -127,6 +122,35 @@ public:
         rotor out = *this;
         out.invert();
         return out;
+    }
+
+    /// Constrains the rotor to traverse the shortest arc
+    void constrain() noexcept
+    {
+        __m128 mask
+            = KLN_SWIZZLE(_mm_cmple_ss(p1_, _mm_setzero_ps()), 0, 0, 0, 0);
+        p1_ = _mm_xor_ps(_mm_and_ps(mask, _mm_set1_ps(-0.f)), p1_);
+    }
+
+    [[nodiscard]] rotor constrained() const noexcept
+    {
+        rotor out = *this;
+        out.constrain();
+        return out;
+    }
+
+    [[nodiscard]] bool KLN_VEC_CALL operator==(rotor other) const noexcept
+    {
+        return _mm_movemask_ps(_mm_cmpeq_ps(p1_, other.p1_)) == 0b1111;
+    }
+
+    [[nodiscard]] bool KLN_VEC_CALL approx_eq(rotor other, float epsilon) const
+        noexcept
+    {
+        __m128 eps = _mm_set1_ps(epsilon);
+        __m128 cmp = _mm_cmplt_ps(
+            _mm_andnot_ps(_mm_set1_ps(-0.f), _mm_sub_ps(p1_, other.p1_)), eps);
+        return _mm_movemask_ps(cmp) != 0b1111;
     }
 
     /// Converts the rotor to a 3x4 column-major matrix. The results of this
@@ -400,10 +424,17 @@ public:
 }
 
 /// Reversion operator
-[[nodiscard]] inline rotor operator~(rotor r) noexcept
+[[nodiscard]] inline rotor KLN_VEC_CALL operator~(rotor r) noexcept
 {
     __m128 flip = _mm_set_ps(-0.f, -0.f, -0.f, 0.f);
     return {_mm_xor_ps(r.p1_, flip)};
 }
+
+/// Unary minus
+[[nodiscard]] inline rotor KLN_VEC_CALL operator-(rotor r) noexcept
+{
+    return {_mm_xor_ps(r.p1_, _mm_set1_ps(-0.f))};
+}
+
 } // namespace kln
 /// @}

@@ -193,13 +193,13 @@ public:
 }
 
 /// Unary minus
-[[nodiscard]] inline ideal_line operator-(ideal_line l) noexcept
+[[nodiscard]] inline ideal_line KLN_VEC_CALL operator-(ideal_line l) noexcept
 {
     return {_mm_xor_ps(l.p2_, _mm_set1_ps(-0.f))};
 }
 
 /// Reversion operator
-[[nodiscard]] inline ideal_line operator~(ideal_line l) noexcept
+[[nodiscard]] inline ideal_line KLN_VEC_CALL operator~(ideal_line l) noexcept
 {
     __m128 flip = _mm_set_ps(-0.f, -0.f, -0.f, 0.f);
     return {_mm_xor_ps(l.p2_, flip)};
@@ -450,13 +450,13 @@ public:
 }
 
 /// Unary minus
-[[nodiscard]] inline branch operator-(branch b) noexcept
+[[nodiscard]] inline branch KLN_VEC_CALL operator-(branch b) noexcept
 {
     return {_mm_xor_ps(b.p1_, _mm_set1_ps(-0.f))};
 }
 
 /// Reversion operator
-[[nodiscard]] inline branch operator~(branch b) noexcept
+[[nodiscard]] inline branch KLN_VEC_CALL operator~(branch b) noexcept
 {
     __m128 flip = _mm_set_ps(-0.f, -0.f, -0.f, 0.f);
     return {_mm_xor_ps(b.p1_, flip)};
@@ -794,14 +794,14 @@ public:
 }
 
 /// Unary minus
-[[nodiscard]] inline line operator-(line l) noexcept
+[[nodiscard]] inline line KLN_VEC_CALL operator-(line l) noexcept
 {
     __m128 flip = _mm_set1_ps(-0.f);
     return {_mm_xor_ps(l.p1_, flip), _mm_xor_ps(l.p2_, flip)};
 }
 
 /// Reversion operator
-[[nodiscard]] inline line operator~(line l) noexcept
+[[nodiscard]] inline line KLN_VEC_CALL operator~(line l) noexcept
 {
     __m128 flip = _mm_set_ps(-0.f, -0.f, -0.f, 0.f);
     return {_mm_xor_ps(l.p1_, flip), _mm_xor_ps(l.p2_, flip)};

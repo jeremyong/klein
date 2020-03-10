@@ -81,3 +81,25 @@ TEST_CASE("multivector-sum")
         CHECK_EQ(p_norm, doctest::Approx(1.f));
     }
 }
+
+TEST_CASE("rotor-constrain")
+{
+    rotor r1{1, 2, 3, 4};
+    rotor r2 = r1.constrained();
+    CHECK_EQ(r1, r2);
+
+    r1 = -r1;
+    r2 = r1.constrained();
+    CHECK_EQ(r1, -r2);
+}
+
+TEST_CASE("motor-constrain")
+{
+    motor m1{1, 2, 3, 4, 5, 6, 7, 8};
+    motor m2 = m1.constrained();
+    CHECK_EQ(m1, m2);
+
+    m1 = -m1;
+    m2 = m1.constrained();
+    CHECK_EQ(m1, -m2);
+}
