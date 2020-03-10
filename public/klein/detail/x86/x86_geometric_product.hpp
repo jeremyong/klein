@@ -115,7 +115,7 @@ namespace detail
     }
 
     // p1: (1, e23, e31, e12)
-    inline void KLN_VEC_CALL gp11(__m128 a, __m128 b, __m128& p1_out) noexcept
+    KLN_INLINE void KLN_VEC_CALL gp11(__m128 a, __m128 b, __m128& p1_out) noexcept
     {
         // (a0 b0 - a1 b1 - a2 b2 - a3 b3) +
         // (a0 b1 - a2 b3 + a1 b0 + a3 b2)*e23
@@ -134,14 +134,13 @@ namespace detail
 
         // In a separate register, accumulate the later components so we can
         // negate the lower single-precision element with a single instruction
-        __m128 tmp
+        __m128 tmp1
             = _mm_mul_ps(KLN_SWIZZLE(a, 3, 2, 1, 2), KLN_SWIZZLE(b, 0, 0, 0, 2));
 
-        tmp = _mm_add_ps(
-            tmp,
-            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 3), KLN_SWIZZLE(b, 1, 3, 2, 3)));
+        __m128 tmp2
+            = _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 3), KLN_SWIZZLE(b, 1, 3, 2, 3));
 
-        tmp = _mm_xor_ps(tmp, _mm_set_ss(-0.f));
+        __m128 tmp = _mm_xor_ps(_mm_add_ps(tmp1, tmp2), _mm_set_ss(-0.f));
 
         p1_out = _mm_add_ps(p1_out, tmp);
     }

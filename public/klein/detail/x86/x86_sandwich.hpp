@@ -251,10 +251,14 @@ namespace detail
         // (a3(b3^2 + b0^2 - b2^2 - b1^2) +
         //     2a1(b0 b2 + b3 b1) + 2a2(b3 b2 - b0 b1)) e12 +
 
+        __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
+        __m128 b_xzwy   = KLN_SWIZZLE(b, 1, 3, 2, 0);
+        __m128 b_yxxx   = KLN_SWIZZLE(b, 0, 0, 0, 1);
+        __m128 b_yxxx_2 = _mm_mul_ps(b_yxxx, b_yxxx);
+
         __m128 tmp   = _mm_mul_ps(b, b);
-        __m128 b_tmp = KLN_SWIZZLE(b, 0, 0, 0, 1);
-        tmp          = _mm_add_ps(tmp, _mm_mul_ps(b_tmp, b_tmp));
-        b_tmp        = KLN_SWIZZLE(b, 2, 1, 3, 2);
+        tmp          = _mm_add_ps(tmp, b_yxxx_2);
+        __m128 b_tmp = KLN_SWIZZLE(b, 2, 1, 3, 2);
         __m128 tmp2  = _mm_mul_ps(b_tmp, b_tmp);
         b_tmp        = KLN_SWIZZLE(b, 1, 3, 2, 3);
         tmp2         = _mm_add_ps(tmp2, _mm_mul_ps(b_tmp, b_tmp));
@@ -263,14 +267,14 @@ namespace detail
 
         __m128 bzero = KLN_SWIZZLE(b, 0, 0, 0, 0);
         __m128 scale = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
-        tmp2         = _mm_mul_ps(bzero, KLN_SWIZZLE(b, 2, 1, 3, 0));
-        tmp2 = _mm_add_ps(tmp2, _mm_mul_ps(b, KLN_SWIZZLE(b, 1, 3, 2, 0)));
-        tmp2 = _mm_mul_ps(tmp2, scale);
+        tmp2         = _mm_mul_ps(bzero, b_xwyz);
+        tmp2         = _mm_add_ps(tmp2, _mm_mul_ps(b, b_xzwy));
+        tmp2         = _mm_mul_ps(tmp2, scale);
         // tmp2 needs to be scaled by (a0, a2, a3, a1) and added to p1_out
 
-        __m128 tmp3 = _mm_mul_ps(b, KLN_SWIZZLE(b, 2, 1, 3, 0));
-        tmp3 = _mm_sub_ps(tmp3, _mm_mul_ps(bzero, KLN_SWIZZLE(b, 1, 3, 2, 0)));
-        tmp3 = _mm_mul_ps(tmp3, scale);
+        __m128 tmp3 = _mm_mul_ps(b, b_xwyz);
+        tmp3        = _mm_sub_ps(tmp3, _mm_mul_ps(bzero, b_xzwy));
+        tmp3        = _mm_mul_ps(tmp3, scale);
         // tmp3 needs to be scaled by (a0, a3, a1, a2) and added to p1_out
 
         // p2 block
@@ -301,69 +305,43 @@ namespace detail
 
         // Rotation
 
-        // scaled by d and added to p2
-        [[maybe_unused]] __m128 tmp4;
-        // scaled by (d0, d2, d3, d1) and added to p2
-        [[maybe_unused]] __m128 tmp5;
-        // scaled by (d0, d3, d1, d2) and added to p2
-        [[maybe_unused]] __m128 tmp6;
-
-        if constexpr (InputP2)
-        {
-            tmp4  = _mm_mul_ps(b, b);
-            b_tmp = KLN_SWIZZLE(b, 0, 0, 0, 1);
-            tmp4  = _mm_add_ps(tmp4, _mm_mul_ps(b_tmp, b_tmp));
-            b_tmp = KLN_SWIZZLE(b, 2, 1, 3, 2);
-            tmp5  = _mm_mul_ps(b_tmp, b_tmp);
-            b_tmp = KLN_SWIZZLE(b, 1, 3, 2, 3);
-            tmp5  = _mm_add_ps(tmp5, _mm_mul_ps(b_tmp, b_tmp));
-            tmp4  = _mm_sub_ps(tmp4, _mm_xor_ps(tmp5, _mm_set_ss(-0.f)));
-
-            tmp5 = _mm_mul_ps(bzero, KLN_SWIZZLE(b, 2, 1, 3, 0));
-            tmp5 = _mm_add_ps(tmp5, _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 2, 0), b));
-            tmp5 = _mm_mul_ps(tmp5, scale);
-
-            tmp6 = _mm_mul_ps(b, KLN_SWIZZLE(b, 2, 1, 3, 0));
-            tmp6 = _mm_sub_ps(
-                tmp6, _mm_mul_ps(bzero, KLN_SWIZZLE(b, 1, 3, 2, 0)));
-            tmp6 = _mm_mul_ps(tmp6, scale);
-        }
+        // tmp scaled by d and added to p2
+        // tmp2 scaled by (d0, d2, d3, d1) and added to p2
+        // tmp3 scaled by (d0, d3, d1, d2) and added to p2
 
         // Translation
-        [[maybe_unused]] __m128 tmp7; // scaled by a and added to p2
-        [[maybe_unused]] __m128 tmp8; // scaled by (a0, a3, a1, a2), added to p2
-        [[maybe_unused]] __m128 tmp9; // scaled by (a0, a2, a3, a1), added to p2
+        [[maybe_unused]] __m128 tmp4; // scaled by a and added to p2
+        [[maybe_unused]] __m128 tmp5; // scaled by (a0, a3, a1, a2), added to p2
+        [[maybe_unused]] __m128 tmp6; // scaled by (a0, a2, a3, a1), added to p2
 
         if constexpr (Translate)
         {
-            __m128 czero = KLN_SWIZZLE(*c, 0, 0, 0, 0);
-            tmp7         = _mm_mul_ps(b, *c);
-            tmp7         = _mm_sub_ps(tmp7,
-                              _mm_mul_ps(KLN_SWIZZLE(b, 0, 0, 0, 1),
-                                         KLN_SWIZZLE(*c, 0, 0, 0, 1)));
-            tmp7         = _mm_sub_ps(tmp7,
+            __m128 czero  = KLN_SWIZZLE(*c, 0, 0, 0, 0);
+            __m128 c_xzwy = KLN_SWIZZLE(*c, 1, 3, 2, 0);
+            __m128 c_xwyz = KLN_SWIZZLE(*c, 2, 1, 3, 0);
+
+            tmp4 = _mm_mul_ps(b, *c);
+            tmp4 = _mm_sub_ps(
+                tmp4, _mm_mul_ps(b_yxxx, KLN_SWIZZLE(*c, 0, 0, 0, 1)));
+            tmp4 = _mm_sub_ps(tmp4,
                               _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 3, 2),
                                          KLN_SWIZZLE(*c, 1, 3, 3, 2)));
-            tmp7         = _mm_sub_ps(tmp7,
+            tmp4 = _mm_sub_ps(tmp4,
                               _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 2, 3),
                                          KLN_SWIZZLE(*c, 2, 1, 2, 3)));
-            tmp7         = _mm_add_ps(tmp7, tmp7);
+            tmp4 = _mm_add_ps(tmp4, tmp4);
 
-            tmp8 = _mm_mul_ps(b, KLN_SWIZZLE(*c, 2, 1, 3, 0));
-            tmp8 = _mm_add_ps(
-                tmp8, _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 2, 0), czero));
-            tmp8 = _mm_add_ps(tmp8, _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 3, 0), *c));
-            tmp8 = _mm_sub_ps(
-                tmp8, _mm_mul_ps(bzero, KLN_SWIZZLE(*c, 1, 3, 2, 0)));
-            tmp8 = _mm_mul_ps(tmp8, scale);
+            tmp5 = _mm_mul_ps(b, c_xwyz);
+            tmp5 = _mm_add_ps(tmp5, _mm_mul_ps(b_xzwy, czero));
+            tmp5 = _mm_add_ps(tmp5, _mm_mul_ps(b_xwyz, *c));
+            tmp5 = _mm_sub_ps(tmp5, _mm_mul_ps(bzero, c_xzwy));
+            tmp5 = _mm_mul_ps(tmp5, scale);
 
-            tmp9 = _mm_mul_ps(b, KLN_SWIZZLE(*c, 1, 3, 2, 0));
-            tmp9 = _mm_add_ps(
-                tmp9, _mm_mul_ps(bzero, KLN_SWIZZLE(*c, 2, 1, 3, 0)));
-            tmp9 = _mm_add_ps(tmp9, _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 2, 0), *c));
-            tmp9 = _mm_sub_ps(
-                tmp9, _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 3, 0), czero));
-            tmp9 = _mm_mul_ps(tmp9, scale);
+            tmp6 = _mm_mul_ps(b, c_xzwy);
+            tmp6 = _mm_add_ps(tmp6, _mm_mul_ps(bzero, c_xwyz));
+            tmp6 = _mm_add_ps(tmp6, _mm_mul_ps(b_xzwy, *c));
+            tmp6 = _mm_sub_ps(tmp6, _mm_mul_ps(b_xwyz, czero));
+            tmp6 = _mm_mul_ps(tmp6, scale);
         }
 
         size_t limit            = Variadic ? count : 1;
@@ -371,23 +349,24 @@ namespace detail
         for (size_t i = 0; i != limit; ++i)
         {
             __m128 const& p1_in = in[stride * i]; // a
-            __m128& p1_out      = out[stride * i];
+            __m128 p1_in_xzwy   = KLN_SWIZZLE(p1_in, 1, 3, 2, 0);
+            __m128 p1_in_xwyz   = KLN_SWIZZLE(p1_in, 2, 1, 3, 0);
+
+            __m128& p1_out = out[stride * i];
 
             p1_out = _mm_mul_ps(tmp, p1_in);
-            p1_out = _mm_add_ps(
-                p1_out, _mm_mul_ps(tmp2, KLN_SWIZZLE(p1_in, 1, 3, 2, 0)));
-            p1_out = _mm_add_ps(
-                p1_out, _mm_mul_ps(tmp3, KLN_SWIZZLE(p1_in, 2, 1, 3, 0)));
+            p1_out = _mm_add_ps(p1_out, _mm_mul_ps(tmp2, p1_in_xzwy));
+            p1_out = _mm_add_ps(p1_out, _mm_mul_ps(tmp3, p1_in_xwyz));
 
             if constexpr (InputP2)
             {
                 __m128 const& p2_in = in[2 * i + 1]; // d
                 __m128& p2_out      = out[2 * i + 1];
-                p2_out              = _mm_mul_ps(tmp4, p2_in);
+                p2_out              = _mm_mul_ps(tmp, p2_in);
                 p2_out              = _mm_add_ps(
-                    p2_out, _mm_mul_ps(tmp5, KLN_SWIZZLE(p2_in, 1, 3, 2, 0)));
+                    p2_out, _mm_mul_ps(tmp2, KLN_SWIZZLE(p2_in, 1, 3, 2, 0)));
                 p2_out = _mm_add_ps(
-                    p2_out, _mm_mul_ps(tmp6, KLN_SWIZZLE(p2_in, 2, 1, 3, 0)));
+                    p2_out, _mm_mul_ps(tmp3, KLN_SWIZZLE(p2_in, 2, 1, 3, 0)));
             }
 
             // If what is being applied is a rotor, the non-directional
@@ -395,11 +374,9 @@ namespace detail
             if constexpr (Translate)
             {
                 __m128& p2_out = out[2 * i + 1];
-                p2_out         = _mm_add_ps(p2_out, _mm_mul_ps(tmp7, p1_in));
-                p2_out         = _mm_add_ps(
-                    p2_out, _mm_mul_ps(tmp8, KLN_SWIZZLE(p1_in, 2, 1, 3, 0)));
-                p2_out = _mm_add_ps(
-                    p2_out, _mm_mul_ps(tmp9, KLN_SWIZZLE(p1_in, 1, 3, 2, 0)));
+                p2_out         = _mm_add_ps(p2_out, _mm_mul_ps(tmp4, p1_in));
+                p2_out = _mm_add_ps(p2_out, _mm_mul_ps(tmp5, p1_in_xwyz));
+                p2_out = _mm_add_ps(p2_out, _mm_mul_ps(tmp6, p1_in_xzwy));
             }
         }
     }
@@ -568,17 +545,19 @@ namespace detail
         // note that for a normalized rotor and homogenous point, the e123
         // component will remain unity.
 
-        __m128 two   = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
-        __m128 bzero = KLN_SWIZZLE(b, 0, 0, 0, 0);
+        __m128 two    = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
+        __m128 bzero  = KLN_SWIZZLE(b, 0, 0, 0, 0);
+        __m128 b_xwyz = KLN_SWIZZLE(b, 2, 1, 3, 0);
+        __m128 b_xzwy = KLN_SWIZZLE(b, 1, 3, 2, 0);
 
-        __m128 tmp1 = _mm_mul_ps(b, KLN_SWIZZLE(b, 2, 1, 3, 0));
-        tmp1 = _mm_sub_ps(tmp1, _mm_mul_ps(bzero, KLN_SWIZZLE(b, 1, 3, 2, 0)));
-        tmp1 = _mm_mul_ps(tmp1, two);
+        __m128 tmp1 = _mm_mul_ps(b, b_xwyz);
+        tmp1        = _mm_sub_ps(tmp1, _mm_mul_ps(bzero, b_xzwy));
+        tmp1        = _mm_mul_ps(tmp1, two);
         // tmp1 needs to be scaled by (_, a3, a1, a2)
 
-        __m128 tmp2 = _mm_mul_ps(bzero, KLN_SWIZZLE(b, 2, 1, 3, 0));
-        tmp2 = _mm_add_ps(tmp2, _mm_mul_ps(KLN_SWIZZLE(b, 1, 3, 2, 0), b));
-        tmp2 = _mm_mul_ps(tmp2, two);
+        __m128 tmp2 = _mm_mul_ps(bzero, b_xwyz);
+        tmp2        = _mm_add_ps(tmp2, _mm_mul_ps(b_xzwy, b));
+        tmp2        = _mm_mul_ps(tmp2, two);
         // tmp2 needs to be scaled by (_, a2, a3, a1)
 
         __m128 tmp3  = _mm_mul_ps(b, b);
@@ -593,12 +572,10 @@ namespace detail
 
         if constexpr (Translate)
         {
-            tmp4 = _mm_mul_ps(
-                KLN_SWIZZLE(b, 1, 3, 2, 0), KLN_SWIZZLE(*c, 2, 1, 3, 0));
+            tmp4 = _mm_mul_ps(b_xzwy, KLN_SWIZZLE(*c, 2, 1, 3, 0));
             tmp4 = _mm_sub_ps(tmp4, _mm_mul_ps(bzero, *c));
-            tmp4 = _mm_sub_ps(tmp4,
-                              _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 3, 0),
-                                         KLN_SWIZZLE(*c, 1, 3, 2, 0)));
+            tmp4 = _mm_sub_ps(
+                tmp4, _mm_mul_ps(b_xwyz, KLN_SWIZZLE(*c, 1, 3, 2, 0)));
             tmp4 = _mm_sub_ps(tmp4, _mm_mul_ps(b, KLN_SWIZZLE(*c, 0, 0, 0, 0)));
 
             // Mask low component and scale other components by 2

@@ -26,14 +26,14 @@ kln::rotor ab(kln::rotor const& a, kln::rotor const& b)
 
     ```
     Iterations:        100
-    Instructions:      2300
-    Total Cycles:      789
+    Instructions:      2400
+    Total Cycles:      821
     Total uOps:        2400
 
     Dispatch Width:    6
-    uOps Per Cycle:    3.04
+    uOps Per Cycle:    2.92
     IPC:               2.92
-    Block RThroughput: 7.0
+    Block RThroughput: 8.0
 
 
     Instruction Info:
@@ -45,29 +45,30 @@ kln::rotor ab(kln::rotor const& a, kln::rotor const& b)
     [6]: HasSideEffects (U)
 
     [1]    [2]    [3]    [4]    [5]    [6]    Instructions:
-     1      6     0.50    *                   movaps	(%rdi), %xmm1
-     1      6     0.50    *                   movaps	(%rsi), %xmm3
-     1      1     0.33                        movaps	%xmm1, %xmm0
-     1      1     0.33                        movaps	%xmm1, %xmm6
-     1      1     0.33                        movaps	%xmm3, %xmm2
-     1      1     0.33                        movaps	%xmm1, %xmm7
-     1      1     0.33                        movaps	%xmm3, %xmm5
-     1      1     1.00                        shufps	$0, %xmm1, %xmm0
-     1      1     1.00                        shufps	$121, %xmm1, %xmm6
-     1      1     1.00                        shufps	$230, %xmm1, %xmm7
-     1      1     1.00                        shufps	$2, %xmm3, %xmm2
-     1      1     1.00                        shufps	$123, %xmm3, %xmm5
-     1      4     0.50                        mulps	%xmm7, %xmm2
-     1      1     1.00                        shufps	$159, %xmm1, %xmm1
-     1      4     0.50                        mulps	%xmm5, %xmm1
-     1      1     0.33                        movaps	%xmm3, %xmm4
-     1      1     1.00                        shufps	$157, %xmm3, %xmm4
-     1      4     0.50                        addps	%xmm2, %xmm1
-     2      7     0.50    *                   xorps	.LC0(%rip), %xmm1
-     1      4     0.50                        mulps	%xmm3, %xmm0
-     1      4     0.50                        mulps	%xmm6, %xmm4
-     1      4     0.50                        subps	%xmm4, %xmm0
-     1      4     0.50                        addps	%xmm1, %xmm0
+     1      6     0.50    *                   movaps	(%rdi), %xmm0
+     1      6     0.50    *                   movaps	(%rsi), %xmm1
+     1      1     0.33                        movaps	%xmm0, %xmm2
+     1      1     1.00                        shufps	$0, %xmm0, %xmm2
+     1      4     0.50                        mulps	%xmm1, %xmm2
+     1      1     0.33                        movaps	%xmm0, %xmm3
+     1      1     1.00                        shufps	$121, %xmm0, %xmm3
+     1      1     0.33                        movaps	%xmm1, %xmm4
+     1      1     1.00                        shufps	$157, %xmm1, %xmm4
+     1      4     0.50                        mulps	%xmm3, %xmm4
+     1      4     0.50                        subps	%xmm4, %xmm2
+     1      1     0.33                        movaps	%xmm0, %xmm3
+     1      1     1.00                        shufps	$230, %xmm0, %xmm3
+     1      1     0.33                        movaps	%xmm1, %xmm4
+     1      1     1.00                        shufps	$2, %xmm1, %xmm4
+     1      4     0.50                        mulps	%xmm3, %xmm4
+     1      1     1.00                        shufps	$159, %xmm0, %xmm0
+     1      1     1.00                        shufps	$123, %xmm1, %xmm1
+     1      4     0.50                        mulps	%xmm0, %xmm1
+     1      4     0.50                        addps	%xmm4, %xmm1
+     1      1     0.25                        movl	$-2147483648, %eax
+     1      1     1.00                        movd	%eax, %xmm0
+     1      1     0.33                        pxor	%xmm1, %xmm0
+     1      4     0.50                        addps	%xmm2, %xmm0
 
 
     Resources:
@@ -85,33 +86,34 @@ kln::rotor ab(kln::rotor const& a, kln::rotor const& b)
 
     Resource pressure per iteration:
     [0]    [1]    [2]    [3]    [4]    [5]    [6]    [7]    [8]    [9]
-     -      -     6.66   6.67   1.50   1.50    -     7.67    -      -
+     -      -     6.49   6.50   1.00   1.00    -     8.01   1.00    -
 
     Resource pressure by instruction:
     [0]    [1]    [2]    [3]    [4]    [5]    [6]    [7]    [8]    [9]    Instructions:
-     -      -      -      -     0.48   0.52    -      -      -      -     movaps	(%rdi), %xmm1
-     -      -      -      -     0.52   0.48    -      -      -      -     movaps	(%rsi), %xmm3
-     -      -     0.68   0.31    -      -      -     0.01    -      -     movaps	%xmm1, %xmm0
-     -      -     0.67   0.33    -      -      -      -      -      -     movaps	%xmm1, %xmm6
-     -      -     0.67   0.33    -      -      -      -      -      -     movaps	%xmm3, %xmm2
-     -      -     0.96   0.03    -      -      -     0.01    -      -     movaps	%xmm1, %xmm7
-     -      -     0.95   0.05    -      -      -      -      -      -     movaps	%xmm3, %xmm5
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm1, %xmm0
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$121, %xmm1, %xmm6
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$230, %xmm1, %xmm7
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$2, %xmm3, %xmm2
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$123, %xmm3, %xmm5
-     -      -     0.36   0.64    -      -      -      -      -      -     mulps	%xmm7, %xmm2
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$159, %xmm1, %xmm1
-     -      -     0.03   0.97    -      -      -      -      -      -     mulps	%xmm5, %xmm1
-     -      -     0.66   0.34    -      -      -      -      -      -     movaps	%xmm3, %xmm4
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$157, %xmm3, %xmm4
-     -      -     0.34   0.66    -      -      -      -      -      -     addps	%xmm2, %xmm1
-     -      -     0.34   0.01   0.50   0.50    -     0.65    -      -     xorps	.LC0(%rip), %xmm1
-     -      -     0.02   0.98    -      -      -      -      -      -     mulps	%xmm3, %xmm0
-     -      -     0.02   0.98    -      -      -      -      -      -     mulps	%xmm6, %xmm4
-     -      -     0.33   0.67    -      -      -      -      -      -     subps	%xmm4, %xmm0
-     -      -     0.63   0.37    -      -      -      -      -      -     addps	%xmm1, %xmm0
+     -      -      -      -      -     1.00    -      -      -      -     movaps	(%rdi), %xmm0
+     -      -      -      -     1.00    -      -      -      -      -     movaps	(%rsi), %xmm1
+     -      -     0.50   0.50    -      -      -      -      -      -     movaps	%xmm0, %xmm2
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm0, %xmm2
+     -      -     0.03   0.97    -      -      -      -      -      -     mulps	%xmm1, %xmm2
+     -      -     0.50   0.50    -      -      -      -      -      -     movaps	%xmm0, %xmm3
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$121, %xmm0, %xmm3
+     -      -     0.51   0.48    -      -      -     0.01    -      -     movaps	%xmm1, %xmm4
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$157, %xmm1, %xmm4
+     -      -     0.98   0.02    -      -      -      -      -      -     mulps	%xmm3, %xmm4
+     -      -     0.94   0.06    -      -      -      -      -      -     subps	%xmm4, %xmm2
+     -      -     0.50   0.50    -      -      -      -      -      -     movaps	%xmm0, %xmm3
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$230, %xmm0, %xmm3
+     -      -     0.50   0.50    -      -      -      -      -      -     movaps	%xmm1, %xmm4
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$2, %xmm1, %xmm4
+     -      -     0.51   0.49    -      -      -      -      -      -     mulps	%xmm3, %xmm4
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$159, %xmm0, %xmm0
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$123, %xmm1, %xmm1
+     -      -     0.53   0.47    -      -      -      -      -      -     mulps	%xmm0, %xmm1
+     -      -     0.02   0.98    -      -      -      -      -      -     addps	%xmm4, %xmm1
+     -      -      -      -      -      -      -      -     1.00    -     movl	$-2147483648, %eax
+     -      -      -      -      -      -      -     1.00    -      -     movd	%eax, %xmm0
+     -      -     0.48   0.52    -      -      -      -      -      -     pxor	%xmm1, %xmm0
+     -      -     0.49   0.51    -      -      -      -      -      -     addps	%xmm2, %xmm0
     ```
 
 For comparison, here is the assembly and analysis corresponding to semantically identical code from
@@ -128,13 +130,13 @@ rtm::quatf ab(rtm::quatf const& a, rtm::quatf const& b)
 
     ```
     Iterations:        100
-    Instructions:      2500
-    Total Cycles:      790
-    Total uOps:        2800
+    Instructions:      2300
+    Total Cycles:      824
+    Total uOps:        2600
 
     Dispatch Width:    6
-    uOps Per Cycle:    3.54
-    IPC:               3.16
+    uOps Per Cycle:    3.16
+    IPC:               2.79
     Block RThroughput: 7.0
 
 
@@ -147,30 +149,28 @@ rtm::quatf ab(rtm::quatf const& a, rtm::quatf const& b)
     [6]: HasSideEffects (U)
 
     [1]    [2]    [3]    [4]    [5]    [6]    Instructions:
-     1      6     0.50    *                   movaps	(%rdi), %xmm2
-     1      6     0.50    *                   movaps	(%rsi), %xmm1
-     1      1     0.33                        movaps	%xmm2, %xmm6
-     1      1     0.33                        movaps	%xmm1, %xmm4
-     1      1     0.33                        movaps	%xmm1, %xmm0
-     1      1     1.00                        shufps	$27, %xmm2, %xmm6
-     1      1     0.33                        movaps	%xmm6, %xmm5
-     1      1     0.33                        movaps	%xmm1, %xmm3
-     1      1     1.00                        shufps	$0, %xmm1, %xmm4
-     1      1     1.00                        shufps	$177, %xmm6, %xmm5
-     1      4     0.50                        mulps	%xmm6, %xmm4
-     1      1     0.33                        movaps	%xmm5, %xmm6
-     1      1     1.00                        shufps	$85, %xmm1, %xmm0
-     1      1     1.00                        shufps	$170, %xmm1, %xmm3
-     1      4     0.50                        mulps	%xmm5, %xmm0
-     1      1     1.00                        shufps	$27, %xmm5, %xmm6
-     1      1     1.00                        shufps	$255, %xmm1, %xmm1
-     1      4     0.50                        mulps	%xmm6, %xmm3
-     2      7     0.50    *                   xorps	.LC0(%rip), %xmm4
-     2      7     0.50    *                   xorps	.LC1(%rip), %xmm0
-     2      7     0.50    *                   xorps	.LC2(%rip), %xmm3
-     1      4     0.50                        mulps	%xmm2, %xmm1
-     1      4     0.50                        addps	%xmm3, %xmm0
-     1      4     0.50                        addps	%xmm4, %xmm1
+     1      6     0.50    *                   movaps	(%rdi), %xmm0
+     1      6     0.50    *                   movaps	(%rsi), %xmm2
+     1      1     0.33                        movaps	%xmm2, %xmm1
+     1      1     1.00                        shufps	$0, %xmm2, %xmm1
+     1      1     0.33                        movaps	%xmm2, %xmm3
+     1      1     1.00                        shufps	$85, %xmm2, %xmm3
+     1      1     0.33                        movaps	%xmm2, %xmm4
+     1      1     1.00                        shufps	$170, %xmm2, %xmm4
+     1      1     1.00                        shufps	$255, %xmm2, %xmm2
+     1      4     0.50                        mulps	%xmm0, %xmm2
+     1      1     0.33                        movaps	%xmm0, %xmm5
+     1      1     1.00                        shufps	$27, %xmm0, %xmm5
+     1      4     0.50                        mulps	%xmm5, %xmm1
+     1      1     1.00                        shufps	$177, %xmm5, %xmm5
+     1      4     0.50                        mulps	%xmm3, %xmm5
+     2      7     0.50    *                   xorps	.LCPI0_0(%rip), %xmm1
+     1      1     1.00                        shufps	$177, %xmm0, %xmm0
+     1      4     0.50                        mulps	%xmm4, %xmm0
+     2      7     0.50    *                   xorps	.LCPI0_1(%rip), %xmm5
+     2      7     0.50    *                   xorps	.LCPI0_2(%rip), %xmm0
+     1      4     0.50                        addps	%xmm2, %xmm1
+     1      4     0.50                        addps	%xmm5, %xmm0
      1      4     0.50                        addps	%xmm1, %xmm0
 
 
@@ -189,35 +189,33 @@ rtm::quatf ab(rtm::quatf const& a, rtm::quatf const& b)
 
     Resource pressure per iteration:
     [0]    [1]    [2]    [3]    [4]    [5]    [6]    [7]    [8]    [9]
-     -      -     7.66   7.67   2.50   2.50    -     7.67    -      -
+     -      -     6.49   6.50   2.50   2.50    -     8.01    -      -
 
     Resource pressure by instruction:
     [0]    [1]    [2]    [3]    [4]    [5]    [6]    [7]    [8]    [9]    Instructions:
-     -      -      -      -     0.50   0.50    -      -      -      -     movaps	(%rdi), %xmm2
-     -      -      -      -     0.50   0.50    -      -      -      -     movaps	(%rsi), %xmm1
-     -      -     0.99    -      -      -      -     0.01    -      -     movaps	%xmm2, %xmm6
-     -      -     0.33   0.34    -      -      -     0.33    -      -     movaps	%xmm1, %xmm4
-     -      -     0.67   0.33    -      -      -      -      -      -     movaps	%xmm1, %xmm0
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$27, %xmm2, %xmm6
-     -      -     0.33   0.67    -      -      -      -      -      -     movaps	%xmm6, %xmm5
-     -      -     0.99   0.01    -      -      -      -      -      -     movaps	%xmm1, %xmm3
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm1, %xmm4
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$177, %xmm6, %xmm5
-     -      -     0.01   0.99    -      -      -      -      -      -     mulps	%xmm6, %xmm4
-     -      -     0.33   0.34    -      -      -     0.33    -      -     movaps	%xmm5, %xmm6
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$85, %xmm1, %xmm0
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$170, %xmm1, %xmm3
-     -      -     0.98   0.02    -      -      -      -      -      -     mulps	%xmm5, %xmm0
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$27, %xmm5, %xmm6
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$255, %xmm1, %xmm1
-     -      -     0.33   0.67    -      -      -      -      -      -     mulps	%xmm6, %xmm3
-     -      -     0.99   0.01   0.50   0.50    -      -      -      -     xorps	.LC0(%rip), %xmm4
-     -      -     0.02   0.98   0.50   0.50    -      -      -      -     xorps	.LC1(%rip), %xmm0
-     -      -     0.67   0.33   0.50   0.50    -      -      -      -     xorps	.LC2(%rip), %xmm3
-     -      -     0.66   0.34    -      -      -      -      -      -     mulps	%xmm2, %xmm1
-     -      -     0.02   0.98    -      -      -      -      -      -     addps	%xmm3, %xmm0
-     -      -     0.32   0.68    -      -      -      -      -      -     addps	%xmm4, %xmm1
-     -      -     0.02   0.98    -      -      -      -      -      -     addps	%xmm1, %xmm0
+     -      -      -      -     0.50   0.50    -      -      -      -     movaps	(%rdi), %xmm0
+     -      -      -      -     0.49   0.51    -      -      -      -     movaps	(%rsi), %xmm2
+     -      -     0.03   0.96    -      -      -     0.01    -      -     movaps	%xmm2, %xmm1
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm2, %xmm1
+     -      -     0.95   0.05    -      -      -      -      -      -     movaps	%xmm2, %xmm3
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$85, %xmm2, %xmm3
+     -      -     0.04   0.96    -      -      -      -      -      -     movaps	%xmm2, %xmm4
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$170, %xmm2, %xmm4
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$255, %xmm2, %xmm2
+     -      -     0.49   0.51    -      -      -      -      -      -     mulps	%xmm0, %xmm2
+     -      -     0.95   0.05    -      -      -      -      -      -     movaps	%xmm0, %xmm5
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$27, %xmm0, %xmm5
+     -      -     0.52   0.48    -      -      -      -      -      -     mulps	%xmm5, %xmm1
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$177, %xmm5, %xmm5
+     -      -     0.49   0.51    -      -      -      -      -      -     mulps	%xmm3, %xmm5
+     -      -     0.48   0.52   0.50   0.50    -      -      -      -     xorps	.LCPI0_0(%rip), %xmm1
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$177, %xmm0, %xmm0
+     -      -     0.52   0.48    -      -      -      -      -      -     mulps	%xmm4, %xmm0
+     -      -     0.48   0.52   0.50   0.50    -      -      -      -     xorps	.LCPI0_1(%rip), %xmm5
+     -      -      -      -     0.51   0.49    -     1.00    -      -     xorps	.LCPI0_2(%rip), %xmm0
+     -      -     0.51   0.49    -      -      -      -      -      -     addps	%xmm2, %xmm1
+     -      -     0.52   0.48    -      -      -      -      -      -     addps	%xmm5, %xmm0
+     -      -     0.51   0.49    -      -      -      -      -      -     addps	%xmm1, %xmm0
     ```
 
 Finally, for good measure, here is the same procedure and analysis for
@@ -403,14 +401,14 @@ kln::point motor_application(kln::motor const& m, kln::point const& p)
 
     ```
     Iterations:        100
-    Instructions:      6500
-    Total Cycles:      2030
-    Total uOps:        6800
+    Instructions:      5900
+    Total Cycles:      1831
+    Total uOps:        5900
 
     Dispatch Width:    6
-    uOps Per Cycle:    3.35
-    IPC:               3.20
-    Block RThroughput: 15.0
+    uOps Per Cycle:    3.22
+    IPC:               3.22
+    Block RThroughput: 13.5
 
 
     Instruction Info:
@@ -422,71 +420,65 @@ kln::point motor_application(kln::motor const& m, kln::point const& p)
     [6]: HasSideEffects (U)
 
     [1]    [2]    [3]    [4]    [5]    [6]    Instructions:
-     1      6     0.50    *                   movaps	(%rdi), %xmm1
-     1      6     0.50    *                   movaps	16(%rdi), %xmm5
-     1      6     0.50    *                   movaps	(%rsi), %xmm6
-     1      1     0.33                        movaps	%xmm1, %xmm4
-     1      1     0.33                        movaps	%xmm1, %xmm0
-     1      1     0.33                        movaps	%xmm1, %xmm8
-     1      1     1.00                        shufps	$158, %xmm1, %xmm4
-     1      1     1.00                        shufps	$123, %xmm1, %xmm0
-     1      4     0.50                        mulps	%xmm4, %xmm4
-     1      1     0.33                        movaps	%xmm1, %xmm7
-     1      4     0.50                        mulps	%xmm0, %xmm0
-     1      1     0.33                        movaps	%xmm1, %xmm2
-     1      1     0.33                        movaps	%xmm1, %xmm9
-     1      1     1.00                        shufps	$156, %xmm1, %xmm7
-     1      1     0.33                        movaps	%xmm5, %xmm13
-     1      1     0.33                        movaps	%xmm5, %xmm12
-     1      1     0.33                        movaps	%xmm5, %xmm11
-     1      1     1.00                        shufps	$120, %xmm1, %xmm2
-     1      1     0.33                        movaps	%xmm6, %xmm3
-     1      1     0.33                        movaps	%xmm6, %xmm14
-     1      1     1.00                        shufps	$0, %xmm1, %xmm8
-     1      1     1.00                        shufps	$1, %xmm1, %xmm9
-     1      1     1.00                        shufps	$156, %xmm5, %xmm13
-     1      1     1.00                        shufps	$120, %xmm5, %xmm12
-     1      1     1.00                        shufps	$0, %xmm5, %xmm11
-     1      1     1.00                        shufps	$156, %xmm6, %xmm3
-     1      1     1.00                        shufps	$120, %xmm6, %xmm14
-     1      4     0.50                        addps	%xmm0, %xmm4
+     1      6     0.50    *                   movaps	(%rdi), %xmm3
+     1      6     0.50    *                   movaps	16(%rdi), %xmm6
+     1      1     0.33                        movaps	%xmm3, %xmm12
+     1      1     1.00                        shufps	$0, %xmm3, %xmm12
+     1      1     0.33                        movaps	%xmm3, %xmm11
+     1      1     0.33                        movaps	%xmm3, %xmm10
+     1      1     0.33                        movaps	%xmm12, %xmm8
+     1      1     0.33                        movaps	%xmm12, %xmm9
+     1      1     0.33                        movaps	%xmm3, %xmm4
+     1      1     0.33                        movaps	%xmm3, %xmm1
+     1      1     0.33                        movaps	%xmm6, %xmm7
+     1      4     0.50                        mulps	%xmm6, %xmm12
      1      1     0.33                        movaps	%xmm6, %xmm0
-     2      7     0.50    *                   xorps	.LC0(%rip), %xmm4
-     1      1     1.00                        shufps	$0, %xmm6, %xmm0
-     2      1     1.00           *            movaps	%xmm0, -24(%rsp)
-     1      1     0.33                        movaps	%xmm1, %xmm0
-     1      1     0.33                        movaps	%xmm8, %xmm10
-     1      1     0.33                        movaps	%xmm1, %xmm15
-     1      4     0.50                        mulps	%xmm2, %xmm10
-     1      4     0.50                        mulps	%xmm7, %xmm0
-     1      4     0.50                        mulps	%xmm2, %xmm15
-     1      4     0.50                        mulps	%xmm8, %xmm5
-     1      4     0.50                        mulps	%xmm13, %xmm2
-     1      4     0.50                        mulps	%xmm9, %xmm9
-     1      4     0.50                        subps	%xmm10, %xmm0
-     1      6     0.50    *                   movaps	.LC1(%rip), %xmm10
-     1      4     0.50                        mulps	%xmm10, %xmm0
-     1      4     0.50                        subps	%xmm5, %xmm2
+     1      1     1.00                        shufps	$0, %xmm6, %xmm6
+     1      4     0.50                        mulps	%xmm3, %xmm6
+     1      1     1.00                        shufps	$156, %xmm3, %xmm3
+     1      4     0.50                        mulps	%xmm3, %xmm11
+     1      1     1.00                        shufps	$120, %xmm10, %xmm10
+     1      4     0.50                        mulps	%xmm10, %xmm8
+     1      4     0.50                        subps	%xmm8, %xmm11
+     1      4     0.50                        mulps	%xmm3, %xmm9
+     1      4     0.50                        mulps	%xmm10, %xmm4
+     1      4     0.50                        addps	%xmm9, %xmm4
+     1      4     0.50                        mulps	%xmm1, %xmm1
+     1      1     0.33                        movaps	%xmm1, %xmm5
+     1      1     1.00                        shufps	$1, %xmm1, %xmm5
+     1      4     0.50                        addps	%xmm1, %xmm5
+     1      1     0.33                        movaps	%xmm1, %xmm2
+     1      1     1.00                        shufps	$158, %xmm1, %xmm2
+     1      1     1.00                        shufps	$123, %xmm1, %xmm1
+     1      4     0.50                        addps	%xmm2, %xmm1
+     1      1     0.25                        movl	$-2147483648, %eax
+     1      1     1.00                        movd	%eax, %xmm2
+     1      1     0.33                        pxor	%xmm1, %xmm2
+     1      6     0.50    *                   movaps	.LCPI3_0(%rip), %xmm1
+     1      4     0.50                        mulps	%xmm1, %xmm11
+     1      4     0.50                        mulps	%xmm1, %xmm4
+     1      4     0.50                        subps	%xmm2, %xmm5
+     1      1     1.00                        shufps	$156, %xmm7, %xmm7
+     1      4     0.50                        mulps	%xmm10, %xmm7
+     1      4     0.50                        subps	%xmm12, %xmm7
+     1      1     1.00                        shufps	$120, %xmm0, %xmm0
      1      4     0.50                        mulps	%xmm3, %xmm0
-     1      1     0.33                        movaps	%xmm8, %xmm3
-     1      4     0.50                        mulps	%xmm7, %xmm3
-     1      4     0.50                        mulps	%xmm12, %xmm7
-     1      4     0.50                        addps	%xmm15, %xmm3
-     1      4     0.50                        subps	%xmm7, %xmm2
-     1      4     0.50                        mulps	%xmm10, %xmm3
-     1      4     0.50                        mulps	%xmm3, %xmm14
-     1      4     0.50                        addps	%xmm14, %xmm0
-     1      1     0.33                        movaps	%xmm1, %xmm14
-     1      4     0.50                        mulps	%xmm1, %xmm14
+     1      4     0.50                        subps	%xmm0, %xmm7
+     1      4     0.50                        subps	%xmm6, %xmm7
+     1      4     0.50                        mulps	%xmm1, %xmm7
+     1      6     0.50    *                   movaps	(%rsi), %xmm0
+     1      1     0.33                        movaps	%xmm0, %xmm1
+     1      1     1.00                        shufps	$156, %xmm0, %xmm1
      1      4     0.50                        mulps	%xmm11, %xmm1
-     1      4     0.50                        addps	%xmm14, %xmm9
-     1      4     0.50                        subps	%xmm1, %xmm2
-     1      4     0.50                        subps	%xmm4, %xmm9
-     1      4     0.50                        mulps	%xmm2, %xmm10
-     2      10    0.50    *                   mulps	-24(%rsp), %xmm10
-     1      4     0.50                        mulps	%xmm9, %xmm6
-     1      4     0.50                        addps	%xmm6, %xmm0
-     1      4     0.50                        addps	%xmm10, %xmm0
+     1      1     0.33                        movaps	%xmm0, %xmm2
+     1      1     1.00                        shufps	$120, %xmm0, %xmm2
+     1      4     0.50                        mulps	%xmm4, %xmm2
+     1      4     0.50                        addps	%xmm1, %xmm2
+     1      4     0.50                        mulps	%xmm0, %xmm5
+     1      4     0.50                        addps	%xmm2, %xmm5
+     1      1     1.00                        shufps	$0, %xmm0, %xmm0
+     1      4     0.50                        mulps	%xmm7, %xmm0
+     1      4     0.50                        addps	%xmm5, %xmm0
 
 
     Resources:
@@ -504,75 +496,69 @@ kln::point motor_application(kln::motor const& m, kln::point const& p)
 
     Resource pressure per iteration:
     [0]    [1]    [2]    [3]    [4]    [5]    [6]    [7]    [8]    [9]
-     -      -     20.03  20.04  3.00   3.00   1.00   19.93   -     1.00
+     -      -     18.01  18.01  2.00   2.00    -     17.98  1.00    -
 
     Resource pressure by instruction:
     [0]    [1]    [2]    [3]    [4]    [5]    [6]    [7]    [8]    [9]    Instructions:
-     -      -      -      -     0.98   0.02    -      -      -      -     movaps	(%rdi), %xmm1
-     -      -      -      -     0.02   0.98    -      -      -      -     movaps	16(%rdi), %xmm5
-     -      -      -      -     0.98   0.02    -      -      -      -     movaps	(%rsi), %xmm6
-     -      -      -      -      -      -      -     1.00    -      -     movaps	%xmm1, %xmm4
-     -      -      -     0.01    -      -      -     0.99    -      -     movaps	%xmm1, %xmm0
-     -      -     0.02    -      -      -      -     0.98    -      -     movaps	%xmm1, %xmm8
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$158, %xmm1, %xmm4
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$123, %xmm1, %xmm0
-     -      -     0.99   0.01    -      -      -      -      -      -     mulps	%xmm4, %xmm4
-     -      -     0.99   0.01    -      -      -      -      -      -     movaps	%xmm1, %xmm7
-     -      -     0.98   0.02    -      -      -      -      -      -     mulps	%xmm0, %xmm0
-     -      -     0.98    -      -      -      -     0.02    -      -     movaps	%xmm1, %xmm2
-     -      -     0.03    -      -      -      -     0.97    -      -     movaps	%xmm1, %xmm9
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$156, %xmm1, %xmm7
-     -      -     0.01    -      -      -      -     0.99    -      -     movaps	%xmm5, %xmm13
-     -      -     0.99    -      -      -      -     0.01    -      -     movaps	%xmm5, %xmm12
-     -      -     0.99   0.01    -      -      -      -      -      -     movaps	%xmm5, %xmm11
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$120, %xmm1, %xmm2
-     -      -     0.01    -      -      -      -     0.99    -      -     movaps	%xmm6, %xmm3
-     -      -     0.98   0.02    -      -      -      -      -      -     movaps	%xmm6, %xmm14
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm1, %xmm8
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$1, %xmm1, %xmm9
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$156, %xmm5, %xmm13
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$120, %xmm5, %xmm12
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm5, %xmm11
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$156, %xmm6, %xmm3
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$120, %xmm6, %xmm14
-     -      -     0.99   0.01    -      -      -      -      -      -     addps	%xmm0, %xmm4
-     -      -     1.00    -      -      -      -      -      -      -     movaps	%xmm6, %xmm0
-     -      -     0.01   0.99   0.02   0.98    -      -      -      -     xorps	.LC0(%rip), %xmm4
-     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm6, %xmm0
-     -      -      -      -      -      -     1.00    -      -     1.00   movaps	%xmm0, -24(%rsp)
-     -      -     0.99   0.01    -      -      -      -      -      -     movaps	%xmm1, %xmm0
-     -      -     0.99   0.01    -      -      -      -      -      -     movaps	%xmm8, %xmm10
-     -      -     1.00    -      -      -      -      -      -      -     movaps	%xmm1, %xmm15
-     -      -      -     1.00    -      -      -      -      -      -     mulps	%xmm2, %xmm10
-     -      -     1.00    -      -      -      -      -      -      -     mulps	%xmm7, %xmm0
-     -      -     0.01   0.99    -      -      -      -      -      -     mulps	%xmm2, %xmm15
-     -      -     0.99   0.01    -      -      -      -      -      -     mulps	%xmm8, %xmm5
-     -      -     0.01   0.99    -      -      -      -      -      -     mulps	%xmm13, %xmm2
-     -      -     0.99   0.01    -      -      -      -      -      -     mulps	%xmm9, %xmm9
-     -      -      -     1.00    -      -      -      -      -      -     subps	%xmm10, %xmm0
-     -      -      -      -     0.01   0.99    -      -      -      -     movaps	.LC1(%rip), %xmm10
-     -      -     0.98   0.02    -      -      -      -      -      -     mulps	%xmm10, %xmm0
-     -      -      -     1.00    -      -      -      -      -      -     subps	%xmm5, %xmm2
-     -      -     0.01   0.99    -      -      -      -      -      -     mulps	%xmm3, %xmm0
-     -      -     0.01    -      -      -      -     0.99    -      -     movaps	%xmm8, %xmm3
-     -      -     0.99   0.01    -      -      -      -      -      -     mulps	%xmm7, %xmm3
-     -      -     1.00    -      -      -      -      -      -      -     mulps	%xmm12, %xmm7
-     -      -     0.02   0.98    -      -      -      -      -      -     addps	%xmm15, %xmm3
-     -      -     0.01   0.99    -      -      -      -      -      -     subps	%xmm7, %xmm2
-     -      -      -     1.00    -      -      -      -      -      -     mulps	%xmm10, %xmm3
-     -      -      -     1.00    -      -      -      -      -      -     mulps	%xmm3, %xmm14
-     -      -      -     1.00    -      -      -      -      -      -     addps	%xmm14, %xmm0
-     -      -     0.01    -      -      -      -     0.99    -      -     movaps	%xmm1, %xmm14
-     -      -     0.01   0.99    -      -      -      -      -      -     mulps	%xmm1, %xmm14
+     -      -      -      -      -     1.00    -      -      -      -     movaps	(%rdi), %xmm3
+     -      -      -      -     1.00    -      -      -      -      -     movaps	16(%rdi), %xmm6
+     -      -     0.01   0.98    -      -      -     0.01    -      -     movaps	%xmm3, %xmm12
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm3, %xmm12
+     -      -      -     1.00    -      -      -      -      -      -     movaps	%xmm3, %xmm11
+     -      -     0.01   0.49    -      -      -     0.50    -      -     movaps	%xmm3, %xmm10
+     -      -     0.49   0.01    -      -      -     0.50    -      -     movaps	%xmm12, %xmm8
+     -      -      -     0.50    -      -      -     0.50    -      -     movaps	%xmm12, %xmm9
+     -      -      -     0.51    -      -      -     0.49    -      -     movaps	%xmm3, %xmm4
+     -      -     0.50   0.01    -      -      -     0.49    -      -     movaps	%xmm3, %xmm1
+     -      -     0.01   0.50    -      -      -     0.49    -      -     movaps	%xmm6, %xmm7
+     -      -      -     1.00    -      -      -      -      -      -     mulps	%xmm6, %xmm12
+     -      -      -      -      -      -      -     1.00    -      -     movaps	%xmm6, %xmm0
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm6, %xmm6
+     -      -     0.50   0.50    -      -      -      -      -      -     mulps	%xmm3, %xmm6
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$156, %xmm3, %xmm3
+     -      -     0.98   0.02    -      -      -      -      -      -     mulps	%xmm3, %xmm11
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$120, %xmm10, %xmm10
+     -      -     0.02   0.98    -      -      -      -      -      -     mulps	%xmm10, %xmm8
+     -      -     0.03   0.97    -      -      -      -      -      -     subps	%xmm8, %xmm11
+     -      -     0.01   0.99    -      -      -      -      -      -     mulps	%xmm3, %xmm9
+     -      -     0.49   0.51    -      -      -      -      -      -     mulps	%xmm10, %xmm4
+     -      -     0.49   0.51    -      -      -      -      -      -     addps	%xmm9, %xmm4
+     -      -     0.51   0.49    -      -      -      -      -      -     mulps	%xmm1, %xmm1
+     -      -     0.49    -      -      -      -     0.51    -      -     movaps	%xmm1, %xmm5
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$1, %xmm1, %xmm5
+     -      -     0.99   0.01    -      -      -      -      -      -     addps	%xmm1, %xmm5
+     -      -     0.01   0.50    -      -      -     0.49    -      -     movaps	%xmm1, %xmm2
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$158, %xmm1, %xmm2
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$123, %xmm1, %xmm1
+     -      -     0.03   0.97    -      -      -      -      -      -     addps	%xmm2, %xmm1
+     -      -      -      -      -      -      -      -     1.00    -     movl	$-2147483648, %eax
+     -      -      -      -      -      -      -     1.00    -      -     movd	%eax, %xmm2
+     -      -     0.99   0.01    -      -      -      -      -      -     pxor	%xmm1, %xmm2
+     -      -      -      -      -     1.00    -      -      -      -     movaps	.LCPI3_0(%rip), %xmm1
+     -      -     0.52   0.48    -      -      -      -      -      -     mulps	%xmm1, %xmm11
+     -      -     0.01   0.99    -      -      -      -      -      -     mulps	%xmm1, %xmm4
+     -      -     0.98   0.02    -      -      -      -      -      -     subps	%xmm2, %xmm5
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$156, %xmm7, %xmm7
+     -      -     0.49   0.51    -      -      -      -      -      -     mulps	%xmm10, %xmm7
+     -      -     0.50   0.50    -      -      -      -      -      -     subps	%xmm12, %xmm7
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$120, %xmm0, %xmm0
+     -      -     0.52   0.48    -      -      -      -      -      -     mulps	%xmm3, %xmm0
+     -      -     0.50   0.50    -      -      -      -      -      -     subps	%xmm0, %xmm7
+     -      -     1.00    -      -      -      -      -      -      -     subps	%xmm6, %xmm7
+     -      -     1.00    -      -      -      -      -      -      -     mulps	%xmm1, %xmm7
+     -      -      -      -     1.00    -      -      -      -      -     movaps	(%rsi), %xmm0
+     -      -     0.48   0.52    -      -      -      -      -      -     movaps	%xmm0, %xmm1
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$156, %xmm0, %xmm1
      -      -     0.99   0.01    -      -      -      -      -      -     mulps	%xmm11, %xmm1
-     -      -     0.01   0.99    -      -      -      -      -      -     addps	%xmm14, %xmm9
-     -      -     0.01   0.99    -      -      -      -      -      -     subps	%xmm1, %xmm2
-     -      -     0.01   0.99    -      -      -      -      -      -     subps	%xmm4, %xmm9
-     -      -      -     1.00    -      -      -      -      -      -     mulps	%xmm2, %xmm10
-     -      -     1.00    -     0.99   0.01    -      -      -      -     mulps	-24(%rsp), %xmm10
-     -      -     0.01   0.99    -      -      -      -      -      -     mulps	%xmm9, %xmm6
-     -      -     0.01   0.99    -      -      -      -      -      -     addps	%xmm6, %xmm0
-     -      -      -     1.00    -      -      -      -      -      -     addps	%xmm10, %xmm0
+     -      -      -     1.00    -      -      -      -      -      -     movaps	%xmm0, %xmm2
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$120, %xmm0, %xmm2
+     -      -     0.50   0.50    -      -      -      -      -      -     mulps	%xmm4, %xmm2
+     -      -     0.99   0.01    -      -      -      -      -      -     addps	%xmm1, %xmm2
+     -      -     0.01   0.99    -      -      -      -      -      -     mulps	%xmm0, %xmm5
+     -      -     0.99   0.01    -      -      -      -      -      -     addps	%xmm2, %xmm5
+     -      -      -      -      -      -      -     1.00    -      -     shufps	$0, %xmm0, %xmm0
+     -      -     0.98   0.02    -      -      -      -      -      -     mulps	%xmm7, %xmm0
+     -      -     0.99   0.01    -      -      -      -      -      -     addps	%xmm5, %xmm0
     ```
 
 ```c++
