@@ -4,6 +4,9 @@
 #pragma once
 
 #include <cmath>
+#include <cstdint>
+
+#include "detail/sse.hpp"
 
 #ifdef _MSC_VER
 #    include <intrin.h>
@@ -50,7 +53,7 @@ constexpr float sqrt2_2 = sqrt2_2_v<float>;
 
 /// Augment built-in log2 function with platform intrinsic for integral log2
 template <typename T>
-[[nodiscard]] T log2(T in) noexcept
+[[nodiscard]] KLN_INLINE T log2(T in) noexcept
 {
     return std::log2(in);
 }
@@ -59,7 +62,7 @@ template <typename T>
 /// MSVC intrinsic _BitScanReverse cannot be used in a constexpr context. The
 /// intrinsics map on x86 to the BSR instruction
 template <>
-[[nodiscard]] uint32_t log2(uint32_t in) noexcept
+[[nodiscard]] KLN_INLINE uint32_t log2(uint32_t in) noexcept
 {
 #ifdef _MSC_VER
     unsigned long out = 0;
@@ -71,7 +74,7 @@ template <>
 }
 
 template <>
-[[nodiscard]] uint64_t log2(uint64_t in) noexcept
+[[nodiscard]] KLN_INLINE uint64_t log2(uint64_t in) noexcept
 {
 #ifdef _MSC_VER
     unsigned long out = 0;
