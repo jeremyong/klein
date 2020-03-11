@@ -1,4 +1,3 @@
-#define _USE_MATH_DEFINES
 #include <doctest/doctest.h>
 
 #include <klein/klein.hpp>

@@ -1,4 +1,3 @@
-#define _USE_MATH_DEFINES
 #include <doctest/doctest.h>
 
 #include <klein/klein.hpp>
@@ -7,7 +6,7 @@ using namespace kln;
 
 TEST_CASE("rotor-exp-log")
 {
-    rotor r{M_PI * 0.5f, 0.3f, -3.f, 1.f};
+    rotor r{kln::pi * 0.5f, 0.3f, -3.f, 1.f};
     branch b = log(r);
     rotor r2 = exp(b);
 
@@ -19,7 +18,7 @@ TEST_CASE("rotor-exp-log")
 
 TEST_CASE("rotor-sqrt")
 {
-    rotor r1{M_PI * 0.5f, 0.3f, -3.f, 1.f};
+    rotor r1{kln::pi * 0.5f, 0.3f, -3.f, 1.f};
     rotor r2 = sqrt(r1);
     rotor r3 = r2 * r2;
     CHECK_EQ(r1.scalar(), doctest::Approx(r3.scalar()));
@@ -31,7 +30,7 @@ TEST_CASE("rotor-sqrt")
 TEST_CASE("motor-exp-log-sqrt")
 {
     // Construct a motor from a translator and rotor
-    rotor r{M_PI * 0.5f, 0.3f, -3.f, 1.f};
+    rotor r{kln::pi * 0.5f, 0.3f, -3.f, 1.f};
     translator t{12.f, -2.f, 0.4f, 1.f};
     motor m1 = r * t;
     line l   = log(m1);
@@ -60,7 +59,7 @@ TEST_CASE("motor-exp-log-sqrt")
 TEST_CASE("motor-slerp")
 {
     // Construct a motor from a translator and rotor
-    rotor r{M_PI * 0.5f, 0.3f, -3.f, 1.f};
+    rotor r{kln::pi * 0.5f, 0.3f, -3.f, 1.f};
     translator t{12.f, -2.f, 0.4f, 1.f};
     motor m1 = r * t;
     line l   = log(m1);
@@ -80,11 +79,11 @@ TEST_CASE("motor-slerp")
 
 TEST_CASE("motor-blend")
 {
-    rotor r1{M_PI * 0.5f, 0, 0, 1.f};
+    rotor r1{kln::pi * 0.5f, 0, 0, 1.f};
     translator t1{1.f, 0.f, 0.f, 1.f};
     motor m1 = r1 * t1;
 
-    rotor r2{M_PI * 0.5f, 0.3f, -3.f, 1.f};
+    rotor r2{kln::pi * 0.5f, 0.3f, -3.f, 1.f};
     translator t2{12.f, -2.f, 0.4f, 1.f};
     motor m2 = r2 * t2;
 

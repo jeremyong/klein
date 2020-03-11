@@ -23,7 +23,7 @@ namespace kln
 ///
 ///         // Create a normalized rotor representing a pi/2 radian
 ///         // rotation about the xz-axis.
-///         kln::rotor r{M_PI * 0.5f, 1.f, 0.f, 1.f};
+///         kln::rotor r{kln::pi * 0.5f, 1.f, 0.f, 1.f};
 ///
 ///         // Rotate our point using the created rotor
 ///         kln::point rotated = r(p);
@@ -38,11 +38,11 @@ namespace kln
 ///     ```c++
 ///         // Create a normalized rotor representing a $\frac{\pi}{2}$ radian
 ///         // rotation about the xz-axis.
-///         kln::rotor r1{M_PI * 0.5f, 1.f, 0.f, 1.f};
+///         kln::rotor r1{kln::pi * 0.5f, 1.f, 0.f, 1.f};
 ///
 ///         // Create a second rotor representing a $\frac{\pi}{3}$ radian
 ///         // rotation about the yz-axis.
-///         kln::rotor r2{M_PI / 3.f, 0.f, 1.f, 1.f};
+///         kln::rotor r2{kln::pi / 3.f, 0.f, 1.f, 1.f};
 ///
 ///         // Use the geometric product to create a rotor equivalent to first
 ///         // applying r1, then applying r2. Note that the order of the

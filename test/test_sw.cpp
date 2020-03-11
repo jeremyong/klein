@@ -1,4 +1,3 @@
-#define _USE_MATH_DEFINES
 #include <doctest/doctest.h>
 
 #include <klein/klein.hpp>
@@ -74,7 +73,7 @@ TEST_CASE("rotor-line")
 
 TEST_CASE("rotor-point")
 {
-    rotor r{M_PI * 0.5f, 0, 0, 1.f};
+    rotor r{kln::pi * 0.5f, 0, 0, 1.f};
     point p1{1, 0, 0};
     point p2 = r(p1);
     CHECK_EQ(p2.x(), 0.f);
@@ -110,7 +109,7 @@ TEST_CASE("translator-line")
 
 TEST_CASE("construct-motor")
 {
-    rotor r{M_PI * 0.5f, 0, 0, 1.f};
+    rotor r{kln::pi * 0.5f, 0, 0, 1.f};
     translator t{1.f, 0.f, 0.f, 1.f};
     motor m = r * t;
     point p1{1, 0, 0};
@@ -137,7 +136,7 @@ TEST_CASE("construct-motor")
 
 TEST_CASE("construct-motor-via-screw-axis")
 {
-    motor m{M_PI * 0.5f, 1.f, line{0.f, 0.f, 0.f, 0.f, 0.f, 1.f}};
+    motor m{kln::pi * 0.5f, 1.f, line{0.f, 0.f, 0.f, 0.f, 0.f, 1.f}};
     point p1{1, 0, 0};
     point p2 = m(p1);
     CHECK_EQ(p2.x(), doctest::Approx(0.f));
@@ -235,7 +234,7 @@ TEST_CASE("motor-line-variadic")
 
 TEST_CASE("motor-origin")
 {
-    rotor r{M_PI * 0.5f, 0, 0, 1.f};
+    rotor r{kln::pi * 0.5f, 0, 0, 1.f};
     translator t{1.f, 0.f, 0.f, 1.f};
     motor m = r * t;
     point p = m(origin{});
@@ -286,7 +285,8 @@ TEST_CASE("normalize-motor")
 
 TEST_CASE("motor-sqrt")
 {
-    motor m{M_PI * 0.5f, 3.f, line{3.f, 1.f, 2.f, 4.f, -2.f, 1.f}.normalized()};
+    motor m{
+        kln::pi * 0.5f, 3.f, line{3.f, 1.f, 2.f, 4.f, -2.f, 1.f}.normalized()};
 
     motor m2 = sqrt(m);
     m2       = m2 * m2;
@@ -302,7 +302,7 @@ TEST_CASE("motor-sqrt")
 
 TEST_CASE("rotor-sqrt")
 {
-    rotor r{M_PI * 0.5f, 1, 2, 3};
+    rotor r{kln::pi * 0.5f, 1, 2, 3};
 
     rotor r2 = sqrt(r);
     r2       = r2 * r2;

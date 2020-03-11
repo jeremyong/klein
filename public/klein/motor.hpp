@@ -37,7 +37,7 @@ namespace kln
 ///     ```c++
 ///         // Create a rotor representing a pi/2 rotation about the z-axis
 ///         // Normalization is done automatically
-///         rotor r{M_PI * 0.5f, 0.f, 0.f, 1.f};
+///         rotor r{kln::pi * 0.5f, 0.f, 0.f, 1.f};
 ///
 ///         // Create a translator that represents a translation of 1 unit
 ///         // in the yz-direction. Normalization is done automatically.
