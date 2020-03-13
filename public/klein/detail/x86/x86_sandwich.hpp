@@ -123,29 +123,28 @@ namespace detail
 
     KLN_INLINE void KLN_VEC_CALL sw30(__m128 a, __m128 b, __m128& p3_out)
     {
-        // b0(a1^2 + a2^2 + a3^2) e123 +
+        //                                b0(a1^2 + a2^2 + a3^2)  e123 +
         // (-2a1(a0 b0 + a3 b3 + a2 b2) + b1(a2^2 + a3^2 - a1^2)) e032 +
         // (-2a2(a0 b0 + a1 b1 + a3 b3) + b2(a3^2 + a1^2 - a2^2)) e013 +
-        // (-2a3(a0 b0 + a1 b1 + a2 b2) + b3(a1^2 + a2^2 - a3^2)) e021
+        // (-2a3(a0 b0 + a2 b2 + a1 b1) + b3(a1^2 + a2^2 - a3^2)) e021
+
+        __m128 a_zwyz = KLN_SWIZZLE(a, 2, 1, 3, 2);
+        __m128 a_yzwy = KLN_SWIZZLE(a, 1, 3, 2, 1);
 
         p3_out
             = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), KLN_SWIZZLE(b, 0, 0, 0, 0));
-        p3_out = _mm_add_ps(
-            p3_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 1, 1, 3, 0), KLN_SWIZZLE(b, 1, 1, 3, 0)));
-        p3_out = _mm_add_ps(
-            p3_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 2, 3, 2, 0), KLN_SWIZZLE(b, 2, 3, 2, 0)));
+        p3_out
+            = _mm_add_ps(p3_out, _mm_mul_ps(a_zwyz, KLN_SWIZZLE(b, 2, 1, 3, 0)));
+        p3_out
+            = _mm_add_ps(p3_out, _mm_mul_ps(a_yzwy, KLN_SWIZZLE(b, 1, 3, 2, 0)));
         p3_out = _mm_mul_ps(
             p3_out, _mm_mul_ps(a, _mm_set_ps(-2.f, -2.f, -2.f, 0.f)));
 
-        __m128 a_tmp = KLN_SWIZZLE(a, 1, 3, 2, 1);
-        __m128 tmp   = _mm_mul_ps(a_tmp, a_tmp);
-        a_tmp        = KLN_SWIZZLE(a, 2, 1, 3, 2);
-        tmp          = _mm_add_ps(tmp, _mm_mul_ps(a_tmp, a_tmp));
-        a_tmp        = KLN_SWIZZLE(a, 3, 2, 1, 3);
-        tmp          = _mm_sub_ps(
-            tmp, _mm_xor_ps(_mm_mul_ps(a_tmp, a_tmp), _mm_set_ss(-0.f)));
+        __m128 tmp    = _mm_mul_ps(a_yzwy, a_yzwy);
+        tmp           = _mm_add_ps(tmp, _mm_mul_ps(a_zwyz, a_zwyz));
+        __m128 a_wyzw = KLN_SWIZZLE(a, 3, 2, 1, 3);
+        tmp           = _mm_sub_ps(
+            tmp, _mm_xor_ps(_mm_mul_ps(a_wyzw, a_wyzw), _mm_set_ss(-0.f)));
 
         p3_out = _mm_add_ps(p3_out, _mm_mul_ps(b, tmp));
     }
