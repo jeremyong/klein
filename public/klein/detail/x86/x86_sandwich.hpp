@@ -31,30 +31,29 @@ namespace detail
     // b * a * b
     KLN_INLINE void KLN_VEC_CALL sw00(__m128 a, __m128 b, __m128& p0_out)
     {
-        // (2a0(a1 b1 + a2 b2 + a3 b3) - b0(a1^2 + a2^2 + a3^2)) e0 +
-        // (2a1(a2 b2 + a3 b3) + b1(a1^2 - a2^2 - a3^2)) e1 +
-        // (2a2(a1 b1 + a3 b3) + b2(a2^2 - a3^2 - a1^2)) e2 +
-        // (2a3(a1 b1 + a2 b2) + b3(a3^2 - a1^2 - a2^2)) e3
+        // (2a0(a2 b2 + a3 b3 + a1 b1) - b0(a1^2 + a2^2 + a3^2)) e0 +
+        // (2a1(a2 b2 + a3 b3)         + b1(a1^2 - a2^2 - a3^2)) e1 +
+        // (2a2(a3 b3 + a1 b1)         + b2(a2^2 - a3^2 - a1^2)) e2 +
+        // (2a3(a1 b1 + a2 b2)         + b3(a3^2 - a1^2 - a2^2)) e3
+
+        __m128 a_zzwy = KLN_SWIZZLE(a, 1, 3, 2, 2);
+        __m128 a_wwyz = KLN_SWIZZLE(a, 2, 1, 3, 3);
 
         // Left block
-        __m128 tmp
-            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 1, 2, 1), KLN_SWIZZLE(b, 1, 1, 2, 1));
-        tmp = _mm_add_ps(
-            tmp,
-            _mm_mul_ps(KLN_SWIZZLE(a, 2, 3, 3, 2), KLN_SWIZZLE(b, 2, 3, 3, 2)));
-        tmp = _mm_add_ss(
-            tmp,
-            _mm_mul_ss(KLN_SWIZZLE(a, 0, 0, 0, 3), KLN_SWIZZLE(b, 0, 0, 0, 3)));
-        tmp = _mm_mul_ps(tmp, _mm_add_ps(a, a));
+        __m128 tmp = _mm_mul_ps(a_zzwy, KLN_SWIZZLE(b, 1, 3, 2, 2));
+        tmp = _mm_add_ps(tmp, _mm_mul_ps(a_wwyz, KLN_SWIZZLE(b, 2, 1, 3, 3)));
+
+        __m128 a1 = _mm_movehdup_ps(a);
+        __m128 b1 = _mm_movehdup_ps(b);
+        tmp       = _mm_add_ss(tmp, _mm_mul_ss(a1, b1));
+        tmp       = _mm_mul_ps(tmp, _mm_add_ps(a, a));
 
         // Right block
-        __m128 a_tmp = KLN_SWIZZLE(a, 3, 2, 1, 1);
-        __m128 tmp2  = _mm_xor_ps(_mm_mul_ps(a_tmp, a_tmp), _mm_set_ss(-0.f));
-        a_tmp        = KLN_SWIZZLE(a, 1, 3, 2, 2);
-        tmp2         = _mm_sub_ps(tmp2, _mm_mul_ps(a_tmp, a_tmp));
-        a_tmp        = KLN_SWIZZLE(a, 2, 1, 3, 3);
-        tmp2         = _mm_sub_ps(tmp2, _mm_mul_ps(a_tmp, a_tmp));
-        tmp2         = _mm_mul_ps(tmp2, b);
+        __m128 a_yyzw = KLN_SWIZZLE(a, 3, 2, 1, 1);
+        __m128 tmp2 = _mm_xor_ps(_mm_mul_ps(a_yyzw, a_yyzw), _mm_set_ss(-0.f));
+        tmp2        = _mm_sub_ps(tmp2, _mm_mul_ps(a_zzwy, a_zzwy));
+        tmp2        = _mm_sub_ps(tmp2, _mm_mul_ps(a_wwyz, a_wwyz));
+        tmp2        = _mm_mul_ps(tmp2, b);
 
         p0_out = _mm_add_ps(tmp, tmp2);
     }
