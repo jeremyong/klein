@@ -60,42 +60,41 @@ namespace detail
 
     KLN_INLINE void KLN_VEC_CALL sw10(__m128 a,
                                       __m128 b,
-                                      __m128& KLN_RESTRICT p1_out,
-                                      __m128& KLN_RESTRICT p2_out)
+                                      __m128& KLN_RESTRICT p1,
+                                      __m128& KLN_RESTRICT p2)
     {
-        // b0(a1^2 + a2^2 + a3^2) +
+        //                       b0(a1^2 + a2^2 + a3^2) +
+        // (2a3(a1 b1 + a2 b2) + b3(a3^2 - a1^2 - a2^2)) e12 +
         // (2a1(a2 b2 + a3 b3) + b1(a1^2 - a2^2 - a3^2)) e23 +
         // (2a2(a3 b3 + a1 b1) + b2(a2^2 - a3^2 - a1^2)) e31 +
-        // (2a3(a1 b1 + a2 b2) + b3(a3^2 - a1^2 - a2^2)) e12 +
         //
+        // 2a0(a1 b2 - a2 b1) e03
         // 2a0(a2 b3 - a3 b2) e01 +
         // 2a0(a3 b1 - a1 b3) e02 +
-        // 2a0(a1 b2 - a2 b1) e03
+
+        __m128 a_zyzw = KLN_SWIZZLE(a, 3, 2, 1, 2);
+        __m128 a_ywyz = KLN_SWIZZLE(a, 2, 1, 3, 1);
+        __m128 a_wzwy = KLN_SWIZZLE(a, 1, 3, 2, 3);
+
+        __m128 b_xzwy = KLN_SWIZZLE(b, 1, 3, 2, 0);
 
         __m128 two_zero = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
-        p1_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 1, 3, 2, 0));
-        p1_out = _mm_add_ps(
-            p1_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 2, 1, 3, 0)));
-        p1_out       = _mm_mul_ps(p1_out, _mm_mul_ps(a, two_zero));
-        __m128 a_tmp = KLN_SWIZZLE(a, 3, 2, 1, 1);
-        __m128 tmp   = _mm_mul_ps(a_tmp, a_tmp);
-        a_tmp        = KLN_SWIZZLE(a, 1, 3, 2, 2);
-        tmp          = _mm_sub_ps(
-            tmp, _mm_xor_ps(_mm_set_ss(-0.f), _mm_mul_ps(a_tmp, a_tmp)));
-        a_tmp = KLN_SWIZZLE(a, 2, 1, 3, 3);
-        tmp   = _mm_sub_ps(
-            tmp, _mm_xor_ps(_mm_set_ss(-0.f), _mm_mul_ps(a_tmp, a_tmp)));
-        p1_out = _mm_add_ps(p1_out, _mm_mul_ps(b, tmp));
+        p1              = _mm_mul_ps(a, b);
+        p1              = _mm_add_ps(p1, _mm_mul_ps(a_wzwy, b_xzwy));
+        p1              = _mm_mul_ps(p1, _mm_mul_ps(a_ywyz, two_zero));
 
-        p2_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 2, 1, 3, 0));
-        p2_out = _mm_sub_ps(
-            p2_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 1, 3, 2, 0)));
-        p2_out = _mm_mul_ps(
-            p2_out, _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), two_zero));
+        __m128 tmp = _mm_mul_ps(a_zyzw, a_zyzw);
+        tmp        = _mm_add_ps(tmp, _mm_mul_ps(a_wzwy, a_wzwy));
+        tmp        = _mm_xor_ps(tmp, _mm_set_ss(-0.f));
+        tmp        = _mm_sub_ps(_mm_mul_ps(a_ywyz, a_ywyz), tmp);
+        tmp        = _mm_mul_ps(KLN_SWIZZLE(b, 2, 1, 3, 0), tmp);
+
+        p1 = KLN_SWIZZLE(_mm_add_ps(p1, tmp), 1, 3, 2, 0);
+
+        p2 = _mm_mul_ps(a_zyzw, b_xzwy);
+        p2 = _mm_sub_ps(p2, _mm_mul_ps(a_wzwy, b));
+        p2 = _mm_mul_ps(p2, _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), two_zero));
+        p2 = KLN_SWIZZLE(p2, 1, 3, 2, 0);
     }
 
     KLN_INLINE void KLN_VEC_CALL sw20(__m128 a, __m128 b, __m128& p2_out)
