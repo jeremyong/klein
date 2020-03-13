@@ -97,29 +97,28 @@ namespace detail
         p2 = KLN_SWIZZLE(p2, 1, 3, 2, 0);
     }
 
-    KLN_INLINE void KLN_VEC_CALL sw20(__m128 a, __m128 b, __m128& p2_out)
+    KLN_INLINE void KLN_VEC_CALL sw20(__m128 a, __m128 b, __m128& p2)
     {
-        // -b0(a1^2 + a2^2 + a3^2) e0123 +
+        //                       -b0(a1^2 + a2^2 + a3^2) e0123 +
+        // (-2a3(a1 b1 + a2 b2) + b3(a1^2 + a2^2 - a3^2)) e03
         // (-2a1(a2 b2 + a3 b3) + b1(a2^2 + a3^2 - a1^2)) e01 +
         // (-2a2(a3 b3 + a1 b1) + b2(a3^2 + a1^2 - a2^2)) e02 +
-        // (-2a3(a1 b1 + a2 b2) + b3(a1^2 + a2^2 - a3^2)) e03
 
-        p2_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 1, 3, 2, 0));
-        p2_out = _mm_add_ps(
-            p2_out,
-            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 2, 1, 3, 0)));
-        p2_out = _mm_mul_ps(
-            p2_out, _mm_mul_ps(a, _mm_set_ps(-2.f, -2.f, -2.f, 0.f)));
+        __m128 a_zzwy = KLN_SWIZZLE(a, 1, 3, 2, 2);
+        __m128 a_wwyz = KLN_SWIZZLE(a, 2, 1, 3, 3);
 
-        __m128 a_tmp = KLN_SWIZZLE(a, 1, 3, 2, 1);
-        __m128 tmp   = _mm_mul_ps(a_tmp, a_tmp);
-        a_tmp        = KLN_SWIZZLE(a, 2, 1, 3, 2);
-        tmp          = _mm_xor_ps(
-            _mm_set_ss(-0.f), _mm_add_ps(tmp, _mm_mul_ps(a_tmp, a_tmp)));
-        a_tmp  = KLN_SWIZZLE(a, 3, 2, 1, 3);
-        tmp    = _mm_sub_ps(tmp, _mm_mul_ps(a_tmp, a_tmp));
-        p2_out = _mm_add_ps(p2_out, _mm_mul_ps(tmp, b));
+        p2 = _mm_mul_ps(a, b);
+        p2 = _mm_add_ps(p2, _mm_mul_ps(a_zzwy, KLN_SWIZZLE(b, 1, 3, 2, 0)));
+        p2 = _mm_mul_ps(
+            p2, _mm_mul_ps(a_wwyz, _mm_set_ps(-2.f, -2.f, -2.f, 0.f)));
+
+        __m128 a_yyzw = KLN_SWIZZLE(a, 3, 2, 1, 1);
+        __m128 tmp    = _mm_mul_ps(a_yyzw, a_yyzw);
+        tmp           = _mm_xor_ps(
+            _mm_set_ss(-0.f), _mm_add_ps(tmp, _mm_mul_ps(a_zzwy, a_zzwy)));
+        tmp = _mm_sub_ps(tmp, _mm_mul_ps(a_wwyz, a_wwyz));
+        p2  = _mm_add_ps(p2, _mm_mul_ps(tmp, KLN_SWIZZLE(b, 2, 1, 3, 0)));
+        p2  = KLN_SWIZZLE(p2, 1, 3, 2, 0);
     }
 
     KLN_INLINE void KLN_VEC_CALL sw30(__m128 a, __m128 b, __m128& p3_out)
