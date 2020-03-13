@@ -179,10 +179,11 @@ namespace detail
         // a1*b1 + a2*b2 + a3*b3 stored in the low component of tmp
         __m128 tmp = hi_dp(a, b);
 
-        // Scale by 2
-        float b0;
-        _mm_store_ss(&b0, b);
-        tmp = _mm_mul_ps(tmp, _mm_set_ps(0.f, 0.f, 0.f, 2.f / b0));
+        __m128 inv_b = rcp_nr1(b);
+        // 2 / b0
+        inv_b = _mm_add_ss(inv_b, inv_b);
+        inv_b = _mm_and_ps(inv_b, _mm_castsi128_ps(_mm_set_epi32(0, 0, 0, -1)));
+        tmp   = _mm_mul_ss(tmp, inv_b);
 
         // Add to the plane
         return _mm_add_ps(a, tmp);
