@@ -226,6 +226,25 @@ namespace detail
         p2_out = _mm_add_ps(p2_out, d);
     }
 
+    // Apply a translator to a point.
+    // Assumes e0123 component of p2 is exactly 0
+    // p2: (e0123, e01, e02, e03)
+    // p3: (e123, e032, e013, e021)
+    // b * a * ~b
+    KLN_INLINE auto KLN_VEC_CALL sw32(__m128 a, __m128 b) noexcept
+    {
+        // a0 e123 +
+        // (a1 - 2 a0 b1) e032 +
+        // (a2 - 2 a0 b2) e013 +
+        // (a3 - 2 a0 b3) e021
+
+        __m128 tmp = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), b);
+        tmp        = _mm_mul_ps(_mm_set_ps(-2.f, -2.f, -2.f, 0.f), tmp);
+        tmp        = _mm_add_ps(a, tmp);
+        return tmp;
+    }
+
+#if __cplusplus >= 201703L
     // Apply a motor to a motor (works on lines as well)
     // in points to the start of an array of motor inputs (alternating p1 and
     // p2) out points to the start of an array of motor outputs (alternating p1
@@ -262,15 +281,15 @@ namespace detail
         tmp          = _mm_sub_ps(tmp, _mm_xor_ps(tmp2, _mm_set_ss(-0.f)));
         // tmp needs to be scaled by a and set to p1_out
 
-        __m128 bzero = KLN_SWIZZLE(b, 0, 0, 0, 0);
-        __m128 scale = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
-        tmp2         = _mm_mul_ps(bzero, b_xwyz);
-        tmp2         = _mm_add_ps(tmp2, _mm_mul_ps(b, b_xzwy));
-        tmp2         = _mm_mul_ps(tmp2, scale);
+        __m128 b_xxxx = KLN_SWIZZLE(b, 0, 0, 0, 0);
+        __m128 scale  = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
+        tmp2          = _mm_mul_ps(b_xxxx, b_xwyz);
+        tmp2          = _mm_add_ps(tmp2, _mm_mul_ps(b, b_xzwy));
+        tmp2          = _mm_mul_ps(tmp2, scale);
         // tmp2 needs to be scaled by (a0, a2, a3, a1) and added to p1_out
 
         __m128 tmp3 = _mm_mul_ps(b, b_xwyz);
-        tmp3        = _mm_sub_ps(tmp3, _mm_mul_ps(bzero, b_xzwy));
+        tmp3        = _mm_sub_ps(tmp3, _mm_mul_ps(b_xxxx, b_xzwy));
         tmp3        = _mm_mul_ps(tmp3, scale);
         // tmp3 needs to be scaled by (a0, a3, a1, a2) and added to p1_out
 
@@ -331,11 +350,11 @@ namespace detail
             tmp5 = _mm_mul_ps(b, c_xwyz);
             tmp5 = _mm_add_ps(tmp5, _mm_mul_ps(b_xzwy, czero));
             tmp5 = _mm_add_ps(tmp5, _mm_mul_ps(b_xwyz, *c));
-            tmp5 = _mm_sub_ps(tmp5, _mm_mul_ps(bzero, c_xzwy));
+            tmp5 = _mm_sub_ps(tmp5, _mm_mul_ps(b_xxxx, c_xzwy));
             tmp5 = _mm_mul_ps(tmp5, scale);
 
             tmp6 = _mm_mul_ps(b, c_xzwy);
-            tmp6 = _mm_add_ps(tmp6, _mm_mul_ps(bzero, c_xwyz));
+            tmp6 = _mm_add_ps(tmp6, _mm_mul_ps(b_xxxx, c_xwyz));
             tmp6 = _mm_add_ps(tmp6, _mm_mul_ps(b_xzwy, *c));
             tmp6 = _mm_sub_ps(tmp6, _mm_mul_ps(b_xwyz, czero));
             tmp6 = _mm_mul_ps(tmp6, scale);
@@ -390,7 +409,7 @@ namespace detail
                                        __m128 b,
                                        [[maybe_unused]] __m128 const* KLN_RESTRICT c,
                                        __m128* out,
-                                       size_t count = 0)
+                                       size_t count = 0) noexcept
     {
         // LSB
         //
@@ -491,26 +510,8 @@ namespace detail
         }
     }
 
-    // Apply a translator to a point.
-    // Assumes e0123 component of p2 is exactly 0
-    // p2: (e0123, e01, e02, e03)
-    // p3: (e123, e032, e013, e021)
-    // b * a * ~b
-    KLN_INLINE auto KLN_VEC_CALL sw32(__m128 a, __m128 b) noexcept
-    {
-        // a0 e123 +
-        // (a1 - 2 a0 b1) e032 +
-        // (a2 - 2 a0 b2) e013 +
-        // (a3 - 2 a0 b3) e021
-
-        __m128 tmp = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 0), b);
-        tmp        = _mm_mul_ps(_mm_set_ps(-2.f, -2.f, -2.f, 0.f), tmp);
-        tmp        = _mm_add_ps(a, tmp);
-        return tmp;
-    }
-
     // Apply a motor to a point
-    template <bool Variadic = false, bool Translate = true>
+    template <bool Variadic, bool Translate>
     KLN_INLINE void KLN_VEC_CALL sw312(__m128 const* KLN_RESTRICT a,
                                        __m128 b,
                                        [[maybe_unused]] __m128 const* KLN_RESTRICT c,
@@ -543,16 +544,16 @@ namespace detail
         // component will remain unity.
 
         __m128 two    = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
-        __m128 bzero  = KLN_SWIZZLE(b, 0, 0, 0, 0);
+        __m128 b_xxxx = KLN_SWIZZLE(b, 0, 0, 0, 0);
         __m128 b_xwyz = KLN_SWIZZLE(b, 2, 1, 3, 0);
         __m128 b_xzwy = KLN_SWIZZLE(b, 1, 3, 2, 0);
 
         __m128 tmp1 = _mm_mul_ps(b, b_xwyz);
-        tmp1        = _mm_sub_ps(tmp1, _mm_mul_ps(bzero, b_xzwy));
+        tmp1        = _mm_sub_ps(tmp1, _mm_mul_ps(b_xxxx, b_xzwy));
         tmp1        = _mm_mul_ps(tmp1, two);
         // tmp1 needs to be scaled by (_, a3, a1, a2)
 
-        __m128 tmp2 = _mm_mul_ps(bzero, b_xwyz);
+        __m128 tmp2 = _mm_mul_ps(b_xxxx, b_xwyz);
         tmp2        = _mm_add_ps(tmp2, _mm_mul_ps(b_xzwy, b));
         tmp2        = _mm_mul_ps(tmp2, two);
         // tmp2 needs to be scaled by (_, a2, a3, a1)
@@ -570,7 +571,7 @@ namespace detail
         if constexpr (Translate)
         {
             tmp4 = _mm_mul_ps(b_xzwy, KLN_SWIZZLE(*c, 2, 1, 3, 0));
-            tmp4 = _mm_sub_ps(tmp4, _mm_mul_ps(bzero, *c));
+            tmp4 = _mm_sub_ps(tmp4, _mm_mul_ps(b_xxxx, *c));
             tmp4 = _mm_sub_ps(
                 tmp4, _mm_mul_ps(b_xwyz, KLN_SWIZZLE(*c, 1, 3, 2, 0)));
             tmp4 = _mm_sub_ps(tmp4, _mm_mul_ps(b, KLN_SWIZZLE(*c, 0, 0, 0, 0)));
@@ -595,6 +596,10 @@ namespace detail
             }
         }
     }
+#else
+// Use header that avoids `if constexpr` usage
+#    include "x86_sandwich_cxx11.inl"
+#endif
 
     // Conjugate origin with motor. Unlike other operations the motor MUST be
     // normalized prior to usage b is the rotor component (p1) c is the

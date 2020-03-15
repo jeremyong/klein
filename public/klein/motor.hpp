@@ -270,7 +270,7 @@ public:
     [[nodiscard]] mat4x4 as_mat4x4() const noexcept
     {
         mat4x4 out;
-        mat4x4_12<true>(p1_, &p2_, out.cols);
+        mat4x4_12<true, false>(p1_, &p2_, out.cols);
         return out;
     }
 

@@ -32,3 +32,4 @@ build_script:
   - dir
   - C:\projects\klein\%configuration%\klein_test.exe
   - C:\projects\klein\%configuration%\klein_test_sse42.exe
+  - C:\projects\klein\%configuration%\klein_test_cxx11.exe

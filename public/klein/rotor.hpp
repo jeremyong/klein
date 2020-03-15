@@ -166,7 +166,7 @@ public:
     [[nodiscard]] mat4x4 as_mat4x4() const noexcept
     {
         mat4x4 out;
-        mat4x4_12<false>(p1_, nullptr, out.cols);
+        mat4x4_12<false, false>(p1_, nullptr, out.cols);
         return out;
     }
 

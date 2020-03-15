@@ -66,8 +66,8 @@ namespace detail
     template <bool Flip>
     KLN_INLINE void KLN_VEC_CALL gp03(__m128 a,
                                       __m128 b,
-                                      __m128& KLN_RESTRICT p1_out,
-                                      __m128& KLN_RESTRICT p2_out) noexcept
+                                      __m128& KLN_RESTRICT p1,
+                                      __m128& KLN_RESTRICT p2) noexcept
     {
         // a1 b0 e23 +
         // a2 b0 e31 +
@@ -87,31 +87,51 @@ namespace detail
         // (a1 b3 - a3 b1) e02 +
         // (a2 b1 - a1 b2) e03
 
-        p1_out = _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0));
+        p1 = _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0));
 #ifdef KLEIN_SSE_4_1
-        p1_out = _mm_blend_ps(p1_out, _mm_setzero_ps(), 1);
+        p1 = _mm_blend_ps(p1, _mm_setzero_ps(), 1);
 #else
-        p1_out
-            = _mm_and_ps(p1_out, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
+        p1 = _mm_and_ps(p1, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
 #endif
 
         // (_, a3 b2, a1 b3, a2 b1)
-        p2_out
-            = _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 1, 3, 2, 0));
-        p2_out = _mm_sub_ps(
-            p2_out,
+        p2 = _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 1, 3, 2, 0));
+        p2 = _mm_sub_ps(
+            p2,
             _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 2, 1, 3, 0)));
 
         // Compute a0 b0 + a1 b1 + a2 b2 + a3 b3 and store it in the low
         // component
         __m128 tmp = dp(a, b);
 
-        if constexpr (Flip)
-        {
-            tmp = _mm_xor_ps(tmp, _mm_set_ss(-0.f));
-        }
+        tmp = _mm_xor_ps(tmp, _mm_set_ss(-0.f));
 
-        p2_out = _mm_add_ps(p2_out, tmp);
+        p2 = _mm_add_ps(p2, tmp);
+    }
+
+    template <>
+    KLN_INLINE void KLN_VEC_CALL gp03<false>(__m128 a,
+                                             __m128 b,
+                                             __m128& KLN_RESTRICT p1,
+                                             __m128& KLN_RESTRICT p2) noexcept
+    {
+        p1 = _mm_mul_ps(a, KLN_SWIZZLE(b, 0, 0, 0, 0));
+#ifdef KLEIN_SSE_4_1
+        p1 = _mm_blend_ps(p1, _mm_setzero_ps(), 1);
+#else
+        p1 = _mm_and_ps(p1, _mm_castsi128_ps(_mm_set_epi32(-1, -1, -1, 0)));
+#endif
+
+        // (_, a3 b2, a1 b3, a2 b1)
+        p2 = _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 0), KLN_SWIZZLE(b, 1, 3, 2, 0));
+        p2 = _mm_sub_ps(
+            p2,
+            _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), KLN_SWIZZLE(b, 2, 1, 3, 0)));
+
+        // Compute a0 b0 + a1 b1 + a2 b2 + a3 b3 and store it in the low
+        // component
+        __m128 tmp = dp(a, b);
+        p2         = _mm_add_ps(p2, tmp);
     }
 
     // p1: (1, e23, e31, e12)
@@ -196,38 +216,36 @@ namespace detail
     KLN_INLINE void KLN_VEC_CALL gpRT(__m128 a, __m128 b, __m128& p2)
     {
         // (a1 b1 + a2 b2 + a3 b3) e0123 +
-        // (a0 b1 + a3 b2 - a2 b3) e01 +
-        // (a0 b2 + a1 b3 - a3 b1) e02 +
-        // (a0 b3 + a2 b1 - a1 b2) e03
-
-        // With flip
-        // (a1 b1 + a2 b2 + a3 b3) e0123 +
         // (a0 b1 + a2 b3 - a3 b2) e01 +
         // (a0 b2 + a3 b1 - a1 b3) e02 +
         // (a0 b3 + a1 b2 - a2 b1) e03
 
         p2 = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 1), KLN_SWIZZLE(b, 3, 2, 1, 1));
+        p2 = _mm_add_ps(
+            p2,
+            _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 2), KLN_SWIZZLE(b, 2, 1, 3, 2)));
+        p2 = _mm_sub_ps(p2,
+                        _mm_xor_ps(_mm_set_ss(-0.f),
+                                   _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 3),
+                                              KLN_SWIZZLE(b, 1, 3, 2, 3))));
+    }
 
-        if constexpr (Flip)
-        {
-            p2 = _mm_add_ps(p2,
-                            _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 2),
-                                       KLN_SWIZZLE(b, 2, 1, 3, 2)));
-            p2 = _mm_sub_ps(p2,
-                            _mm_xor_ps(_mm_set_ss(-0.f),
-                                       _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 3),
-                                                  KLN_SWIZZLE(b, 1, 3, 2, 3))));
-        }
-        else
-        {
-            p2 = _mm_add_ps(p2,
-                            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 2),
-                                       KLN_SWIZZLE(b, 1, 3, 2, 2)));
-            p2 = _mm_sub_ps(p2,
-                            _mm_xor_ps(_mm_set_ss(-0.f),
-                                       _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 3),
-                                                  KLN_SWIZZLE(b, 2, 1, 3, 3))));
-        }
+    template <>
+    KLN_INLINE void KLN_VEC_CALL gpRT<false>(__m128 a, __m128 b, __m128& p2)
+    {
+        // (a1 b1 + a2 b2 + a3 b3) e0123 +
+        // (a0 b1 + a3 b2 - a2 b3) e01 +
+        // (a0 b2 + a1 b3 - a3 b1) e02 +
+        // (a0 b3 + a2 b1 - a1 b2) e03
+
+        p2 = _mm_mul_ps(KLN_SWIZZLE(a, 0, 0, 0, 1), KLN_SWIZZLE(b, 3, 2, 1, 1));
+        p2 = _mm_add_ps(
+            p2,
+            _mm_mul_ps(KLN_SWIZZLE(a, 2, 1, 3, 2), KLN_SWIZZLE(b, 1, 3, 2, 2)));
+        p2 = _mm_sub_ps(p2,
+                        _mm_xor_ps(_mm_set_ss(-0.f),
+                                   _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 3),
+                                              KLN_SWIZZLE(b, 2, 1, 3, 3))));
     }
 
     template <bool Flip>

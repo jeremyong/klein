@@ -21,6 +21,7 @@ namespace detail
         // (a1 b2 - a2 b1) e12 +
         // (a2 b3 - a3 b2) e23 +
         // (a3 b1 - a1 b3) e31 +
+
         // (a0 b1 - a1 b0) e01 +
         // (a0 b2 - a2 b0) e02 +
         // (a0 b3 - a3 b0) e03
@@ -69,16 +70,19 @@ namespace detail
             0);
     }
 
-    // p0 ^ p3 = -p3 ^ p0
-    template <bool Flip = false>
-    KLN_INLINE void KLN_VEC_CALL ext03(__m128 a, __m128 b, __m128& p2_out) noexcept
+    template <bool Flip>
+    KLN_INLINE void KLN_VEC_CALL ext03(__m128 a, __m128 b, __m128& p2) noexcept
     {
         // (a0 b0 + a1 b1 + a2 b2 + a3 b3) e0123
-        p2_out = dp(a, b);
-        if constexpr (Flip)
-        {
-            p2_out = _mm_xor_ps(p2_out, _mm_set_ss(-0.f));
-        }
+        p2 = dp(a, b);
+    }
+
+    // p0 ^ p3 = -p3 ^ p0
+    template <>
+    KLN_INLINE void KLN_VEC_CALL ext03<true>(__m128 a, __m128 b, __m128& p2) noexcept
+    {
+        ext03<false>(a, b, p2);
+        p2 = _mm_xor_ps(p2, _mm_set_ss(-0.f));
     }
     // The exterior products p2 ^ p2, p2 ^ p3, p3 ^ p2, and p3 ^ p3 all vanish
 } // namespace detail

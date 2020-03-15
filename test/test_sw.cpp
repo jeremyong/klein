@@ -156,6 +156,22 @@ TEST_CASE("motor-plane")
     CHECK_EQ(p2.d(), 358.f);
 }
 
+TEST_CASE("motor-plane-variadic")
+{
+    motor m{1.f, 4.f, 3.f, 2.f, 5.f, 6.f, 7.f, 8.f};
+    plane ps[2] = {{3.f, 2.f, 1.f, -1.f}, {3.f, 2.f, 1.f, -1.f}};
+    plane ps2[2];
+    m(ps, ps2, 2);
+
+    for (size_t i = 0; i != 2; ++i)
+    {
+        CHECK_EQ(ps2[i].x(), 78.f);
+        CHECK_EQ(ps2[i].y(), 60.f);
+        CHECK_EQ(ps2[i].z(), 54.f);
+        CHECK_EQ(ps2[i].d(), 358.f);
+    }
+}
+
 TEST_CASE("motor-point")
 {
     motor m{1.f, 4.f, 3.f, 2.f, 5.f, 6.f, 7.f, 8.f};
@@ -165,6 +181,22 @@ TEST_CASE("motor-point")
     CHECK_EQ(p2.y(), -86.f);
     CHECK_EQ(p2.z(), -86.f);
     CHECK_EQ(p2.w(), 30.f);
+}
+
+TEST_CASE("motor-point-variadic")
+{
+    motor m{1.f, 4.f, 3.f, 2.f, 5.f, 6.f, 7.f, 8.f};
+    point ps[2] = {{-1.f, 1.f, 2.f}, {-1.f, 1.f, 2.f}};
+    point ps2[2];
+    m(ps, ps2, 2);
+
+    for (size_t i = 0; i != 2; ++i)
+    {
+        CHECK_EQ(ps2[i].x(), -12.f);
+        CHECK_EQ(ps2[i].y(), -86.f);
+        CHECK_EQ(ps2[i].z(), -86.f);
+        CHECK_EQ(ps2[i].w(), 30.f);
+    }
 }
 
 TEST_CASE("motor-line")
@@ -179,6 +211,26 @@ TEST_CASE("motor-line")
     CHECK_EQ(l2.e12(), -214.f);
     CHECK_EQ(l2.e31(), -148.f);
     CHECK_EQ(l2.e23(), -40.f);
+}
+
+TEST_CASE("motor-line-variadic")
+{
+    motor m{2.f, 4.f, 3.f, -1.f, -5.f, -2.f, 2.f, -3.f};
+    // a*e01 + b*e01 + c*e02 + d*e23 + e*e31 + f*e12
+    line ls[2]
+        = {{-1.f, 2.f, -3.f, -6.f, 5.f, 4.f}, {-1.f, 2.f, -3.f, -6.f, 5.f, 4.f}};
+    line ls2[2];
+    m(ls, ls2, 2);
+
+    for (size_t i = 0; i != 2; ++i)
+    {
+        CHECK_EQ(ls2[i].e01(), 6.f);
+        CHECK_EQ(ls2[i].e02(), 522.f);
+        CHECK_EQ(ls2[i].e03(), 96.f);
+        CHECK_EQ(ls2[i].e12(), -214.f);
+        CHECK_EQ(ls2[i].e31(), -148.f);
+        CHECK_EQ(ls2[i].e23(), -40.f);
+    }
 }
 
 TEST_CASE("motor-origin")

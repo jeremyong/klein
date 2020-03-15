@@ -79,14 +79,17 @@ namespace detail
     }
 
     // Plane | Ideal Line
-    template <bool Flip = false>
+    template <bool Flip>
     KLN_INLINE void KLN_VEC_CALL dotPIL(__m128 a, __m128 c, __m128& p0) noexcept
     {
         p0 = hi_dp(a, c);
-        if constexpr (!Flip)
-        {
-            p0 = _mm_xor_ps(p0, _mm_set_ss(-0.f));
-        }
+    }
+
+    template <>
+    KLN_INLINE void KLN_VEC_CALL dotPIL<false>(__m128 a, __m128 c, __m128& p0) noexcept
+    {
+        dotPIL<true>(a, c, p0);
+        p0 = _mm_xor_ps(p0, _mm_set_ss(-0.f));
     }
 
     // Plane | Line
@@ -98,24 +101,23 @@ namespace detail
         // (a3 b2 - a2 b3) e1 +
         // (a1 b3 - a3 b1) e2 +
 
-        // With flip
+        p0 = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), b);
+        p0 = _mm_sub_ps(p0, _mm_mul_ps(a, KLN_SWIZZLE(b, 1, 3, 2, 0)));
+        p0 = _mm_sub_ss(KLN_SWIZZLE(p0, 1, 3, 2, 0), hi_dp_ss(a, c));
+    }
+
+    template <>
+    KLN_INLINE void KLN_VEC_CALL
+    dotPL<true>(__m128 a, __m128 b, __m128 c, __m128& p0) noexcept
+    {
         // (a1 c1 + a2 c2 + a3 c3) e0 +
         // (a1 b2 - a2 b1) e3
         // (a2 b3 - a3 b2) e1 +
         // (a3 b1 - a1 b3) e2 +
 
-        if constexpr (Flip)
-        {
-            p0 = _mm_mul_ps(a, KLN_SWIZZLE(b, 1, 3, 2, 0));
-            p0 = _mm_sub_ps(p0, _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), b));
-            p0 = _mm_add_ss(KLN_SWIZZLE(p0, 1, 3, 2, 0), hi_dp_ss(a, c));
-        }
-        else
-        {
-            p0 = _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), b);
-            p0 = _mm_sub_ps(p0, _mm_mul_ps(a, KLN_SWIZZLE(b, 1, 3, 2, 0)));
-            p0 = _mm_sub_ss(KLN_SWIZZLE(p0, 1, 3, 2, 0), hi_dp_ss(a, c));
-        }
+        p0 = _mm_mul_ps(a, KLN_SWIZZLE(b, 1, 3, 2, 0));
+        p0 = _mm_sub_ps(p0, _mm_mul_ps(KLN_SWIZZLE(a, 1, 3, 2, 0), b));
+        p0 = _mm_add_ss(KLN_SWIZZLE(p0, 1, 3, 2, 0), hi_dp_ss(a, c));
     }
 } // namespace detail
 } // namespace kln
