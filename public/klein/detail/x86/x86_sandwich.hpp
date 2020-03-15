@@ -155,7 +155,7 @@ namespace detail
     // p2: (e0123, e01, e02, e03)
     // b * a * ~b
     // The low component of p2 is expected to be the scalar component instead
-    KLN_INLINE auto KLN_VEC_CALL sw02(__m128 a, __m128 b)
+    KLN_INLINE __m128 KLN_VEC_CALL sw02(__m128 a, __m128 b)
     {
         // (a0 b0^2 + 2a1 b0 b1 + 2a2 b0 b2 + 2a3 b0 b3) e0 +
         // (a1 b0^2) e1 +
@@ -231,7 +231,7 @@ namespace detail
     // p2: (e0123, e01, e02, e03)
     // p3: (e123, e032, e013, e021)
     // b * a * ~b
-    KLN_INLINE auto KLN_VEC_CALL sw32(__m128 a, __m128 b) noexcept
+    KLN_INLINE __m128 KLN_VEC_CALL sw32(__m128 a, __m128 b) noexcept
     {
         // a0 e123 +
         // (a1 - 2 a0 b1) e032 +
