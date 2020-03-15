@@ -13,7 +13,7 @@ extern "C"
     typedef struct
     {
         /// LSB (e0, e1, e2, e3) MSB
-        alignas(16) __m128 p0;
+        __m128 p0;
     } kln_plane;
 
     /// For lines, the scalar component and pseudoscalar components should be
@@ -21,7 +21,7 @@ extern "C"
     typedef struct
     {
         /// LSB (1, e12, e31, e23) MSB
-        alignas(16) __m128 p1;
+        __m128 p1;
 
         /// LSB (e0123, e01, e02, e03) MSB
         __m128 p2;
@@ -32,7 +32,7 @@ extern "C"
     typedef struct
     {
         /// LSB (e123, e021, e013, e032) MSB
-        alignas(16) __m128 p3;
+        __m128 p3;
     } kln_direction;
 
     /// The point at cartesian coordinate $(x, y, z)$ corresponds to the
@@ -42,25 +42,25 @@ extern "C"
     typedef struct
     {
         /// LSB (e123, e021, e013, e032) MSB
-        alignas(16) __m128 p3;
+        __m128 p3;
     } kln_point;
 
     typedef struct
     {
         /// LSB (1, e12, e31, e23) MSB
-        alignas(16) __m128 p1;
+        __m128 p1;
     } kln_rotor;
 
     typedef struct
     {
         /// LSB (e0123, e01, e02, e03) MSB
-        alignas(16) __m128 p2;
+        __m128 p2;
     } kln_translator;
 
     typedef struct
     {
         /// LSB (1, e12, e31, e23) MSB
-        alignas(16) __m128 p1;
+        __m128 p1;
 
         /// LSB (e0123, e01, e02, e03) MSB
         __m128 p2;
