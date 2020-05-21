@@ -2,12 +2,12 @@
 
 template <bool Translate, bool Normalized>
 KLN_INLINE void KLN_VEC_CALL mat4x4_12(__m128 b,
-                                       [[maybe_unused]] __m128 const* c,
+                                       __m128 const* c,
                                        __m128* out) noexcept;
 
 template <>
 KLN_INLINE void KLN_VEC_CALL mat4x4_12<true, true>(__m128 b,
-                                                   [[maybe_unused]] __m128 const* c,
+                                                   __m128 const* c,
                                                    __m128* out) noexcept
 {
     float buf[4];
@@ -57,8 +57,9 @@ KLN_INLINE void KLN_VEC_CALL mat4x4_12<true, true>(__m128 b,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-mat4x4_12<true, false>(__m128 b, [[maybe_unused]] __m128 const* c, __m128* out) noexcept
+KLN_INLINE void KLN_VEC_CALL mat4x4_12<true, false>(__m128 b,
+                                                    __m128 const* c,
+                                                    __m128* out) noexcept
 {
     float buf[4];
     _mm_storeu_ps(buf, _mm_mul_ps(b, b));
@@ -108,8 +109,9 @@ mat4x4_12<true, false>(__m128 b, [[maybe_unused]] __m128 const* c, __m128* out) 
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-mat4x4_12<false, true>(__m128 b, [[maybe_unused]] __m128 const* c, __m128* out) noexcept
+KLN_INLINE void KLN_VEC_CALL mat4x4_12<false, true>(__m128 b,
+                                                    __m128 const* c,
+                                                    __m128* out) noexcept
 {
     float buf[4];
     _mm_storeu_ps(buf, _mm_mul_ps(b, b));
@@ -150,8 +152,9 @@ mat4x4_12<false, true>(__m128 b, [[maybe_unused]] __m128 const* c, __m128* out) 
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-mat4x4_12<false, false>(__m128 b, [[maybe_unused]] __m128 const* c, __m128* out) noexcept
+KLN_INLINE void KLN_VEC_CALL mat4x4_12<false, false>(__m128 b,
+                                                     __m128 const* c,
+                                                     __m128* out) noexcept
 {
     float buf[4];
     _mm_storeu_ps(buf, _mm_mul_ps(b, b));

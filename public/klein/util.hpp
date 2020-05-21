@@ -58,16 +58,12 @@ template <typename T>
     return std::log2(in);
 }
 
-/// Specialized log2 for a 4 byte unsigned integer. Note that log2(0) is UB. The
-/// MSVC intrinsic _BitScanReverse cannot be used in a constexpr context. The
-/// intrinsics map on x86 to the BSR instruction
+/// Specialized log2 for a 4 byte unsigned integer. Note that log2(0) is UB.
 template <>
 [[nodiscard]] KLN_INLINE uint32_t log2(uint32_t in) noexcept
 {
 #ifdef _MSC_VER
-    unsigned long out = 0;
-    _BitScanForward(&out, in);
-    return 31 - out;
+    return 31 - __lzcnt(in);
 #else
     return 31 - __builtin_clz(in);
 #endif
@@ -77,9 +73,7 @@ template <>
 [[nodiscard]] KLN_INLINE uint64_t log2(uint64_t in) noexcept
 {
 #ifdef _MSC_VER
-    unsigned long out = 0;
-    _BitScanForward64(&out, in);
-    return 63 - out;
+    return 63 - __lzcnt64(in);
 #else
     return 63 - __builtin_clzl(in);
 #endif

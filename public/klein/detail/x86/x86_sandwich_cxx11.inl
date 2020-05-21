@@ -3,17 +3,16 @@
 template <bool Variadic, bool Translate, bool InputP2>
 KLN_INLINE void KLN_VEC_CALL swMM(__m128 const* KLN_RESTRICT in,
                                   __m128 const& KLN_RESTRICT b,
-                                  [[maybe_unused]] __m128 const* KLN_RESTRICT c,
+                                  __m128 const* KLN_RESTRICT c,
                                   __m128* out,
                                   size_t count = 0) noexcept;
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-swMM<true, true, true>(__m128 const* KLN_RESTRICT in,
-                       __m128 const& KLN_RESTRICT b,
-                       [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                       __m128* out,
-                       size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL swMM<true, true, true>(__m128 const* KLN_RESTRICT in,
+                                                    __m128 const& KLN_RESTRICT b,
+                                                    __m128 const* KLN_RESTRICT c,
+                                                    __m128* out,
+                                                    size_t count) noexcept
 {
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
     __m128 b_xzwy   = KLN_SWIZZLE(b, 1, 3, 2, 0);
@@ -91,12 +90,11 @@ swMM<true, true, true>(__m128 const* KLN_RESTRICT in,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-swMM<true, true, false>(__m128 const* KLN_RESTRICT in,
-                        __m128 const& KLN_RESTRICT b,
-                        [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                        __m128* out,
-                        size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL swMM<true, true, false>(__m128 const* KLN_RESTRICT in,
+                                                     __m128 const& KLN_RESTRICT b,
+                                                     __m128 const* KLN_RESTRICT c,
+                                                     __m128* out,
+                                                     size_t count) noexcept
 {
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
     __m128 b_xzwy   = KLN_SWIZZLE(b, 1, 3, 2, 0);
@@ -167,12 +165,11 @@ swMM<true, true, false>(__m128 const* KLN_RESTRICT in,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-swMM<true, false, true>(__m128 const* KLN_RESTRICT in,
-                        __m128 const& KLN_RESTRICT b,
-                        [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                        __m128* out,
-                        size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL swMM<true, false, true>(__m128 const* KLN_RESTRICT in,
+                                                     __m128 const& KLN_RESTRICT b,
+                                                     __m128 const* KLN_RESTRICT c,
+                                                     __m128* out,
+                                                     size_t count) noexcept
 {
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
     __m128 b_xzwy   = KLN_SWIZZLE(b, 1, 3, 2, 0);
@@ -223,7 +220,7 @@ template <>
 KLN_INLINE void KLN_VEC_CALL
 swMM<true, false, false>(__m128 const* KLN_RESTRICT in,
                          __m128 const& KLN_RESTRICT b,
-                         [[maybe_unused]] __m128 const* KLN_RESTRICT c,
+                         __m128 const* KLN_RESTRICT c,
                          __m128* out,
                          size_t count) noexcept
 {
@@ -265,12 +262,11 @@ swMM<true, false, false>(__m128 const* KLN_RESTRICT in,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-swMM<false, true, true>(__m128 const* KLN_RESTRICT in,
-                        __m128 const& KLN_RESTRICT b,
-                        [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                        __m128* out,
-                        [[maybe_unused]] size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL swMM<false, true, true>(__m128 const* KLN_RESTRICT in,
+                                                     __m128 const& KLN_RESTRICT b,
+                                                     __m128 const* KLN_RESTRICT c,
+                                                     __m128* out,
+                                                     size_t count) noexcept
 {
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
     __m128 b_xzwy   = KLN_SWIZZLE(b, 1, 3, 2, 0);
@@ -346,9 +342,9 @@ template <>
 KLN_INLINE void KLN_VEC_CALL
 swMM<false, true, false>(__m128 const* KLN_RESTRICT in,
                          __m128 const& KLN_RESTRICT b,
-                         [[maybe_unused]] __m128 const* KLN_RESTRICT c,
+                         __m128 const* KLN_RESTRICT c,
                          __m128* out,
-                         [[maybe_unused]] size_t count) noexcept
+                         size_t count) noexcept
 {
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
     __m128 b_xzwy   = KLN_SWIZZLE(b, 1, 3, 2, 0);
@@ -419,9 +415,9 @@ template <>
 KLN_INLINE void KLN_VEC_CALL
 swMM<false, false, true>(__m128 const* KLN_RESTRICT in,
                          __m128 const& KLN_RESTRICT b,
-                         [[maybe_unused]] __m128 const* KLN_RESTRICT c,
+                         __m128 const* KLN_RESTRICT c,
                          __m128* out,
-                         [[maybe_unused]] size_t count) noexcept
+                         size_t count) noexcept
 {
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
     __m128 b_xzwy   = KLN_SWIZZLE(b, 1, 3, 2, 0);
@@ -467,9 +463,9 @@ template <>
 KLN_INLINE void KLN_VEC_CALL
 swMM<false, false, false>(__m128 const* KLN_RESTRICT in,
                           __m128 const& KLN_RESTRICT b,
-                          [[maybe_unused]] __m128 const* KLN_RESTRICT c,
+                          __m128 const* KLN_RESTRICT c,
                           __m128* out,
-                          [[maybe_unused]] size_t count) noexcept
+                          size_t count) noexcept
 {
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
     __m128 b_xzwy   = KLN_SWIZZLE(b, 1, 3, 2, 0);
@@ -508,17 +504,16 @@ swMM<false, false, false>(__m128 const* KLN_RESTRICT in,
 template <bool Variadic, bool Translate>
 KLN_INLINE void KLN_VEC_CALL sw012(__m128 const* KLN_RESTRICT a,
                                    __m128 b,
-                                   [[maybe_unused]] __m128 const* KLN_RESTRICT c,
+                                   __m128 const* KLN_RESTRICT c,
                                    __m128* out,
                                    size_t count = 0) noexcept;
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-sw012<true, true>(__m128 const* KLN_RESTRICT a,
-                  __m128 b,
-                  [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                  __m128* out,
-                  size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL sw012<true, true>(__m128 const* KLN_RESTRICT a,
+                                               __m128 b,
+                                               __m128 const* KLN_RESTRICT c,
+                                               __m128* out,
+                                               size_t count) noexcept
 {
     __m128 dc_scale = _mm_set_ps(2.f, 2.f, 2.f, 1.f);
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
@@ -564,12 +559,11 @@ sw012<true, true>(__m128 const* KLN_RESTRICT a,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-sw012<true, false>(__m128 const* KLN_RESTRICT a,
-                   __m128 b,
-                   [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                   __m128* out,
-                   size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL sw012<true, false>(__m128 const* KLN_RESTRICT a,
+                                                __m128 b,
+                                                __m128 const* KLN_RESTRICT c,
+                                                __m128* out,
+                                                size_t count) noexcept
 {
     __m128 dc_scale = _mm_set_ps(2.f, 2.f, 2.f, 1.f);
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
@@ -606,12 +600,11 @@ sw012<true, false>(__m128 const* KLN_RESTRICT a,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-sw012<false, true>(__m128 const* KLN_RESTRICT a,
-                   __m128 b,
-                   [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                   __m128* out,
-                   [[maybe_unused]] size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL sw012<false, true>(__m128 const* KLN_RESTRICT a,
+                                                __m128 b,
+                                                __m128 const* KLN_RESTRICT c,
+                                                __m128* out,
+                                                size_t count) noexcept
 {
     __m128 dc_scale = _mm_set_ps(2.f, 2.f, 2.f, 1.f);
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
@@ -654,12 +647,11 @@ sw012<false, true>(__m128 const* KLN_RESTRICT a,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-sw012<false, false>(__m128 const* KLN_RESTRICT a,
-                    __m128 b,
-                    [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                    __m128* out,
-                    [[maybe_unused]] size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL sw012<false, false>(__m128 const* KLN_RESTRICT a,
+                                                 __m128 b,
+                                                 __m128 const* KLN_RESTRICT c,
+                                                 __m128* out,
+                                                 size_t count) noexcept
 {
     __m128 dc_scale = _mm_set_ps(2.f, 2.f, 2.f, 1.f);
     __m128 b_xwyz   = KLN_SWIZZLE(b, 2, 1, 3, 0);
@@ -695,17 +687,16 @@ sw012<false, false>(__m128 const* KLN_RESTRICT a,
 template <bool Variadic, bool Translate>
 KLN_INLINE void KLN_VEC_CALL sw312(__m128 const* KLN_RESTRICT a,
                                    __m128 b,
-                                   [[maybe_unused]] __m128 const* KLN_RESTRICT c,
+                                   __m128 const* KLN_RESTRICT c,
                                    __m128* out,
                                    size_t count = 0) noexcept;
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-sw312<true, true>(__m128 const* KLN_RESTRICT a,
-                  __m128 b,
-                  [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                  __m128* out,
-                  size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL sw312<true, true>(__m128 const* KLN_RESTRICT a,
+                                               __m128 b,
+                                               __m128 const* KLN_RESTRICT c,
+                                               __m128* out,
+                                               size_t count) noexcept
 {
     __m128 two    = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
     __m128 b_xxxx = KLN_SWIZZLE(b, 0, 0, 0, 0);
@@ -747,12 +738,11 @@ sw312<true, true>(__m128 const* KLN_RESTRICT a,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-sw312<true, false>(__m128 const* KLN_RESTRICT a,
-                   __m128 b,
-                   [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                   __m128* out,
-                   size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL sw312<true, false>(__m128 const* KLN_RESTRICT a,
+                                                __m128 b,
+                                                __m128 const* KLN_RESTRICT c,
+                                                __m128* out,
+                                                size_t count) noexcept
 {
     __m128 two    = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
     __m128 b_xxxx = KLN_SWIZZLE(b, 0, 0, 0, 0);
@@ -786,12 +776,11 @@ sw312<true, false>(__m128 const* KLN_RESTRICT a,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-sw312<false, true>(__m128 const* KLN_RESTRICT a,
-                   __m128 b,
-                   [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                   __m128* out,
-                   [[maybe_unused]] size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL sw312<false, true>(__m128 const* KLN_RESTRICT a,
+                                                __m128 b,
+                                                __m128 const* KLN_RESTRICT c,
+                                                __m128* out,
+                                                size_t count) noexcept
 {
     __m128 two    = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
     __m128 b_xxxx = KLN_SWIZZLE(b, 0, 0, 0, 0);
@@ -831,12 +820,11 @@ sw312<false, true>(__m128 const* KLN_RESTRICT a,
 }
 
 template <>
-KLN_INLINE void KLN_VEC_CALL
-sw312<false, false>(__m128 const* KLN_RESTRICT a,
-                    __m128 b,
-                    [[maybe_unused]] __m128 const* KLN_RESTRICT c,
-                    __m128* out,
-                    [[maybe_unused]] size_t count) noexcept
+KLN_INLINE void KLN_VEC_CALL sw312<false, false>(__m128 const* KLN_RESTRICT a,
+                                                 __m128 b,
+                                                 __m128 const* KLN_RESTRICT c,
+                                                 __m128* out,
+                                                 size_t count) noexcept
 {
     __m128 two    = _mm_set_ps(2.f, 2.f, 2.f, 0.f);
     __m128 b_xxxx = KLN_SWIZZLE(b, 0, 0, 0, 0);
