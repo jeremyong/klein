@@ -1,6 +1,8 @@
 include(FetchContent)
 
-find_package(glm)
+if(NOT WIN32)
+    find_package(glm)
+endif()
 
 if(NOT glm_FOUND)
     FetchContent_Declare(

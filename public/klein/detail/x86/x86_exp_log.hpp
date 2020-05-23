@@ -111,7 +111,8 @@ namespace detail
         sincosu[1] = std::cos(uv[0]);
 
         __m128 sinu = _mm_set1_ps(sincosu[0]);
-        p1_out = _mm_add_ps(_mm_set_ss(sincosu[1]), _mm_mul_ps(sinu, norm_real));
+        p1_out      = _mm_add_ps(
+            _mm_set_ps(0.f, 0.f, 0.f, sincosu[1]), _mm_mul_ps(sinu, norm_real));
 
         // The second partition has contributions from both the real and ideal
         // parts.
@@ -120,7 +121,7 @@ namespace detail
         p2_out             = _mm_mul_ps(sinu, norm_ideal);
         p2_out = _mm_add_ps(p2_out, _mm_mul_ps(minus_vcosu, norm_real));
         float minus_vsinu = uv[1] * sincosu[0];
-        p2_out            = _mm_add_ps(_mm_set_ss(minus_vsinu), p2_out);
+        p2_out = _mm_add_ps(_mm_set_ps(0.f, 0.f, 0.f, minus_vsinu), p2_out);
     }
 
     KLN_INLINE void KLN_VEC_CALL log(__m128 p1,

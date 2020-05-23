@@ -57,7 +57,7 @@ namespace kln
 /// Compute the logarithm of the translator, producing an ideal line axis.
 /// In practice, the logarithm of a translator is simply the ideal partition
 /// (without the scalar $1$).
-[[nodiscard]] inline ideal_line log(translator t) noexcept
+[[nodiscard]] inline ideal_line KLN_VEC_CALL log(translator t) noexcept
 {
     ideal_line out;
     out.p2_ = t.p2_;
@@ -86,7 +86,7 @@ namespace kln
 /// $\alpha\left[a\ee_{23} + b\ee_{31} + c\ee_{23}\right]$.
 /// This map is only well-defined if the
 /// rotor is normalized such that $a^2 + b^2 + c^2 = 1$.
-[[nodiscard]] inline branch log(rotor r) noexcept
+[[nodiscard]] inline branch KLN_VEC_CALL log(rotor r) noexcept
 {
     float cos_ang;
     _mm_store_ss(&cos_ang, r.p1_);
@@ -105,7 +105,7 @@ namespace kln
 }
 
 /// Exponentiate a branch to produce a rotor.
-[[nodiscard]] inline rotor exp(branch b) noexcept
+[[nodiscard]] inline rotor KLN_VEC_CALL exp(branch b) noexcept
 {
     // Compute the rotor angle
     float ang;
@@ -115,19 +115,19 @@ namespace kln
 
     rotor out;
     out.p1_ = _mm_mul_ps(_mm_set1_ps(sin_ang), b.p1_);
-    out.p1_ = _mm_add_ps(out.p1_, _mm_set_ss(cos_ang));
+    out.p1_ = _mm_add_ps(out.p1_, _mm_set_ps(0.f, 0.f, 0.f, cos_ang));
     return out;
 }
 
 /// Compute the square root of the provided rotor $r$.
-[[nodiscard]] inline rotor sqrt(rotor r) noexcept
+[[nodiscard]] inline rotor KLN_VEC_CALL sqrt(rotor r) noexcept
 {
     r.p1_ = _mm_add_ss(r.p1_, _mm_set_ss(1.f));
     r.normalize();
     return r;
 }
 
-[[nodiscard]] inline rotor sqrt(branch b) noexcept
+[[nodiscard]] inline rotor KLN_VEC_CALL sqrt(branch b) noexcept
 {
     rotor r;
     r.p1_ = _mm_add_ss(b.p1_, _mm_set_ss(1.f));
@@ -136,14 +136,14 @@ namespace kln
 }
 
 /// Compute the square root of the provided translator $t$.
-[[nodiscard]] inline translator sqrt(translator t) noexcept
+[[nodiscard]] inline translator KLN_VEC_CALL sqrt(translator t) noexcept
 {
     t *= 0.5f;
     return t;
 }
 
 /// Compute the square root of the provided motor $m$.
-[[nodiscard]] inline motor sqrt(motor m) noexcept
+[[nodiscard]] inline motor KLN_VEC_CALL sqrt(motor m) noexcept
 {
     m.p1_ = _mm_add_ss(m.p1_, _mm_set_ss(1.f));
     m.normalize();

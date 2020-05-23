@@ -143,8 +143,8 @@ public:
         return _mm_movemask_ps(_mm_cmpeq_ps(p1_, other.p1_)) == 0b1111;
     }
 
-    [[nodiscard]] bool KLN_VEC_CALL approx_eq(rotor other, float epsilon) const
-        noexcept
+    [[nodiscard]] bool KLN_VEC_CALL approx_eq(rotor other,
+                                              float epsilon) const noexcept
     {
         __m128 eps = _mm_set1_ps(epsilon);
         __m128 cmp = _mm_cmplt_ps(
@@ -188,8 +188,7 @@ public:
     ///     When applying a rotor to a list of tightly packed planes, this
     ///     routine will be *significantly faster* than applying the rotor to
     ///     each plane individually.
-    void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const
-        noexcept
+    void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const noexcept
     {
         detail::sw012<true, false>(&in->p0_, p1_, nullptr, &out->p0_, count);
     }
@@ -243,8 +242,7 @@ public:
     ///     When applying a rotor to a list of tightly packed points, this
     ///     routine will be *significantly faster* than applying the rotor to
     ///     each point individually.
-    void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const
-        noexcept
+    void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const noexcept
     {
         // NOTE: Conjugation of a plane and point with a rotor is identical
         detail::sw012<true, false>(&in->p3_, p1_, nullptr, &out->p3_, count);
@@ -252,8 +250,7 @@ public:
 
     /// Conjugates a direction $d$ with this rotor and returns the result
     /// $rd\widetilde{r}$.
-    [[nodiscard]] direction KLN_VEC_CALL operator()(direction const& d) const
-        noexcept
+    [[nodiscard]] direction KLN_VEC_CALL operator()(direction const& d) const noexcept
     {
         direction out;
         // NOTE: Conjugation of a plane and point with a rotor is identical
@@ -270,8 +267,9 @@ public:
     ///     When applying a rotor to a list of tightly packed directions, this
     ///     routine will be *significantly faster* than applying the rotor to
     ///     each direction individually.
-    void KLN_VEC_CALL operator()(direction* in, direction* out, size_t count) const
-        noexcept
+    void KLN_VEC_CALL operator()(direction* in,
+                                 direction* out,
+                                 size_t count) const noexcept
     {
         // NOTE: Conjugation of a plane and point with a rotor is identical
         detail::sw012<true, false>(&in->p3_, p1_, nullptr, &out->p3_, count);
@@ -318,6 +316,12 @@ public:
         p1_ = _mm_mul_ps(
             p1_, detail::rcp_nr1(_mm_set1_ps(static_cast<float>(s))));
         return *this;
+    }
+
+    /// Store m128 contents into an array of 4 floats
+    void store(float* buf)
+    {
+        _mm_store_ps(buf, p1_);
     }
 
     [[nodiscard]] float scalar() const noexcept

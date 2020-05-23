@@ -339,6 +339,12 @@ public:
         return *this;
     }
 
+    /// Store m128 contents into an array of 4 floats
+    void store(float* buf)
+    {
+        _mm_store_ps(buf, p1_);
+    }
+
     [[nodiscard]] float e12() const noexcept
     {
         float out[4];
@@ -590,8 +596,8 @@ public:
         return _mm_movemask_ps(eq) == 0xf;
     }
 
-    [[nodiscard]] bool KLN_VEC_CALL approx_eq(line other, float epsilon) const
-        noexcept
+    [[nodiscard]] bool KLN_VEC_CALL approx_eq(line other,
+                                              float epsilon) const noexcept
     {
         __m128 eps = _mm_set1_ps(epsilon);
         __m128 neg = _mm_set1_ps(-0.f);

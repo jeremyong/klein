@@ -134,8 +134,8 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(m.e12(), 0.f);
         CHECK_EQ(m.e31(), 0.f);
         CHECK_EQ(m.e23(), 0.f);
-        CHECK_EQ(m.e01(), 0.f);
-        CHECK_EQ(m.e02(), 0.f);
+        CHECK_EQ(m.e01(), doctest::Approx(0.f));
+        CHECK_EQ(m.e02(), doctest::Approx(0.f));
         CHECK_EQ(m.e03(), doctest::Approx(0.f));
         CHECK_EQ(m.e0123(), doctest::Approx(0.f));
     }

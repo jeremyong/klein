@@ -108,12 +108,12 @@ public:
         , p2_{p2}
     {}
 
-    explicit KLN_VEC_CALL motor(rotor r) noexcept
+    explicit motor(rotor r) noexcept
         : p1_{r.p1_}
         , p2_{_mm_setzero_ps()}
     {}
 
-    explicit KLN_VEC_CALL motor(translator t) noexcept
+    explicit motor(translator t) noexcept
         : p1_{_mm_set_ss(1.f)}
         , p2_{t.p2_}
     {}
@@ -241,8 +241,8 @@ public:
         return _mm_movemask_ps(eq) == 0xf;
     }
 
-    [[nodiscard]] bool KLN_VEC_CALL approx_eq(motor other, float epsilon) const
-        noexcept
+    [[nodiscard]] bool KLN_VEC_CALL approx_eq(motor other,
+                                              float epsilon) const noexcept
     {
         __m128 eps = _mm_set1_ps(epsilon);
         __m128 neg = _mm_set1_ps(-0.f);
@@ -292,8 +292,7 @@ public:
     ///     When applying a motor to a list of tightly packed planes, this
     ///     routine will be *significantly faster* than applying the motor to
     ///     each plane individually.
-    void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const
-        noexcept
+    void KLN_VEC_CALL operator()(plane* in, plane* out, size_t count) const noexcept
     {
         detail::sw012<true, true>(&in->p0_, p1_, &p2_, &out->p0_, count);
     }
@@ -339,8 +338,7 @@ public:
     ///     When applying a motor to a list of tightly packed points, this
     ///     routine will be *significantly faster* than applying the motor to
     ///     each point individually.
-    void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const
-        noexcept
+    void KLN_VEC_CALL operator()(point* in, point* out, size_t count) const noexcept
     {
         detail::sw312<true, true>(&in->p3_, p1_, &p2_, &out->p3_, count);
     }
@@ -359,8 +357,7 @@ public:
     ///
     /// The cost of this operation is the same as the application of a rotor due
     /// to the translational invariance of directions (points at infinity).
-    [[nodiscard]] direction KLN_VEC_CALL operator()(direction const& d) const
-        noexcept
+    [[nodiscard]] direction KLN_VEC_CALL operator()(direction const& d) const noexcept
     {
         direction out;
         detail::sw312<false, false>(&d.p3_, p1_, nullptr, &out.p3_);
@@ -379,8 +376,9 @@ public:
     ///     When applying a motor to a list of tightly packed directions, this
     ///     routine will be *significantly faster* than applying the motor to
     ///     each direction individually.
-    void KLN_VEC_CALL operator()(direction* in, direction* out, size_t count) const
-        noexcept
+    void KLN_VEC_CALL operator()(direction* in,
+                                 direction* out,
+                                 size_t count) const noexcept
     {
         detail::sw312<true, false>(&in->p3_, p1_, nullptr, &out->p3_, count);
     }
