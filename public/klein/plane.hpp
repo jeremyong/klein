@@ -113,8 +113,8 @@ public:
         return _mm_movemask_ps(_mm_cmpeq_ps(p0_, other.p0_)) == 0b1111;
     }
 
-    [[nodiscard]] bool KLN_VEC_CALL approx_eq(plane other, float epsilon) const
-        noexcept
+    [[nodiscard]] bool KLN_VEC_CALL approx_eq(plane other,
+                                              float epsilon) const noexcept
     {
         __m128 eps = _mm_set1_ps(epsilon);
         __m128 cmp = _mm_cmplt_ps(

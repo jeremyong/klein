@@ -40,3 +40,27 @@ TEST_CASE("measure-point-to-line")
     float distance = plane{l & p}.norm();
     CHECK_EQ(distance, doctest::Approx(std::sqrt(2.f)));
 }
+
+TEST_CASE("euler-angles")
+{
+    // Make 3 rotors about the x, y, and z-axes.
+    rotor rx{1.f, 1.f, 0.f, 0.f};
+    rotor ry{1.f, 0.f, 1.f, 0.f};
+    rotor rz{1.f, 0.f, 0.f, 1.f};
+
+    rotor r = rx * ry * rz;
+    auto ea = r.as_euler_angles();
+    CHECK_EQ(ea.roll, doctest::Approx(1.f));
+    CHECK_EQ(ea.pitch, doctest::Approx(1.f));
+    CHECK_EQ(ea.yaw, doctest::Approx(1.f));
+
+    rotor r2{ea};
+
+    float buf[8];
+    r.store(buf);
+    r2.store(buf + 4);
+    for (size_t i = 0; i != 4; ++i)
+    {
+        CHECK_EQ(buf[i], doctest::Approx(buf[i + 4]));
+    }
+}

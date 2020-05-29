@@ -48,6 +48,12 @@ public:
         p3_ = _mm_loadu_ps(data);
     }
 
+    /// Store m128 contents into an array of 4 floats
+    void store(float* data) const noexcept
+    {
+        _mm_store_ps(data, p3_);
+    }
+
     /// Normalize this point (division is done via rcpps with an additional
     /// Newton-Raphson refinement).
     void normalize() noexcept

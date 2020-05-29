@@ -10,6 +10,13 @@
 
 namespace kln
 {
+struct euler_angles
+{
+    float roll;  // Rotation about x
+    float pitch; // Rotation about y
+    float yaw;   // Rotation about z
+};
+
 /// \defgroup rotor Rotors
 ///
 /// The rotor is an entity that represents a rigid rotation about an axis.
@@ -64,7 +71,7 @@ public:
     rotor(float ang_rad, float x, float y, float z) noexcept
     {
         float norm     = std::sqrt(x * x + y * y + z * z);
-        float inv_norm = -1.f / norm;
+        float inv_norm = 1.f / norm;
 
         float half = 0.5f * ang_rad;
         // Rely on compiler to coalesce these two assignments into a single
@@ -73,6 +80,25 @@ public:
         float scale   = sin_ang * inv_norm;
         p1_           = _mm_set_ps(z, y, x, std::cos(half));
         p1_           = _mm_mul_ps(p1_, _mm_set_ps(scale, scale, scale, 1.f));
+    }
+
+    rotor(euler_angles ea) noexcept
+    {
+        // https://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles#cite_note-3
+        float half_yaw   = ea.yaw * 0.5f;
+        float half_pitch = ea.pitch * 0.5f;
+        float half_roll  = ea.roll * 0.5f;
+        float cos_y      = std::cos(half_yaw);
+        float sin_y      = std::sin(half_yaw);
+        float cos_p      = std::cos(half_pitch);
+        float sin_p      = std::sin(half_pitch);
+        float cos_r      = std::cos(half_roll);
+        float sin_r      = std::sin(half_roll);
+
+        p1_ = _mm_set_ps(cos_r * cos_p * sin_y - sin_r * sin_p * cos_y,
+                         cos_r * sin_p * cos_y + sin_r * cos_p * sin_y,
+                         sin_r * cos_p * cos_y - cos_r * sin_p * sin_y,
+                         cos_r * cos_p * cos_y + sin_r * sin_p * sin_y);
     }
 
     rotor(__m128 p1) noexcept
@@ -168,6 +194,23 @@ public:
         mat4x4 out;
         mat4x4_12<false, false>(p1_, nullptr, out.cols);
         return out;
+    }
+
+    euler_angles as_euler_angles() noexcept
+    {
+        euler_angles ea;
+        float buf[4];
+        store(buf);
+        float buf1_2 = buf[1] * buf[1];
+        float buf2_2 = buf[2] * buf[2];
+        ea.roll      = std::atan2(
+            2 * (buf[0] * buf[1] + buf[2] * buf[3]), 1 - 2 * (buf1_2 + buf2_2));
+
+        ea.pitch = std::asin(2 * (buf[0] * buf[2] - buf[1] * buf[3]));
+
+        ea.yaw = std::atan2(2 * (buf[0] * buf[3] + buf[1] * buf[2]),
+                            1 - 2 * (buf2_2 + buf[3] * buf[3]));
+        return ea;
     }
 
     /// Conjugates a plane $p$ with this rotor and returns the result
@@ -319,7 +362,7 @@ public:
     }
 
     /// Store m128 contents into an array of 4 floats
-    void store(float* buf)
+    void store(float* buf) const noexcept
     {
         _mm_store_ps(buf, p1_);
     }

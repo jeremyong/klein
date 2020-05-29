@@ -77,7 +77,7 @@ TEST_CASE("rotor-point")
     point p1{1, 0, 0};
     point p2 = r(p1);
     CHECK_EQ(p2.x(), 0.f);
-    CHECK_EQ(p2.y(), doctest::Approx(1.f));
+    CHECK_EQ(p2.y(), doctest::Approx(-1.f));
     CHECK_EQ(p2.z(), 0.f);
 }
 
@@ -115,19 +115,19 @@ TEST_CASE("construct-motor")
     point p1{1, 0, 0};
     point p2 = m(p1);
     CHECK_EQ(p2.x(), 0.f);
-    CHECK_EQ(p2.y(), doctest::Approx(1.f));
+    CHECK_EQ(p2.y(), doctest::Approx(-1.f));
     CHECK_EQ(p2.z(), doctest::Approx(1.f));
 
     // Rotation and translation about the same axis commutes
     m  = t * r;
     p2 = m(p1);
     CHECK_EQ(p2.x(), 0.f);
-    CHECK_EQ(p2.y(), doctest::Approx(1.f));
+    CHECK_EQ(p2.y(), doctest::Approx(-1.f));
     CHECK_EQ(p2.z(), doctest::Approx(1.f));
 
     line l = log(m);
     CHECK_EQ(l.e23(), 0.f);
-    CHECK_EQ(l.e12(), doctest::Approx(-0.7854).epsilon(0.001));
+    CHECK_EQ(l.e12(), doctest::Approx(0.7854).epsilon(0.001));
     CHECK_EQ(l.e31(), 0.f);
     CHECK_EQ(l.e01(), 0.f);
     CHECK_EQ(l.e02(), 0.f);

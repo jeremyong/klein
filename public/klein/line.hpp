@@ -340,7 +340,7 @@ public:
     }
 
     /// Store m128 contents into an array of 4 floats
-    void store(float* buf)
+    void store(float* buf) const noexcept
     {
         _mm_store_ps(buf, p1_);
     }
