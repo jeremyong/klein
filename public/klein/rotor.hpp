@@ -6,6 +6,7 @@
 #include "mat4x4.hpp"
 #include "plane.hpp"
 #include "point.hpp"
+#include "util.hpp"
 #include <cmath>
 
 namespace kln
@@ -99,6 +100,7 @@ public:
                          cos_r * sin_p * cos_y + sin_r * cos_p * sin_y,
                          sin_r * cos_p * cos_y - cos_r * sin_p * sin_y,
                          cos_r * cos_p * cos_y + sin_r * sin_p * sin_y);
+        normalize();
     }
 
     rotor(__m128 p1) noexcept
@@ -201,15 +203,42 @@ public:
         euler_angles ea;
         float buf[4];
         store(buf);
+        float test = buf[1] * buf[2] + buf[3] * buf[0];
+
+        if (test > 0.4999f)
+        {
+            ea.roll  = 2.f * std::atan2(buf[1], buf[0]);
+            ea.pitch = pi_2;
+            ea.yaw   = 0.f;
+            return ea;
+        }
+        else if (test < -0.4999f)
+        {
+            ea.roll  = -2.f * std::atan2(buf[1], buf[0]);
+            ea.pitch = -pi_2;
+            ea.yaw   = 0.f;
+            return ea;
+        }
+
         float buf1_2 = buf[1] * buf[1];
         float buf2_2 = buf[2] * buf[2];
-        ea.roll      = std::atan2(
+        float buf3_2 = buf[3] * buf[3];
+
+        ea.roll = std::atan2(
             2 * (buf[0] * buf[1] + buf[2] * buf[3]), 1 - 2 * (buf1_2 + buf2_2));
 
-        ea.pitch = std::asin(2 * (buf[0] * buf[2] - buf[1] * buf[3]));
+        float sinp = 2 * (buf[0] * buf[2] - buf[1] * buf[3]);
+        if (std::abs(sinp) > 1)
+        {
+            ea.pitch = std::copysign(pi_2, sinp);
+        }
+        else
+        {
+            ea.pitch = std::asin(sinp);
+        }
 
-        ea.yaw = std::atan2(2 * (buf[0] * buf[3] + buf[1] * buf[2]),
-                            1 - 2 * (buf2_2 + buf[3] * buf[3]));
+        ea.yaw = std::atan2(
+            2 * (buf[0] * buf[3] + buf[1] * buf[2]), 1 - 2 * (buf2_2 + buf3_2));
         return ea;
     }
 

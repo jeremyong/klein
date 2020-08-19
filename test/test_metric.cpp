@@ -64,3 +64,14 @@ TEST_CASE("euler-angles")
         CHECK_EQ(buf[i], doctest::Approx(buf[i + 4]));
     }
 }
+
+TEST_CASE("euler-angles-precision")
+{
+    euler_angles ea1{pi * 0.2f, pi * 0.2f, 0.f};
+    rotor r1{ea1};
+    euler_angles ea2 = r1.as_euler_angles();
+
+    CHECK_EQ(ea1.roll, doctest::Approx(ea2.roll));
+    CHECK_EQ(ea1.pitch, doctest::Approx(ea2.pitch));
+    CHECK_EQ(ea1.yaw, doctest::Approx(ea2.yaw));
+}

@@ -65,7 +65,7 @@ public:
     /// Return a normalized copy of this point.
     [[nodiscard]] point normalized() const noexcept
     {
-        point out;
+        point out = *this;
         out.normalize();
         return out;
     }

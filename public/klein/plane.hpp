@@ -76,7 +76,7 @@ public:
     /// Return a normalized copy of this plane.
     [[nodiscard]] plane normalized() const noexcept
     {
-        plane out;
+        plane out = *this;
         out.normalize();
         return out;
     }
