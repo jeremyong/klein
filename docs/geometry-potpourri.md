@@ -695,7 +695,7 @@ projection is shown below:
 ```c++
 kln::plane p{1, 0, 0, 3};
 kln::point P{2, 0, 1};
-kln::point P_on_p{(p|P) * p}; // Equivalent to (P|p) * p
+kln::point P_on_p{(p|P) ^ p}; // Equivalent to (P|p) * p
 ```
 
 ### Line to plane

@@ -237,7 +237,7 @@ public:
 
     /// Construct the branch as the following multivector:
     ///
-    /// $$a \mathbf{e}_{23} + b\mathbf{e}_{31} + c\mathbf{e}_{23}$$
+    /// $$a \mathbf{e}_{23} + b\mathbf{e}_{31} + c\mathbf{e}_{12}$$
     ///
     /// To convince yourself this is a line through the origin, remember that
     /// such a line can be generated using the geometric product of two planes
