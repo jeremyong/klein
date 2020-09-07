@@ -119,7 +119,7 @@ public:
         __m128 eps = _mm_set1_ps(epsilon);
         __m128 cmp = _mm_cmplt_ps(
             _mm_andnot_ps(_mm_set1_ps(-0.f), _mm_sub_ps(p0_, other.p0_)), eps);
-        return _mm_movemask_ps(cmp) != 0b1111;
+        return _mm_movemask_ps(cmp) == 0b1111;
     }
 
     /// Reflect another plane $p_2$ through this plane $p_1$. The operation

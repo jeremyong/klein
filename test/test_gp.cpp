@@ -21,7 +21,7 @@ TEST_CASE("multivector-gp")
         CHECK_EQ(p12.e03(), 2.f);
         CHECK_EQ(p12.e0123(), 0.f);
 
-        plane p3 = sqrt(p1 * p2)(p2);
+        plane p3 = sqrt(p1 / p2)(p2);
         CHECK_EQ(p3.approx_eq(p1, 0.001f), true);
 
         p1.normalize();
