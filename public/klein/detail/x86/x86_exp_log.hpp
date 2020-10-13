@@ -143,11 +143,21 @@ namespace detail
         // from the motor.
         __m128 bv_mask = _mm_set_ps(1.f, 1.f, 1.f, 0.f);
         __m128 a       = _mm_mul_ps(bv_mask, p1);
-        __m128 b       = _mm_mul_ps(bv_mask, p2);
+
+        // Early out if we're taking the log of a motor without any rotation
+        int mask = _mm_movemask_ps(_mm_cmpeq_ps(a, _mm_setzero_ps()));
+
+        if (mask == 0xf)
+        {
+            p1_out = _mm_setzero_ps();
+            p2_out = p2;
+            return;
+        }
+
+        __m128 b = _mm_mul_ps(bv_mask, p2);
 
         // Next, we need to compute the norm as in the exponential.
-        __m128 a2 = hi_dp_bc(a, a);
-        // TODO: handle case when a2 is 0
+        __m128 a2          = hi_dp_bc(a, a);
         __m128 ab          = hi_dp_bc(a, b);
         __m128 a2_sqrt_rcp = detail::rsqrt_nr1(a2);
         __m128 s           = _mm_mul_ps(a2, a2_sqrt_rcp);

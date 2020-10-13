@@ -103,3 +103,13 @@ TEST_CASE("motor-blend")
     CHECK_EQ(result.e03(), doctest::Approx(m2.e03()));
     CHECK_EQ(result.e0123(), doctest::Approx(m2.e0123()));
 }
+
+TEST_CASE("translator-motor-log")
+{
+    translator t{1.f, 1.f, 2.f, 3.f};
+    motor m{t};
+    line l = log(m);
+    CHECK_EQ(l.e01(), m.e01());
+    CHECK_EQ(l.e02(), m.e02());
+    CHECK_EQ(l.e03(), m.e03());
+}
