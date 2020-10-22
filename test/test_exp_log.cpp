@@ -113,3 +113,25 @@ TEST_CASE("translator-motor-log")
     CHECK_EQ(l.e02(), m.e02());
     CHECK_EQ(l.e03(), m.e03());
 }
+
+TEST_CASE("ideal-motor-step")
+{
+    rotor r1{0, 0, 0, 1.f};
+    translator t1{1.f, 0.f, 0.f, 1.f};
+    motor m1 = r1 * t1;
+
+    line step        = log(m1) / 4.f;
+    motor motor_step = exp(step);
+
+    // Applying motor_step 4 times should recover the translator t1
+    // (embedded) in m1
+    motor result = motor_step * motor_step * motor_step * motor_step;
+    CHECK_EQ(result.scalar(), doctest::Approx(m1.scalar()));
+    CHECK_EQ(result.e12(), doctest::Approx(m1.e12()));
+    CHECK_EQ(result.e31(), doctest::Approx(m1.e31()));
+    CHECK_EQ(result.e23(), doctest::Approx(m1.e23()));
+    CHECK_EQ(result.e01(), doctest::Approx(m1.e01()));
+    CHECK_EQ(result.e02(), doctest::Approx(m1.e02()));
+    CHECK_EQ(result.e03(), doctest::Approx(m1.e03()));
+    CHECK_EQ(result.e0123(), doctest::Approx(m1.e0123()));
+}

@@ -35,6 +35,18 @@ namespace detail
         // the differences between the Taylor expansion of exp(ab) and
         // exp(a)exp(b)).
 
+        // Check if the bivector we're exponentiating is ideal
+        int mask = _mm_movemask_ps(_mm_cmpeq_ps(a, _mm_setzero_ps()));
+
+        if (mask == 0xf)
+        {
+            // When exponentiating an ideal line, the terms past the linear
+            // term in the Taylor series expansion vanishes
+            p1_out = _mm_set_ss(1.f);
+            p2_out = b;
+            return;
+        }
+
         // First, we need to decompose the bivector into the sum of two
         // commutative bivectors (the product of these two parts will be a
         // scalar multiple of the pseudoscalar; see "Bivector times its ideal
