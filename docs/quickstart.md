@@ -34,7 +34,6 @@ The `klein.hpp` header includes the following:
 | `rotor.hpp`             | Defines the `rotor` class.                                        |
 | `translator.hpp`        | Defines the `translator` class.                                   |
 | `motor.hpp`             | Defines the `motor` class.                                        |
-| `dual.hpp`              | Defines the `dual` class.                                         |
 | `geometric_product.hpp` | Defines the geometric product between all supported entities.     |
 | `meet.hpp`              | Defines the exterior product between all supported entities.      |
 | `join.hpp`              | Defines the regressive product between all supported entities.    |
