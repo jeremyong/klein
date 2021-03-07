@@ -9,10 +9,6 @@
 #include "detail/sse.hpp"
 #include "projection.hpp"
 
-#ifdef _MSC_VER
-#    include <intrin.h>
-#endif
-
 namespace kln
 {
 template <typename T>
@@ -51,32 +47,4 @@ template <typename T>
 constexpr T sqrt2_2_v = 0.707106781186547524400844362104849039L;
 
 constexpr float sqrt2_2 = sqrt2_2_v<float>;
-
-/// Augment built-in log2 function with platform intrinsic for integral log2
-template <typename T>
-[[nodiscard]] KLN_INLINE T log2(T in) noexcept
-{
-    return std::log2(in);
-}
-
-/// Specialized log2 for a 4 byte unsigned integer. Note that log2(0) is UB.
-template <>
-[[nodiscard]] KLN_INLINE uint32_t log2(uint32_t in) noexcept
-{
-#ifdef _MSC_VER
-    return 31 - __lzcnt(in);
-#else
-    return 31 - __builtin_clz(in);
-#endif
-}
-
-template <>
-[[nodiscard]] KLN_INLINE uint64_t log2(uint64_t in) noexcept
-{
-#ifdef _MSC_VER
-    return 63 - __lzcnt64(in);
-#else
-    return 63 - __builtin_clzl(in);
-#endif
-}
 } // namespace kln

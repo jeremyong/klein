@@ -1,3 +1,5 @@
+.vs
+
 # CMake files
 build*
 CMakeLists.txt.user

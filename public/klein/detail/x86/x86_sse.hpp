@@ -3,10 +3,13 @@
 // intrinsics
 #pragma once
 
+#ifndef SIMDE_ENABLE_NATIVE_ALIASES
+#    define SIMDE_ENABLE_NATIVE_ALIASES
+#endif
 #ifdef KLEIN_SSE_4_1
-#    include <smmintrin.h>
+#    include <x86/sse4.1.h>
 #else
-#    include <tmmintrin.h>
+#    include <x86/sse3.h>
 #endif
 
 // Little-endian XMM register swizzle

@@ -27,17 +27,29 @@ endif()
 option(KLEIN_BUILD_SYM "Enable compilation of symbolic Klein utility" ON)
 option(KLEIN_BUILD_C_BINDINGS "Enable compilation of the Klein C bindings" ON)
 
+include(FetchContent)
+FetchContent_Declare(
+    simde
+    GIT_REPOSITORY https://github.com/simd-everywhere/simde
+    GIT_TAG df63f88a364da6be3963b4924c327b12f88d7748
+    GIT_SHALLOW ON
+)
+FetchContent_GetProperties(simde)
+if(NOT simde_POPULATED)
+    FetchContent_Populate(simde)
+endif()
+
 # The default platform and instruction set is x86 SSE3
 add_library(klein INTERFACE)
 add_library(klein::klein ALIAS klein)
-target_include_directories(klein INTERFACE public)
+target_include_directories(klein INTERFACE public ${simde_SOURCE_DIR}/simde)
 if(NOT MSVC)
     target_compile_options(klein INTERFACE -msse3)
 endif()
 
 add_library(klein_cxx11 INTERFACE)
 add_library(klein::klein_cxx11 ALIAS klein_cxx11)
-target_include_directories(klein_cxx11 INTERFACE public)
+target_include_directories(klein_cxx11 INTERFACE public ${simde_SOURCE_DIR}/simde)
 target_compile_features(klein_cxx11 INTERFACE cxx_std_11)
 if(NOT MSVC)
     target_compile_options(klein_cxx11 INTERFACE -msse3)
@@ -45,7 +57,7 @@ endif()
 
 add_library(klein_sse42 INTERFACE)
 add_library(klein::klein_sse42 ALIAS klein_sse42)
-target_include_directories(klein_sse42 INTERFACE public)
+target_include_directories(klein_sse42 INTERFACE public ${simde_SOURCE_DIR}/simde)
 target_compile_features(klein_sse42 INTERFACE cxx_std_17)
 # SSE4.1 has > 97% market penetration according to the Steam hardware survey
 # queried as of December 2019 while AVX2 is around 70%. Thus, we can assume
@@ -75,5 +87,6 @@ if(KLEIN_BUILD_SYM)
 endif()
 
 if(KLEIN_BUILD_C_BINDINGS)
-    add_subdirectory(c_src)
+    # Support dropped for the time being
+    # add_subdirectory(c_src)
 endif()

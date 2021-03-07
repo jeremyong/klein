@@ -19,7 +19,6 @@ add_executable(klein_test
     test_rp.cpp
     test_sse.cpp
     test_sw.cpp
-    test_util.cpp
 )
 target_link_libraries(klein_test PRIVATE klein::klein doctest)
 target_compile_features(klein_test PRIVATE cxx_std_17)
