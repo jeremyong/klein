@@ -31,7 +31,7 @@ include(FetchContent)
 FetchContent_Declare(
     simde
     GIT_REPOSITORY https://github.com/simd-everywhere/simde
-    GIT_TAG df63f88a364da6be3963b4924c327b12f88d7748
+    GIT_TAG v0.7.2
     GIT_SHALLOW ON
 )
 FetchContent_GetProperties(simde)
