@@ -6,7 +6,7 @@
 
 cmake_minimum_required(VERSION 3.15)
 
-project(klein LANGUAGES C CXX)
+project(klein VERSION 2.3.0 LANGUAGES C CXX)
 
 # Detect if we are a standalone projection or if we're included transitively
 # and set the various option defaults accordingly. By default, tests and utilities
