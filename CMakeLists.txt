@@ -17,11 +17,13 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     option(KLEIN_ENABLE_PERF "Enable downloading external libs for perf analysis" ON)
     option(KLEIN_ENABLE_TESTS "Enable compilation of Klein tests" ON)
     option(KLEIN_VALIDATE "Enable runtime validations" ON)
+    option(KLEIN_INSTALL "Create CMake config-file package during install step" ON)
 else()
     set(KLEIN_STANDALONE OFF)
     option(KLEIN_ENABLE_PERF "Enable downloading external libs for perf analysis" OFF)
     option(KLEIN_ENABLE_TESTS "Enable compilation of Klein tests" OFF)
     option(KLEIN_VALIDATE "Enable runtime validations" OFF)
+    option(KLEIN_INSTALL "Create CMake config-file package during install step" ON)
 endif()
 
 option(KLEIN_BUILD_SYM "Enable compilation of symbolic Klein utility" ON)
@@ -42,14 +44,22 @@ endif()
 # The default platform and instruction set is x86 SSE3
 add_library(klein INTERFACE)
 add_library(klein::klein ALIAS klein)
-target_include_directories(klein INTERFACE public ${simde_SOURCE_DIR}/simde)
+target_include_directories(klein INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/public>
+    $<BUILD_INTERFACE:${simde_SOURCE_DIR}/simde>
+    $<INSTALL_INTERFACE:include>
+)
 if(NOT MSVC)
     target_compile_options(klein INTERFACE -msse3)
 endif()
 
 add_library(klein_cxx11 INTERFACE)
 add_library(klein::klein_cxx11 ALIAS klein_cxx11)
-target_include_directories(klein_cxx11 INTERFACE public ${simde_SOURCE_DIR}/simde)
+target_include_directories(klein_cxx11 INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/public>
+    $<BUILD_INTERFACE:${simde_SOURCE_DIR}/simde>
+    $<INSTALL_INTERFACE:include>
+)
 target_compile_features(klein_cxx11 INTERFACE cxx_std_11)
 if(NOT MSVC)
     target_compile_options(klein_cxx11 INTERFACE -msse3)
@@ -57,7 +67,11 @@ endif()
 
 add_library(klein_sse42 INTERFACE)
 add_library(klein::klein_sse42 ALIAS klein_sse42)
-target_include_directories(klein_sse42 INTERFACE public ${simde_SOURCE_DIR}/simde)
+target_include_directories(klein_sse42 INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/public>
+    $<BUILD_INTERFACE:${simde_SOURCE_DIR}/simde>
+    $<INSTALL_INTERFACE:include>
+)
 target_compile_features(klein_sse42 INTERFACE cxx_std_17)
 # SSE4.1 has > 97% market penetration according to the Steam hardware survey
 # queried as of December 2019 while AVX2 is around 70%. Thus, we can assume
@@ -89,4 +103,46 @@ endif()
 if(KLEIN_BUILD_C_BINDINGS)
     # Support dropped for the time being
     # add_subdirectory(c_src)
+endif()
+
+if(KLEIN_INSTALL)
+
+    install(TARGETS klein klein_cxx11 klein_sse42 EXPORT klein_targets)
+
+    install(DIRECTORY public/klein TYPE INCLUDE)
+
+    include(CMakePackageConfigHelpers)
+    write_basic_package_version_file(
+        "${CMAKE_CURRENT_BINARY_DIR}/klein/klein-config-version.cmake"
+        VERSION ${CMAKE_PROJECT_VERSION}
+        COMPATIBILITY AnyNewerVersion
+    )
+
+    export(EXPORT klein_targets
+        FILE "${CMAKE_CURRENT_BINARY_DIR}/klein/klein-targets.cmake"
+        NAMESPACE klein::
+    )
+
+    configure_file(cmake/klein-config.cmake
+        "${CMAKE_CURRENT_BINARY_DIR}/klein/klein-config.cmake"
+        COPYONLY
+    )
+
+    set(ConfigPackageLocation share/klein)
+    install(EXPORT klein_targets
+        FILE
+            klein-targets.cmake
+        NAMESPACE
+            klein::
+        DESTINATION
+            ${ConfigPackageLocation}
+    )
+    install(
+        FILES
+            cmake/klein-config.cmake
+            "${CMAKE_CURRENT_BINARY_DIR}/klein/klein-config-version.cmake"
+        DESTINATION
+            ${ConfigPackageLocation}
+    )
+
 endif()
