@@ -52,6 +52,7 @@ target_include_directories(klein INTERFACE
 if(NOT MSVC)
     target_compile_options(klein INTERFACE -msse3)
 endif()
+target_compile_definitions(klein INTERFACE KLEIN_USE_SIMDE)
 
 add_library(klein_cxx11 INTERFACE)
 add_library(klein::klein_cxx11 ALIAS klein_cxx11)
@@ -64,6 +65,7 @@ target_compile_features(klein_cxx11 INTERFACE cxx_std_11)
 if(NOT MSVC)
     target_compile_options(klein_cxx11 INTERFACE -msse3)
 endif()
+target_compile_definitions(klein_cxx11 INTERFACE KLEIN_USE_SIMDE)
 
 add_library(klein_sse42 INTERFACE)
 add_library(klein::klein_sse42 ALIAS klein_sse42)
@@ -85,6 +87,7 @@ else()
     target_compile_options(klein_sse42 INTERFACE -msse4.1)
     target_compile_definitions(klein_sse42 INTERFACE KLEIN_SSE_4_1)
 endif()
+target_compile_definitions(klein_sse42 INTERFACE KLEIN_USE_SIMDE)
 
 if(KLEIN_ENABLE_PERF)
     add_subdirectory(perf)

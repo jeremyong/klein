@@ -7,9 +7,17 @@
 #    define SIMDE_ENABLE_NATIVE_ALIASES
 #endif
 #ifdef KLEIN_SSE_4_1
-#    include <x86/sse4.1.h>
+#    ifdef KLEIN_USE_SIMDE
+#        include <x86/sse4.1.h>
+#    else
+#        include <smmintrin.h>
+#    endif
 #else
-#    include <x86/sse3.h>
+#    ifdef KLEIN_USE_SIMDE
+#        include <x86/sse3.h>
+#    else
+#        include <pmmintrin.h>
+#    endif
 #endif
 
 // Little-endian XMM register swizzle
