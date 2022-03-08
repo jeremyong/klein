@@ -3,6 +3,10 @@
 // intrinsics
 #pragma once
 
+#ifdef KLEIN_USE_SIMDE
+# define SIMDE_ENABLE_NATIVE_ALIASES
+#endif
+
 #ifdef KLEIN_SSE_4_1
 #    ifdef KLEIN_USE_SIMDE
 #        include <x86/sse4.1.h>

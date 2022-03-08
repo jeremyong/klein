@@ -1,11 +1,10 @@
 #include "ga.hpp"
 
 #include <cassert>
-#include <immintrin.h>
 
 uint32_t popcnt(uint32_t i)
 {
-    return _mm_popcnt_u32(i);
+    return __builtin_popcount(i);
 }
 
 algebra::algebra(uint32_t p, uint32_t q, uint32_t r)

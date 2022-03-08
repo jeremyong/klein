@@ -1,11 +1,6 @@
 add_library(symlib ga.cpp repl.cpp parser.cpp poly.cpp)
 target_compile_features(symlib PUBLIC cxx_std_17)
 
-if(NOT MSVC)
-# Needed for popcnt intrinsic
-    target_compile_options(symlib PUBLIC -msse4.2)
-endif()
-
 add_executable(klein_shell main.cpp)
 target_link_libraries(klein_shell PRIVATE symlib)
 set_target_properties(klein_shell
