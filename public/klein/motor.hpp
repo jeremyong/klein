@@ -127,7 +127,7 @@ public:
 
     motor& KLN_VEC_CALL operator=(translator t) noexcept
     {
-        p1_ = _mm_setzero_ps();
+        p1_ = _mm_set_ss(1.f);
         p2_ = t.p2_;
         return *this;
     }
