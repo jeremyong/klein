@@ -68,7 +68,7 @@ public:
 #ifdef KLEIN_SSE_4_1
         inv_norm = _mm_blend_ps(inv_norm, _mm_set_ss(1.f), 1);
 #else
-        inv_norm = _mm_add_ps(inv_norm, _mm_set_ss(1.f));
+        inv_norm = _mm_move_ss(inv_norm, _mm_set_ss(1.f));
 #endif
         p0_ = _mm_mul_ps(inv_norm, p0_);
     }
