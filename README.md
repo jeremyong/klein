@@ -1,5 +1,7 @@
 # [Klein](https://jeremyong.com/klein)
 
+_edit: Project has been temporarily archived as I don't have time to maintain it at the moment. Stay tuned for an updated version of the project in the future._
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-blueviolet.svg)](https://opensource.org/licenses/MIT)
 [![DOI](https://zenodo.org/badge/236777729.svg)](https://zenodo.org/badge/latestdoi/236777729)
 
