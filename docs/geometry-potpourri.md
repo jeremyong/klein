@@ -677,11 +677,11 @@ Of course, you _must_ normalize the plane with `p.normalize()` for this computat
 
 What about the line perpendicular to the plane through the point $P\cdot p$? It can't be used to
 measure the distance to the plane as we pointed out before, but it _can_ be used to project the
-point to the plane. The succinct formula for this projection is $(p \cdot P)P$.
+point to the plane. The succinct formula for this projection is $(p \cdot P)p$.
 
 $$
 \begin{aligned}
-(p\cdot P)P &= (\ee_{23} - \ee_{03})(3\ee_0 + \ee_1) \\
+(p\cdot P)p &= (\ee_{23} - \ee_{03})(3\ee_0 + \ee_1) \\
 &= 3\ee_{023} + \ee_{123} - \ee_{031} \\
 &= \ee_{123} - 3\ee_{032} + \ee_{013}
 \end{aligned}
